@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/games_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_sports_basketball_24"
+        android:title="Games"/>
+    <item
+        android:id="@+id/stats_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_bar_chart_24"
+        android:title="Stats"/>
+</menu>
