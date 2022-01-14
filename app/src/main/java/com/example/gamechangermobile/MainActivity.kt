@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         val statsFrag = StatsFragment()
 
         bottom_navigation.setOnNavigationItemReselectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.games_page -> {
                     Toast.makeText(this, "game", Toast.LENGTH_SHORT).show()
                     supportFragmentManager.beginTransaction().apply {
@@ -35,7 +36,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 }
