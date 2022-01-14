@@ -13,7 +13,11 @@ class PlayerActivity : AppCompatActivity() {
         val playerData = intent.getParcelableExtra<Player>("selected_player")
         Log.d("Debug", playerData?._pts.toString()+"!!!")
         player_page_profile_pic.setImageResource(playerData!!.ProfilePic)
-        player_page_player_name.text = playerData?.FirstName + " " + playerData?.LastName
+        player_page_player_firstname.text = playerData?.FirstName
+        player_page_player_lastname.text = playerData?.LastName
+        player_page_player_team.text = playerData?.team.Name
+        player_page_player_number.text = playerData?.number.toString()
+        player_page_player_position.text = playerData?.position
         player_page_player_pts.text = playerData?._pts.toString()
         player_page_player_reb.text = playerData?._reb.toString()
         player_page_player_ast.text = playerData?._ast.toString()

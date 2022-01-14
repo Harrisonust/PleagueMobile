@@ -21,7 +21,12 @@ class MainActivity : AppCompatActivity() {
         debugButton.setOnClickListener {
             val intent = Intent(this, PlayerActivity::class.java)
             val player = Player("Harrison", "Lo", R.drawable.ic_baseline_sports_basketball_24)
-            player.setStats(10.2F, 5.4F, 5.6F)
+            player._pts = 10.2F
+            player._reb = 5.4F
+            player._ast = 5.6F
+            player.position = "C"
+            player.number = 11
+
             intent.putExtra("selected_player", player)
             startActivity(intent)
         }
