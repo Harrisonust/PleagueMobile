@@ -1,11 +1,14 @@
 package com.example.gamechangermobile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
+import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,7 +18,13 @@ class MainActivity : AppCompatActivity() {
 
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
-
+        debugButton.setOnClickListener {
+            val intent = Intent(this, PlayerActivity::class.java)
+            val player = Player("Harrison", "Lo", R.drawable.ic_baseline_sports_basketball_24)
+            player.setStats(10.2F, 5.4F, 5.6F)
+            intent.putExtra("selected_player", player)
+            startActivity(intent)
+        }
         bottom_navigation.setOnNavigationItemReselectedListener { item ->
             when(item.itemId) {
                 R.id.games_page -> {
