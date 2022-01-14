@@ -1,5 +1,6 @@
 package com.example.gamechangermobile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -30,7 +31,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
+        debug_btn.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
