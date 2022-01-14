@@ -16,14 +16,15 @@ class MainActivity : AppCompatActivity() {
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
 
-        bottom_navigation.setOnNavigationItemReselectedListener { item ->
-            when(item.itemId) {
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when(it.itemId) {
                 R.id.games_page -> {
                     Toast.makeText(this, "game", Toast.LENGTH_SHORT).show()
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.mainFragView, gamesFrag)
                         commit()
                     }
+                    true
                 }
 
                 R.id.stats_page -> {
@@ -32,7 +33,10 @@ class MainActivity : AppCompatActivity() {
                         replace(R.id.mainFragView, statsFrag)
                         commit()
                     }
+                    true
                 }
+
+                else -> false
             }
         }
 
