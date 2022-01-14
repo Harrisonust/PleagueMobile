@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".GameFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/game_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="game frag place holder"
-        android:gravity="center"/>
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>

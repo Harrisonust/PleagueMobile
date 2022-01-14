@@ -3,10 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3645833333333333" />
-        <entry key="app/src/main/res/layout/fragment_game.xml" value="0.35052083333333334" />
-        <entry key="app/src/main/res/layout/fragment_stats.xml" value="0.19010416666666666" />
-        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3645833333333333" />
+        <entry key="..\:/GitHub/GameChangerMobile/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/GitHub/GameChangerMobile/app/src/main/res/layout/fragment_game.xml" value="0.1390625" />
+        <entry key="..\:/GitHub/GameChangerMobile/app/src/main/res/layout/game_card.xml" value="0.22" />
       </map>
     </option>
   </component>

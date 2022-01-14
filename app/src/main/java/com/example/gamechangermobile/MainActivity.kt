@@ -2,10 +2,7 @@ package com.example.gamechangermobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,26 +13,30 @@ class MainActivity : AppCompatActivity() {
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
 
-        bottom_navigation.setOnNavigationItemReselectedListener { item ->
-            when(item.itemId) {
+        replaceFragment(gamesFrag)
+
+        bottom_navigation.setOnItemSelectedListener {
+            when(it.itemId) {
                 R.id.games_page -> {
-                    Toast.makeText(this, "game", Toast.LENGTH_SHORT).show()
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.mainFragView, gamesFrag)
-                        commit()
-                    }
+                    replaceFragment(gamesFrag)
+                    true
                 }
 
                 R.id.stats_page -> {
-                    Toast.makeText(this, "stats", Toast.LENGTH_SHORT).show()
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.mainFragView, statsFrag)
-                        commit()
-                    }
+                    replaceFragment(statsFrag)
+                    true
                 }
+
+                else -> false
             }
         }
 
+    }
 
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragView, fragment)
+            commit()
+        }
     }
 }
