@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
 
-        bottom_navigation.setOnNavigationItemSelectedListener {
+        bottom_navigation.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.games_page -> {
                     Toast.makeText(this, "game", Toast.LENGTH_SHORT).show()
