@@ -3,6 +3,7 @@ package com.example.gamechangermobile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_player.*
 
@@ -22,11 +23,19 @@ class PlayerActivity : AppCompatActivity() {
         player_page_player_reb.text = playerData?._reb.toString()
         player_page_player_ast.text = playerData?._ast.toString()
 
+        player_page_player_favorite_btn.setOnClickListener {
+            Toast.makeText(this, "Add to favorite!", Toast.LENGTH_SHORT).show()
+            //TODO: maybe can add a undo option
+        }
+
         player_page_tab.addTab(player_page_tab.newTab().setText("Game Record"))
         player_page_tab.addTab(player_page_tab.newTab().setText("Stats"))
         player_page_tab.addTab(player_page_tab.newTab().setText("Career"))
         player_page_tab.addTab(player_page_tab.newTab().setText("Adv"))
         player_page_tab.addTab(player_page_tab.newTab().setText("Team eff"))
+
+        //TODO: player stats view
+
     }
 
 
