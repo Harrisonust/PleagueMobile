@@ -47,10 +47,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        debugButton.setOnClickListener {
-            val intent = Intent(this, GameActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

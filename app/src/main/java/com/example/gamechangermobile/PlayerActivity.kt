@@ -6,6 +6,12 @@ import android.util.Log
 import android.widget.Toast
 import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_player.*
+import android.view.View
+
+import com.google.android.material.snackbar.Snackbar
+
+
+
 
 class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +29,10 @@ class PlayerActivity : AppCompatActivity() {
         player_page_player_reb.text = playerData?._reb.toString()
         player_page_player_ast.text = playerData?._ast.toString()
 
-        player_page_player_favorite_btn.setOnClickListener {
-            Toast.makeText(this, "Add to favorite!", Toast.LENGTH_SHORT).show()
-            //TODO: maybe can add a undo option
+        player_page_player_favorite_btn.setOnClickListener {view ->
+            Snackbar.make(view, "I'm Snackbar", Snackbar.LENGTH_LONG)
+                .setAction("Undo") { Log.i("SNACKBAR", "OK") }
+                .show()
         }
 
         player_page_tab.addTab(player_page_tab.newTab().setText("Game Record"))
