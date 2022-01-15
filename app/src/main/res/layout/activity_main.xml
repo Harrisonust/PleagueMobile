@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
+    <Button
+        android:id="@+id/debugButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="debug"/>
     <FrameLayout
         android:id="@+id/mainFragView"
         android:layout_width="match_parent"

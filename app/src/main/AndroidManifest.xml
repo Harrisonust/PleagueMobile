@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameChangerMobile">
         <activity
-            android:name=".GameActivity"
+            android:name=".PlayerActivity"
             android:exported="true" />
         <activity
-            android:name=".TestActivity"
+            android:name=".GameActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
