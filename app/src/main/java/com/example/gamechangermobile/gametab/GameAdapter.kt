@@ -1,11 +1,14 @@
 package com.example.gamechangermobile.gametab
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gamechangermobile.GameActivity
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Game
 
@@ -25,7 +28,13 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.game_card, parent, false)
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+        viewHolder.itemView.setOnClickListener {
+            Toast.makeText(parent.context, "you clicked view ${viewHolder.adapterPosition}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(view.context, GameActivity::class.java)
+            view.context.startActivity(intent)
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
