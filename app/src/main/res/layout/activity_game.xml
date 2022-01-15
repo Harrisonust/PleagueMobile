@@ -15,18 +15,72 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/game_page_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+                <ImageView
+                    android:id="@+id/game_page_header_guest_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/game_page_header_guest_score"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"/>
                 <TextView
-                    android:id="@+id/game_page_info"
-                    android:layout_width="match_parent"
+                    android:id="@+id/game_page_header_guest_score"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TODO: put score, time remaining here"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-            </LinearLayout>
-            <VideoView
+                    android:textSize="30dp"
+                    android:text="G Scr"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/game_page_header_central_layout"/>
+                <LinearLayout
+                    android:id="@+id/game_page_header_central_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
+                    <TextView
+                        android:id="@+id/game_page_header_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10:30"/>
+<!--                    <TextView-->
+<!--                        android:id="@+id/game_page_header_score"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"/>-->
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/game_page_header_host_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="H Scr"
+                    android:textSize="30dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/game_page_header_central_layout"/>
+                <ImageView
+                    android:id="@+id/game_page_header_host_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/game_page_header_host_score"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
                 android:id="@+id/game_page_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

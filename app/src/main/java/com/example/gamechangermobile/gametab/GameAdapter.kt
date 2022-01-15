@@ -15,7 +15,8 @@ import com.example.gamechangermobile.models.Game
 class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val matchScore: TextView = itemView.findViewById(R.id.match_score)
+        val hostScore: TextView = itemView.findViewById(R.id.host_score)
+        val guestScore: TextView = itemView.findViewById(R.id.guest_score)
         val remainingTime: TextView = itemView.findViewById(R.id.remaining_time)
         val hostImg: ImageView = itemView.findViewById(R.id.host_image)
         val hostName: TextView = itemView.findViewById(R.id.host_name)
@@ -30,8 +31,9 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
         val view = LayoutInflater.from(parent.context).inflate(R.layout.game_card, parent, false)
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
-            Toast.makeText(parent.context, "you clicked view ${viewHolder.adapterPosition}", Toast.LENGTH_SHORT).show()
-            val intent = Intent(view.context, GameActivity::class.java)
+            val intent = Intent(view.context, GameActivity::class.java).apply {
+                putExtra("GAME_DATA", gameList[viewHolder.adapterPosition])
+            }
             view.context.startActivity(intent)
         }
         return viewHolder
@@ -39,7 +41,8 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val game = gameList[position]
-        holder.matchScore.text = game.matchScore
+        holder.hostScore.text = game.hostScore.toString()
+        holder.guestScore.text = game.guestScore.toString()
         holder.remainingTime.text = game.remainingTime
         holder.hostImg.setImageResource(R.mipmap.ic_launcher)
         holder.hostName.text = game.hostName

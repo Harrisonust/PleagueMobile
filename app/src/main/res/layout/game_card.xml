@@ -64,7 +64,7 @@
                 card_view:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="10dp"
                 android:text="15:27"/>
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/match_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -72,9 +72,41 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp"
-                android:text="108:127"/>
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/host_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:layout_constraintLeft_toRightOf="@+id/semicolon"
+                    android:textSize="30dp"
+                    android:text="127"/>
+                <TextView
+                    android:id="@+id/semicolon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:layout_constraintLeft_toLeftOf="parent"
+                    android:paddingHorizontal="5dp"
+                    android:textSize="30dp"
+                    android:text=":"/>
+                <TextView
+                    android:id="@+id/guest_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintRight_toLeftOf="@+id/semicolon"
+                    android:textSize="30dp"
+                    android:text="108"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

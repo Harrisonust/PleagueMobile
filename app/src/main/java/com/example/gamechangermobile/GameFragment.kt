@@ -1,5 +1,6 @@
 package com.example.gamechangermobile
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,9 +45,9 @@ class GameFragment : Fragment() {
 
     private fun initGames() {
         repeat(10) {
-            gameList.add(Game("108:127", "12:17",
-                "Warriors", "30-11", "",
-                "Lakers", "4-15", ""))
+            gameList.add(Game(108, 125, "12:17",
+                "Warriors", "30-11", R.drawable.ic_baseline_sports_basketball_24,
+                "Lakers", "4-15", R.drawable.ic_baseline_sports_basketball_24))
         }
     }
 }
