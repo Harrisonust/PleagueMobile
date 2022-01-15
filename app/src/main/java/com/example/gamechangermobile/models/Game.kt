@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Game (
-    val guestScore: Int,
     val hostScore: Int,
+    val guestScore: Int,
     val remainingTime: String,
     val hostName: String,
     val hostRecord: String,
@@ -14,4 +14,4 @@ data class Game (
     val guestName: String,
     val guestRecord: String,
     val guestImg: Int
-    ): Parcelable{}
+    ): Parcelable

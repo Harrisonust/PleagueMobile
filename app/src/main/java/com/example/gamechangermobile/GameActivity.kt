@@ -15,6 +15,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 //        actionBar?.hide()
+        setContentView(R.layout.activity_game)
         val game_data = intent.getParcelableExtra<Game>("GAME_DATA")
         if(game_data != null) {
             Log.d("Debug", game_data!!.hostName)
@@ -25,7 +26,7 @@ class GameActivity : AppCompatActivity() {
             game_page_header_time.text = game_data!!.remainingTime
 //            game_page_header_
         }
-        setContentView(R.layout.activity_game)
+
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Box Score"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Highlights"))

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
+        replaceFragment(gamesFrag)
         debugButton.setOnClickListener {
             val intent = Intent(this, PlayerActivity::class.java)
             val player = Player("Harrison", "Lo", R.drawable.ic_baseline_sports_basketball_24)
@@ -35,23 +36,14 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.games_page -> {
-                    Toast.makeText(this, "game", Toast.LENGTH_SHORT).show()
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.mainFragView, gamesFrag)
-                        commit()
-                    }
+                    replaceFragment(gamesFrag)
                     true
                 }
 
                 R.id.stats_page -> {
-                    Toast.makeText(this, "stats", Toast.LENGTH_SHORT).show()
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.mainFragView, statsFrag)
-                        commit()
-                    }
+                    replaceFragment(statsFrag)
                     true
                 }
-
                 else -> false
             }
         }

@@ -24,49 +24,53 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/game_page_header_guest_score"/>
+                    app:layout_constraintRight_toLeftOf="@id/game_page_header_guest_score"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"/>
                 <TextView
                     android:id="@+id/game_page_header_guest_score"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TODO: put score, time remaining here"
+                    android:text="G Scr"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/game_page_header_central_layout"/>
                 <LinearLayout
                     android:id="@+id/game_page_header_central_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp">
                     <TextView
                         android:id="@+id/game_page_header_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="placeholder"/>
+                        android:text="10:30"/>
                     <TextView
                         android:id="@+id/game_page_header_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/game_page_header_host_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="H Scr"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/game_page_header_central_layout"/>
                 <ImageView
                     android:id="@+id/game_page_header_host_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/game_page_header_central_layout"/>
-                <TextView
-                    android:id="@+id/game_page_header_host_score"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TODO: put score, time remaining here"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/game_page_header_host_icon"/>
+                    app:layout_constraintLeft_toRightOf="@id/game_page_header_host_score"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <VideoView
+            <ImageView
                 android:id="@+id/game_page_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
