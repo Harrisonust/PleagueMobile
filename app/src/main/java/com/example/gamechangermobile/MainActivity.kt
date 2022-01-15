@@ -32,22 +32,30 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("selected_player", player)
             startActivity(intent)
         }
-        bottom_navigation.setOnNavigationItemReselectedListener { item ->
-            when(item.itemId) {
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when(it.itemId) {
                 R.id.games_page -> {
-                    replaceFragment(gamesFrag)
+                    Toast.makeText(this, "game", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.mainFragView, gamesFrag)
+                        commit()
+                    }
                     true
                 }
 
                 R.id.stats_page -> {
-                    replaceFragment(statsFrag)
+                    Toast.makeText(this, "stats", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.mainFragView, statsFrag)
+                        commit()
+                    }
                     true
                 }
 
                 else -> false
             }
         }
-        debug_btn.setOnClickListener {
+        debugButton.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
             startActivity(intent)
         }
