@@ -9,12 +9,14 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import com.example.gamechangermobile.models.Player
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        actionBar?.hide()
 
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
@@ -33,23 +35,28 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemReselectedListener { item ->
             when(item.itemId) {
                 R.id.games_page -> {
-                    Toast.makeText(this, "game", Toast.LENGTH_SHORT).show()
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.mainFragView, gamesFrag)
-                        commit()
-                    }
+                    replaceFragment(gamesFrag)
+                    true
                 }
 
                 R.id.stats_page -> {
-                    Toast.makeText(this, "stats", Toast.LENGTH_SHORT).show()
-                    supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.mainFragView, statsFrag)
-                        commit()
-                    }
+                    replaceFragment(statsFrag)
+                    true
                 }
+
+                else -> false
             }
         }
+        debug_btn.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
+    }
 
-
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.mainFragView, fragment)
+            commit()
+        }
     }
 }

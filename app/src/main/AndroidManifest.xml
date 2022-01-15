@@ -13,6 +13,9 @@
             android:name=".PlayerActivity"
             android:exported="true" />
         <activity
+            android:name=".GameActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
