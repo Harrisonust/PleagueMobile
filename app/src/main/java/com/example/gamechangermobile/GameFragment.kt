@@ -44,10 +44,16 @@ class GameFragment : Fragment() {
     }
 
     private fun initGames() {
-        repeat(10) {
-            gameList.add(Game(108, 125, "12:17",
-                "Warriors", "30-11", R.drawable.ic_baseline_sports_basketball_24,
-                "Lakers", "4-15", R.drawable.ic_baseline_sports_basketball_24))
+        repeat(5) {
+            gameList.add(Game(108, 125, "2:17",
+                "Kings", "4-4", R.drawable.kings,
+                "Dreamers", "6-2", R.drawable.dreamers))
+            gameList.add(Game(99, 87, "9:12",
+                "Steelers", "2-6", R.drawable.steelers,
+                "Lioneers", "2-6", R.drawable.lioneers))
+            gameList.add(Game(98, 121, "2:57",
+                "Braves", "4-3", R.drawable.braves,
+                "Pilots", "2-6", R.drawable.pilots))
         }
     }
 }
