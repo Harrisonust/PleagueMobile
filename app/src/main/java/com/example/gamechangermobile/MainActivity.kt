@@ -22,16 +22,24 @@ class MainActivity : AppCompatActivity() {
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
         replaceFragment(gamesFrag)
+//        debugButton.setOnClickListener {
+//            val intent = Intent(this, PlayerActivity::class.java)
+//            val player = Player("Oscar", "Kao", R.drawable.lioneers_kuo_hao_kao)
+//            player._pts = 10.2F
+//            player._reb = 5.4F
+//            player._ast = 5.6F
+//            player.position = "PG"
+//            player.number = 4
+//            player.team = Team("Lioneers","Hsinchu", R.drawable.lioneers)
+//            intent.putExtra("selected_player", player)
+//            startActivity(intent)
+//        }
         debugButton.setOnClickListener {
-            val intent = Intent(this, PlayerActivity::class.java)
-            val player = Player("Oscar", "Kao", R.drawable.lioneers_kuo_hao_kao)
-            player._pts = 10.2F
-            player._reb = 5.4F
-            player._ast = 5.6F
-            player.position = "PG"
-            player.number = 4
-            player.team = Team("Lioneers", R.drawable.lioneers)
-            intent.putExtra("selected_player", player)
+            val intent = Intent(this, TeamActivity::class.java)
+            val team = Team("Lioneers", "Hsinchu", R.drawable.lioneers)
+            team.ranking = "2nd"
+            team.record = "4 - 3"
+            intent.putExtra("SELECTED_TEAM", team)
             startActivity(intent)
         }
         bottom_navigation.setOnNavigationItemSelectedListener {

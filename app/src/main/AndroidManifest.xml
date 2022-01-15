@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GameChangerMobile">
         <activity
+            android:name=".TeamActivity"
+            android:exported="true" />
+        <activity
             android:name=".PlayerActivity"
             android:exported="true" />
         <activity

@@ -1,12 +1,15 @@
 package com.example.gamechangermobile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.models.Team
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
 
@@ -24,7 +27,6 @@ class GameActivity : AppCompatActivity() {
             game_page_header_guest_score.text = game_data!!.guestScore.toString()
             game_page_header_host_score.text = game_data!!.hostScore.toString()
             game_page_header_time.text = game_data!!.remainingTime
-//            game_page_header_
         }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))
@@ -32,7 +34,16 @@ class GameActivity : AppCompatActivity() {
         game_page_tab.addTab(game_page_tab.newTab().setText("Highlights"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Plays"))
 
-        game_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(game_page_tab))
-        game_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(game_page_viewpager))
+//        game_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(game_page_tab))
+//        game_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(game_page_viewpager))
+
+        game_page_header_host_icon.setOnClickListener {
+            val intent = Intent(this, TeamActivity::class.java)
+            val team = Team("Lioneers", "Hsinchu", R.drawable.lioneers)
+            team.ranking = "2nd"
+            team.record = "4 - 3"
+            intent.putExtra("SELECTED_TEAM", team)
+            startActivity(intent)
+        }
     }
 }
