@@ -44,10 +44,10 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
         holder.hostScore.text = game.hostScore.toString()
         holder.guestScore.text = game.guestScore.toString()
         holder.remainingTime.text = game.remainingTime
-        holder.hostImg.setImageResource(R.mipmap.ic_launcher)
+        holder.hostImg.setImageResource(game.hostImg)
         holder.hostName.text = game.hostName
         holder.hostRecord.text = game.hostRecord
-        holder.guestImg.setImageResource(R.mipmap.ic_launcher)
+        holder.guestImg.setImageResource(game.guestImg)
         holder.guestName.text = game.guestName
         holder.guestRecord.text = game.guestRecord
     }
