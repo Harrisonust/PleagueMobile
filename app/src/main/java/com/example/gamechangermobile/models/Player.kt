@@ -9,7 +9,7 @@ class Player(val FirstName:String, val LastName:String, var ProfilePic: Int,
              var _pts:Float = 0F,
              var _ast:Float = 0F,
              var _reb:Float = 0F,
-             var team: Team = Team("Lakers", 0),
+             var team: Team = Team("", 0),
              var age:Int = 0,
              var number:Int = 0,
              var position:String = ""

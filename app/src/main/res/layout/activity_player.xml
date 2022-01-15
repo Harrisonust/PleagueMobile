@@ -25,7 +25,8 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/player_page_profile_pic"
                     android:layout_width="140dp"
-                    android:layout_height="140dp" />
+                    android:layout_height="140dp"
+                    android:gravity="bottom"/>
 
 
             </LinearLayout>

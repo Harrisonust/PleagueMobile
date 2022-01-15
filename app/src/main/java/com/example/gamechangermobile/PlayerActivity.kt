@@ -30,7 +30,7 @@ class PlayerActivity : AppCompatActivity() {
         player_page_player_ast.text = playerData?._ast.toString()
 
         player_page_player_favorite_btn.setOnClickListener {view ->
-            Snackbar.make(view, "I'm Snackbar", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Add to Favorite", Snackbar.LENGTH_SHORT)
                 .setAction("Undo") { Log.i("SNACKBAR", "OK") }
                 .show()
         }

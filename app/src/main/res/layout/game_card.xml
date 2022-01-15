@@ -36,7 +36,7 @@
                 card_view:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
-                android:text="Warriors"/>
+                android:text="Braves"/>
             <TextView
                 android:id="@+id/guest_record"
                 android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                 card_view:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
-                android:text="Lakers"/>
+                android:text="Kings"/>
             <TextView
                 android:id="@+id/host_record"
                 android:layout_width="wrap_content"
