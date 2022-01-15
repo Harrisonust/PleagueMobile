@@ -1,5 +1,9 @@
 package com.example.gamechangermobile.models
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Game (
     val matchScore: String,
     val remainingTime: String,
@@ -9,4 +13,4 @@ data class Game (
     val guestName: String,
     val guestRecord: String,
     val guestImg: String
-    )
+    ): Parcelable

@@ -30,8 +30,9 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
         val view = LayoutInflater.from(parent.context).inflate(R.layout.game_card, parent, false)
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
-            Toast.makeText(parent.context, "you clicked view ${viewHolder.adapterPosition}", Toast.LENGTH_SHORT).show()
-            val intent = Intent(view.context, GameActivity::class.java)
+            val intent = Intent(view.context, GameActivity::class.java).apply {
+                putExtra("GAME_DATA", gameList[viewHolder.adapterPosition])
+            }
             view.context.startActivity(intent)
         }
         return viewHolder
