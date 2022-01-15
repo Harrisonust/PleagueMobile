@@ -39,7 +39,7 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val game = gameList[position]
-        holder.matchScore.text = game.matchScore
+//        holder.matchScore.text = game.matchScore
         holder.remainingTime.text = game.remainingTime
         holder.hostImg.setImageResource(R.mipmap.ic_launcher)
         holder.hostName.text = game.hostName

@@ -15,17 +15,57 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/game_page_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/game_page_header_guest_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/game_page_header_guest_score"/>
                 <TextView
-                    android:id="@+id/game_page_info"
+                    android:id="@+id/game_page_header_guest_score"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="TODO: put score, time remaining here"
-                    android:layout_gravity="center"
-                    android:gravity="center"/>
-            </LinearLayout>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/game_page_header_central_layout"/>
+                <LinearLayout
+                    android:id="@+id/game_page_header_central_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <TextView
+                        android:id="@+id/game_page_header_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="placeholder"/>
+                    <TextView
+                        android:id="@+id/game_page_header_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/game_page_header_host_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/game_page_header_central_layout"/>
+                <TextView
+                    android:id="@+id/game_page_header_host_score"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TODO: put score, time remaining here"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/game_page_header_host_icon"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <VideoView
                 android:id="@+id/game_page_image_view"
                 android:layout_width="match_parent"

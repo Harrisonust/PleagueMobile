@@ -44,9 +44,9 @@ class GameFragment : Fragment() {
 
     private fun initGames() {
         repeat(10) {
-            gameList.add(Game("108:127", "12:17",
-                "Warriors", "30-11", "",
-                "Lakers", "4-15", ""))
+            gameList.add(Game(108, 210, "11:09",
+                "Warriors", "30-11", 0,
+                "Lakers", "4-15", 0))
         }
     }
 }
