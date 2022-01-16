@@ -62,8 +62,11 @@ class VPagerAdapter(f: FragmentManager, bh:Int, val player: Player) : FragmentPa
     override fun getItem(position: Int): Fragment {
         return when(position){
             0 -> PlayerPageGameRecordFragment()
-            1 -> PlayerPageGameRecordFragment()
-            else -> PlayerPageGameRecordFragment()
+            1 -> PlayerPageStatsFragment()
+            2 -> PlayerPageCareerFragment()
+            3 -> PlayerPageAdvancedStatsFragment()
+            4 -> PlayerPageTeamEffFragment()
+            else -> PlayerPageTeamEffFragment()
         }
     }
 }
