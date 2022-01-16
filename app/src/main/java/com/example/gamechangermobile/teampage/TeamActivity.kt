@@ -3,19 +3,16 @@ package com.example.gamechangermobile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.Team
+import com.example.gamechangermobile.teampage.TeamPageInfoFragment
+import com.example.gamechangermobile.teampage.TeamPageRosterFragment
+import com.example.gamechangermobile.teampage.TeamPageScheduleFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_player.*
 import kotlinx.android.synthetic.main.activity_team.*
-import kotlinx.android.synthetic.main.activity_team.view.*
 
 class TeamActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

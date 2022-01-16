@@ -1,4 +1,4 @@
-package com.example.gamechangermobile
+package com.example.gamechangermobile.teampage
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gamechangermobile.playerpage.PlayerActivity
+import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
 
 class RosterAdapter(val playerList: List<Player>) :

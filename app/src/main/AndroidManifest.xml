@@ -13,7 +13,7 @@
             android:name=".TeamActivity"
             android:exported="true" />
         <activity
-            android:name=".PlayerActivity"
+            android:name=".playerpage.PlayerActivity"
             android:exported="true" />
         <activity
             android:name=".GameActivity"
