@@ -48,11 +48,12 @@ class PlayerActivity : AppCompatActivity() {
         player_page_tab.addTab(player_page_tab.newTab().setText("Team eff"))
 
         player_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(player_page_tab))
-        player_page_viewpager.adapter = VPagerAdapter(supportFragmentManager,3, playerData!!)
+        player_page_viewpager.adapter = VPagerAdapter(supportFragmentManager,5, playerData!!)
         player_page_viewpager.setCurrentItem(0)
         player_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(player_page_viewpager))
 
     }
+
     inner class VPagerAdapter(f: FragmentManager, bh:Int, val player: Player) : FragmentPagerAdapter(f,bh){
         override fun getCount(): Int = 5
 

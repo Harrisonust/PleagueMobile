@@ -1,23 +1,23 @@
-package com.example.gamechangermobile
+package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
-import android.view.View
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.example.gamechangermobile.R
+import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.Highlight
 import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.models.Team
+import com.example.gamechangermobile.playerpage.*
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
 
 class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-//        actionBar?.hide()
         setContentView(R.layout.activity_game)
         val game_data = intent.getParcelableExtra<Game>("GAME_DATA")
         if(game_data != null) {
@@ -33,10 +33,10 @@ class GameActivity : AppCompatActivity() {
         game_page_tab.addTab(game_page_tab.newTab().setText("Highlights"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Plays"))
 
-//        game_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(game_page_tab))
-//        game_page_viewpager.adapter = RosterAdapter(game_data?.)
-//        game_page_viewpager.setCurrentItem(0)
-//        game_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(game_page_viewpager))
+        game_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(game_page_tab))
+        game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager,4, game_data!!)
+        game_page_viewpager.setCurrentItem(0)
+        game_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(game_page_viewpager))
 
         game_page_header_host_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
@@ -49,6 +49,19 @@ class GameActivity : AppCompatActivity() {
             val team = game_data?.GuestTeam
             intent.putExtra("SELECTED_TEAM", team)
             startActivity(intent)
+        }
+    }
+
+    inner class VPagerAdapter(f: FragmentManager, bh:Int, val game: Game) : FragmentPagerAdapter(f,bh){
+        override fun getCount(): Int = 4
+
+        override fun getItem(position: Int): Fragment {
+            return when(position){
+                0 -> GamePageHighlightsFragment()
+                1 -> GamePageHighlightsFragment()
+                2 -> GamePageHighlightsFragment()
+                else -> GamePageHighlightsFragment()
+            }
         }
     }
 }

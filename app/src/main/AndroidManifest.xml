@@ -16,7 +16,7 @@
             android:name=".playerpage.PlayerActivity"
             android:exported="true" />
         <activity
-            android:name=".GameActivity"
+            android:name=".gamepage.GameActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
