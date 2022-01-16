@@ -29,7 +29,7 @@ class PlayerActivity : AppCompatActivity() {
         player_page_player_firstname.text = playerData?.FirstName
         player_page_player_lastname.text = playerData?.LastName
         player_page_player_team.text = playerData?.team.Name
-        player_page_player_number.text = playerData?.number.toString()
+        player_page_player_number.text = "#" + playerData?.number.toString()
         player_page_player_position.text = playerData?.position
         player_page_player_pts.text = playerData?._pts.toString()
         player_page_player_reb.text = playerData?._reb.toString()
@@ -52,21 +52,21 @@ class PlayerActivity : AppCompatActivity() {
         player_page_viewpager.setCurrentItem(0)
         player_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(player_page_viewpager))
 
-        //TODO: player stats view
     }
-}
+    inner class VPagerAdapter(f: FragmentManager, bh:Int, val player: Player) : FragmentPagerAdapter(f,bh){
+        override fun getCount(): Int = 5
 
-class VPagerAdapter(f: FragmentManager, bh:Int, val player: Player) : FragmentPagerAdapter(f,bh){
-    override fun getCount(): Int = 5
-
-    override fun getItem(position: Int): Fragment {
-        return when(position){
-            0 -> PlayerPageGameRecordFragment()
-            1 -> PlayerPageStatsFragment()
-            2 -> PlayerPageCareerFragment()
-            3 -> PlayerPageAdvancedStatsFragment()
-            4 -> PlayerPageTeamEffFragment()
-            else -> PlayerPageTeamEffFragment()
+        override fun getItem(position: Int): Fragment {
+            return when(position){
+                0 -> PlayerPageGameRecordFragment()
+                1 -> PlayerPageStatsFragment()
+                2 -> PlayerPageCareerFragment()
+                3 -> PlayerPageAdvancedStatsFragment()
+                4 -> PlayerPageTeamEffFragment()
+                else -> PlayerPageTeamEffFragment()
+            }
         }
     }
 }
+
+

@@ -44,18 +44,16 @@ class TeamActivity : AppCompatActivity() {
         team_page_viewpager.setCurrentItem(0)
         team_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(team_page_viewpager))
 
-        //TODO: player stats view
     }
-}
+    inner class VPagerAdapter(f: FragmentManager, bh:Int, val team: Team) : FragmentPagerAdapter(f,bh){
+        override fun getCount(): Int = 3
 
-class VPagerAdapter(f: FragmentManager, bh:Int, val team: Team) : FragmentPagerAdapter(f,bh){
-    override fun getCount(): Int = 3
-
-    override fun getItem(position: Int): Fragment {
-        return when(position){
-            0 -> TeamPageInfoFragment()
-            1 -> TeamPageScheduleFragment()
-            else -> TeamPageRosterFragment(team)
+        override fun getItem(position: Int): Fragment {
+            return when(position){
+                0 -> TeamPageInfoFragment()
+                1 -> TeamPageScheduleFragment()
+                else -> TeamPageRosterFragment(team)
+            }
         }
     }
 }
