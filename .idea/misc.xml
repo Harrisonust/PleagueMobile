@@ -7,8 +7,11 @@
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.26358695652173914" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/activity_player.xml" value="0.19947916666666668" />
-        <entry key="app/src/main/res/layout/activity_team.xml" value="0.14130434782608695" />
+        <entry key="app/src/main/res/layout/activity_team.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_team_page_roster.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_team_page_schedule.xml" value="0.1" />
         <entry key="app/src/main/res/layout/game_card.xml" value="0.26358695652173914" />
+        <entry key="app/src/main/res/layout/team_roster_item.xml" value="0.33" />
       </map>
     </option>
   </component>
