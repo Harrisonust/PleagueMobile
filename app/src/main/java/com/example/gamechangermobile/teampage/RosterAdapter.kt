@@ -17,12 +17,14 @@ class RosterAdapter(val playerList: List<Player>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val roster_item_image = itemView.findViewById<ImageView>(R.id.roster_item_image)
         val roster_item_name = itemView.findViewById<TextView>(R.id.roster_item_name)
+        val roster_item_position = itemView.findViewById<TextView>(R.id.roster_item_position)
+        val roster_item_number = itemView.findViewById<TextView>(R.id.roster_item_number)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
                 LayoutInflater.from(parent.context)
-                        .inflate(R.layout.team_roster_item, parent, false)
+                        .inflate(R.layout.team_page_roster_item, parent, false)
         val viewHolder = ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
@@ -41,7 +43,9 @@ class RosterAdapter(val playerList: List<Player>) :
         val player = playerList[position]
         holder.roster_item_image.setImageResource(player.ProfilePic)
         holder.roster_item_name.text =
-                player.FirstName + " " + player.LastName + " #" + player.number
+                player.FirstName + " " + player.LastName
+        holder.roster_item_number.text = "#" + player.number
+        holder.roster_item_position.text = player.position
     }
 
     override fun getItemCount() = playerList.size

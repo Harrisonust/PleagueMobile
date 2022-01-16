@@ -11,7 +11,7 @@ class Player(val FirstName:String, val LastName:String, var ProfilePic: Int,
              var _reb:Float = 0F,
              var team: Team = Team("", "", 0),
              var age:Int = 0,
-             var number:Int = 0,
+             var number:String = "",
              var position:String = ""
              ): Parcelable {
 
