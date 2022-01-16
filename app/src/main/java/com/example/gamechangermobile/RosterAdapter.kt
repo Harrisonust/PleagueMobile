@@ -1,5 +1,6 @@
 package com.example.gamechangermobile
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,18 @@ class RosterAdapter(val playerList: List<Player>) :
         val view =
                 LayoutInflater.from(parent.context)
                         .inflate(R.layout.team_roster_item, parent, false)
-        view.setOnClickListener {}
+        val viewHolder = ViewHolder(view)
 
-        return ViewHolder(view)
+        viewHolder.itemView.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            val player = playerList[position]
+            val intent = Intent(parent.context, PlayerActivity::class.java).apply {
+                putExtra("SELECTED_PLAYER",player)
+            }
+            parent.context.startActivity(intent)
+        }
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

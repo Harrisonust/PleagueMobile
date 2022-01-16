@@ -17,7 +17,7 @@ class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val playerData = intent.getParcelableExtra<Player>("selected_player")
+        val playerData = intent.getParcelableExtra<Player>("SELECTED_PLAYER")
         Log.d("Debug", playerData?._pts.toString()+"!!!")
         player_page_profile_pic.setImageResource(playerData!!.ProfilePic)
         player_page_player_firstname.text = playerData?.FirstName
