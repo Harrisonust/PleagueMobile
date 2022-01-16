@@ -8,10 +8,6 @@ data class Game (
     val hostScore: Int,
     val guestScore: Int,
     val remainingTime: String,
-    val hostName: String,
-    val hostRecord: String,
-    val hostImg: Int,
-    val guestName: String,
-    val guestRecord: String,
-    val guestImg: Int
+    var GuestTeam: Team,
+    var HostTeam: Team
     ): Parcelable

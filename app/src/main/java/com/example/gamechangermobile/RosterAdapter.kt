@@ -1,4 +1,35 @@
 package com.example.gamechangermobile
 
-class RosterAdapter {
+import android.content.Intent
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.gamechangermobile.models.Player
+
+class RosterAdapter (val playerList: List<Player>): RecyclerView.Adapter<RosterAdapter.ViewHolder>() {
+
+    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        val roster_item_image = itemView.findViewById<ImageView>(R.id.roster_item_image)
+        val roster_item_name = itemView.findViewById<TextView>(R.id.roster_item_name)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.team_roster_item, parent, false)
+        view.setOnClickListener {
+
+        }
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val player = playerList[position]
+        holder.roster_item_image.setImageResource(player.ProfilePic)
+        holder.roster_item_name.text = player.FirstName + " " + player.LastName
+    }
+
+    override fun getItemCount() = playerList.size
 }

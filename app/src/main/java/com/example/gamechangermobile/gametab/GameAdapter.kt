@@ -44,12 +44,12 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
         holder.hostScore.text = game.hostScore.toString()
         holder.guestScore.text = game.guestScore.toString()
         holder.remainingTime.text = game.remainingTime
-        holder.hostImg.setImageResource(game.hostImg)
-        holder.hostName.text = game.hostName
-        holder.hostRecord.text = game.hostRecord
-        holder.guestImg.setImageResource(game.guestImg)
-        holder.guestName.text = game.guestName
-        holder.guestRecord.text = game.guestRecord
+        holder.hostImg.setImageResource(game.HostTeam.ProfilePic)
+        holder.hostName.text = game.HostTeam.Name
+        holder.hostRecord.text = game.HostTeam.record
+        holder.guestImg.setImageResource(game.GuestTeam.ProfilePic)
+        holder.guestName.text = game.GuestTeam.Name
+        holder.guestRecord.text = game.GuestTeam.record
     }
 
     override fun getItemCount() = gameList.size

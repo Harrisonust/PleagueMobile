@@ -8,6 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gamechangermobile.MainActivity.Companion.Braves
+import com.example.gamechangermobile.MainActivity.Companion.Dreamers
+import com.example.gamechangermobile.MainActivity.Companion.Kings
+import com.example.gamechangermobile.MainActivity.Companion.Lioneers
+import com.example.gamechangermobile.MainActivity.Companion.Pilots
+import com.example.gamechangermobile.MainActivity.Companion.Steelers
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.Game
 import kotlinx.android.synthetic.main.fragment_game.*
@@ -46,14 +52,11 @@ class GameFragment : Fragment() {
     private fun initGames() {
         repeat(5) {
             gameList.add(Game(108, 125, "2:17",
-                "Kings", "4-4", R.drawable.kings,
-                "Dreamers", "6-2", R.drawable.dreamers))
+                Kings, Lioneers))
             gameList.add(Game(99, 87, "9:12",
-                "Steelers", "2-6", R.drawable.steelers,
-                "Lioneers", "2-6", R.drawable.lioneers))
+                Braves, Pilots))
             gameList.add(Game(98, 121, "2:57",
-                "Braves", "4-3", R.drawable.braves,
-                "Pilots", "2-6", R.drawable.pilots))
+                Steelers, Dreamers))
         }
     }
 }

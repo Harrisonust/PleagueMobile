@@ -8,7 +8,7 @@ class Team(val Name:String,
            var Location: String,
            var ProfilePic:Int,
            var record: String="",
-           var ranking: String=""): Parcelable {
+           var ranking: String="",
+           var playerList: ArrayList<Player> = ArrayList<Player>()): Parcelable {
 
-    var playerList = listOf<Player>()
 }
