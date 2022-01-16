@@ -60,48 +60,48 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var chih_chieh_lin =
                 Player(
-                        "chih-chieh",
-                        "Lin",
-                        R.drawable.braves_chih_chieh_lin,
-                        9.5F,
-                        1.83F,
-                        3.33F,
+                        FirstName = "chih-chieh",
+                        LastName = "Lin",
+                        ProfilePic = R.drawable.braves_chih_chieh_lin,
+                        _pts = 9.5F,
+                        _reb = 3.33F,
+                        _ast = 1.83F,
                         age = 38,
                         number = 12,
                         position = "F"
                 )
         var hsiang_chun_tseng =
                 Player(
-                        "Hsiang-chun",
-                        "Tseng",
-                        R.drawable.braves_hsiang_chun_tseng,
-                        3.38F,
-                        0.5F,
-                        3.25F,
+                        FirstName = "Hsiang-chun",
+                        LastName = "Tseng",
+                        ProfilePic = R.drawable.braves_hsiang_chun_tseng,
+                        _pts = 3.38F,
+                        _reb = 3.25F,
+                        _ast = 0.5F,
                         age = 22,
                         number = 21,
                         position = "C"
                 )
         var michael_sigletary =
                 Player(
-                        "Michael",
-                        "Singletary",
-                        R.drawable.braves_michael_singletary,
-                        12.8F,
-                        3.1F,
-                        3.4F,
+                        FirstName = "Michael",
+                        LastName = "Singletary",
+                        ProfilePic = R.drawable.braves_michael_singletary,
+                        _pts = 12.8F,
+                        _reb = 3.4F,
+                        _ast = 3.1F,
                         age = 28,
                         number = 17,
                         position = "F"
                 )
         var shu_wei_lin =
                 Player(
-                        "Shu_wei",
-                        "Lin",
-                        R.drawable.braves_shu_wei_lin,
-                        12.13F,
-                        4.13F,
-                        2.88F,
+                        FirstName = "Shu_wei",
+                        LastName = "Lin",
+                        ProfilePic = R.drawable.braves_shu_wei_lin,
+                        _pts = 12.13F,
+                        _reb = 2.88F,
+                        _ast = 4.13F,
                         age = 28,
                         number = 1,
                         position = "G"
@@ -109,48 +109,48 @@ class MainActivity : AppCompatActivity() {
 
         var q_davis =
                 Player(
-                        "Q",
-                        "Davis",
-                        R.drawable.kings_q_davis,
-                        5F,
-                        1F,
-                        11F,
+                        FirstName = "Q",
+                        LastName = "Davis",
+                        ProfilePic = R.drawable.kings_q_davis,
+                        _pts = 5F,
+                        _reb = 11F,
+                        _ast = 1F,
                         age = 37,
                         number = 50,
                         position = "C"
                 )
         var thomas_welsh =
                 Player(
-                        "Thomas",
-                        "Welsh",
-                        R.drawable.kings_thomas_welsh,
-                        18.57F,
-                        2.71F,
-                        19.57F,
+                        FirstName = "Thomas",
+                        LastName = "Welsh",
+                        ProfilePic = R.drawable.kings_thomas_welsh,
+                        _pts = 18.57F,
+                        _reb = 19.57F,
+                        _ast = 2.71F,
                         age = 24,
                         number = 40,
                         position = "C"
                 )
         var chun_nan_chen =
                 Player(
-                        "Chun-nan",
-                        "Chen",
-                        R.drawable.kings_chun_nan_chen,
-                        3.2F,
-                        0.8F,
-                        1.8F,
+                        FirstName = "Chun-nan",
+                        LastName = "Chen",
+                        ProfilePic = R.drawable.kings_chun_nan_chen,
+                        _pts = 3.2F,
+                        _reb = 1.8F,
+                        _ast = 0.8F,
                         age = 20,
                         number = 3,
                         position = "F"
                 )
         var hsing_chih_yang =
                 Player(
-                        "Hsing-chih",
-                        "Yang",
-                        R.drawable.kings_hsing_chih_yang,
-                        4.11F,
-                        0.44F,
-                        3.22F,
+                        FirstName = "Hsing-chih",
+                        LastName = "Yang",
+                        ProfilePic = R.drawable.kings_hsing_chih_yang,
+                        _pts = 4.11F,
+                        _reb = 3.22F,
+                        _ast = 0.44F,
                         age = 27,
                         number = 33,
                         position = "F"
@@ -158,48 +158,48 @@ class MainActivity : AppCompatActivity() {
 
         var d_roboson =
                 Player(
-                        "Devin",
-                        "Roboson",
-                        R.drawable.pilots_devin_robinson,
-                        24.8F,
-                        2.2F,
-                        14.6F,
+                        FirstName = "Devin",
+                        LastName = "Roboson",
+                        ProfilePic = R.drawable.pilots_devin_robinson,
+                        _pts = 24.8F,
+                        _reb = 14.6F,
+                        _ast = 2.2F,
                         age = 25,
                         number = 0,
                         position = "F"
                 )
         var chuh_hsiang_lu =
                 Player(
-                        "Chun-hsiang",
-                        "Lu",
-                        R.drawable.pilots_chun_hsiang_lu,
-                        15.33F,
-                        0.33F,
-                        5F,
+                        FirstName = "Chun-hsiang",
+                        LastName = "Lu",
+                        ProfilePic = R.drawable.pilots_chun_hsiang_lu,
+                        _pts = 15.33F,
+                        _reb = 5F,
+                        _ast = 0.33F,
                         age = 23,
                         number = 69,
                         position = "G"
                 )
         var jordan_tolbert =
                 Player(
-                        "Chun-nan",
-                        "Chen",
-                        R.drawable.pilots_jordan_tolbert,
-                        19.17F,
-                        4.33F,
-                        14.17F,
+                        FirstName = "Chun-nan",
+                        LastName = "Chen",
+                        ProfilePic = R.drawable.pilots_jordan_tolbert,
+                        _pts = 19.17F,
+                        _reb = 14.17F,
+                        _ast = 4.33F,
                         age = 28,
                         number = 1,
                         position = "F"
                 )
         var chih_yao_shih =
                 Player(
-                        "Chin-Yao",
-                        "Shih",
-                        R.drawable.pilots_chin_yao_shih,
-                        14.17F,
-                        3.63F,
-                        3.25F,
+                        FirstName = "Chin-Yao",
+                        LastName = "Shih",
+                        ProfilePic = R.drawable.pilots_chin_yao_shih,
+                        _pts = 14.17F,
+                        _reb = 3.25F,
+                        _ast = 3.63F,
                         age = 30,
                         number = 28,
                         position = "F"
@@ -207,97 +207,217 @@ class MainActivity : AppCompatActivity() {
 
         var kuo_hao_kao =
                 Player(
-                        "Oscar",
-                        "Kao",
-                        R.drawable.lioneers_kuo_hao_kao,
-                        7.17F,
-                        6.17F,
-                        3F,
+                        FirstName = "Oscar",
+                        LastName = "Kao",
+                        ProfilePic = R.drawable.lioneers_kuo_hao_kao,
+                        _pts = 7.17F,
+                        _reb = 3F,
+                        _ast = 6.17F,
                         age = 22,
                         number = 4,
                         position = "G"
                 )
         var nick_faust =
                 Player(
-                        "Nicholas",
-                        "Faust",
-                        R.drawable.lioneers_nicholas_faust,
-                        27.17F,
-                        2.83F,
-                        8.5F,
+                        FirstName = "Nicholas",
+                        LastName = "Faust",
+                        ProfilePic = R.drawable.lioneers_nicholas_faust,
+                        _pts = 27.17F,
+                        _reb = 8.5F,
+                        _ast = 2.83F,
                         age = 27,
                         number = 7,
                         position = "F"
                 )
         var b_dawson =
                 Player(
-                        "Branden",
-                        "Dawson",
-                        R.drawable.lioneers_branden_dawson,
-                        14.33F,
-                        1.67F,
-                        14F,
+                        FirstName = "Branden",
+                        LastName = "Dawson",
+                        ProfilePic = R.drawable.lioneers_branden_dawson,
+                        _pts = 14.33F,
+                        _reb = 14F,
+                        _ast = 1.67F,
                         age = 27,
                         number = 22,
                         position = "F"
                 )
         var even_lee =
                 Player(
-                        "Chia-jul",
-                        "Lee",
-                        R.drawable.lioneers_chia_jul_lee,
-                        6.89F,
-                        2.67F,
-                        4.22F,
+                        FirstName = "Chia-jul",
+                        LastName = "Lee",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 6.89F,
+                        _reb = 4.22F,
+                        _ast = 2.67F,
                         age = 26,
                         number = 12,
+                        position = "F"
+                )
+        var ming_yi =
+                Player(
+                        FirstName = "Ming-yi",
+                        LastName = "LIN",
+                        ProfilePic = R.drawable.lioneers_ming_yi_lin,
+                        _pts = 3.94F,
+                        _reb = 2.71F,
+                        _ast = 2.88F,
+                        age = 24,
+                        number = 3,
+                        position = "G"
+                )
+        var bhullar =
+                Player(
+                        FirstName = "Singh",
+                        LastName = "Bhullar",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 26.33F,
+                        _reb = 21.89F,
+                        _ast = 2.44F,
+                        age = 28,
+                        number = 35,
+                        position = "C"
+                )
+        var yi_huei =
+                Player(
+                        FirstName = "Yi-huei",
+                        LastName = "Lin",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 11.56F,
+                        _reb = 4.22F,
+                        _ast = 3.4F,
+                        age = 34,
+                        number = 36,
+                        position = "F"
+                )
+        var leon_sung =
+                Player(
+                        FirstName = "Yu-hsuan",
+                        LastName = "Sung",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 5.2F,
+                        _reb = 0.8F,
+                        _ast = 1F,
+                        age = 31,
+                        number = 5,
+                        position = "F"
+                )
+        var elliot =
+                Player(
+                        FirstName = "Elliot",
+                        LastName = "Tan",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 7.82F,
+                        _reb = 2.88F,
+                        _ast = 1.53F,
+                        age = 32,
+                        number = 6,
+                        position = "G"
+                )
+        var yun_hao =
+                Player(
+                        FirstName = "Yun-hao",
+                        LastName = "Chu",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 5.44F,
+                        _reb = 5F,
+                        _ast = 1.33F,
+                        age = 23,
+                        number = 8,
+                        position = "F"
+                )
+        var hao_tien =
+                Player(
+                        FirstName = "Hao",
+                        LastName = "Tien",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 4.84F,
+                        _reb = 2.74F,
+                        _ast = 3.16F,
+                        age = 22,
+                        number = 9,
+                        position = "G"
+                )
+        var shun_yi =
+                Player(
+                        FirstName = "Shun-yi",
+                        LastName = "Hsiao",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 4.33F,
+                        _ast = 1.71F,
+                        _reb = 0.81F,
+                        age = 28,
+                        number = 11,
+                        position = "F"
+                )
+         var shao_chieh =
+                Player(
+                        FirstName = "Shao-chieh",
+                        LastName = "Kuo",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 2.29F,
+                        _ast = 0.86F,
+                        _reb = 0.29F,
+                        age = 30,
+                        number = 24,
+                        position = "F"
+                )
+         var tai_hao =
+                Player(
+                        FirstName = "Tai-hao",
+                        LastName = "Wu",
+                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        _pts = 2.67F,
+                        _ast = 1.89F,
+                        _reb = 1.17F,
+                        age = 35,
+                        number = 54,
                         position = "F"
                 )
 
         var calvin_chieng =
                 Player(
-                        "Li-Huan",
-                        "Chieng",
-                        R.drawable.dreamers_li_huan_chieng,
-                        13.25F,
-                        2.29F,
-                        4.13F,
+                        FirstName = "Li-Huan",
+                        LastName = "Chieng",
+                        ProfilePic = R.drawable.dreamers_li_huan_chieng,
+                        _pts = 13.25F,
+                        _reb = 4.13F,
+                        _ast = 2.29F,
                         age = 32,
                         number = 7,
                         position = "F"
                 )
         var chun_chi_lin =
                 Player(
-                        "Chun-chi",
-                        "Lin",
-                        R.drawable.dreamers_chun_chi_lin,
-                        9.9F,
-                        1.5F,
-                        1.6F,
+                        FirstName = "Chun-chi",
+                        LastName = "Lin",
+                        ProfilePic = R.drawable.dreamers_chun_chi_lin,
+                        _pts = 9.9F,
+                        _reb = 1.6F,
+                        _ast = 1.5F,
                         age = 22,
                         number = 11,
                         position = "G"
                 )
         var derek_Lee =
                 Player(
-                        "Te-wei",
-                        "Lee",
-                        R.drawable.dreamers_te_wei_lee,
-                        8.5F,
-                        1.5F,
-                        8.27F,
+                        FirstName = "Te-wei",
+                        LastName = "Lee",
+                        ProfilePic = R.drawable.dreamers_te_wei_lee,
+                        _pts = 8.5F,
+                        _reb = 8.27F,
+                        _ast = 1.5F,
                         age = 29,
                         number = 26,
                         position = "C"
                 )
         var kenneth =
                 Player(
-                        "Kenneth",
-                        "Chen",
-                        R.drawable.dreamers_kenneth_chen,
-                        6.62F,
-                        2F,
-                        3.14F,
+                        FirstName = "Kenneth",
+                        LastName = "Chen",
+                        ProfilePic = R.drawable.dreamers_kenneth_chen,
+                        _pts = 6.62F,
+                        _reb = 3.14F,
+                        _ast = 2F,
                         age = 25,
                         number = 23,
                         position = "F"
@@ -305,48 +425,48 @@ class MainActivity : AppCompatActivity() {
 
         var jerry_chen =
                 Player(
-                        "Yu-wei",
-                        "Chen",
-                        R.drawable.steelers_yu_wei_chen,
-                        11.14F,
-                        2.29F,
-                        2.71F,
+                        FirstName = "Yu-wei",
+                        LastName = "Chen",
+                        ProfilePic = R.drawable.steelers_yu_wei_chen,
+                        _pts = 11.14F,
+                        _reb = 2.71F,
+                        _ast = 2.29F,
                         age = 21,
                         number = 4,
                         position = "G"
                 )
         var tucker =
                 Player(
-                        "Anthony",
-                        "Tucker",
-                        R.drawable.steelers_anthony_tucker,
-                        27.88F,
-                        5.59F,
-                        8.12F,
+                        FirstName = "Anthony",
+                        LastName = "Tucker",
+                        ProfilePic = R.drawable.steelers_anthony_tucker,
+                        _pts = 27.88F,
+                        _reb = 8.12F,
+                        _ast = 5.59F,
                         age = 31,
                         number = 1,
                         position = "G"
                 )
         var cheng_ju_lu =
                 Player(
-                        "Cheng-ju",
-                        "Lu",
-                        R.drawable.steelers_cheng_ju_lu,
-                        15.71F,
-                        2.29F,
-                        2.86F,
+                        FirstName = "Cheng-ju",
+                        LastName = "Lu",
+                        ProfilePic = R.drawable.steelers_cheng_ju_lu,
+                        _pts = 15.71F,
+                        _reb = 2.86F,
+                        _ast = 2.29F,
                         age = 34,
                         number = 13,
                         position = "F"
                 )
         var po_chih_wang =
                 Player(
-                        "Po-chih",
-                        "Wang",
-                        R.drawable.steelers_po_chih_wang,
-                        2F,
-                        0.13F,
-                        1.4F,
+                        FirstName = "Po-chih",
+                        LastName = "Wang",
+                        ProfilePic = R.drawable.steelers_po_chih_wang,
+                        _pts = 2F,
+                        _reb = 1.4F,
+                        _ast = 0.13F,
                         age = 24,
                         number = 10,
                         position = "C"
@@ -391,17 +511,18 @@ class MainActivity : AppCompatActivity() {
                         R.drawable.lioneers,
                         "5 - 4",
                         "2nd",
-                        arrayListOf(kuo_hao_kao, nick_faust, b_dawson, even_lee)
+                        arrayListOf(kuo_hao_kao, nick_faust, b_dawson, even_lee, ming_yi, bhullar, yi_huei, leon_sung, elliot, yun_hao, hao_tien, shun_yi, shao_chieh, tai_hao)
                 )
+
         var Dreamers =
-                Team(
-                        "Dreamers",
-                        "Changhua",
-                        R.drawable.dreamers,
-                        "5 - 3",
-                        "1st",
-                        arrayListOf(calvin_chieng, chun_chi_lin, derek_Lee, kenneth)
-                )
+            Team(
+                    "Dreamers",
+                    "Changhua",
+                    R.drawable.dreamers,
+                    "5 - 3",
+                    "1st",
+                    arrayListOf(calvin_chieng, chun_chi_lin, derek_Lee, kenneth)
+            )
         var Steelers =
                 Team(
                         "Steelers",
