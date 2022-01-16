@@ -281,7 +281,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Yi-huei",
                         LastName = "Lin",
-                        ProfilePic = R.drawable.lioneers,
+                        ProfilePic = R.drawable.lioneers_yi_huei_lin,
                         _pts = 11.56F,
                         _reb = 4.22F,
                         _ast = 3.4F,
