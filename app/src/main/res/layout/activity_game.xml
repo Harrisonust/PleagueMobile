@@ -50,15 +50,18 @@
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp">
                     <TextView
+                        android:id="@+id/game_page_quarter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3rd"
+                        android:layout_gravity="center"/>
+                    <TextView
                         android:id="@+id/game_page_header_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:text="10:30"/>
-<!--                    <TextView-->
-<!--                        android:id="@+id/game_page_header_score"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:gravity="center"/>-->
+
                 </LinearLayout>
                 <TextView
                     android:id="@+id/game_page_header_host_score"

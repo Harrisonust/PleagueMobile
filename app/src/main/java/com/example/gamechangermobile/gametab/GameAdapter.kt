@@ -10,20 +10,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.GameStatus
 
 class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val hostScore: TextView = itemView.findViewById(R.id.host_score)
-        val guestScore: TextView = itemView.findViewById(R.id.guest_score)
-        val remainingTime: TextView = itemView.findViewById(R.id.remaining_time)
         val hostImg: ImageView = itemView.findViewById(R.id.host_image)
         val hostName: TextView = itemView.findViewById(R.id.host_name)
         val hostRecord: TextView = itemView.findViewById(R.id.host_record)
+
+        val guestScore: TextView = itemView.findViewById(R.id.guest_score)
         val guestImg: ImageView = itemView.findViewById(R.id.guest_image)
         val guestName: TextView = itemView.findViewById(R.id.guest_name)
         val guestRecord: TextView = itemView.findViewById(R.id.guest_record)
 
+        val remainingTime: TextView = itemView.findViewById(R.id.remaining_time)
+        val quarter:TextView = itemView.findViewById(R.id.quarter)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,14 +44,22 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val game = gameList[position]
         holder.hostScore.text = game.hostScore.toString()
-        holder.guestScore.text = game.guestScore.toString()
-        holder.remainingTime.text = game.remainingTime
         holder.hostImg.setImageResource(game.HostTeam.ProfilePic)
         holder.hostName.text = game.HostTeam.Name
         holder.hostRecord.text = game.HostTeam.record
+
+        holder.guestScore.text = game.guestScore.toString()
         holder.guestImg.setImageResource(game.GuestTeam.ProfilePic)
         holder.guestName.text = game.GuestTeam.Name
         holder.guestRecord.text = game.GuestTeam.record
+
+        if (game.status == GameStatus.INGAME) {
+            holder.remainingTime.text = game.remainingTime
+            holder.quarter.text = game.quarter
+        } else{
+            holder.remainingTime.text = "END"
+            holder.quarter.text = ""
+        }
     }
 
     override fun getItemCount() = gameList.size

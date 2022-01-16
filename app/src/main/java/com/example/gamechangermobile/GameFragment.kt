@@ -16,6 +16,7 @@ import com.example.gamechangermobile.MainActivity.Companion.Pilots
 import com.example.gamechangermobile.MainActivity.Companion.Steelers
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.GameStatus
 import kotlinx.android.synthetic.main.fragment_game.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -51,12 +52,9 @@ class GameFragment : Fragment() {
 
     private fun initGames() {
         repeat(5) {
-            gameList.add(Game(108, 125, "2:17",
-                Kings, Lioneers))
-            gameList.add(Game(99, 87, "9:12",
-                Braves, Pilots))
-            gameList.add(Game(98, 121, "2:57",
-                Steelers, Dreamers))
+            gameList.add(Game(GuestTeam = Kings, HostTeam = Lioneers, guestScore = 18, hostScore = 12, status = GameStatus.INGAME, quarter = "1st", remainingTime = "4:17"))
+            gameList.add(Game(GuestTeam = Braves,HostTeam = Pilots, guestScore = 99, hostScore = 87, status = GameStatus.INGAME, quarter = "4nd", remainingTime = "0:12"))
+            gameList.add(Game(GuestTeam = Steelers, HostTeam = Dreamers, guestScore = 98, hostScore = 121, status = GameStatus.END, quarter = "none",remainingTime = "none"))
         }
     }
 }

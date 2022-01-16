@@ -55,15 +55,27 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintRight_toRightOf="parent"
             card_view:layout_constraintLeft_toLeftOf="parent">
-            <TextView
-                android:id="@+id/remaining_time"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 card_view:layout_constraintBottom_toTopOf="@id/match_score"
                 card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="10dp"
-                android:text="15:27"/>
+                card_view:layout_constraintRight_toRightOf="parent">
+                <TextView
+                    android:id="@+id/quarter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3rd"
+                    android:layout_marginRight="5dp"/>
+                <TextView
+                    android:id="@+id/remaining_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15:27"/>
+            </LinearLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/match_score"
                 android:layout_width="wrap_content"
