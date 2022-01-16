@@ -269,7 +269,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Singh",
                         LastName = "Bhullar",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_simbhullar,
                         _pts = 26.33F,
                         _reb = 21.89F,
                         _ast = 2.44F,
@@ -281,7 +281,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Yi-huei",
                         LastName = "Lin",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers,
                         _pts = 11.56F,
                         _reb = 4.22F,
                         _ast = 3.4F,
@@ -293,7 +293,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Yu-hsuan",
                         LastName = "Sung",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_yu_hsuan_sung,
                         _pts = 5.2F,
                         _reb = 0.8F,
                         _ast = 1F,
@@ -305,7 +305,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Elliot",
                         LastName = "Tan",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_elliot_tan,
                         _pts = 7.82F,
                         _reb = 2.88F,
                         _ast = 1.53F,
@@ -317,7 +317,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Yun-hao",
                         LastName = "Chu",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_yun_hao_chu,
                         _pts = 5.44F,
                         _reb = 5F,
                         _ast = 1.33F,
@@ -329,7 +329,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Hao",
                         LastName = "Tien",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_hao_tien,
                         _pts = 4.84F,
                         _reb = 2.74F,
                         _ast = 3.16F,
@@ -341,7 +341,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Shun-yi",
                         LastName = "Hsiao",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_shun_yi_hsiao,
                         _pts = 4.33F,
                         _ast = 1.71F,
                         _reb = 0.81F,
@@ -353,7 +353,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Shao-chieh",
                         LastName = "Kuo",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_shao_chieh_kuo,
                         _pts = 2.29F,
                         _ast = 0.86F,
                         _reb = 0.29F,
@@ -365,7 +365,7 @@ class MainActivity : AppCompatActivity() {
                 Player(
                         FirstName = "Tai-hao",
                         LastName = "Wu",
-                        ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                        ProfilePic = R.drawable.lioneers_tai_hao_wu,
                         _pts = 2.67F,
                         _ast = 1.89F,
                         _reb = 1.17F,
