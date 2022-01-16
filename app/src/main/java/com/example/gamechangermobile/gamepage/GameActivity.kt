@@ -9,9 +9,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.models.Game
-import com.example.gamechangermobile.models.Highlight
-import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.playerpage.*
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
 
@@ -23,9 +20,9 @@ class GameActivity : AppCompatActivity() {
         if(game_data != null) {
             game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.ProfilePic)
             game_page_header_host_icon.setImageResource(game_data!!.HostTeam.ProfilePic)
-            game_page_header_guest_score.text = game_data!!.guestScore.toString()
-            game_page_header_host_score.text = game_data!!.hostScore.toString()
-            game_page_header_time.text = game_data!!.remainingTime
+            game_page_header_guest_score.text = game_data!!.GuestStats.points.toInt().toString()
+            game_page_header_host_score.text = game_data!!.HostStats.points.toInt().toString()
+            game_page_header_time.text = game_data!!.remaining_time
         }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))

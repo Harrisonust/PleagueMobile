@@ -1,13 +1,11 @@
 package com.example.gamechangermobile
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.MainActivity.Companion.Braves
 import com.example.gamechangermobile.MainActivity.Companion.Dreamers
 import com.example.gamechangermobile.MainActivity.Companion.Kings
@@ -16,6 +14,7 @@ import com.example.gamechangermobile.MainActivity.Companion.Pilots
 import com.example.gamechangermobile.MainActivity.Companion.Steelers
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.GameStats
 import com.example.gamechangermobile.models.GameStatus
 import kotlinx.android.synthetic.main.fragment_game.*
 
@@ -52,9 +51,9 @@ class GameFragment : Fragment() {
 
     private fun initGames() {
         repeat(5) {
-            gameList.add(Game(GuestTeam = Kings, HostTeam = Lioneers, guestScore = 18, hostScore = 12, status = GameStatus.INGAME, quarter = "1st", remainingTime = "4:17"))
-            gameList.add(Game(GuestTeam = Braves,HostTeam = Pilots, guestScore = 99, hostScore = 87, status = GameStatus.INGAME, quarter = "4nd", remainingTime = "0:12"))
-            gameList.add(Game(GuestTeam = Steelers, HostTeam = Dreamers, guestScore = 98, hostScore = 121, status = GameStatus.END, quarter = "none",remainingTime = "none"))
+            gameList.add(Game(GuestTeam = Kings, HostTeam = Lioneers, GuestStats = GameStats(points = 18F), HostStats = GameStats(points = 12F), status = GameStatus.INGAME, quarter = "1st", remaining_time = "4:17"))
+            gameList.add(Game(GuestTeam = Braves,HostTeam = Pilots, GuestStats = GameStats(points = 0F), HostStats = GameStats(points = 0F), status = GameStatus.NOT_YET_START, starting_time = "19:00"))
+            gameList.add(Game(GuestTeam = Steelers, HostTeam = Dreamers, GuestStats = GameStats(points = 98F), HostStats = GameStats(points = 121F), status = GameStatus.END))
         }
     }
 }

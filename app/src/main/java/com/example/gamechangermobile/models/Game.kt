@@ -8,13 +8,15 @@ enum class GameStatus{
     INGAME,
     END
 }
+
 @Parcelize
 data class Game (
     var GuestTeam: Team,
     var HostTeam: Team,
-    val guestScore: Int,
-    val hostScore: Int,
+    var GuestStats: GameStats,
+    var HostStats: GameStats,
     val status: GameStatus,
-    val quarter: String,
-    val remainingTime: String,
+    val starting_time: String = "",
+    val quarter: String = "",
+    val remaining_time: String = "",
     ): Parcelable
