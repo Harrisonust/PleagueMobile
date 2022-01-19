@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -48,7 +49,7 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
             //initDimensions(100, 200)
         }
     }
-    
+
     fun renderTable(
         headers: List<String>,
         contents: List<List<String>>,
@@ -70,8 +71,20 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val headerViewId = resources.getIdentifier(headerLayoutName, "layout", context.packageName)
         val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
         val tableRow = TableRow(context)
-        for (text in headers) {
-            renderCell(text, headerViewId, headerTextId, tableRow)
+        for (i in headers.indices) {
+            if (i == 0) {
+                val view = inflate(context, headerViewId, fixedRelativeLayout)
+                val textView: TextView = view.findViewById(headerTextId)
+                textView.text = headers[i]
+                view.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+
+            }
+            else {
+                renderCell(headers[i], headerViewId, headerTextId, tableRow)
+            }
         }
         headerTableLayout?.addView(tableRow)
 
