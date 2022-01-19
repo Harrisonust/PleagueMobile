@@ -110,14 +110,14 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
     }
 
-    fun renderCell(text: String, viewId: Int, textId: Int, tableRow: TableRow) {
+    private fun renderCell(text: String, viewId: Int, textId: Int, tableRow: TableRow) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
         textView.text = text
         tableRow.addView(view)
     }
 
-    fun renderCell(text: String, image: String, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
+    private fun renderCell(text: String, image: String, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
         textView.text = text
