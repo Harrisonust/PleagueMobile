@@ -73,13 +73,14 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val tableRow = TableRow(context)
         for (i in headers.indices) {
             if (i == 0) {
-                val view = inflate(context, headerViewId, fixedRelativeLayout)
+                val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
                 val textView: TextView = view.findViewById(headerTextId)
                 textView.text = headers[i]
                 view.layoutParams = ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT
                 )
+                fixedRelativeLayout?.addView(view)
 
             }
             else {
