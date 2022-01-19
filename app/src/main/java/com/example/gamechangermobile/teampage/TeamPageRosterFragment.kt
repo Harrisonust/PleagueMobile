@@ -30,9 +30,19 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
 //        }
 
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
+        var content: List<List<String>> = listOf()
+        when (team.Name) {
+            "Braves" -> content = Database.Braves().roster
+            "Dreamers" -> content = Database.Dreamers().roster
+            "Kings" -> content = Database.Kings().roster
+            "Lioneers" -> content = Database.Lioneers().roster
+            "Pilots" -> content = Database.Pilots().roster
+            "Steelers" -> content = Database.Steelers().roster
+        }
+
         dynamicTable.renderTable(
             Database().headers,
-            Database.Lioneers().roster,
+            content,
             90,
             280,
             "cell_view_header",
