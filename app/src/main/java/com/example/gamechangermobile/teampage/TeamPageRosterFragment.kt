@@ -1,6 +1,8 @@
 package com.example.gamechangermobile.teampage
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import com.example.gamechangermobile.database.Database
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.views.DynamicTable
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import kotlinx.android.synthetic.main.fragment_team_page_roster.view.*
 
 
@@ -28,6 +31,12 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
 //            layoutManager = LinearLayoutManager(activity)
 //            adapter = RosterAdapter(team.playerList)
 //        }
+
+        val progressBar: CircularProgressIndicator = view.findViewById(R.id.progress_circular)
+        Handler(Looper.getMainLooper()).postDelayed({
+            progressBar.visibility = View.VISIBLE
+        }, 3000)
+        progressBar.visibility = View.GONE
 
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         var content: List<List<String>> = listOf()
