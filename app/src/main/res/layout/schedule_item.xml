@@ -77,7 +77,6 @@
                 android:layout_gravity="center"
                 android:text="128 - 122"/>
         </LinearLayout>
-
     </LinearLayout>
     <View
         android:layout_marginVertical="3dp"
