@@ -14,6 +14,8 @@ import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.views.DynamicTable
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import kotlinx.android.synthetic.main.fragment_team_page_roster.*
+
 import kotlinx.android.synthetic.main.fragment_team_page_roster.view.*
 
 
@@ -27,18 +29,29 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_team_page_roster, container, false)
 
+
 //        view.team_page_roster_recycler.apply {
 //            layoutManager = LinearLayoutManager(activity)
 //            adapter = RosterAdapter(team.playerList)
 //        }
 
         val progressBar: CircularProgressIndicator = view.findViewById(R.id.progress_circular)
-        Handler(Looper.getMainLooper()).postDelayed({
-            progressBar.visibility = View.VISIBLE
-        }, 3000)
-        progressBar.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            progressBar.visibility = View.VISIBLE
+//        }, 3000)
+//        progressBar.visibility = View.GONE
 
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
+        
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
+
         var content: List<List<String>> = listOf()
         when (team.Name) {
             "Braves" -> content = Database.Braves().roster
@@ -63,6 +76,7 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
             "player_data"
         )
 
-        return view
+        dynamicTable.visibility = View.VISIBLE
+        progress_circular.visibility = View.INVISIBLE
     }
 }
