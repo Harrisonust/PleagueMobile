@@ -2,6 +2,7 @@ package com.example.gamechangermobile
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.database.Database
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 //            intent.putExtra("selected_player", player)
                 //            startActivity(intent)
                 //        }
+
                 debugButton.setOnClickListener {
                         val intent = Intent(this, TeamActivity::class.java)
                         val team = Lioneers
@@ -371,8 +373,14 @@ private fun replaceFragment(fragment: Fragment) {
                                 Name = "Braves",
                                 Location = "Taipei",
                                 ProfilePic = R.drawable.braves,
-                                record = "5 - 5",
+                                total_record = "5 - 5",
+                                home_record = "4 - 1",
+                                away_record = "1 - 4",
                                 ranking = "4th",
+                                founding_date="2001",
+                                arena="Hoping",
+                                last10="5 - 5",
+                                streak="W3",
                                 playerList = arrayListOf(
                                         chih_chieh_lin,
                                         hsiang_chun_tseng,
@@ -384,8 +392,14 @@ private fun replaceFragment(fragment: Fragment) {
                                 Name = "Kings",
                                 Location = "New Taipei",
                                 ProfilePic = R.drawable.kings,
-                                record = "5 - 4",
+                                total_record = "5 - 4",
+                                home_record = "5 - 0",
+                                away_record = "1 - 4",
                                 ranking = "3rd",
+                                founding_date="2021",
+                                arena="HsinChung",
+                                last10="5 - 5",
+                                streak="W3",
                                 playerList = arrayListOf(
                                         q_davis,
                                         thomas_welsh,
@@ -397,8 +411,14 @@ private fun replaceFragment(fragment: Fragment) {
                                 Name = "Pilots",
                                 Location = "Taoyuan",
                                 ProfilePic = R.drawable.pilots,
-                                record = "3 - 4",
+                                total_record = "3 - 4",
+                                home_record = "2 - 2",
+                                away_record = "1 - 2",
                                 ranking = "5th",
+                                founding_date="1999",
+                                arena="Taoyuan",
+                                last10="5 - 5",
+                                streak="W3",
                                 playerList = arrayListOf(
                                         d_roboson,
                                         chuh_hsiang_lu,
@@ -410,8 +430,14 @@ private fun replaceFragment(fragment: Fragment) {
                                 Name = "Lioneers",
                                 Location = "Hsinchu",
                                 ProfilePic = R.drawable.lioneers,
-                                record = "5 - 4",
+                                total_record = "5 - 4",
+                                home_record = "2 - 2",
+                                away_record = "3 - 2",
                                 ranking = "2nd",
+                                founding_date="2020",
+                                arena="ChuPei",
+                                last10="5 - 5",
+                                streak="W3",
                                 playerList = arrayListOf(
                                         kuo_hao_kao,
                                         nick_faust,
@@ -434,8 +460,14 @@ private fun replaceFragment(fragment: Fragment) {
                                 Name = "Dreamers",
                                 Location = "Changhua",
                                 ProfilePic = R.drawable.dreamers,
-                                record = "5 - 3",
+                                total_record = "5 - 3",
+                                home_record = "4 - 1",
+                                away_record = "1 - 2",
                                 ranking = "1st",
+                                founding_date="2005",
+                                arena="ChungHau",
+                                last10="5 - 5",
+                                streak="L3",
                                 playerList = arrayListOf(
                                         calvin_chieng,
                                         chun_chi_lin,
@@ -447,8 +479,14 @@ private fun replaceFragment(fragment: Fragment) {
                                 Name = "Steelers",
                                 Location = "Kaoshung",
                                 ProfilePic = R.drawable.steelers,
-                                record = "2 - 5",
+                                total_record = "2 - 5",
+                                home_record = "1 - 1",
+                                away_record = "1 - 4",
                                 ranking = "6th",
+                                founding_date="2021",
+                                arena="KH",
+                                last10="5 - 5",
+                                streak="L3",
                                 playerList = arrayListOf(
                                         jerry_chen,
                                         tucker,
