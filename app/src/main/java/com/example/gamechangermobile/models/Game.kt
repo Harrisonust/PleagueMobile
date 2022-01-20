@@ -19,4 +19,6 @@ data class Game (
     val starting_time: String = "",
     val quarter: String = "",
     val remaining_time: String = "",
+    val day: String = "",
+    val date: String = ""
     ): Parcelable
