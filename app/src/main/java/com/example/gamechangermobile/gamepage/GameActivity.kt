@@ -16,7 +16,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        val game_data = intent.getParcelableExtra<Game>("GAME_DATA")
+        val game_data = intent.getParcelableExtra<Game>("SELECTED_GAME")
         if(game_data != null) {
             game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.ProfilePic)
             game_page_header_host_icon.setImageResource(game_data!!.HostTeam.ProfilePic)
