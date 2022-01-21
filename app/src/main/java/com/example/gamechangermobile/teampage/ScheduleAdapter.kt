@@ -1,6 +1,5 @@
 package com.example.gamechangermobile.teampage
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.Game
-import com.example.gamechangermobile.models.Schedule
 
-class ScheduleAdapter(val gameScheduleList: List<Game>):RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class ScheduleAdapter(val gameScheduleList: List<Game>) :
+        RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day: TextView = itemView.findViewById(R.id.day)
         val date: TextView = itemView.findViewById(R.id.date)
         val opponent_image: ImageView = itemView.findViewById(R.id.opponentImage)
@@ -23,7 +21,8 @@ class ScheduleAdapter(val gameScheduleList: List<Game>):RecyclerView.Adapter<Sch
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.schedule_item, parent, false)
+        val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.schedule_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -34,7 +33,10 @@ class ScheduleAdapter(val gameScheduleList: List<Game>):RecyclerView.Adapter<Sch
         holder.opponent.text = game.GuestTeam.Name
         holder.opponent_image.setImageResource(game.GuestTeam.ProfilePic)
         holder.win_lose.text = "W"
-        holder.score.text = game.GuestStats.points.toString() + " : " + game.HostStats.points.toString()
+        holder.score.text =
+                game.GuestStats.points.toInt().toString() +
+                        " : " +
+                        game.HostStats.points.toInt().toString()
     }
 
     override fun getItemCount(): Int = gameScheduleList.size

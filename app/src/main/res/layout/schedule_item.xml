@@ -10,7 +10,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginHorizontal="5dp">
             <TextView
                 android:id="@+id/day"
                 android:layout_width="wrap_content"
@@ -59,19 +60,23 @@
             android:layout_height="match_parent"
             android:layout_marginVertical="7dp"
             android:background="@color/gray_200"/>
-        <TextView
-            android:id="@+id/win_lose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="3dp"
-            android:text="L"/>
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="128 - 122"/>
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/win_lose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:text="L"/>
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="128 - 122"/>
+        </LinearLayout>
     </LinearLayout>
     <View
         android:layout_marginVertical="3dp"
