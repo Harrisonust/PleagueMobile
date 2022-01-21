@@ -1,4 +1,6 @@
 package com.example.gamechangermobile.models
 
-class Highlight {
+import android.net.Uri
+
+class Highlight(val uri: Uri) {
 }
