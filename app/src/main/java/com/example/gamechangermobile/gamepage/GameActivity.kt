@@ -54,9 +54,9 @@ class GameActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when(position){
-                0 -> GamePageHighlightsFragment()
-                1 -> GamePageHighlightsFragment()
-                2 -> GamePageHighlightsFragment()
+                0 -> GamePageSummaryFragment()
+                1 -> GamePageSummaryFragment()
+                2 -> GamePageSummaryFragment()
                 else -> GamePageHighlightsFragment()
             }
         }

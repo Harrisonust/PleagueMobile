@@ -10,4 +10,7 @@
     <color name="black_gold">#BB986C00</color>
     <color name="gray_200">#E5E5E5</color>
     <color name="gray_500">#1B1B1B00</color>
+    <color name="blue_500">#08266E</color>
+    <color name="blue_200">#EB07C0E1</color>
+
 </resources>
