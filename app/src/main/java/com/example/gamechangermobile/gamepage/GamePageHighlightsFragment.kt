@@ -8,10 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.Highlight
 import kotlinx.android.synthetic.main.fragment_game_page_highlights.*
 
-class GamePageHighlightsFragment : Fragment() {
+class GamePageHighlightsFragment(val game: Game) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

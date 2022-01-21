@@ -217,7 +217,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/guest_point_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Braden Smart"
                         android:layout_gravity="center"
@@ -262,7 +262,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/host_point_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Kao Kuo Hao"
                         android:layout_gravity="center"
@@ -288,7 +288,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/guest_rebounds_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Braden Smart"
                         android:layout_gravity="center"
@@ -333,7 +333,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/host_rebounds_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Kao Kuo Hao"
                         android:layout_gravity="center"
@@ -358,7 +358,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/guest_assist_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Braden Smart"
                         android:layout_gravity="center"
@@ -403,7 +403,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/host_assist_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Kao Kuo Hao"
                         android:layout_gravity="center"
@@ -428,7 +428,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/guest_steal_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Braden Smart"
                         android:layout_gravity="center"
@@ -473,7 +473,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/host_steal_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Kao Kuo Hao"
                         android:layout_gravity="center"
@@ -498,7 +498,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/guest_block_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Braden Smart"
                         android:layout_gravity="center"
@@ -543,7 +543,7 @@
                         android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/host_block_leader_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Kao Kuo Hao"
                         android:layout_gravity="center"
@@ -583,120 +583,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:src="@drawable/lioneers"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="5dp">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp">
-                <TextView
-                    android:id="@+id/guest_3_pointer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="FIELD GOALS"/>
-                <TextView
-                    android:id="@+id/host_field_pointer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="5dp">
-                <View
-                    android:id="@+id/guest_3_pointer_bar"
-                    android:layout_width="300dp"
-                    android:layout_height="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@color/blue_500"
-                    android:layout_marginRight="3dp"/>
-                <View
-                    android:id="@+id/host_3_pointer_bar"
-                    android:layout_width="50dp"
-                    android:layout_height="5dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@color/blue_200"
-                    android:layout_marginLeft="3dp"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="5dp">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp">
-                <TextView
-                    android:id="@+id/guest_free_throw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="FIELD GOALS"/>
-                <TextView
-                    android:id="@+id/host_free_throw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="5dp">
-                <View
-                    android:id="@+id/guest_free_throw_bar"
-                    android:layout_width="300dp"
-                    android:layout_height="5dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@color/blue_500"
-                    android:layout_marginRight="3dp"/>
-                <View
-                    android:id="@+id/host_free_throw_bar"
-                    android:layout_width="50dp"
-                    android:layout_height="5dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:background="@color/blue_200"
-                    android:layout_marginLeft="3dp"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+
+<!--        field_goals-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -754,6 +643,129 @@
                     android:layout_marginLeft="3dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
+<!--        3_pointers-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_3_pointer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="3 POINTER"/>
+                <TextView
+                    android:id="@+id/host_3_pointer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_3_pointer_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_3_pointer_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        free_throws-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_free_throw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="FREE THROW"/>
+                <TextView
+                    android:id="@+id/host_free_throw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_free_throw_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_free_throw_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        assists-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -777,7 +789,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:text="FIELD GOALS"/>
+                    android:text="ASSISTS"/>
                 <TextView
                     android:id="@+id/host_assist"
                     android:layout_width="wrap_content"
@@ -811,6 +823,547 @@
                     android:layout_marginLeft="3dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
+<!--        total_rebounds-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_total_rebound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="TOTAL REBOUND"/>
+                <TextView
+                    android:id="@+id/host_total_rebound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_total_rebound_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_total_rebound_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        offensive_rebounds-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_offensive_rebound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="OFFENSICE REBOUNDS"/>
+                <TextView
+                    android:id="@+id/host_offensive_rebound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_offensive_rebound_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_offensive_rebound_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        defensive_rebounds-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_defensive_rebound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="DEFENSIVE REBOUNDS"/>
+                <TextView
+                    android:id="@+id/host_defensive_rebound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_defensive_rebound_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_defensive_rebound_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        steals-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_steal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="STEALS"/>
+                <TextView
+                    android:id="@+id/host_steal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_steal_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_steal_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        blocks-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_block"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="BLOCKS"/>
+                <TextView
+                    android:id="@+id/host_block"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_block_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_block_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        turnovers-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_turnover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="TURNOVERS"/>
+                <TextView
+                    android:id="@+id/host_turnover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_turnover_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_turnover_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        points_off_turnovers-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_points_off_turnovers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="POINTS OFF TURNOVERS"/>
+                <TextView
+                    android:id="@+id/host_points_off_turnovers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_points_off_turnovers_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_points_off_turnovers_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        fouls-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_fouls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="FOULS"/>
+                <TextView
+                    android:id="@+id/host_fouls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_fouls_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_fouls_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+<!--        timeouts_remaining-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="5dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:id="@+id/guest_timeouts_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="TIMEOUTS REMAINING"/>
+                <TextView
+                    android:id="@+id/host_timeouts_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41/95(43.2%)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp">
+                <View
+                    android:id="@+id/guest_timeouts_remaining_bar"
+                    android:layout_width="300dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@color/blue_500"
+                    android:layout_marginRight="3dp"/>
+                <View
+                    android:id="@+id/host_timeouts_remaining_bar"
+                    android:layout_width="50dp"
+                    android:layout_height="5dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/blue_200"
+                    android:layout_marginLeft="3dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
