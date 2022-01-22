@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import kotlinx.android.synthetic.main.fragment_team_page_info.*
 import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import com.example.gamechangermobile.TeamActivity
+import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.playerpage.PlayerActivity
 
 
@@ -29,6 +32,17 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fun startPlayerActivity(player: Player){
+            val intent = Intent(view.context, PlayerActivity::class.java)
+            intent.putExtra("SELECTED_PLAYER",player)
+            startActivity(intent)
+        }
+        fun startTeamActivity(team: Team){
+            val intent = Intent(view.context, TeamActivity::class.java)
+            intent.putExtra("SELECTED_TEAM",team)
+            startActivity(intent)
+        }
+
         val gs = game.GuestStats
 
         guest_point_leader_image.setImageResource(gs.point_leader_player.ProfilePic)
@@ -43,29 +57,22 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_block_leader_name.text = gs.block_leader_player.FullName
 
         guest_point_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", gs.point_leader_player)
-            startActivity(intent)
+            startPlayerActivity(gs.point_leader_player)
         }
         guest_rebounds_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", gs.rebound_leader_player)
-            startActivity(intent)
+            startPlayerActivity(gs.rebound_leader_player)
         }
         guest_assist_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", gs.assist_leader_player)
-            startActivity(intent)
+            startPlayerActivity(gs.assist_leader_player)
         }
         guest_steal_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", gs.steal_leader_player)
-            startActivity(intent)
+            startPlayerActivity(gs.steal_leader_player)
         }
         guest_block_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", gs.block_leader_player)
-            startActivity(intent)
+            startPlayerActivity(gs.block_leader_player)
+        }
+        guest_icon.setOnClickListener {
+            startTeamActivity(game.GuestTeam)
         }
 
         guest_field_goal.text = gs.fieldGoal.toInt().toString() + "/" + gs.fieldGoalAttempt.toInt().toString() + "(" + gs.fieldGoalPercentage.toString()+ "%)"
@@ -109,29 +116,22 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_block_leader_name.text = hs.block_leader_player.FullName
 
         host_point_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", hs.point_leader_player)
-            startActivity(intent)
+            startPlayerActivity(hs.point_leader_player)
         }
         host_rebounds_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", hs.rebound_leader_player)
-            startActivity(intent)
+            startPlayerActivity(hs.rebound_leader_player)
         }
         host_assist_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", hs.assist_leader_player)
-            startActivity(intent)
+            startPlayerActivity(hs.assist_leader_player)
         }
         host_steal_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", hs.steal_leader_player)
-            startActivity(intent)
+            startPlayerActivity(hs.steal_leader_player)
         }
         host_block_leader_image.setOnClickListener {
-            val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", hs.block_leader_player)
-            startActivity(intent)
+            startPlayerActivity(hs.block_leader_player)
+        }
+        host_icon.setOnClickListener {
+            startTeamActivity(game.HostTeam)
         }
 
         host_field_goal.text = hs.fieldGoal.toInt().toString() + "/" + hs.fieldGoalAttempt.toInt().toString() + "(" + hs.fieldGoalPercentage.toString()+ "%)"
