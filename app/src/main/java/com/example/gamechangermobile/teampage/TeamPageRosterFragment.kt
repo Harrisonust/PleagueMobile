@@ -35,8 +35,8 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
 //            adapter = RosterAdapter(team.playerList)
 //        }
 
-        val progressBar: CircularProgressIndicator = view.findViewById(R.id.progress_circular)
-        progressBar.visibility = View.VISIBLE
+//        val progressBar: CircularProgressIndicator = view.findViewById(R.id.progress_circular)
+//        progressBar.visibility = View.VISIBLE
 
 //        Handler(Looper.getMainLooper()).postDelayed({
 //            progressBar.visibility = View.VISIBLE
@@ -77,6 +77,6 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
         )
 
         dynamicTable.visibility = View.VISIBLE
-        progress_circular.visibility = View.INVISIBLE
+//        progress_circular.visibility = View.GONE
     }
 }

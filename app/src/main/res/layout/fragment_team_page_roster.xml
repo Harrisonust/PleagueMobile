@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".teampage.TeamPageRosterFragment">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progress_circular"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/black_gold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/dynamic_table"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <com.google.android.material.progressindicator.CircularProgressIndicator-->
+<!--        android:id="@+id/progress_circular"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:indeterminate="true"-->
+<!--        android:indeterminateTint="@color/black_gold"-->
+<!--        android:visibility="visible"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.example.gamechangermobile.views.DynamicTable
         android:id="@+id/dynamic_table"
@@ -26,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_circular"
+        app:layout_constraintTop_toTopOf="parent"
         app:shadow="50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
