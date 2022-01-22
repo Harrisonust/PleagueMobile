@@ -25,9 +25,9 @@ class GamePageHighlightsFragment(val game: Game) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val highlightsList = listOf<Highlight>(
-            Highlight(Uri.parse("https://www.youtube.com/watch?v=r5D1uwyjrvE")),
-            Highlight(Uri.parse("https://www.youtube.com/watch?v=r5D1uwyjrvE")),
-            Highlight(Uri.parse("https://www.youtube.com/watch?v=r5D1uwyjrvE")),
+            Highlight(Uri.parse("R.raw.videoclip")),
+            Highlight(Uri.parse("R.raw.videoclip")),
+            Highlight(Uri.parse("R.raw.videoclip")),
         )
         highlight_recyclerview.adapter = HighlightAdapter(highlightsList)
         highlight_recyclerview.layoutManager = LinearLayoutManager(context)

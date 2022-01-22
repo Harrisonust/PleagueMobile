@@ -31,7 +31,7 @@ class HighlightAdapter(val highlightList: List<Highlight>):RecyclerView.Adapter<
         val highlight = highlightList[position]
         mediaController.setAnchorView(holder.videoView)
         holder.videoView.setMediaController(mediaController)
-        holder.videoView.setVideoURI(highlight.uri)
+        holder.videoView.setVideoPath("android.resource://com.example.gamechangermobile/"+R.raw.videoclip)
         holder.videoView.start()
     }
 
