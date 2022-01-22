@@ -16,7 +16,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        val game_data = intent.getParcelableExtra<Game>("GAME_DATA")
+        val game_data = intent.getParcelableExtra<Game>("SELECTED_GAME")
         if(game_data != null) {
             game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.ProfilePic)
             game_page_header_host_icon.setImageResource(game_data!!.HostTeam.ProfilePic)
@@ -54,10 +54,10 @@ class GameActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when(position){
-                0 -> GamePageHighlightsFragment()
-                1 -> GamePageHighlightsFragment()
-                2 -> GamePageHighlightsFragment()
-                else -> GamePageHighlightsFragment()
+                0 -> GamePageSummaryFragment(game)
+                1 -> GamePageBoxScoreFragment(game)
+                2 -> GamePageHighlightsFragment(game)
+                else -> GamePagePlaysFragment(game)
             }
         }
     }

@@ -26,7 +26,7 @@ class TeamActivity : AppCompatActivity() {
         }
         team_page_team_location.text = teamData?.Location
         team_page_team_name.text = teamData?.Name
-        team_page_record.text = teamData?.record
+        team_page_record.text = teamData?.total_record
         team_page_team_ranking.text = teamData?.ranking
 
         team_page_team_favorite_btn.setOnClickListener {view ->
@@ -50,8 +50,8 @@ class TeamActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when(position){
-                0 -> TeamPageInfoFragment()
-                1 -> TeamPageScheduleFragment()
+                0 -> TeamPageInfoFragment(team)
+                1 -> TeamPageScheduleFragment(team)
                 else -> TeamPageRosterFragment(team)
             }
         }

@@ -34,7 +34,7 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
             val intent = Intent(view.context, GameActivity::class.java).apply {
-                putExtra("GAME_DATA", gameList[viewHolder.adapterPosition])
+                putExtra("SELECTED_GAME", gameList[viewHolder.adapterPosition])
             }
             view.context.startActivity(intent)
         }
@@ -46,12 +46,12 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
         holder.hostScore.text = game.HostStats.points.toInt().toString()
         holder.hostImg.setImageResource(game.HostTeam.ProfilePic)
         holder.hostName.text = game.HostTeam.Name
-        holder.hostRecord.text = game.HostTeam.record
+        holder.hostRecord.text = game.HostTeam.total_record
 
         holder.guestScore.text = game.GuestStats.points.toInt().toString()
         holder.guestImg.setImageResource(game.GuestTeam.ProfilePic)
         holder.guestName.text = game.GuestTeam.Name
-        holder.guestRecord.text = game.GuestTeam.record
+        holder.guestRecord.text = game.GuestTeam.total_record
 
         if (game.status == GameStatus.INGAME) {
             holder.remainingTime.text = game.remaining_time
