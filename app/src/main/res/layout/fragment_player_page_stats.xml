@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".playerpage.PlayerPageStatsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.github.mikephil.charting.charts.RadarChart
+        android:id="@+id/radarchart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="player stats frag" />
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>

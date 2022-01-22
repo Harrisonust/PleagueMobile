@@ -10,9 +10,6 @@ import android.view.ViewGroup
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Game
 import kotlinx.android.synthetic.main.fragment_game_page_summary.*
-import kotlinx.android.synthetic.main.fragment_team_page_info.*
-import android.view.ViewTreeObserver
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.Team
