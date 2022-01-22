@@ -43,7 +43,17 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
 //        }, 3000)
 //        progressBar.visibility = View.GONE
 
-        val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
+//        val dynamicTable = activity?.let { DynamicTable(it, null) }
+//        val handler = Handler {
+//            if (it.what == 1) {
+//
+//            }
+//            true
+//        }
+//
+//        Thread {
+//
+//        }.start()
         
         return view
     }
