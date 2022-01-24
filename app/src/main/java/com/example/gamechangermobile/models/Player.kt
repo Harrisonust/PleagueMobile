@@ -1,7 +1,6 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
-import android.util.Log
 import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
 
