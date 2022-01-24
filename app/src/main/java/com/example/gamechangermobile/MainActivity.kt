@@ -63,9 +63,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var chih_chieh_lin =
             Player(
-                FirstName = "chih-chieh",
-                LastName = "Lin",
-                ProfilePic = R.drawable.braves_chih_chieh_lin,
+                firstName = "chih-chieh",
+                lastName = "Lin",
+                profilePic = R.drawable.braves_chih_chieh_lin,
                 stats =
                 mapOf(
                     Date(2001, 10, 2)
@@ -81,9 +81,9 @@ class MainActivity : AppCompatActivity() {
             )
         var hsiang_chun_tseng =
             Player(
-                FirstName = "Hsiang-chun",
-                LastName = "Tseng",
-                ProfilePic = R.drawable.braves_hsiang_chun_tseng,
+                firstName = "Hsiang-chun",
+                lastName = "Tseng",
+                profilePic = R.drawable.braves_hsiang_chun_tseng,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -100,9 +100,9 @@ class MainActivity : AppCompatActivity() {
             )
         var michael_sigletary =
             Player(
-                FirstName = "Michael",
-                LastName = "Singletary",
-                ProfilePic = R.drawable.braves_michael_singletary,
+                firstName = "Michael",
+                lastName = "Singletary",
+                profilePic = R.drawable.braves_michael_singletary,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -119,9 +119,9 @@ class MainActivity : AppCompatActivity() {
             )
         var shu_wei_lin =
             Player(
-                FirstName = "Shu_wei",
-                LastName = "Lin",
-                ProfilePic = R.drawable.braves_shu_wei_lin,
+                firstName = "Shu_wei",
+                lastName = "Lin",
+                profilePic = R.drawable.braves_shu_wei_lin,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -139,9 +139,9 @@ class MainActivity : AppCompatActivity() {
 
         var q_davis =
             Player(
-                FirstName = "Q",
-                LastName = "Davis",
-                ProfilePic = R.drawable.kings_q_davis,
+                firstName = "Q",
+                lastName = "Davis",
+                profilePic = R.drawable.kings_q_davis,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -157,9 +157,9 @@ class MainActivity : AppCompatActivity() {
             )
         var thomas_welsh =
             Player(
-                FirstName = "Thomas",
-                LastName = "Welsh",
-                ProfilePic = R.drawable.kings_thomas_welsh,
+                firstName = "Thomas",
+                lastName = "Welsh",
+                profilePic = R.drawable.kings_thomas_welsh,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -176,9 +176,9 @@ class MainActivity : AppCompatActivity() {
             )
         var chun_nan_chen =
             Player(
-                FirstName = "Chun-nan",
-                LastName = "Chen",
-                ProfilePic = R.drawable.kings_chun_nan_chen,
+                firstName = "Chun-nan",
+                lastName = "Chen",
+                profilePic = R.drawable.kings_chun_nan_chen,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -195,9 +195,9 @@ class MainActivity : AppCompatActivity() {
             )
         var hsing_chih_yang =
             Player(
-                FirstName = "Hsing-chih",
-                LastName = "Yang",
-                ProfilePic = R.drawable.kings_hsing_chih_yang,
+                firstName = "Hsing-chih",
+                lastName = "Yang",
+                profilePic = R.drawable.kings_hsing_chih_yang,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -215,9 +215,9 @@ class MainActivity : AppCompatActivity() {
 
         var d_roboson =
             Player(
-                FirstName = "Devin",
-                LastName = "Roboson",
-                ProfilePic = R.drawable.pilots_devin_robinson,
+                firstName = "Devin",
+                lastName = "Roboson",
+                profilePic = R.drawable.pilots_devin_robinson,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -234,9 +234,9 @@ class MainActivity : AppCompatActivity() {
             )
         var chuh_hsiang_lu =
             Player(
-                FirstName = "Chun-hsiang",
-                LastName = "Lu",
-                ProfilePic = R.drawable.pilots_chun_hsiang_lu,
+                firstName = "Chun-hsiang",
+                lastName = "Lu",
+                profilePic = R.drawable.pilots_chun_hsiang_lu,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -252,9 +252,9 @@ class MainActivity : AppCompatActivity() {
             )
         var jordan_tolbert =
             Player(
-                FirstName = "Chun-nan",
-                LastName = "Chen",
-                ProfilePic = R.drawable.pilots_jordan_tolbert,
+                firstName = "Chun-nan",
+                lastName = "Chen",
+                profilePic = R.drawable.pilots_jordan_tolbert,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -271,9 +271,9 @@ class MainActivity : AppCompatActivity() {
             )
         var chih_yao_shih =
             Player(
-                FirstName = "Chin-Yao",
-                LastName = "Shih",
-                ProfilePic = R.drawable.pilots_chin_yao_shih,
+                firstName = "Chin-Yao",
+                lastName = "Shih",
+                profilePic = R.drawable.pilots_chin_yao_shih,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -291,9 +291,9 @@ class MainActivity : AppCompatActivity() {
 
         var kuo_hao_kao =
             Player(
-                FirstName = "Oscar",
-                LastName = "Kao",
-                ProfilePic = R.drawable.lioneers_kuo_hao_kao,
+                firstName = "Oscar",
+                lastName = "Kao",
+                profilePic = R.drawable.lioneers_kuo_hao_kao,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -309,9 +309,9 @@ class MainActivity : AppCompatActivity() {
             )
         var nick_faust =
             Player(
-                FirstName = "Nicholas",
-                LastName = "Faust",
-                ProfilePic = R.drawable.lioneers_nicholas_faust,
+                firstName = "Nicholas",
+                lastName = "Faust",
+                profilePic = R.drawable.lioneers_nicholas_faust,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -328,9 +328,9 @@ class MainActivity : AppCompatActivity() {
             )
         var b_dawson =
             Player(
-                FirstName = "Branden",
-                LastName = "Dawson",
-                ProfilePic = R.drawable.lioneers_branden_dawson,
+                firstName = "Branden",
+                lastName = "Dawson",
+                profilePic = R.drawable.lioneers_branden_dawson,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -346,9 +346,9 @@ class MainActivity : AppCompatActivity() {
             )
         var even_lee =
             Player(
-                FirstName = "Chia-jul",
-                LastName = "Lee",
-                ProfilePic = R.drawable.lioneers_chia_jul_lee,
+                firstName = "Chia-jul",
+                lastName = "Lee",
+                profilePic = R.drawable.lioneers_chia_jul_lee,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -365,9 +365,9 @@ class MainActivity : AppCompatActivity() {
             )
         var ming_yi =
             Player(
-                FirstName = "Ming-yi",
-                LastName = "Lin",
-                ProfilePic = R.drawable.lioneers_ming_yi_lin,
+                firstName = "Ming-yi",
+                lastName = "Lin",
+                profilePic = R.drawable.lioneers_ming_yi_lin,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -384,9 +384,9 @@ class MainActivity : AppCompatActivity() {
             )
         var bhullar =
             Player(
-                FirstName = "Singh",
-                LastName = "Bhullar",
-                ProfilePic = R.drawable.lioneers_simbhullar,
+                firstName = "Singh",
+                lastName = "Bhullar",
+                profilePic = R.drawable.lioneers_simbhullar,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -403,9 +403,9 @@ class MainActivity : AppCompatActivity() {
             )
         var yi_huei =
             Player(
-                FirstName = "Yi-huei",
-                LastName = "Lin",
-                ProfilePic = R.drawable.lioneers_yi_huei_lin,
+                firstName = "Yi-huei",
+                lastName = "Lin",
+                profilePic = R.drawable.lioneers_yi_huei_lin,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -422,9 +422,9 @@ class MainActivity : AppCompatActivity() {
             )
         var leon_sung =
             Player(
-                FirstName = "Yu-hsuan",
-                LastName = "Sung",
-                ProfilePic = R.drawable.lioneers_yu_hsuan_sung,
+                firstName = "Yu-hsuan",
+                lastName = "Sung",
+                profilePic = R.drawable.lioneers_yu_hsuan_sung,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -441,9 +441,9 @@ class MainActivity : AppCompatActivity() {
             )
         var elliot =
             Player(
-                FirstName = "Elliot",
-                LastName = "Tan",
-                ProfilePic = R.drawable.lioneers_elliot_tan,
+                firstName = "Elliot",
+                lastName = "Tan",
+                profilePic = R.drawable.lioneers_elliot_tan,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -460,9 +460,9 @@ class MainActivity : AppCompatActivity() {
             )
         var yun_hao =
             Player(
-                FirstName = "Yun-hao",
-                LastName = "Chu",
-                ProfilePic = R.drawable.lioneers_yun_hao_chu,
+                firstName = "Yun-hao",
+                lastName = "Chu",
+                profilePic = R.drawable.lioneers_yun_hao_chu,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -478,9 +478,9 @@ class MainActivity : AppCompatActivity() {
             )
         var hao_tien =
             Player(
-                FirstName = "Hao",
-                LastName = "Tien",
-                ProfilePic = R.drawable.lioneers_hao_tien,
+                firstName = "Hao",
+                lastName = "Tien",
+                profilePic = R.drawable.lioneers_hao_tien,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -497,9 +497,9 @@ class MainActivity : AppCompatActivity() {
             )
         var shun_yi =
             Player(
-                FirstName = "Shun-yi",
-                LastName = "Hsiao",
-                ProfilePic = R.drawable.lioneers_shun_yi_hsiao,
+                firstName = "Shun-yi",
+                lastName = "Hsiao",
+                profilePic = R.drawable.lioneers_shun_yi_hsiao,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -516,9 +516,9 @@ class MainActivity : AppCompatActivity() {
             )
         var shao_chieh =
             Player(
-                FirstName = "Shao-chieh",
-                LastName = "Kuo",
-                ProfilePic = R.drawable.lioneers_shao_chieh_kuo,
+                firstName = "Shao-chieh",
+                lastName = "Kuo",
+                profilePic = R.drawable.lioneers_shao_chieh_kuo,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -535,9 +535,9 @@ class MainActivity : AppCompatActivity() {
             )
         var tai_hao =
             Player(
-                FirstName = "Tai-hao",
-                LastName = "Wu",
-                ProfilePic = R.drawable.lioneers_tai_hao_wu,
+                firstName = "Tai-hao",
+                lastName = "Wu",
+                profilePic = R.drawable.lioneers_tai_hao_wu,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -555,9 +555,9 @@ class MainActivity : AppCompatActivity() {
 
         var calvin_chieng =
             Player(
-                FirstName = "Li-Huan",
-                LastName = "Chieng",
-                ProfilePic = R.drawable.dreamers_li_huan_chieng,
+                firstName = "Li-Huan",
+                lastName = "Chieng",
+                profilePic = R.drawable.dreamers_li_huan_chieng,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -574,9 +574,9 @@ class MainActivity : AppCompatActivity() {
             )
         var chun_chi_lin =
             Player(
-                FirstName = "Chun-chi",
-                LastName = "Lin",
-                ProfilePic = R.drawable.dreamers_chun_chi_lin,
+                firstName = "Chun-chi",
+                lastName = "Lin",
+                profilePic = R.drawable.dreamers_chun_chi_lin,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -593,9 +593,9 @@ class MainActivity : AppCompatActivity() {
             )
         var derek_Lee =
             Player(
-                FirstName = "Te-wei",
-                LastName = "Lee",
-                ProfilePic = R.drawable.dreamers_te_wei_lee,
+                firstName = "Te-wei",
+                lastName = "Lee",
+                profilePic = R.drawable.dreamers_te_wei_lee,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -612,9 +612,9 @@ class MainActivity : AppCompatActivity() {
             )
         var kenneth =
             Player(
-                FirstName = "Kenneth",
-                LastName = "Chen",
-                ProfilePic = R.drawable.dreamers_kenneth_chen,
+                firstName = "Kenneth",
+                lastName = "Chen",
+                profilePic = R.drawable.dreamers_kenneth_chen,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -632,9 +632,9 @@ class MainActivity : AppCompatActivity() {
 
         var jerry_chen =
             Player(
-                FirstName = "Yu-wei",
-                LastName = "Chen",
-                ProfilePic = R.drawable.steelers_yu_wei_chen,
+                firstName = "Yu-wei",
+                lastName = "Chen",
+                profilePic = R.drawable.steelers_yu_wei_chen,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -651,9 +651,9 @@ class MainActivity : AppCompatActivity() {
             )
         var tucker =
             Player(
-                FirstName = "Anthony",
-                LastName = "Tucker",
-                ProfilePic = R.drawable.steelers_anthony_tucker,
+                firstName = "Anthony",
+                lastName = "Tucker",
+                profilePic = R.drawable.steelers_anthony_tucker,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -670,9 +670,9 @@ class MainActivity : AppCompatActivity() {
             )
         var cheng_ju_lu =
             Player(
-                FirstName = "Cheng-ju",
-                LastName = "Lu",
-                ProfilePic = R.drawable.steelers_cheng_ju_lu,
+                firstName = "Cheng-ju",
+                lastName = "Lu",
+                profilePic = R.drawable.steelers_cheng_ju_lu,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -689,9 +689,9 @@ class MainActivity : AppCompatActivity() {
             )
         var po_chih_wang =
             Player(
-                FirstName = "Po-chih",
-                LastName = "Wang",
-                ProfilePic = R.drawable.steelers_po_chih_wang,
+                firstName = "Po-chih",
+                lastName = "Wang",
+                profilePic = R.drawable.steelers_po_chih_wang,
                 stats =
                 mapOf(
                     Date(2021, 1, 2)
@@ -709,14 +709,14 @@ class MainActivity : AppCompatActivity() {
 
         var Braves =
             Team(
-                Name = "Braves",
-                Location = "Taipei",
-                ProfilePic = R.drawable.braves,
-                total_record = "5 - 5",
-                home_record = "4 - 1",
-                away_record = "1 - 4",
+                name = "Braves",
+                location = "Taipei",
+                profilePic = R.drawable.braves,
+                totalRecord = "5 - 5",
+                homeRecord = "4 - 1",
+                awayRecord = "1 - 4",
                 ranking = "4th",
-                founding_date = "2001",
+                foundingDate = Date(2001, 1,1),
                 arena = "Hoping",
                 last10 = "5 - 5",
                 streak = "W3",
@@ -730,14 +730,14 @@ class MainActivity : AppCompatActivity() {
             )
         var Kings =
             Team(
-                Name = "Kings",
-                Location = "New Taipei",
-                ProfilePic = R.drawable.kings,
-                total_record = "5 - 4",
-                home_record = "5 - 0",
-                away_record = "1 - 4",
+                name = "Kings",
+                location = "New Taipei",
+                profilePic = R.drawable.kings,
+                totalRecord = "5 - 4",
+                homeRecord = "5 - 0",
+                awayRecord = "1 - 4",
                 ranking = "3rd",
-                founding_date = "2021",
+                foundingDate = Date(2021, 1, 1),
                 arena = "HsinChung",
                 last10 = "5 - 5",
                 streak = "W3",
@@ -751,14 +751,14 @@ class MainActivity : AppCompatActivity() {
             )
         var Pilots =
             Team(
-                Name = "Pilots",
-                Location = "Taoyuan",
-                ProfilePic = R.drawable.pilots,
-                total_record = "3 - 4",
-                home_record = "2 - 2",
-                away_record = "1 - 2",
+                name = "Pilots",
+                location = "Taoyuan",
+                profilePic = R.drawable.pilots,
+                totalRecord = "3 - 4",
+                homeRecord = "2 - 2",
+                awayRecord = "1 - 2",
                 ranking = "5th",
-                founding_date = "1999",
+                foundingDate = Date(1999, 1, 1),
                 arena = "Taoyuan",
                 last10 = "5 - 5",
                 streak = "W3",
@@ -772,14 +772,14 @@ class MainActivity : AppCompatActivity() {
             )
         var Lioneers =
             Team(
-                Name = "Lioneers",
-                Location = "Hsinchu",
-                ProfilePic = R.drawable.lioneers,
-                total_record = "5 - 4",
-                home_record = "2 - 2",
-                away_record = "3 - 2",
+                name = "Lioneers",
+                location = "Hsinchu",
+                profilePic = R.drawable.lioneers,
+                totalRecord = "5 - 4",
+                homeRecord = "2 - 2",
+                awayRecord = "3 - 2",
                 ranking = "2nd",
-                founding_date = "2020",
+                foundingDate = Date(2020, 1, 1),
                 arena = "ChuPei",
                 last10 = "5 - 5",
                 streak = "W3",
@@ -804,14 +804,14 @@ class MainActivity : AppCompatActivity() {
 
         var Dreamers =
             Team(
-                Name = "Dreamers",
-                Location = "Changhua",
-                ProfilePic = R.drawable.dreamers,
-                total_record = "5 - 3",
-                home_record = "4 - 1",
-                away_record = "1 - 2",
+                name = "Dreamers",
+                location = "Changhua",
+                profilePic = R.drawable.dreamers,
+                totalRecord = "5 - 3",
+                homeRecord = "4 - 1",
+                awayRecord = "1 - 2",
                 ranking = "1st",
-                founding_date = "2005",
+                foundingDate = Date(2005, 1, 1),
                 arena = "ChungHau",
                 last10 = "5 - 5",
                 streak = "L3",
@@ -825,14 +825,14 @@ class MainActivity : AppCompatActivity() {
             )
         var Steelers =
             Team(
-                Name = "Steelers",
-                Location = "Kaoshung",
-                ProfilePic = R.drawable.steelers,
-                total_record = "2 - 5",
-                home_record = "1 - 1",
-                away_record = "1 - 4",
+                name = "Steelers",
+                location = "Kaoshung",
+                profilePic = R.drawable.steelers,
+                totalRecord = "2 - 5",
+                homeRecord = "1 - 1",
+                awayRecord = "1 - 4",
                 ranking = "6th",
-                founding_date = "2021",
+                foundingDate = Date(2021, 1, 1),
                 arena = "KH",
                 last10 = "5 - 5",
                 streak = "L3",

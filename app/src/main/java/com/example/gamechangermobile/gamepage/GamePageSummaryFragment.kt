@@ -2,7 +2,6 @@ package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,31 +41,31 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         val gs = game.GuestStats
 
-        guest_point_leader_image.setImageResource(gs.point_leader_player.ProfilePic)
-        guest_point_leader_name.text = gs.point_leader_player.FullName
-        guest_rebounds_leader_image.setImageResource(gs.rebound_leader_player.ProfilePic)
-        guest_rebounds_leader_name.text = gs.rebound_leader_player.FullName
-        guest_assist_leader_image.setImageResource(gs.assist_leader_player.ProfilePic)
-        guest_assist_leader_name.text = gs.assist_leader_player.FullName
-        guest_steal_leader_image.setImageResource(gs.steal_leader_player.ProfilePic)
-        guest_steal_leader_name.text = gs.steal_leader_player.FullName
-        guest_block_leader_image.setImageResource(gs.block_leader_player.ProfilePic)
-        guest_block_leader_name.text = gs.block_leader_player.FullName
+        guest_point_leader_image.setImageResource(game.guestPointLeader.profilePic)
+        guest_point_leader_name.text = game.guestPointLeader.fullName
+        guest_rebounds_leader_image.setImageResource(game.guestReboundLeader.profilePic)
+        guest_rebounds_leader_name.text = game.guestReboundLeader.fullName
+        guest_assist_leader_image.setImageResource(game.guestAssistLeader.profilePic)
+        guest_assist_leader_name.text = game.guestAssistLeader.fullName
+        guest_steal_leader_image.setImageResource(game.guestStealLeader.profilePic)
+        guest_steal_leader_name.text = game.guestStealLeader.fullName
+        guest_block_leader_image.setImageResource(game.guestBlockLeader.profilePic)
+        guest_block_leader_name.text = game.guestBlockLeader.fullName
 
         guest_point_leader_image.setOnClickListener {
-            startPlayerActivity(gs.point_leader_player)
+            startPlayerActivity(game.guestPointLeader)
         }
         guest_rebounds_leader_image.setOnClickListener {
-            startPlayerActivity(gs.rebound_leader_player)
+            startPlayerActivity(game.guestReboundLeader)
         }
         guest_assist_leader_image.setOnClickListener {
-            startPlayerActivity(gs.assist_leader_player)
+            startPlayerActivity(game.guestAssistLeader)
         }
         guest_steal_leader_image.setOnClickListener {
-            startPlayerActivity(gs.steal_leader_player)
+            startPlayerActivity(game.guestStealLeader)
         }
         guest_block_leader_image.setOnClickListener {
-            startPlayerActivity(gs.block_leader_player)
+            startPlayerActivity(game.guestBlockLeader)
         }
         guest_icon.setOnClickListener {
             startTeamActivity(game.GuestTeam)
@@ -74,7 +73,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         guest_field_goal.text = gs.fieldGoal.toInt().toString() + "/" + gs.fieldGoalAttempt.toInt().toString() + "(" + gs.fieldGoalPercentage.toString()+ "%)"
 //        guest_field_goal_bar.layoutParams.width = 50
-        guest_3_pointer.text = gs.fieldGoal_3pt.toInt().toString() + "/" + gs.fieldGoalAttempt_3pt.toInt().toString() + "(" + gs.fieldGoalPercentage_3pt.toString()+ "%)"
+        guest_3_pointer.text = gs.fieldGoal3pt.toInt().toString() + "/" + gs.fieldGoalAttempt3pt.toInt().toString() + "(" + gs.fieldGoalPercentage3pt.toString()+ "%)"
 //        guest_3_pointer_bar.layoutParams.width = 10
         guest_free_throw.text = gs.freeThrow.toInt().toString() + "/" + gs.freeThrowAttempt.toInt().toString() + "(" + gs.freeThrowAttemptPercentage.toString()+ "%)"
 //        guest_fouls_bar.layoutParams.width =
@@ -82,9 +81,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 //        guest_assist_bar.layoutParams.width =
         guest_total_rebound.text = gs.rebounds.toInt().toString()
 //        guest_total_rebound_bar.layoutParams.width = 10
-        guest_offensive_rebound.text = gs.offensive_rebounds.toInt().toString()
+        guest_offensive_rebound.text = gs.offensiveRebounds.toInt().toString()
 //        guest_offensive_rebound_bar.layoutParams.width
-        guest_defensive_rebound.text = gs.defensive_rebounds.toInt().toString()
+        guest_defensive_rebound.text = gs.defensiveRebounds.toInt().toString()
 //        guest_defensive_rebound_bar.layoutParams.width =
         guest_steal.text = gs.steals.toInt().toString()
 //        guest_steal_bar.layoutParams.width =
@@ -92,40 +91,40 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 //        guest_steal_bar.layoutParams.width =
         guest_turnover.text = gs.turnovers.toInt().toString()
 //        guest_turnover_bar.layoutParams.width =
-        guest_points_off_turnovers.text = gs.points_off_turnovers.toInt().toString()
+        guest_points_off_turnovers.text = gs.pointsOffTurnovers.toInt().toString()
 //        guest_points_off_turnovers_bar.layoutParams.width =
         guest_fouls.text = gs.fouls.toInt().toString()
 //        guest_fouls_bar.layoutParams.width =
-        guest_timeouts_remaining.text = gs.timeout_remaining.toString()
+        guest_timeouts_remaining.text = gs.timeoutRemaining.toString()
 
 
         val hs = game.HostStats
 
-        host_point_leader_image.setImageResource(hs.point_leader_player.ProfilePic)
-        host_point_leader_name.text = hs.point_leader_player.FullName
-        host_rebounds_leader_image.setImageResource(hs.rebound_leader_player.ProfilePic)
-        host_rebounds_leader_name.text = hs.rebound_leader_player.FullName
-        host_assist_leader_image.setImageResource(hs.assist_leader_player.ProfilePic)
-        host_assist_leader_name.text = hs.assist_leader_player.FullName
-        host_steal_leader_image.setImageResource(hs.steal_leader_player.ProfilePic)
-        host_steal_leader_name.text = hs.steal_leader_player.FullName
-        host_block_leader_image.setImageResource(hs.block_leader_player.ProfilePic)
-        host_block_leader_name.text = hs.block_leader_player.FullName
+        host_point_leader_image.setImageResource(game.hostPointLeader.profilePic)
+        host_point_leader_name.text = game.hostPointLeader.fullName
+        host_rebounds_leader_image.setImageResource(game.hostReboundLeader.profilePic)
+        host_rebounds_leader_name.text = game.hostReboundLeader.fullName
+        host_assist_leader_image.setImageResource(game.hostAssistLeader.profilePic)
+        host_assist_leader_name.text = game.hostAssistLeader.fullName
+        host_steal_leader_image.setImageResource(game.hostStealLeader.profilePic)
+        host_steal_leader_name.text = game.hostStealLeader.fullName
+        host_block_leader_image.setImageResource(game.hostBlockLeader.profilePic)
+        host_block_leader_name.text = game.hostBlockLeader.fullName
 
         host_point_leader_image.setOnClickListener {
-            startPlayerActivity(hs.point_leader_player)
+            startPlayerActivity(game.hostPointLeader)
         }
         host_rebounds_leader_image.setOnClickListener {
-            startPlayerActivity(hs.rebound_leader_player)
+            startPlayerActivity(game.hostReboundLeader)
         }
         host_assist_leader_image.setOnClickListener {
-            startPlayerActivity(hs.assist_leader_player)
+            startPlayerActivity(game.hostAssistLeader)
         }
         host_steal_leader_image.setOnClickListener {
-            startPlayerActivity(hs.steal_leader_player)
+            startPlayerActivity(game.hostStealLeader)
         }
         host_block_leader_image.setOnClickListener {
-            startPlayerActivity(hs.block_leader_player)
+            startPlayerActivity(game.hostBlockLeader)
         }
         host_icon.setOnClickListener {
             startTeamActivity(game.HostTeam)
@@ -133,7 +132,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         host_field_goal.text = hs.fieldGoal.toInt().toString() + "/" + hs.fieldGoalAttempt.toInt().toString() + "(" + hs.fieldGoalPercentage.toString()+ "%)"
 //        host_field_goal_bar.layoutParams.width = 50
-        host_3_pointer.text = hs.fieldGoal_3pt.toInt().toString() + "/" + hs.fieldGoalAttempt_3pt.toInt().toString() + "(" + hs.fieldGoalPercentage_3pt.toString()+ "%)"
+        host_3_pointer.text = hs.fieldGoal3pt.toInt().toString() + "/" + hs.fieldGoalAttempt3pt.toInt().toString() + "(" + hs.fieldGoalPercentage3pt.toString()+ "%)"
 //        host_3_pointer_bar.layoutParams.width = 10
         host_free_throw.text = hs.freeThrow.toInt().toString() + "/" + hs.freeThrowAttempt.toInt().toString() + "(" + hs.freeThrowAttemptPercentage.toString()+ "%)"
 //        host_fouls_bar.layoutParams.width =
@@ -141,9 +140,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 //        host_assist_bar.layoutParams.width =
         host_total_rebound.text = hs.rebounds.toInt().toString()
 //        host_total_rebound_bar.layoutParams.width = 10
-        host_offensive_rebound.text = hs.offensive_rebounds.toInt().toString()
+        host_offensive_rebound.text = hs.offensiveRebounds.toInt().toString()
 //        host_offensive_rebound_bar.layoutParams.width
-        host_defensive_rebound.text = hs.defensive_rebounds.toInt().toString()
+        host_defensive_rebound.text = hs.defensiveRebounds.toInt().toString()
 //        host_defensive_rebound_bar.layoutParams.width =
         host_steal.text = hs.steals.toInt().toString()
 //        host_steal_bar.layoutParams.width =
@@ -151,10 +150,10 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 //        host_steal_bar.layoutParams.width =
         host_turnover.text = hs.turnovers.toInt().toString()
 //        host_turnover_bar.layoutParams.width =
-        host_points_off_turnovers.text = hs.points_off_turnovers.toInt().toString()
+        host_points_off_turnovers.text = hs.pointsOffTurnovers.toInt().toString()
 //        host_points_off_turnovers_bar.layoutParams.width =
         host_fouls.text = hs.fouls.toInt().toString()
 //        host_fouls_bar.layoutParams.width =
-        host_timeouts_remaining.text = hs.timeout_remaining.toString()
+        host_timeouts_remaining.text = hs.timeoutRemaining.toString()
     }
 }

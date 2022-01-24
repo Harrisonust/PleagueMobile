@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.models.Game
+import java.text.SimpleDateFormat
 
 class ScheduleAdapter(val gameScheduleList: List<Game>) :
         RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
@@ -68,10 +68,10 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val game = gameScheduleList[position]
-        holder.day.text = game.day
-        holder.date.text = game.date
-        holder.opponent_name.text = game.GuestTeam.Name
-        holder.opponent_image.setImageResource(game.GuestTeam.ProfilePic)
+        holder.day.text = SimpleDateFormat("EE").format(game.date)
+        holder.date.text = SimpleDateFormat("MM/dd").format(game.date)
+        holder.opponent_name.text = game.GuestTeam.name
+        holder.opponent_image.setImageResource(game.GuestTeam.profilePic)
         holder.win_lose.text = "W"
         holder.score.text =
                 game.GuestStats.points.toInt().toString() +

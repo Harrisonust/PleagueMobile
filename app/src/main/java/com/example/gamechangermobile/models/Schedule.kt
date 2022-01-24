@@ -1,7 +1,8 @@
 package com.example.gamechangermobile.models
 
-class Schedule(val day: String,
-               val date: String,
+import java.util.*
+
+class Schedule(val date: Date,
                val opponentTeam: Team,
                val game: Game
                ) {

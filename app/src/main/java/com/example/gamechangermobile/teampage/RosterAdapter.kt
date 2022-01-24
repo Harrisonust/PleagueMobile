@@ -41,9 +41,9 @@ class RosterAdapter(val playerList: List<Player>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val player = playerList[position]
-        holder.roster_item_image.setImageResource(player.ProfilePic)
+        holder.roster_item_image.setImageResource(player.profilePic)
         holder.roster_item_name.text =
-                player.FirstName + " " + player.LastName
+                player.firstName + " " + player.lastName
         holder.roster_item_number.text = "#" + player.number
         holder.roster_item_position.text = player.position
     }

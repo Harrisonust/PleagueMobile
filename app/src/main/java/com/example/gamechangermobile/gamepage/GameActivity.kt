@@ -18,11 +18,11 @@ class GameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game)
         val game_data = intent.getParcelableExtra<Game>("SELECTED_GAME")
         if(game_data != null) {
-            game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.ProfilePic)
-            game_page_header_host_icon.setImageResource(game_data!!.HostTeam.ProfilePic)
+            game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.profilePic)
+            game_page_header_host_icon.setImageResource(game_data!!.HostTeam.profilePic)
             game_page_header_guest_score.text = game_data!!.GuestStats.points.toInt().toString()
             game_page_header_host_score.text = game_data!!.HostStats.points.toInt().toString()
-            game_page_header_time.text = game_data!!.remaining_time
+            game_page_header_time.text = game_data!!.remainingTime
         }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))

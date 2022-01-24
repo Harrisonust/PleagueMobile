@@ -11,6 +11,7 @@ import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.GameStatus
+import java.text.SimpleDateFormat
 
 class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.ViewHolder>() {
 
@@ -44,20 +45,20 @@ class GameAdapter(val gameList: List<Game>): RecyclerView.Adapter<GameAdapter.Vi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val game = gameList[position]
         holder.hostScore.text = game.HostStats.points.toInt().toString()
-        holder.hostImg.setImageResource(game.HostTeam.ProfilePic)
-        holder.hostName.text = game.HostTeam.Name
-        holder.hostRecord.text = game.HostTeam.total_record
+        holder.hostImg.setImageResource(game.HostTeam.profilePic)
+        holder.hostName.text = game.HostTeam.name
+        holder.hostRecord.text = game.HostTeam.totalRecord
 
         holder.guestScore.text = game.GuestStats.points.toInt().toString()
-        holder.guestImg.setImageResource(game.GuestTeam.ProfilePic)
-        holder.guestName.text = game.GuestTeam.Name
-        holder.guestRecord.text = game.GuestTeam.total_record
+        holder.guestImg.setImageResource(game.GuestTeam.profilePic)
+        holder.guestName.text = game.GuestTeam.name
+        holder.guestRecord.text = game.GuestTeam.totalRecord
 
         if (game.status == GameStatus.INGAME) {
-            holder.remainingTime.text = game.remaining_time
+            holder.remainingTime.text = game.remainingTime
             holder.quarter.text = game.quarter
         } else if(game.status == GameStatus.NOT_YET_START){
-            holder.remainingTime.text = game.starting_time
+            holder.remainingTime.text = SimpleDateFormat("HH:mm").format(game.startingTime)
             holder.quarter.text = ""
         }else{
             holder.remainingTime.text = "END"

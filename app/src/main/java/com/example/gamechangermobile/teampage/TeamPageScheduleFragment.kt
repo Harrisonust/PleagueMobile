@@ -17,6 +17,7 @@ import com.example.gamechangermobile.models.GameStats
 import com.example.gamechangermobile.models.GameStatus
 import com.example.gamechangermobile.models.Team
 import kotlinx.android.synthetic.main.fragment_team_page_schedule.*
+import java.util.*
 
 
 class TeamPageScheduleFragment(team: Team) : Fragment() {
@@ -32,30 +33,30 @@ class TeamPageScheduleFragment(team: Team) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val games: List<Game> = listOf(
-            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), GameStatus.END, day = "Sat", date = "10/20"),
-            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), GameStatus.END, day = "Sun", date = "10/21"),
-            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), GameStatus.NOT_YET_START, day = "Sat", date = "10/27"),
+            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), status = GameStatus.END, date = Date(2021, 1, 2)),
+            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), status = GameStatus.NOT_YET_START, date = Date(2021,1,2)),
 
-            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), GameStatus.END, day = "Sat", date = "10/20"),
-            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), GameStatus.END, day = "Sun", date = "10/21"),
-            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), GameStatus.NOT_YET_START, day = "Sat", date = "10/27"),
+            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), status = GameStatus.NOT_YET_START, date = Date(2021,1,2)),
 
-            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), GameStatus.END, day = "Sat", date = "10/20"),
-            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), GameStatus.END, day = "Sun", date = "10/21"),
-            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), GameStatus.NOT_YET_START, day = "Sat", date = "10/27"),
+            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), status = GameStatus.NOT_YET_START, date = Date(2021,1,2)),
 
-            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), GameStatus.END, day = "Sat", date = "10/20"),
-            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), GameStatus.END, day = "Sun", date = "10/21"),
-            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), GameStatus.NOT_YET_START, day = "Sat", date = "10/27"),
+            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), status = GameStatus.NOT_YET_START, date = Date(2021,1,2)),
 
 
-            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), GameStatus.END, day = "Sat", date = "10/20"),
-            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), GameStatus.END, day = "Sun", date = "10/21"),
-            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), GameStatus.NOT_YET_START, day = "Sat", date = "10/27"),
+            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), status = GameStatus.NOT_YET_START, date = Date(2021,1,2)),
 
-            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), GameStatus.END, day = "Sat", date = "10/20"),
-            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), GameStatus.END, day = "Sun", date = "10/21"),
-            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), GameStatus.NOT_YET_START, day = "Sat", date = "10/27"),
+            Game(Braves, Lioneers, GameStats(109F), GameStats(120F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Steelers, Lioneers, GameStats(99F), GameStats(89F), status = GameStatus.END, date = Date(2021,1,2)),
+            Game(Kings, Lioneers, GameStats(0F), GameStats(0F), status = GameStatus.NOT_YET_START, date = Date(2021,1,2)),
         )
 
         schedule_recycler.adapter = ScheduleAdapter(games)
