@@ -1,6 +1,7 @@
 package com.example.gamechangermobile.playerpage
 
 import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.example.gamechangermobile.teampage.TeamPageScheduleFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_team.*
+import java.util.*
 
 
 class PlayerActivity : AppCompatActivity() {
@@ -30,9 +32,9 @@ class PlayerActivity : AppCompatActivity() {
         player_page_player_team.text = playerData?.team.Name
         player_page_player_number.text = "#" + playerData?.number.toString()
         player_page_player_position.text = playerData?.position
-        player_page_player_pts.text = playerData?.stats.points.toString()
-        player_page_player_reb.text = playerData?.stats.rebounds.toString()
-        player_page_player_ast.text = playerData?.stats.assists.toString()
+        player_page_player_pts.text = playerData.getStats(Date(2021,1,2),"points").toString()
+        player_page_player_reb.text = playerData.getStats(Date(2021,1,2),"rebounds").toString()
+        player_page_player_ast.text = playerData.getStats(Date(2021,1,2),"assists").toString()
 
         player_page_player_favorite_btn.setOnClickListener {view ->
             Snackbar.make(view, "Add to Favorite", Snackbar.LENGTH_SHORT)

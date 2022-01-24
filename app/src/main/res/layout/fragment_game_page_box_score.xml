@@ -12,6 +12,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+<!--    change toggling button style-->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/game_page_score_tab_view_pager"
         android:layout_width="match_parent"

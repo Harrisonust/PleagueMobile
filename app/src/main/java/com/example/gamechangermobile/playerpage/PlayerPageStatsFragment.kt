@@ -15,6 +15,8 @@ import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
 import kotlinx.android.synthetic.main.fragment_player_page_stats.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PlayerPageStatsFragment(val player: Player) : Fragment() {
 
@@ -34,20 +36,19 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val stats = player.stats
         if(xDatas.isNullOrEmpty() and yDatas1.isNullOrEmpty()) {
             xDatas.add("Points")
-            yDatas1.add(RadarEntry(stats.points))
+            yDatas1.add(RadarEntry(player.getStats(Date(2001,1,2), "points")))
             xDatas.add("Rebounds")
-            yDatas1.add(RadarEntry(stats.rebounds))
+            yDatas1.add(RadarEntry(player.getStats(Date(2001,1,2), "rebounds")))
             xDatas.add("Assists")
-            yDatas1.add(RadarEntry(stats.assists))
+            yDatas1.add(RadarEntry(player.getStats(Date(2001,1,2), "assists")))
             xDatas.add("Steals")
-            yDatas1.add(RadarEntry(stats.steals))
+            yDatas1.add(RadarEntry(player.getStats(Date(2001,1,2), "steals")))
             xDatas.add("Blocks")
-            yDatas1.add(RadarEntry(stats.blocks))
+            yDatas1.add(RadarEntry(player.getStats(Date(2001,1,2), "blocks")))
             xDatas.add("Turnovers")
-            yDatas1.add(RadarEntry(stats.turnovers))
+            yDatas1.add(RadarEntry(player.getStats(Date(2001,1,2), "turnovers")))
         }
         radarchart.setTouchEnabled(false)
         radarData = getRadarData()
