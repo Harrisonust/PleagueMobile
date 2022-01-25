@@ -842,16 +842,11 @@ class MainActivity : AppCompatActivity() {
                     po_chih_wang
                 )
             )
-//        val fakeGameStats1 = GameStats(points = 102F, rebounds = 35F, offensiveRebounds = 3F, defensiveRebounds = 32F, assists = 27F, fieldGoal = 38F, fieldGoalAttempt = 76F, fieldGoalPercentage = 50F, fieldGoal3pt = 11F, fieldGoalAttempt3pt = 28F, fieldGoalPercentage3pt = 39.3F, freeThrow = 15F, freeThrowAttempt = 22F, freeThrowAttemptPercentage = 68.2F, steals = 10F, blocks = 2F, turnovers = 12F, timeoutRemaining = 1, fouls = 26F)
-//        val fakeGameStats2 = GameStats(points = 91F, rebounds = 48F, offensiveRebounds = 14F, defensiveRebounds = 34F, assists = 21F, fieldGoal = 29F, fieldGoalAttempt = 77F, fieldGoalPercentage = 37.7F, fieldGoal3pt = 9F, fieldGoalAttempt3pt = 38F, fieldGoalPercentage3pt = 23.7F, freeThrow = 24F, freeThrowAttempt = 36F, freeThrowAttemptPercentage = 66.7F, steals = 6F, blocks = 5F, turnovers = 15F, timeoutRemaining = 0, fouls = 21F)
-//        q_davis.setStats(Date(2022,2,1), PlayerStats(10F, 10F, 10F))
-//        hsing_chih_yang.setStats(Date(), PlayerStats(9F, 9F, 9.1F))
-//        thomas_welsh.setStats(Date(), PlayerStats(13F, 22.1F, 12F))
-//        chun_nan_chen.setStats(Date(), PlayerStats(10F,1F, 1F))
-        val fakeHostPlayerStats = mutableMapOf<Player, PlayerStats>( q_davis to q_davis.getStats(Date(2022, 1,2,19, 0)),
-                                                                    hsing_chih_yang to hsing_chih_yang.getStats(Date(2022, 1,2,19, 0)),
-                                                                    thomas_welsh to thomas_welsh.getStats(Date(2022, 1,2,19, 0)),
-                                                                    chun_nan_chen to chun_nan_chen.getStats(Date(2022, 1,2,19, 0)))
+
+        val fakeHostPlayerStats = mutableMapOf<Player, PlayerStats>(q_davis to PlayerStats(),
+                                                                    hsing_chih_yang to PlayerStats(),
+                                                                    thomas_welsh to PlayerStats(),
+                                                                    chun_nan_chen to PlayerStats())
         val fakeGuestPlayerStats = mutableMapOf<Player, PlayerStats>( kuo_hao_kao to PlayerStats(1F, 1F, 1F), ming_yi to PlayerStats(9F, 1F,0.4F), nick_faust to PlayerStats(13F, 0.1F, 0.4F), bhullar to PlayerStats(10F, 2F, 3F))
         val game1 = Game(GuestTeam = Kings, HostTeam = Lioneers, GuestPlayerStats = fakeGuestPlayerStats, HostPlayerStats = fakeHostPlayerStats, status = GameStatus.INGAME, quarter = "1st", remainingTime = "4:17")
         val game2 = Game(GuestTeam = Braves,HostTeam = Pilots, GuestPlayerStats = fakeGuestPlayerStats, HostPlayerStats = fakeHostPlayerStats, status = GameStatus.NOT_YET_START, startingTime = Date(2022, 1,1,19, 0))
