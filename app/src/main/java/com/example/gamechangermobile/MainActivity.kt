@@ -843,14 +843,32 @@ class MainActivity : AppCompatActivity() {
                 )
             )
 
-        val fakeHostPlayerStats = mutableMapOf<Player, PlayerStats>(q_davis to PlayerStats(),
-                                                                    hsing_chih_yang to PlayerStats(),
-                                                                    thomas_welsh to PlayerStats(),
-                                                                    chun_nan_chen to PlayerStats())
-        val fakeGuestPlayerStats = mutableMapOf<Player, PlayerStats>( kuo_hao_kao to PlayerStats(1F, 1F, 1F), ming_yi to PlayerStats(9F, 1F,0.4F), nick_faust to PlayerStats(13F, 0.1F, 0.4F), bhullar to PlayerStats(10F, 2F, 3F))
-        val game1 = Game(GuestTeam = Kings, HostTeam = Lioneers, GuestPlayerStats = fakeGuestPlayerStats, HostPlayerStats = fakeHostPlayerStats, status = GameStatus.INGAME, quarter = "1st", remainingTime = "4:17")
-        val game2 = Game(GuestTeam = Braves,HostTeam = Pilots, GuestPlayerStats = fakeGuestPlayerStats, HostPlayerStats = fakeHostPlayerStats, status = GameStatus.NOT_YET_START, startingTime = Date(2022, 1,1,19, 0))
-        val game3 = Game(GuestTeam = Steelers, HostTeam = Dreamers, GuestPlayerStats = fakeGuestPlayerStats, HostPlayerStats = fakeHostPlayerStats, status = GameStatus.END)
+        val fakeHostPlayerStats = mutableMapOf<Player, PlayerStats>(
+            q_davis to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
+            hsing_chih_yang to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
+            thomas_welsh to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
+            chun_nan_chen to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
+        val fakeGuestPlayerStats = mutableMapOf<Player, PlayerStats>(
+            kuo_hao_kao to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
+            ming_yi to PlayerStats(3F, 1F,1F, steals = 1F, blocks = 0F),
+            nick_faust to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
+            bhullar to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
+
+        val game1 = Game(
+            GuestTeam = Kings, HostTeam = Lioneers,
+            GuestPlayerStats = fakeGuestPlayerStats,
+            HostPlayerStats = fakeHostPlayerStats,
+            status = GameStatus.INGAME, quarter = "1st", remainingTime = "4:17")
+        val game2 = Game(
+            GuestTeam = Braves,HostTeam = Pilots,
+            GuestPlayerStats = fakeGuestPlayerStats,
+            HostPlayerStats = fakeHostPlayerStats,
+            status = GameStatus.NOT_YET_START, startingTime = Date(2022, 1,1,19, 0))
+        val game3 = Game(
+            GuestTeam = Steelers, HostTeam = Dreamers,
+            GuestPlayerStats = fakeGuestPlayerStats,
+            HostPlayerStats = fakeHostPlayerStats,
+            status = GameStatus.END)
 
     }
 }

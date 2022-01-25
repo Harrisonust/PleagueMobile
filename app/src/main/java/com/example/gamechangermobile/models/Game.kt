@@ -85,5 +85,8 @@ data class Game (
             return GuestPlayerStats.maxByOrNull{ it.value.data["blocks"]!! }?.key!!
         }
 
+    fun getPlayerStats(player: Player): PlayerStats? {
+        return GuestPlayerStats[player] ?: HostPlayerStats[player]
+    }
 }
 
