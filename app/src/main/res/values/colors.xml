@@ -14,5 +14,7 @@
     <color name="blue_500">#08266E</color>
     <color name="blue_400">#002442</color>
     <color name="blue_200">#EB07C0E1</color>
+    <color name="bg_font_color">#FFFFFFFF</color>
+    <color name="bg_color">#002442</color>
 
 </resources>

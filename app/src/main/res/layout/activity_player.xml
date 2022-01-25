@@ -4,107 +4,129 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/player_page_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_height="300dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/bg_color"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="25dp">
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
+        <ImageView
+            android:id="@+id/player_page_profile_pic"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            app:layout_constraintLeft_toRightOf="@id/player_page_profile_pic"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/player_page_player_firstname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="placeholder"
+                android:textSize="25dp"
+                android:textColor="@color/bg_font_color"
+                android:textStyle="bold"/>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/player_page_profile_pic"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:gravity="bottom"/>
-
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/player_page_player_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/player_page_player_firstname"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="placeholder"
+                android:textSize="25dp"
+                android:textColor="@color/bg_font_color"
+                android:textStyle="bold"/>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/linear_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/linearLayout"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/player_page_player_lastname"
+                app:layout_constraintLeft_toLeftOf="parent">
 
                 <TextView
-                    android:id="@+id/player_page_player_firstname"
+                    android:id="@+id/player_page_player_team"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="placeholder"
-                    android:textSize="20sp" />
+                    android:text="team"
+                    android:textSize="14sp"
+                    android:textColor="@color/bg_font_color"/>
 
                 <TextView
-                    android:id="@+id/player_page_player_lastname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="placeholder"
-                    android:textSize="20sp" />
+                    android:text=" | "
+                    android:textSize="14sp"
+                    android:textColor="@color/bg_font_color"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/player_page_player_team"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="team"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" | "
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/player_page_player_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="number"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" | "
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/player_page_player_position"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="positino"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/player_page_player_favorite_btn"
+                <TextView
+                    android:id="@+id/player_page_player_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FAVORITE" />
+                    android:textColor="@color/bg_font_color"
+                    android:text="number"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bg_font_color"
+                    android:text=" | "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/player_page_player_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bg_font_color"
+                    android:text="position"
+                    android:textSize="14sp" />
+
             </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>/
+
+            <Button
+                android:id="@+id/player_page_player_favorite_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/linear_layout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:drawableLeft="@drawable/ic_baseline_star_outline_24"
+                android:paddingVertical="0dp"
+                android:textStyle="bold"
+                android:text="FAVORITE"
+                android:background="@drawable/button_favorite"
+                app:backgroundTint="@null"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintTop_toBottomOf="@id/player_page_profile_pic"
+            android:background="@color/bg_font_color"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/divider">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,18 +135,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/bg_font_color"
                     android:text="PPG"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/bg_font_color"
                     android:text="RPG"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/bg_font_color"
                     android:text="APG"
                     android:gravity="center"/>
             </LinearLayout>
@@ -138,6 +163,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textColor="@color/bg_font_color"
                     android:text="PlaceHolder"
                     android:gravity="center"/>
                 <TextView
@@ -145,6 +171,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textColor="@color/bg_font_color"
                     android:text="PlaceHolder"
                     android:gravity="center"/>
                 <TextView
@@ -152,21 +179,22 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textColor="@color/bg_font_color"
                     android:text="PlaceHolder"
                     android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/player_page_tab"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/player_page_header"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/player_page_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/player_page_tab"
         app:layout_constraintBottom_toBottomOf="parent"/>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/player_page_tab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/player_page_header"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
