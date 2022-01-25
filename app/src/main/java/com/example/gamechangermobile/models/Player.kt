@@ -48,6 +48,10 @@ class Player(val firstName:String="",
                     return stats[date] ?: PlayerStats()
                 }
 
+                fun setStats(date: Date, type: String, value: Float){
+                    this.stats[date]?.data?.set(type, value)
+                }
+
                 fun setStats(date: Date, stats: PlayerStats){
                     this.stats[date] = stats
                 }
