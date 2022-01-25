@@ -33,6 +33,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             intent.putExtra("SELECTED_PLAYER",player)
             startActivity(intent)
         }
+
         fun startTeamActivity(team: Team){
             val intent = Intent(view.context, TeamActivity::class.java)
             intent.putExtra("SELECTED_TEAM",team)
