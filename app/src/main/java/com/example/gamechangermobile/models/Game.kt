@@ -46,43 +46,43 @@ data class Game (
 
     var hostPointLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull{ it.value.data["points"]!! }?.key!!
+            return HostPlayerStats.maxByOrNull{ it.value.data["points"]!! }?.key ?: Player()
         }
     var hostReboundLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull{ it.value.data["rebounds"]!! }?.key!!
+            return HostPlayerStats.maxByOrNull{ it.value.data["rebounds"]!! }?.key ?: Player()
         }
     var hostAssistLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull{ it.value.data["assists"]!! }?.key!!
+            return HostPlayerStats.maxByOrNull{ it.value.data["assists"]!! }?.key ?: Player()
         }
     var hostStealLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull{ it.value.data["steals"]!! }?.key!!
+            return HostPlayerStats.maxByOrNull{ it.value.data["steals"]!! }?.key ?: Player()
         }
     var hostBlockLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull{ it.value.data["blocks"]!! }?.key!!
+            return HostPlayerStats.maxByOrNull{ it.value.data["blocks"]!! }?.key ?: Player()
         }
     var guestPointLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull{ it.value.data["points"]!! }?.key!!
+            return GuestPlayerStats.maxByOrNull{ it.value.data["points"]!! }?.key ?: Player()
         }
     var guestReboundLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull{ it.value.data["rebounds"]!! }?.key!!
+            return GuestPlayerStats.maxByOrNull{ it.value.data["rebounds"]!! }?.key ?: Player()
         }
     var guestAssistLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull{ it.value.data["assists"]!! }?.key!!
+            return GuestPlayerStats.maxByOrNull{ it.value.data["assists"]!! }?.key ?: Player()
         }
     var guestStealLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull{ it.value.data["steals"]!! }?.key!!
+            return GuestPlayerStats.maxByOrNull{ it.value.data["steals"]!! }?.key ?: Player()
         }
     var guestBlockLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull{ it.value.data["blocks"]!! }?.key!!
+            return GuestPlayerStats.maxByOrNull{ it.value.data["blocks"]!! }?.key ?: Player()
         }
 
     fun getPlayerStats(player: Player): PlayerStats? {

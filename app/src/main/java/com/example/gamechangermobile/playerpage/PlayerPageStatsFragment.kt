@@ -37,18 +37,19 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if(xDatas.isNullOrEmpty() and yDatas1.isNullOrEmpty()) {
+            val avgStats = player.averageStat
             xDatas.add("Points")
-            yDatas1.add(RadarEntry(player.getStat(Date(2001,1,2), "points")))
+            yDatas1.add(RadarEntry(avgStats.data["points"]!!))
             xDatas.add("Rebounds")
-            yDatas1.add(RadarEntry(player.getStat(Date(2001,1,2), "rebounds")))
+            yDatas1.add(RadarEntry(avgStats.data["rebounds"]!!))
             xDatas.add("Assists")
-            yDatas1.add(RadarEntry(player.getStat(Date(2001,1,2), "assists")))
+            yDatas1.add(RadarEntry(avgStats.data["assists"]!!))
             xDatas.add("Steals")
-            yDatas1.add(RadarEntry(player.getStat(Date(2001,1,2), "steals")))
+            yDatas1.add(RadarEntry(avgStats.data["steals"]!!))
             xDatas.add("Blocks")
-            yDatas1.add(RadarEntry(player.getStat(Date(2001,1,2), "blocks")))
+            yDatas1.add(RadarEntry(avgStats.data["blocks"]!!))
             xDatas.add("Turnovers")
-            yDatas1.add(RadarEntry(player.getStat(Date(2001,1,2), "turnovers")))
+            yDatas1.add(RadarEntry(avgStats.data["turnovers"]!!))
         }
         radarchart.setTouchEnabled(false)
         radarData = getRadarData()

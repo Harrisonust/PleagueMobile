@@ -27,9 +27,9 @@ class PlayerActivity : AppCompatActivity() {
         player_page_player_team.text = playerData?.team.name
         player_page_player_number.text = "#" + playerData?.number.toString()
         player_page_player_position.text = playerData?.position
-        player_page_player_pts.text = playerData.getStat(Date(2021,1,2),"points").toString()
-        player_page_player_reb.text = playerData.getStat(Date(2021,1,2),"rebounds").toString()
-        player_page_player_ast.text = playerData.getStat(Date(2021,1,2),"assists").toString()
+        player_page_player_pts.text = playerData.averageStat.data["points"].toString()
+        player_page_player_reb.text = playerData.averageStat.data["rebounds"].toString()
+        player_page_player_ast.text = playerData.averageStat.data["assists"].toString()
 
         player_page_player_favorite_btn.setOnClickListener {view ->
             Snackbar.make(view, "Add to Favorite", Snackbar.LENGTH_SHORT)
