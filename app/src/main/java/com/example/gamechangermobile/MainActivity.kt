@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lin",
                 profilePic = R.drawable.braves_chih_chieh_lin,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2001, 10, 2)
                             to PlayerStats(
                         9.5F,
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Tseng",
                 profilePic = R.drawable.braves_hsiang_chun_tseng,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Singletary",
                 profilePic = R.drawable.braves_michael_singletary,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lin",
                 profilePic = R.drawable.braves_shu_wei_lin,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -141,8 +141,8 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Davis",
                 profilePic = R.drawable.kings_q_davis,
                 stats =
-                mapOf(
-                    Date(2021, 1, 2)
+                mutableMapOf(
+                    Date(2021, 1, 2, 19, 0)
                             to
                             PlayerStats(
                                 5F,
@@ -159,8 +159,8 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Welsh",
                 profilePic = R.drawable.kings_thomas_welsh,
                 stats =
-                mapOf(
-                    Date(2021, 1, 2)
+                mutableMapOf(
+                    Date(2021, 1, 2,19, 0)
                             to
                             PlayerStats(
                                 18.57F,
@@ -178,8 +178,8 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Chen",
                 profilePic = R.drawable.kings_chun_nan_chen,
                 stats =
-                mapOf(
-                    Date(2021, 1, 2)
+                mutableMapOf(
+                    Date(2021, 1, 2, 19, 0)
                             to
                             PlayerStats(
                                 3.2F,
@@ -197,8 +197,8 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Yang",
                 profilePic = R.drawable.kings_hsing_chih_yang,
                 stats =
-                mapOf(
-                    Date(2021, 1, 2)
+                mutableMapOf(
+                    Date(2021, 1, 2, 19, 0)
                             to
                             PlayerStats(
                                 4.11F,
@@ -217,7 +217,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Roboson",
                 profilePic = R.drawable.pilots_devin_robinson,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -236,7 +236,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lu",
                 profilePic = R.drawable.pilots_chun_hsiang_lu,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -254,7 +254,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Chen",
                 profilePic = R.drawable.pilots_jordan_tolbert,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -273,7 +273,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Shih",
                 profilePic = R.drawable.pilots_chin_yao_shih,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -293,7 +293,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Kao",
                 profilePic = R.drawable.lioneers_kuo_hao_kao,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -311,7 +311,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Faust",
                 profilePic = R.drawable.lioneers_nicholas_faust,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -330,7 +330,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Dawson",
                 profilePic = R.drawable.lioneers_branden_dawson,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -348,7 +348,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lee",
                 profilePic = R.drawable.lioneers_chia_jul_lee,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -367,7 +367,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lin",
                 profilePic = R.drawable.lioneers_ming_yi_lin,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -386,7 +386,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Bhullar",
                 profilePic = R.drawable.lioneers_simbhullar,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -405,7 +405,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lin",
                 profilePic = R.drawable.lioneers_yi_huei_lin,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -424,7 +424,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Sung",
                 profilePic = R.drawable.lioneers_yu_hsuan_sung,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -443,7 +443,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Tan",
                 profilePic = R.drawable.lioneers_elliot_tan,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -462,7 +462,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Chu",
                 profilePic = R.drawable.lioneers_yun_hao_chu,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -480,7 +480,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Tien",
                 profilePic = R.drawable.lioneers_hao_tien,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -499,7 +499,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Hsiao",
                 profilePic = R.drawable.lioneers_shun_yi_hsiao,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -518,7 +518,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Kuo",
                 profilePic = R.drawable.lioneers_shao_chieh_kuo,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -537,7 +537,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Wu",
                 profilePic = R.drawable.lioneers_tai_hao_wu,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -557,7 +557,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Chieng",
                 profilePic = R.drawable.dreamers_li_huan_chieng,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -576,7 +576,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lin",
                 profilePic = R.drawable.dreamers_chun_chi_lin,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -595,7 +595,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lee",
                 profilePic = R.drawable.dreamers_te_wei_lee,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -614,7 +614,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Chen",
                 profilePic = R.drawable.dreamers_kenneth_chen,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -634,7 +634,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Chen",
                 profilePic = R.drawable.steelers_yu_wei_chen,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -653,7 +653,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Tucker",
                 profilePic = R.drawable.steelers_anthony_tucker,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -672,7 +672,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Lu",
                 profilePic = R.drawable.steelers_cheng_ju_lu,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -691,7 +691,7 @@ class MainActivity : AppCompatActivity() {
                 lastName = "Wang",
                 profilePic = R.drawable.steelers_po_chih_wang,
                 stats =
-                mapOf(
+                mutableMapOf(
                     Date(2021, 1, 2)
                             to
                             PlayerStats(
@@ -842,9 +842,16 @@ class MainActivity : AppCompatActivity() {
                     po_chih_wang
                 )
             )
-        val fakeGameStats1 = GameStats(points = 102F, rebounds = 35F, offensiveRebounds = 3F, defensiveRebounds = 32F, assists = 27F, fieldGoal = 38F, fieldGoalAttempt = 76F, fieldGoalPercentage = 50F, fieldGoal3pt = 11F, fieldGoalAttempt3pt = 28F, fieldGoalPercentage3pt = 39.3F, freeThrow = 15F, freeThrowAttempt = 22F, freeThrowAttemptPercentage = 68.2F, steals = 10F, blocks = 2F, turnovers = 12F, timeoutRemaining = 1, fouls = 26F)
-        val fakeGameStats2 = GameStats(points = 91F, rebounds = 48F, offensiveRebounds = 14F, defensiveRebounds = 34F, assists = 21F, fieldGoal = 29F, fieldGoalAttempt = 77F, fieldGoalPercentage = 37.7F, fieldGoal3pt = 9F, fieldGoalAttempt3pt = 38F, fieldGoalPercentage3pt = 23.7F, freeThrow = 24F, freeThrowAttempt = 36F, freeThrowAttemptPercentage = 66.7F, steals = 6F, blocks = 5F, turnovers = 15F, timeoutRemaining = 0, fouls = 21F)
-        val fakeHostPlayerStats = mutableMapOf<Player, PlayerStats>( q_davis to PlayerStats(10F, 10F, 10F), hsing_chih_yang to PlayerStats(9F, 9F, 9.1F), thomas_welsh to PlayerStats(13F, 22.1F, 12F), chun_nan_chen to PlayerStats(10F,1F, 1F))
+//        val fakeGameStats1 = GameStats(points = 102F, rebounds = 35F, offensiveRebounds = 3F, defensiveRebounds = 32F, assists = 27F, fieldGoal = 38F, fieldGoalAttempt = 76F, fieldGoalPercentage = 50F, fieldGoal3pt = 11F, fieldGoalAttempt3pt = 28F, fieldGoalPercentage3pt = 39.3F, freeThrow = 15F, freeThrowAttempt = 22F, freeThrowAttemptPercentage = 68.2F, steals = 10F, blocks = 2F, turnovers = 12F, timeoutRemaining = 1, fouls = 26F)
+//        val fakeGameStats2 = GameStats(points = 91F, rebounds = 48F, offensiveRebounds = 14F, defensiveRebounds = 34F, assists = 21F, fieldGoal = 29F, fieldGoalAttempt = 77F, fieldGoalPercentage = 37.7F, fieldGoal3pt = 9F, fieldGoalAttempt3pt = 38F, fieldGoalPercentage3pt = 23.7F, freeThrow = 24F, freeThrowAttempt = 36F, freeThrowAttemptPercentage = 66.7F, steals = 6F, blocks = 5F, turnovers = 15F, timeoutRemaining = 0, fouls = 21F)
+//        q_davis.setStats(Date(2022,2,1), PlayerStats(10F, 10F, 10F))
+//        hsing_chih_yang.setStats(Date(), PlayerStats(9F, 9F, 9.1F))
+//        thomas_welsh.setStats(Date(), PlayerStats(13F, 22.1F, 12F))
+//        chun_nan_chen.setStats(Date(), PlayerStats(10F,1F, 1F))
+        val fakeHostPlayerStats = mutableMapOf<Player, PlayerStats>( q_davis to q_davis.getStats(Date(2022, 1,2,19, 0)),
+                                                                    hsing_chih_yang to hsing_chih_yang.getStats(Date(2022, 1,2,19, 0)),
+                                                                    thomas_welsh to thomas_welsh.getStats(Date(2022, 1,2,19, 0)),
+                                                                    chun_nan_chen to chun_nan_chen.getStats(Date(2022, 1,2,19, 0)))
         val fakeGuestPlayerStats = mutableMapOf<Player, PlayerStats>( kuo_hao_kao to PlayerStats(1F, 1F, 1F), ming_yi to PlayerStats(9F, 1F,0.4F), nick_faust to PlayerStats(13F, 0.1F, 0.4F), bhullar to PlayerStats(10F, 2F, 3F))
         val game1 = Game(GuestTeam = Kings, HostTeam = Lioneers, GuestPlayerStats = fakeGuestPlayerStats, HostPlayerStats = fakeHostPlayerStats, status = GameStatus.INGAME, quarter = "1st", remainingTime = "4:17")
         val game2 = Game(GuestTeam = Braves,HostTeam = Pilots, GuestPlayerStats = fakeGuestPlayerStats, HostPlayerStats = fakeHostPlayerStats, status = GameStatus.NOT_YET_START, startingTime = Date(2022, 1,1,19, 0))

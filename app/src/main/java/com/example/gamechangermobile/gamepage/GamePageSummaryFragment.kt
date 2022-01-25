@@ -43,23 +43,23 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         guest_point_leader_image.setImageResource(game.guestPointLeader.profilePic)
         guest_point_leader_name.text = game.guestPointLeader.fullName
-        guest_point_leader_point.text = game.guestPointLeader.getStats(game.date, "points").toInt().toString()
+        guest_point_leader_point.text = game.guestPointLeader.getStat(game.date, "points").toInt().toString()
 
         guest_rebounds_leader_image.setImageResource(game.guestReboundLeader.profilePic)
         guest_rebounds_leader_name.text = game.guestReboundLeader.fullName
-        guest_rebounds_leader_point.text = game.guestReboundLeader.getStats(game.date, "rebounds").toInt().toString()
+        guest_rebounds_leader_point.text = game.guestReboundLeader.getStat(game.date, "rebounds").toInt().toString()
 
         guest_assist_leader_image.setImageResource(game.guestAssistLeader.profilePic)
         guest_assist_leader_name.text = game.guestAssistLeader.fullName
-        guest_assist_leader_point.text = game.guestAssistLeader.getStats(game.date, "assists").toInt().toString()
+        guest_assist_leader_point.text = game.guestAssistLeader.getStat(game.date, "assists").toInt().toString()
 
         guest_steal_leader_image.setImageResource(game.guestStealLeader.profilePic)
         guest_steal_leader_name.text = game.guestStealLeader.fullName
-        guest_steal_leader_point.text = game.guestStealLeader.getStats(game.date, "steals").toInt().toString()
+        guest_steal_leader_point.text = game.guestStealLeader.getStat(game.date, "steals").toInt().toString()
 
         guest_block_leader_image.setImageResource(game.guestBlockLeader.profilePic)
         guest_block_leader_name.text = game.guestBlockLeader.fullName
-        guest_block_leader_point.text = game.guestBlockLeader.getStats(game.date, "blocks").toInt().toString()
+        guest_block_leader_point.text = game.guestBlockLeader.getStat(game.date, "blocks").toInt().toString()
 
         guest_point_leader_image.setOnClickListener {
             startPlayerActivity(game.guestPointLeader)
@@ -111,23 +111,23 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         host_point_leader_image.setImageResource(game.hostPointLeader.profilePic)
         host_point_leader_name.text = game.hostPointLeader.fullName
-        host_point_leader_point.text = game.guestPointLeader.getStats(game.date, "points").toInt().toString()
+        host_point_leader_point.text = game.guestPointLeader.getStat(game.date, "points").toInt().toString()
 
         host_rebounds_leader_image.setImageResource(game.hostReboundLeader.profilePic)
         host_rebounds_leader_name.text = game.hostReboundLeader.fullName
-        host_rebounds_leader_point.text = game.guestPointLeader.getStats(game.date, "rebounds").toInt().toString()
+        host_rebounds_leader_point.text = game.guestPointLeader.getStat(game.date, "rebounds").toInt().toString()
 
         host_assist_leader_image.setImageResource(game.hostAssistLeader.profilePic)
         host_assist_leader_name.text = game.hostAssistLeader.fullName
-        host_assist_leader_point.text = game.guestPointLeader.getStats(game.date, "assists").toInt().toString()
+        host_assist_leader_point.text = game.guestPointLeader.getStat(game.date, "assists").toInt().toString()
 
         host_steal_leader_image.setImageResource(game.hostStealLeader.profilePic)
         host_steal_leader_name.text = game.hostStealLeader.fullName
-        host_steal_leader_point.text = game.guestPointLeader.getStats(game.date, "steals").toInt().toString()
+        host_steal_leader_point.text = game.guestPointLeader.getStat(game.date, "steals").toInt().toString()
 
         host_block_leader_image.setImageResource(game.hostBlockLeader.profilePic)
         host_block_leader_name.text = game.hostBlockLeader.fullName
-        host_block_leader_point.text = game.guestPointLeader.getStats(game.date, "blocks").toInt().toString()
+        host_block_leader_point.text = game.guestPointLeader.getStat(game.date, "blocks").toInt().toString()
 
         host_point_leader_image.setOnClickListener {
             startPlayerActivity(game.hostPointLeader)
