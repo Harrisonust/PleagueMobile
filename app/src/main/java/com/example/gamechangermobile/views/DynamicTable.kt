@@ -179,6 +179,61 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         }
     }
 
+    fun renderStatsTable(
+            statsColumnName: String,
+            playerStats: Map<String, Float>,
+            headerHeight: Int,
+            columnWidth: Int,
+            headerLayoutName: String,
+            headerTextViewName: String,
+            columnLayoutName: String,
+            columnTextViewName: String,
+            contentLayoutName: String,
+            contentTextViewName: String
+    ) {
+        fixedRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        fixedRelativeLayout?.let { it.layoutParams.width = columnWidth }
+        headerRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        columnRelativeLayout?.let { it.layoutParams.width = columnWidth }
+
+        val headerViewId = resources.getIdentifier(headerLayoutName, "layout", context.packageName)
+        val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
+        val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
+        val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
+        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
+
+        // fixed layout text
+        val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
+        val textView: TextView = view.findViewById(headerTextId)
+        textView.text = ""
+        view.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        fixedRelativeLayout?.addView(view)
+
+        // column
+        val columnTableRow = TableRow(context)
+        renderCell(statsColumnName, columnViewId, columnTextId, columnTableRow)
+        columnTableLayout?.addView(columnTableRow)
+
+
+        // header, column, content
+        val tableRow = TableRow(context)
+        val contentTableRow = TableRow(context)
+        val ignoreFields = listOf("fieldGoal2pt", "fieldGoalAttempt2pt", "fieldGoalPercentage2pt", "effFieldGoalPercentage")
+        for ((statsName, stats) in playerStats) {
+            if (!ignoreFields.contains(statsName)) {
+                Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }
+                renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
+            }
+        }
+        headerTableLayout?.addView(tableRow)
+        contentTableLayout?.addView(contentTableRow)
+
+    }
+
     private fun renderCell(text: String, viewId: Int, textId: Int, tableRow: TableRow) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)

@@ -57,8 +57,8 @@ class PlayerActivity : AppCompatActivity() {
             return when(position){
                 0 -> PlayerPageGameRecordFragment()
                 1 -> PlayerPageStatsFragment(player)
-                2 -> PlayerPageCareerFragment()
-                3 -> PlayerPageAdvancedStatsFragment()
+                2 -> PlayerPageCareerFragment(player)
+                3 -> PlayerPageAdvancedStatsFragment(player)
                 4 -> PlayerPageTeamEffFragment()
                 else -> PlayerPageTeamEffFragment()
             }
