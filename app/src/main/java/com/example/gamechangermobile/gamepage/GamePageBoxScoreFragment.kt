@@ -38,8 +38,8 @@ class GamePageBoxScoreFragment(val game: Game) : Fragment() {
 
         override fun getItem(position: Int): Fragment {
             return when(position){
-                0 -> GamePageBoxScoreFragmentGuestTab()
-                else -> GamePageBoxScoreFragmentHostTab()
+                0 -> GamePageBoxScoreFragmentGuestTab(game)
+                else -> GamePageBoxScoreFragmentHostTab(game)
             }
         }
     }

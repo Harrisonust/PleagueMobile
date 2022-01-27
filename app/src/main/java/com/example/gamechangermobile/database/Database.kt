@@ -3,6 +3,31 @@ package com.example.gamechangermobile.database
 class Database {
     val headers = listOf("球員","出賽","時間","命中","出手","命中率","命中","出手","命中率","命中","出手","命中率","進攻","防守","籃板","助攻","失誤","抄截","阻攻","犯規","得分")
 
+    val statsDictionary = mapOf(
+            "points" to "PTS",
+            "rebounds" to "REB",
+            "assists" to "AST",
+            "fieldGoal" to "FGM",
+            "fieldGoalAttempt" to "FGA",
+            "fieldGoalPercentage" to "FG%",
+//            "fieldGoal2pt" to "",
+//            "fieldGoalAttempt2pt" to 0F,
+//            "fieldGoalPercentage2pt" to 0F,
+            "fieldGoal3pt" to "3FGM",
+            "fieldGoalAttempt3pt" to "3FGA",
+            "fieldGoalPercentage3pt" to "3FG%",
+            "freeThrow" to "FTM",
+            "freeThrowAttempt" to "FTA",
+            "freeThrowAttemptPercentage" to "FT%",
+            "offensiveRebounds" to "OREB",
+            "defensiveRebounds" to "DREB",
+            "steals" to "STL",
+            "blocks" to "BLK",
+            "turnovers" to "TO",
+            "personalFouls" to "PF",
+//            "effFieldGoalPercentage" to ,
+    )
+
     class Lioneers{
         val roster = listOf(
             listOf("lioneers_kuo_hao_kao","高國豪","5","27:37","2.8","9.6","29.2%","0.6","3.0","20.0%","1.4","1.8","77.8%","1.4","4.4","5.8","3.6","1.4","2.0","0.0","2.0","7.6"),

@@ -21,6 +21,12 @@ class Player(val firstName:String="",
                         return "$firstName $lastName"
                     }
 
+                var abbrName: String = ""
+                    get() {
+                        val abbrFirstName = firstName[0]
+                        return "$abbrFirstName. $lastName"
+                    }
+
                 var gamePlayed: Int = 0
                     get(){
                         return stats.size

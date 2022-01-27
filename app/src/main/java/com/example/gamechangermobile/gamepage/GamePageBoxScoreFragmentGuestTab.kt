@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.database.Database
+import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.models.PlayerStats
+import com.example.gamechangermobile.views.DynamicTable
 import kotlinx.android.synthetic.main.fragment_game_page_box_score_guest_tab.*
 
-class GamePageBoxScoreFragmentGuestTab : Fragment() {
+class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -17,9 +21,14 @@ class GamePageBoxScoreFragmentGuestTab : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_game_page_box_score_guest_tab, container, false)
-        dynamic_table.renderTable(
-                Database().headers,
-                content,
+        val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
+        val players: MutableMap<Player, PlayerStats> = mutableMapOf()
+
+        for (player in game.GuestTeam.playerList) {
+            players[player] = game.getPlayerStats(player)?: PlayerStats()
+        }
+        dynamicTable.renderTable(
+                players,
                 90,
                 280,
                 "cell_view_header",

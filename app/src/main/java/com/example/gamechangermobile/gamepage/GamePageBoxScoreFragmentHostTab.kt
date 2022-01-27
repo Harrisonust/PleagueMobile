@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.models.Game
 
 
-class GamePageBoxScoreFragmentHostTab : Fragment() {
+class GamePageBoxScoreFragmentHostTab(val game: Game) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
