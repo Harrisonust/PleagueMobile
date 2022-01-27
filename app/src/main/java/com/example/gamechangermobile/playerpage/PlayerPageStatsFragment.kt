@@ -52,14 +52,16 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
             yDatas1.add(RadarEntry(avgStats.data["turnovers"]!!))
         }
         radarchart.setTouchEnabled(false)
+        radarchart.extraTopOffset = 10f
+        radarchart.description.isEnabled = false
         radarData = getRadarData()
         showRadarChart(radarchart, radarData!!)
     }
 
     private fun getRadarData() :RadarData{
         val radarDataSet1 = RadarDataSet(yDatas1, "2022 SEASON")
-        radarDataSet1.color = Color.rgb(255, 99, 71)        // boarder color
-        radarDataSet1.fillColor = Color.rgb(255, 174, 185)
+        radarDataSet1.color = resources.getColor(R.color.bg_color)      // boarder color
+        radarDataSet1.fillColor = resources.getColor(R.color.blue_400_transparent)
         radarDataSet1.setDrawFilled(true)
         radarDataSet1.fillAlpha = 180
         radarDataSet1.lineWidth = 2f                                        // lidar boarder line width
