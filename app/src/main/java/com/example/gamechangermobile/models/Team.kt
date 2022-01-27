@@ -1,6 +1,7 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
+import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 import kotlin.collections.ArrayList
@@ -18,6 +19,7 @@ class Team(val name: String,
            var foundingDate: Date = Date(),
            var ranking: String = "",
            var games: ArrayList<Game> = ArrayList<Game>(),
+           var color: Int = R.color.bg_color,
            var playerList: ArrayList<Player> = ArrayList<Player>()) : Parcelable {
 
     fun getGame(date: Date): Game? {

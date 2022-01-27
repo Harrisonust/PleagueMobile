@@ -713,6 +713,7 @@ class MainActivity : AppCompatActivity() {
                         arena = "Hoping",
                         last10 = Record(5F, 5F),
                         streak = "W3",
+                        color = R.color.braves_color,
                         playerList =
                         arrayListOf(
                                 chih_chieh_lin,
@@ -734,6 +735,7 @@ class MainActivity : AppCompatActivity() {
                         arena = "HsinChung",
                         last10 = Record(5F, 5F),
                         streak = "W3",
+                        color = R.color.kings_color,
                         playerList =
                         arrayListOf(
                                 q_davis,
@@ -755,6 +757,7 @@ class MainActivity : AppCompatActivity() {
                         arena = "Taoyuan",
                         last10 = Record(5F, 5F),
                         streak = "W3",
+                        color = R.color.pilots_color,
                         playerList =
                         arrayListOf(
                                 d_roboson,
@@ -776,6 +779,7 @@ class MainActivity : AppCompatActivity() {
                         arena = "ChuPei",
                         last10 = Record(5F, 5F),
                         streak = "W3",
+                        color = R.color.lioneers_color,
                         playerList =
                         arrayListOf(
                                 kuo_hao_kao,
@@ -808,6 +812,7 @@ class MainActivity : AppCompatActivity() {
                         arena = "ChungHau",
                         last10 = Record(5F, 5F),
                         streak = "L3",
+                        color = R.color.dreamers_color,
                         playerList =
                         arrayListOf(
                                 calvin_chieng,
@@ -829,6 +834,7 @@ class MainActivity : AppCompatActivity() {
                         arena = "KH",
                         last10 = Record(5F, 5F),
                         streak = "L3",
+                        color = R.color.steelers_color,
                         playerList =
                         arrayListOf(
                                 jerry_chen,
