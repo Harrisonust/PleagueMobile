@@ -38,16 +38,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        Braves.gamesList.add(game2)
-        Braves.gamesList.add(game5)
-        Kings.gamesList.add(game1)
-        Kings.gamesList.add(game4)
-        Pilots.gamesList.add(game2)
-        Pilots.gamesList.add(game4)
-        Lioneers.gamesList.add(game1)
-        Lioneers.gamesList.add(game5)
-        Dreamers.gamesList.add(game3)
-        Steelers.gamesList.add(game3)
+//        Braves.gamesList.add(game2)
+//        Braves.gamesList.add(game5)
+//        Kings.gamesList.add(game1)
+//        Kings.gamesList.add(game4)
+//        Pilots.gamesList.add(game2)
+//        Pilots.gamesList.add(game4)
+//        Lioneers.gamesList.add(game1)
+//        Lioneers.gamesList.add(game5)
+//        Dreamers.gamesList.add(game3)
+//        Steelers.gamesList.add(game3)
     }
 
     private fun replaceFragment(fragment: Fragment) {

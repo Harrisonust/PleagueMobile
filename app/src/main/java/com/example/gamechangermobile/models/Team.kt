@@ -29,8 +29,6 @@ class Team(val name: String = "",
 
     var totalRecord: Record = Record(0F, 0F)
         get() {
-            return Record()
-
             var wins = 0
             for (game in gamesList) {
                 if (game.winner == this) wins += 1
@@ -41,7 +39,6 @@ class Team(val name: String = "",
 
     var homeRecord: Record = Record(0F, 0F)
         get() {
-            return Record()
             var wins = 0
             var loses = 0
 
@@ -51,25 +48,21 @@ class Team(val name: String = "",
                     else loses += 1
                 }
             }
-
             return Record(wins.toFloat(), loses.toFloat())
         }
 
     var awayRecord: Record = Record(0F, 0F)
         get() {
-            return Record()
             return Record(totalRecord.wins - homeRecord.wins, totalRecord.loses - homeRecord.loses)
         }
 
     var streak: String = ""
         get() {
-            return ""
             return this.record.getStreak()
         }
 
     var last10: Record = Record(0F, 0F)
         get() {
-            return Record()
             return this.record.getLast10()
         }
 }
