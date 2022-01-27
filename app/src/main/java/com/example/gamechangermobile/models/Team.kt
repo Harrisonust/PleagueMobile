@@ -6,17 +6,17 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Parcelize
-class Team(val name:String,
+class Team(val name: String,
            var location: String,
-           var profilePic:Int,
-           var totalRecord: String="",
-           var homeRecord: String="",
-           var awayRecord: String="",
-           var streak: String="",
-           var last10: String="",
-           var arena: String="",
+           var profilePic: Int,
+           var totalRecord: String = "",
+           var homeRecord: String = "",
+           var awayRecord: String = "",
+           var streak: String = "",
+           var last10: String = "",
+           var arena: String = "",
            var foundingDate: Date = Date(),
-           var ranking: String="",
-           var playerList: ArrayList<Player> = ArrayList<Player>()): Parcelable {
+           var ranking: String = "",
+           var playerList: ArrayList<Player> = ArrayList<Player>()) : Parcelable {
 
 }

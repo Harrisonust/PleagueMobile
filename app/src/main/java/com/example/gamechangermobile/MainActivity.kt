@@ -850,7 +850,7 @@ class MainActivity : AppCompatActivity() {
                 bhullar to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
 
         val fakeGuestPlayerStats2 = mutableMapOf<Player, PlayerStats>(
-                chih_chieh_lin to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
+                chih_chieh_lin to PlayerStats(10F, 4F, 1F, steals = 0F, blocks = 1F),
                 hsiang_chun_tseng to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
                 michael_sigletary to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
                 shu_wei_lin to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))

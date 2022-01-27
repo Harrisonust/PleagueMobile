@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.models.Player
 
-class StatsAdapter(val PlayerList : List<Player>) : RecyclerView.Adapter<StatsAdapter.ViewHolder>(){
-    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
+class StatsAdapter(val PlayerList: List<Player>) : RecyclerView.Adapter<StatsAdapter.ViewHolder>() {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     }
 

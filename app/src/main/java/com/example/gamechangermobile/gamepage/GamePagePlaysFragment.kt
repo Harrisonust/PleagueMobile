@@ -11,8 +11,8 @@ import com.example.gamechangermobile.models.Game
 class GamePagePlaysFragment(val game: Game) : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game_page_plays, container, false)

@@ -31,7 +31,7 @@ class RosterAdapter(val playerList: List<Player>) :
             val position = viewHolder.adapterPosition
             val player = playerList[position]
             val intent = Intent(parent.context, PlayerActivity::class.java).apply {
-                putExtra("SELECTED_PLAYER",player)
+                putExtra("SELECTED_PLAYER", player)
             }
             parent.context.startActivity(intent)
         }

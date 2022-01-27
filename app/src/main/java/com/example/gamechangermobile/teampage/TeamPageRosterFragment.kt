@@ -16,8 +16,8 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
     private var fakeRosterList = ArrayList<Player>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_team_page_roster, container, false)
@@ -56,17 +56,17 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
         }
 
         dynamicTable.renderTable(
-            Database().headers,
-            content,
-            90,
-            280,
-            "cell_view_header",
-            "player_data",
-            "cell_view_column",
-            "player_name",
-            "player_image",
-            "cell_view_content",
-            "player_data"
+                Database().headers,
+                content,
+                90,
+                280,
+                "cell_view_header",
+                "player_data",
+                "cell_view_column",
+                "player_name",
+                "player_image",
+                "cell_view_content",
+                "player_data"
         )
 
         dynamicTable.visibility = View.VISIBLE

@@ -31,10 +31,10 @@ class PlayerActivity : AppCompatActivity() {
         player_page_player_reb.text = playerData.averageStat.data["rebounds"].toString()
         player_page_player_ast.text = playerData.averageStat.data["assists"].toString()
 
-        player_page_player_favorite_btn.setOnClickListener {view ->
+        player_page_player_favorite_btn.setOnClickListener { view ->
             Snackbar.make(view, "Add to Favorite", Snackbar.LENGTH_SHORT)
-                .setAction("Undo") { Log.i("SNACKBAR", "OK") }
-                .show()
+                    .setAction("Undo") { Log.i("SNACKBAR", "OK") }
+                    .show()
         }
 
         player_page_tab.addTab(player_page_tab.newTab().setText("Game Record"))
@@ -44,17 +44,17 @@ class PlayerActivity : AppCompatActivity() {
         player_page_tab.addTab(player_page_tab.newTab().setText("Team eff"))
 
         player_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(player_page_tab))
-        player_page_viewpager.adapter = VPagerAdapter(supportFragmentManager,5, playerData!!)
+        player_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 5, playerData!!)
         player_page_viewpager.setCurrentItem(0)
         player_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(player_page_viewpager))
 
     }
 
-    inner class VPagerAdapter(f: FragmentManager, bh:Int, val player: Player) : FragmentPagerAdapter(f,bh){
+    inner class VPagerAdapter(f: FragmentManager, bh: Int, val player: Player) : FragmentPagerAdapter(f, bh) {
         override fun getCount(): Int = 5
 
         override fun getItem(position: Int): Fragment {
-            return when(position){
+            return when (position) {
                 0 -> PlayerPageGameRecordFragment()
                 1 -> PlayerPageStatsFragment(player)
                 2 -> PlayerPageCareerFragment()

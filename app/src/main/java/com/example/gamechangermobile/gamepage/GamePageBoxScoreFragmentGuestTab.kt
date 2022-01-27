@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.fragment_game_page_box_score_guest_tab.*
 class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_game_page_box_score_guest_tab, container, false)
@@ -25,7 +25,7 @@ class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
         val players: MutableMap<Player, PlayerStats> = mutableMapOf()
 
         for (player in game.GuestTeam.playerList) {
-            players[player] = game.getPlayerStats(player)?: PlayerStats()
+            players[player] = game.getPlayerStats(player) ?: PlayerStats()
         }
         dynamicTable.renderTable(
                 players,

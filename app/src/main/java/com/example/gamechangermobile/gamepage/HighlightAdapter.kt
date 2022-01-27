@@ -15,11 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Highlight
 
-class HighlightAdapter(val highlightList: List<Highlight>):RecyclerView.Adapter<HighlightAdapter.ViewHolder>() {
-//    lateinit var mediaController:MediaController;
-    inner class ViewHolder(itemview: View): RecyclerView.ViewHolder(itemview){
+class HighlightAdapter(val highlightList: List<Highlight>) : RecyclerView.Adapter<HighlightAdapter.ViewHolder>() {
+    //    lateinit var mediaController:MediaController;
+    inner class ViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
         //val videoView: VideoView = itemview.findViewById(R.id.highlight_video)
         val videoView: WebView = itemview.findViewById(R.id.highlight_video)
+
         init {
             videoView.settings.javaScriptEnabled = true
             videoView.webChromeClient = WebChromeClient()
