@@ -1,14 +1,16 @@
 package com.example.gamechangermobile.views
 
 import android.content.Context
+import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.playerpage.PlayerActivity
 
 class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs), HorizontalScroll.ScrollViewListener, VerticalScroll.ScrollViewListener {
     private var fixedRelativeLayout: RelativeLayout? = null
@@ -110,6 +112,64 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
     }
 
+    fun renderTable(
+        players: List<Player>,
+        headerHeight: Int,
+        columnWidth: Int,
+        headerLayoutName: String,
+        headerTextViewName: String,
+        columnLayoutName: String,
+        columnTextViewName: String,
+        columnImageViewName: String,
+        contentLayoutName: String,
+        contentTextViewName: String
+    ) {
+        fixedRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        fixedRelativeLayout?.let { it.layoutParams.width = columnWidth }
+        headerRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        columnRelativeLayout?.let { it.layoutParams.width = columnWidth }
+
+        val headerViewId = resources.getIdentifier(headerLayoutName, "layout", context.packageName)
+        val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
+        val tableRow = TableRow(context)
+//        players[0].forEach { item ->
+//            if (i == 0) {
+//                val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
+//                val textView: TextView = view.findViewById(headerTextId)
+//                textView.text = headers[i]
+//                view.layoutParams = ViewGroup.LayoutParams(
+//                    ViewGroup.LayoutParams.MATCH_PARENT,
+//                    ViewGroup.LayoutParams.MATCH_PARENT
+//                )
+//                fixedRelativeLayout?.addView(view)
+//
+//            } else {
+//                renderCell(headers[i], headerViewId, headerTextId, tableRow)
+//            }
+//        }
+        headerTableLayout?.addView(tableRow)
+
+
+        val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
+        val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
+        val columnImageId = resources.getIdentifier(columnImageViewName, "id", context.packageName)
+        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
+
+        for (player in players) {
+            val columnTableRow = TableRow(context)
+            renderCell(player, columnViewId, columnTextId, columnImageId, columnTableRow)
+            columnTableLayout?.addView(columnTableRow)
+
+            val contentTableRow = TableRow(context)
+//            for (item in player.stats) {
+//                renderCell(player[i], contentViewId, contentTextId, contentTableRow)
+//            }
+            contentTableLayout?.addView(contentTableRow)
+        }
+
+    }
+
     private fun renderCell(text: String, viewId: Int, textId: Int, tableRow: TableRow) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
@@ -124,6 +184,21 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val imageResource = resources.getIdentifier(image, "drawable", context.packageName)
         val imageView: ImageView = view.findViewById(imageId)
         imageView.setImageResource(imageResource)
+        tableRow.addView(view)
+    }
+
+    private fun renderCell(player: Player, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
+        val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
+        val textView: TextView = view.findViewById(textId)
+        textView.text = player.FullName
+        val imageView: ImageView = view.findViewById(imageId)
+        imageView.setImageResource(player.ProfilePic)
+        view.setOnClickListener {
+            val intent = Intent(view.context, PlayerActivity::class.java).apply {
+                putExtra("SELECTED_PLAYER", player)
+            }
+            view.context.startActivity(intent)
+        }
         tableRow.addView(view)
     }
 
