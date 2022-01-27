@@ -34,16 +34,18 @@ class Player(val firstName:String="",
 
                 var averageStat: PlayerStats = PlayerStats()
                     get(){
-                        var p = 0F
-                        var a = 0F
-                        var r = 0F
-                        stats.values.forEachIndexed{ index, element ->
-                            p += element.data["points"]!!
-                            a += element.data["assists"]!!
-                            r += element.data["rebounds"]!!
+                        var averagePlayerStats = PlayerStats()
+                        stats.values.forEachIndexed{ _, eachGameStats ->
+                            eachGameStats.data.forEach {
+                                averagePlayerStats.data[it.key] =  averagePlayerStats.data[it.key]!! + eachGameStats.data[it.key]!!
+                            }
                         }
 
-                        return PlayerStats(points = p/gamePlayed, rebounds = r/gamePlayed, assists = a/gamePlayed)
+                        averagePlayerStats.data.forEach {
+                            averagePlayerStats.data[it.key] = averagePlayerStats.data[it.key]!! / gamePlayed
+                        }
+
+                        return averagePlayerStats
                     }
 
                 fun getStat(date: Date, type: String): Float {
