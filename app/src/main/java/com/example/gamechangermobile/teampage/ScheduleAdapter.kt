@@ -31,7 +31,7 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
 
         fun startTeamPage() {
             val position = viewHolder.adapterPosition
-            val team = gameScheduleList[position].GuestTeam
+            val team = gameScheduleList[position].guestTeam
             val intent = Intent(parent.context, TeamActivity::class.java)
             intent.putExtra("SELECTED_TEAM", team)
             parent.context.startActivity(intent)
@@ -70,8 +70,8 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
         val game = gameScheduleList[position]
         holder.day.text = SimpleDateFormat("EE").format(game.date)
         holder.date.text = SimpleDateFormat("MM/dd").format(game.date)
-        holder.opponent_name.text = game.GuestTeam.name
-        holder.opponent_image.setImageResource(game.GuestTeam.profilePic)
+        holder.opponent_name.text = game.guestTeam.name
+        holder.opponent_image.setImageResource(game.guestTeam.profilePic)
         holder.win_lose.text = "W"
         holder.score.text =
                 game.guestStats.data["points"]!!.toInt().toString() +

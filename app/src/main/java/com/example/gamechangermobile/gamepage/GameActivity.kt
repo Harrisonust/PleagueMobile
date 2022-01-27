@@ -18,8 +18,8 @@ class GameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game)
         val game_data = intent.getParcelableExtra<Game>("SELECTED_GAME")
         if (game_data != null) {
-            game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.profilePic)
-            game_page_header_host_icon.setImageResource(game_data!!.HostTeam.profilePic)
+            game_page_header_guest_icon.setImageResource(game_data!!.guestTeam.profilePic)
+            game_page_header_host_icon.setImageResource(game_data!!.hostTeam.profilePic)
             game_page_header_guest_score.text = game_data!!.guestStats.data["points"]!!.toInt().toString()
             game_page_header_host_score.text = game_data!!.hostStats.data["points"]!!.toInt().toString()
             game_page_header_time.text = game_data!!.remainingTime
@@ -37,13 +37,13 @@ class GameActivity : AppCompatActivity() {
 
         game_page_header_host_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
-            val team = game_data?.HostTeam
+            val team = game_data?.hostTeam
             intent.putExtra("SELECTED_TEAM", team)
             startActivity(intent)
         }
         game_page_header_guest_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
-            val team = game_data?.GuestTeam
+            val team = game_data?.guestTeam
             intent.putExtra("SELECTED_TEAM", team)
             startActivity(intent)
         }

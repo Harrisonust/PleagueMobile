@@ -22,7 +22,7 @@ class GamePageBoxScoreFragmentHostTab(val game: Game) : Fragment() {
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         val players: MutableMap<Player, PlayerStats> = mutableMapOf()
 
-        for (player in game.HostTeam.playerList) {
+        for (player in game.hostTeam.playerList) {
             players[player] = game.getPlayerStats(player) ?: PlayerStats()
         }
         dynamicTable.renderTable(

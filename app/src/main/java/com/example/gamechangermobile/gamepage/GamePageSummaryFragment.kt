@@ -78,7 +78,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startPlayerActivity(game.guestBlockLeader)
         }
         guest_icon.setOnClickListener {
-            startTeamActivity(game.GuestTeam)
+            startTeamActivity(game.guestTeam)
         }
 
         guest_field_goal.text = gs["fieldGoal"]!!.toInt().toString() + "/" + gs["fieldGoalAttempt"]!!.toInt().toString() + "(" + gs["fieldGoalPercentage"]!!.toString() + "%)"
@@ -146,7 +146,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startPlayerActivity(game.hostBlockLeader)
         }
         host_icon.setOnClickListener {
-            startTeamActivity(game.HostTeam)
+            startTeamActivity(game.hostTeam)
         }
 
         host_field_goal.text = hs["fieldGoal"]!!.toInt().toString() + "/" + hs["fieldGoalAttempt"]!!.toInt().toString() + "(" + hs["fieldGoalPercentage"]!!.toString() + "%)"

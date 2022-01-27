@@ -876,42 +876,42 @@ class MainActivity : AppCompatActivity() {
                 shu_wei_lin to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
 
         val game1 = Game(
-                GuestTeam = Kings, HostTeam = Lioneers,
-                GuestPlayerStats = fakeGuestPlayerStats1,
-                HostPlayerStats = fakeHostPlayerStats1,
+                guestTeam = Kings, hostTeam = Lioneers,
+                guestPlayerStats = fakeGuestPlayerStats1,
+                hostPlayerStats = fakeHostPlayerStats1,
                 status = GameStatus.INGAME,
                 startingTime = Date(2022, 1, 1, 13, 0),
                 quarter = "1st", remainingTime = "4:17"
         )
 
         val game2 = Game(
-                GuestTeam = Braves, HostTeam = Pilots,
-                GuestPlayerStats = fakeGuestPlayerStats2,
-                HostPlayerStats = fakeHostPlayerStats2,
+                guestTeam = Braves, hostTeam = Pilots,
+                guestPlayerStats = fakeGuestPlayerStats2,
+                hostPlayerStats = fakeHostPlayerStats2,
                 status = GameStatus.NOT_YET_START,
                 startingTime = Date(2022, 1, 1, 19, 0),
         )
 
         val game3 = Game(
-                GuestTeam = Steelers, HostTeam = Dreamers,
-                GuestPlayerStats = fakeGuestPlayerStats3,
-                HostPlayerStats = fakeHostPlayerStats3,
+                guestTeam = Steelers, hostTeam = Dreamers,
+                guestPlayerStats = fakeGuestPlayerStats3,
+                hostPlayerStats = fakeHostPlayerStats3,
                 status = GameStatus.END,
                 winner = Steelers
         )
 
         val game4 = Game(
-                GuestTeam = Pilots, HostTeam = Kings,
-                GuestPlayerStats = fakeGuestPlayerStats4,
-                HostPlayerStats = fakeHostPlayerStats4,
+                guestTeam = Pilots, hostTeam = Kings,
+                guestPlayerStats = fakeGuestPlayerStats4,
+                hostPlayerStats = fakeHostPlayerStats4,
                 status = GameStatus.END,
                 winner = Kings
         )
 
         val game5 = Game(
-                GuestTeam = Lioneers, HostTeam = Braves,
-                GuestPlayerStats = fakeGuestPlayerStats5,
-                HostPlayerStats = fakeHostPlayerStats5,
+                guestTeam = Lioneers, hostTeam = Braves,
+                guestPlayerStats = fakeGuestPlayerStats5,
+                hostPlayerStats = fakeHostPlayerStats5,
                 status = GameStatus.END,
                 winner = Lioneers
         )
