@@ -26,8 +26,8 @@ import java.util.*
 class TeamPageScheduleFragment(team: Team) : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_team_page_schedule, container, false)
@@ -36,11 +36,11 @@ class TeamPageScheduleFragment(team: Team) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val games: List<Game> = listOf(
-            game1, game2, game3,
-            game1, game2, game3,
-            game1, game2, game3,
-            game1, game2, game3,
-            game1, game2, game3,
+                game1, game2, game3,
+                game1, game2, game3,
+                game1, game2, game3,
+                game1, game2, game3,
+                game1, game2, game3,
         )
 
 

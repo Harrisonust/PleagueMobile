@@ -29,7 +29,7 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
                 LayoutInflater.from(parent.context).inflate(R.layout.schedule_item, parent, false)
         val viewHolder = ViewHolder(view)
 
-        fun startTeamPage(){
+        fun startTeamPage() {
             val position = viewHolder.adapterPosition
             val team = gameScheduleList[position].GuestTeam
             val intent = Intent(parent.context, TeamActivity::class.java)
@@ -37,7 +37,7 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
             parent.context.startActivity(intent)
         }
 
-        fun startGamePage(){
+        fun startGamePage() {
             val position = viewHolder.adapterPosition
             val game = gameScheduleList[position]
             val intent = Intent(parent.context, GameActivity::class.java)
@@ -46,7 +46,7 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
         }
 
         viewHolder.opponent_image.setOnClickListener {
-           startTeamPage()
+            startTeamPage()
         }
 
         viewHolder.opponent_name.setOnClickListener {

@@ -18,8 +18,8 @@ import com.example.gamechangermobile.playerpage.PlayerActivity
 class GamePageSummaryFragment(val game: Game) : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_game_page_summary, container, false)
@@ -28,15 +28,15 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fun startPlayerActivity(player: Player){
+        fun startPlayerActivity(player: Player) {
             val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER",player)
+            intent.putExtra("SELECTED_PLAYER", player)
             startActivity(intent)
         }
 
-        fun startTeamActivity(team: Team){
+        fun startTeamActivity(team: Team) {
             val intent = Intent(view.context, TeamActivity::class.java)
-            intent.putExtra("SELECTED_TEAM",team)
+            intent.putExtra("SELECTED_TEAM", team)
             startActivity(intent)
         }
 
@@ -81,11 +81,11 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startTeamActivity(game.GuestTeam)
         }
 
-        guest_field_goal.text = gs.fieldGoal.toInt().toString() + "/" + gs.fieldGoalAttempt.toInt().toString() + "(" + gs.fieldGoalPercentage.toString()+ "%)"
+        guest_field_goal.text = gs.fieldGoal.toInt().toString() + "/" + gs.fieldGoalAttempt.toInt().toString() + "(" + gs.fieldGoalPercentage.toString() + "%)"
 //        guest_field_goal_bar.layoutParams.width = 50
-        guest_3_pointer.text = gs.fieldGoal3pt.toInt().toString() + "/" + gs.fieldGoalAttempt3pt.toInt().toString() + "(" + gs.fieldGoalPercentage3pt.toString()+ "%)"
+        guest_3_pointer.text = gs.fieldGoal3pt.toInt().toString() + "/" + gs.fieldGoalAttempt3pt.toInt().toString() + "(" + gs.fieldGoalPercentage3pt.toString() + "%)"
 //        guest_3_pointer_bar.layoutParams.width = 10
-        guest_free_throw.text = gs.freeThrow.toInt().toString() + "/" + gs.freeThrowAttempt.toInt().toString() + "(" + gs.freeThrowAttemptPercentage.toString()+ "%)"
+        guest_free_throw.text = gs.freeThrow.toInt().toString() + "/" + gs.freeThrowAttempt.toInt().toString() + "(" + gs.freeThrowAttemptPercentage.toString() + "%)"
 //        guest_fouls_bar.layoutParams.width =
         guest_assist.text = gs.assists.toInt().toString()
 //        guest_assist_bar.layoutParams.width =
@@ -149,11 +149,11 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startTeamActivity(game.HostTeam)
         }
 
-        host_field_goal.text = hs.fieldGoal.toInt().toString() + "/" + hs.fieldGoalAttempt.toInt().toString() + "(" + hs.fieldGoalPercentage.toString()+ "%)"
+        host_field_goal.text = hs.fieldGoal.toInt().toString() + "/" + hs.fieldGoalAttempt.toInt().toString() + "(" + hs.fieldGoalPercentage.toString() + "%)"
 //        host_field_goal_bar.layoutParams.width = 50
-        host_3_pointer.text = hs.fieldGoal3pt.toInt().toString() + "/" + hs.fieldGoalAttempt3pt.toInt().toString() + "(" + hs.fieldGoalPercentage3pt.toString()+ "%)"
+        host_3_pointer.text = hs.fieldGoal3pt.toInt().toString() + "/" + hs.fieldGoalAttempt3pt.toInt().toString() + "(" + hs.fieldGoalPercentage3pt.toString() + "%)"
 //        host_3_pointer_bar.layoutParams.width = 10
-        host_free_throw.text = hs.freeThrow.toInt().toString() + "/" + hs.freeThrowAttempt.toInt().toString() + "(" + hs.freeThrowAttemptPercentage.toString()+ "%)"
+        host_free_throw.text = hs.freeThrow.toInt().toString() + "/" + hs.freeThrowAttempt.toInt().toString() + "(" + hs.freeThrowAttemptPercentage.toString() + "%)"
 //        host_fouls_bar.layoutParams.width =
         host_assist.text = hs.assists.toInt().toString()
 //        host_assist_bar.layoutParams.width =

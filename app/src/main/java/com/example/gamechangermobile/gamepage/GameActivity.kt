@@ -17,7 +17,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         val game_data = intent.getParcelableExtra<Game>("SELECTED_GAME")
-        if(game_data != null) {
+        if (game_data != null) {
             game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.profilePic)
             game_page_header_host_icon.setImageResource(game_data!!.HostTeam.profilePic)
             game_page_header_guest_score.text = game_data!!.GuestStats.points.toInt().toString()
@@ -31,7 +31,7 @@ class GameActivity : AppCompatActivity() {
         game_page_tab.addTab(game_page_tab.newTab().setText("Plays"))
 
         game_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(game_page_tab))
-        game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager,4, game_data!!)
+        game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 4, game_data!!)
         game_page_viewpager.setCurrentItem(0)
         game_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(game_page_viewpager))
 
@@ -49,11 +49,11 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    inner class VPagerAdapter(f: FragmentManager, bh:Int, val game: Game) : FragmentPagerAdapter(f,bh){
+    inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game) : FragmentPagerAdapter(f, bh) {
         override fun getCount(): Int = 4
 
         override fun getItem(position: Int): Fragment {
-            return when(position){
+            return when (position) {
                 0 -> GamePageSummaryFragment(game)
                 1 -> GamePageBoxScoreFragment(game)
                 2 -> GamePageHighlightsFragment(game)

@@ -705,13 +705,13 @@ class MainActivity : AppCompatActivity() {
                         name = "Braves",
                         location = "Taipei",
                         profilePic = R.drawable.braves,
-                        totalRecord = "5 - 5",
-                        homeRecord = "4 - 1",
-                        awayRecord = "1 - 4",
+                        totalRecord = Record(5F, 5F),
+                        homeRecord = Record(4F, 1F),
+                        awayRecord = Record(1F, 4F),
                         ranking = "4th",
                         foundingDate = Date(2001, 1, 1),
                         arena = "Hoping",
-                        last10 = "5 - 5",
+                        last10 = Record(5F, 5F),
                         streak = "W3",
                         playerList =
                         arrayListOf(
@@ -726,13 +726,13 @@ class MainActivity : AppCompatActivity() {
                         name = "Kings",
                         location = "New Taipei",
                         profilePic = R.drawable.kings,
-                        totalRecord = "5 - 4",
-                        homeRecord = "5 - 0",
-                        awayRecord = "1 - 4",
+                        totalRecord = Record(5F, 4F),
+                        homeRecord = Record(5F, 0F),
+                        awayRecord = Record(1F, 4F),
                         ranking = "3rd",
                         foundingDate = Date(2021, 1, 1),
                         arena = "HsinChung",
-                        last10 = "5 - 5",
+                        last10 = Record(5F, 5F),
                         streak = "W3",
                         playerList =
                         arrayListOf(
@@ -747,13 +747,13 @@ class MainActivity : AppCompatActivity() {
                         name = "Pilots",
                         location = "Taoyuan",
                         profilePic = R.drawable.pilots,
-                        totalRecord = "3 - 4",
-                        homeRecord = "2 - 2",
-                        awayRecord = "1 - 2",
+                        totalRecord = Record(3F, 4F),
+                        homeRecord = Record(2F, 2F),
+                        awayRecord = Record(1F, 2F),
                         ranking = "5th",
                         foundingDate = Date(1999, 1, 1),
                         arena = "Taoyuan",
-                        last10 = "5 - 5",
+                        last10 = Record(5F, 5F),
                         streak = "W3",
                         playerList =
                         arrayListOf(
@@ -768,13 +768,13 @@ class MainActivity : AppCompatActivity() {
                         name = "Lioneers",
                         location = "Hsinchu",
                         profilePic = R.drawable.lioneers,
-                        totalRecord = "5 - 4",
-                        homeRecord = "2 - 2",
-                        awayRecord = "3 - 2",
+                        totalRecord = Record(5F, 4F),
+                        homeRecord = Record(2F, 2F),
+                        awayRecord = Record(3F, 2F),
                         ranking = "2nd",
                         foundingDate = Date(2020, 1, 1),
                         arena = "ChuPei",
-                        last10 = "5 - 5",
+                        last10 = Record(5F, 5F),
                         streak = "W3",
                         playerList =
                         arrayListOf(
@@ -800,13 +800,13 @@ class MainActivity : AppCompatActivity() {
                         name = "Dreamers",
                         location = "Changhua",
                         profilePic = R.drawable.dreamers,
-                        totalRecord = "5 - 3",
-                        homeRecord = "4 - 1",
-                        awayRecord = "1 - 2",
+                        totalRecord = Record(5F, 3F),
+                        homeRecord = Record(4F, 1F),
+                        awayRecord = Record(1F, 2F),
                         ranking = "1st",
                         foundingDate = Date(2005, 1, 1),
                         arena = "ChungHau",
-                        last10 = "5 - 5",
+                        last10 = Record(5F, 5F),
                         streak = "L3",
                         playerList =
                         arrayListOf(
@@ -821,13 +821,13 @@ class MainActivity : AppCompatActivity() {
                         name = "Steelers",
                         location = "Kaoshung",
                         profilePic = R.drawable.steelers,
-                        totalRecord = "2 - 5",
-                        homeRecord = "1 - 1",
-                        awayRecord = "1 - 4",
+                        totalRecord = Record(2F, 5F),
+                        homeRecord = Record(1F, 1F),
+                        awayRecord = Record(1F, 4F),
                         ranking = "6th",
                         foundingDate = Date(2021, 1, 1),
                         arena = "KH",
-                        last10 = "5 - 5",
+                        last10 = Record(5F, 5F),
                         streak = "L3",
                         playerList =
                         arrayListOf(
@@ -850,7 +850,7 @@ class MainActivity : AppCompatActivity() {
                 bhullar to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
 
         val fakeGuestPlayerStats2 = mutableMapOf<Player, PlayerStats>(
-                chih_chieh_lin to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
+                chih_chieh_lin to PlayerStats(10F, 4F, 1F, steals = 0F, blocks = 1F),
                 hsiang_chun_tseng to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
                 michael_sigletary to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
                 shu_wei_lin to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))

@@ -5,5 +5,5 @@ import java.util.*
 class Schedule(val date: Date,
                val opponentTeam: Team,
                val game: Game
-               ) {
+) {
 }

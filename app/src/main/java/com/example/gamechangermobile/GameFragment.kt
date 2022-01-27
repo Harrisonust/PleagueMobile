@@ -33,8 +33,8 @@ class GameFragment : Fragment() {
     private val gameList = ArrayList<Game>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         initGames()
         val view = inflater.inflate(R.layout.fragment_game, container, false)
@@ -50,7 +50,7 @@ class GameFragment : Fragment() {
         }
     }
 
-     private fun initGames() {
+    private fun initGames() {
         repeat(5) {
             gameList.add(game1)
             gameList.add(game2)

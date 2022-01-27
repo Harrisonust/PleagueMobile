@@ -20,14 +20,14 @@ import kotlin.collections.ArrayList
 
 class PlayerPageStatsFragment(val player: Player) : Fragment() {
 
-    private var radarData: RadarData?= null
+    private var radarData: RadarData? = null
     private val xDatas = ArrayList<String>()
     private val yDatas1 = ArrayList<RadarEntry>()
 //    private val yDatas2 = ArrayList<RadarEntry>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_player_page_stats, container, false)
@@ -36,7 +36,7 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(xDatas.isNullOrEmpty() and yDatas1.isNullOrEmpty()) {
+        if (xDatas.isNullOrEmpty() and yDatas1.isNullOrEmpty()) {
             val avgStats = player.averageStat
             xDatas.add("Points")
             yDatas1.add(RadarEntry(avgStats.data["points"]!!))
@@ -58,7 +58,7 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
         showRadarChart(radarchart, radarData!!)
     }
 
-    private fun getRadarData() :RadarData{
+    private fun getRadarData(): RadarData {
         val radarDataSet1 = RadarDataSet(yDatas1, "2022 SEASON")
         radarDataSet1.color = resources.getColor(R.color.bg_color)      // boarder color
         radarDataSet1.fillColor = resources.getColor(R.color.blue_400_transparent)
