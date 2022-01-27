@@ -16,7 +16,8 @@ data class Game(
         val startingTime: Date = Date(),
         val quarter: String = "",
         val remainingTime: String = "",
-        val date: Date = Date()
+        val date: Date = Date(),
+        val winner: Team = Team()
 ) : Parcelable {
 
 
@@ -84,9 +85,13 @@ data class Game(
         get() {
             return GuestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
         }
+        
+    var location: String = HostTeam.location
 
     fun getPlayerStats(player: Player): PlayerStats? {
         return GuestPlayerStats[player] ?: HostPlayerStats[player]
     }
+
+
 }
 

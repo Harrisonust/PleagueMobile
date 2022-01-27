@@ -37,6 +37,17 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        Braves.gamesList.add(game2)
+        Braves.gamesList.add(game5)
+        Kings.gamesList.add(game1)
+        Kings.gamesList.add(game4)
+        Pilots.gamesList.add(game2)
+        Pilots.gamesList.add(game4)
+        Lioneers.gamesList.add(game1)
+        Lioneers.gamesList.add(game5)
+        Dreamers.gamesList.add(game3)
+        Steelers.gamesList.add(game3)
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -705,14 +716,9 @@ class MainActivity : AppCompatActivity() {
                         name = "Braves",
                         location = "Taipei",
                         profilePic = R.drawable.braves,
-                        totalRecord = Record(5F, 5F),
-                        homeRecord = Record(4F, 1F),
-                        awayRecord = Record(1F, 4F),
                         ranking = "4th",
                         foundingDate = Date(2001, 1, 1),
                         arena = "Hoping",
-                        last10 = Record(5F, 5F),
-                        streak = "W3",
                         playerList =
                         arrayListOf(
                                 chih_chieh_lin,
@@ -726,14 +732,9 @@ class MainActivity : AppCompatActivity() {
                         name = "Kings",
                         location = "New Taipei",
                         profilePic = R.drawable.kings,
-                        totalRecord = Record(5F, 4F),
-                        homeRecord = Record(5F, 0F),
-                        awayRecord = Record(1F, 4F),
                         ranking = "3rd",
                         foundingDate = Date(2021, 1, 1),
                         arena = "HsinChung",
-                        last10 = Record(5F, 5F),
-                        streak = "W3",
                         playerList =
                         arrayListOf(
                                 q_davis,
@@ -747,14 +748,9 @@ class MainActivity : AppCompatActivity() {
                         name = "Pilots",
                         location = "Taoyuan",
                         profilePic = R.drawable.pilots,
-                        totalRecord = Record(3F, 4F),
-                        homeRecord = Record(2F, 2F),
-                        awayRecord = Record(1F, 2F),
                         ranking = "5th",
                         foundingDate = Date(1999, 1, 1),
                         arena = "Taoyuan",
-                        last10 = Record(5F, 5F),
-                        streak = "W3",
                         playerList =
                         arrayListOf(
                                 d_roboson,
@@ -768,14 +764,9 @@ class MainActivity : AppCompatActivity() {
                         name = "Lioneers",
                         location = "Hsinchu",
                         profilePic = R.drawable.lioneers,
-                        totalRecord = Record(5F, 4F),
-                        homeRecord = Record(2F, 2F),
-                        awayRecord = Record(3F, 2F),
                         ranking = "2nd",
                         foundingDate = Date(2020, 1, 1),
                         arena = "ChuPei",
-                        last10 = Record(5F, 5F),
-                        streak = "W3",
                         playerList =
                         arrayListOf(
                                 kuo_hao_kao,
@@ -800,14 +791,9 @@ class MainActivity : AppCompatActivity() {
                         name = "Dreamers",
                         location = "Changhua",
                         profilePic = R.drawable.dreamers,
-                        totalRecord = Record(5F, 3F),
-                        homeRecord = Record(4F, 1F),
-                        awayRecord = Record(1F, 2F),
                         ranking = "1st",
                         foundingDate = Date(2005, 1, 1),
                         arena = "ChungHau",
-                        last10 = Record(5F, 5F),
-                        streak = "L3",
                         playerList =
                         arrayListOf(
                                 calvin_chieng,
@@ -821,14 +807,9 @@ class MainActivity : AppCompatActivity() {
                         name = "Steelers",
                         location = "Kaoshung",
                         profilePic = R.drawable.steelers,
-                        totalRecord = Record(2F, 5F),
-                        homeRecord = Record(1F, 1F),
-                        awayRecord = Record(1F, 4F),
                         ranking = "6th",
                         foundingDate = Date(2021, 1, 1),
                         arena = "KH",
-                        last10 = Record(5F, 5F),
-                        streak = "L3",
                         playerList =
                         arrayListOf(
                                 jerry_chen,
@@ -871,21 +852,69 @@ class MainActivity : AppCompatActivity() {
                 derek_Lee to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
                 kenneth to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
 
+        val fakeGuestPlayerStats4 = mutableMapOf<Player, PlayerStats>(
+                d_roboson to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
+                chuh_hsiang_lu to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
+                jordan_tolbert to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
+                chih_yao_shih to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
+        val fakeHostPlayerStats4 = mutableMapOf<Player, PlayerStats>(
+                q_davis to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
+                thomas_welsh to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
+                chun_nan_chen to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
+                hsing_chih_yang to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
+
+        val fakeGuestPlayerStats5 = mutableMapOf<Player, PlayerStats>(
+                kuo_hao_kao to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
+                nick_faust to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
+                b_dawson to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
+                even_lee to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
+
+        val fakeHostPlayerStats5 = mutableMapOf<Player, PlayerStats>(
+                chih_chieh_lin to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
+                hsiang_chun_tseng to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
+                michael_sigletary to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
+                shu_wei_lin to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
+
         val game1 = Game(
                 GuestTeam = Kings, HostTeam = Lioneers,
                 GuestPlayerStats = fakeGuestPlayerStats1,
                 HostPlayerStats = fakeHostPlayerStats1,
-                status = GameStatus.INGAME, quarter = "1st", remainingTime = "4:17")
+                status = GameStatus.INGAME,
+                startingTime = Date(2022, 1, 1, 13, 0),
+                quarter = "1st", remainingTime = "4:17"
+        )
+
         val game2 = Game(
                 GuestTeam = Braves, HostTeam = Pilots,
                 GuestPlayerStats = fakeGuestPlayerStats2,
                 HostPlayerStats = fakeHostPlayerStats2,
-                status = GameStatus.NOT_YET_START, startingTime = Date(2022, 1, 1, 19, 0))
+                status = GameStatus.NOT_YET_START,
+                startingTime = Date(2022, 1, 1, 19, 0),
+        )
+
         val game3 = Game(
                 GuestTeam = Steelers, HostTeam = Dreamers,
                 GuestPlayerStats = fakeGuestPlayerStats3,
                 HostPlayerStats = fakeHostPlayerStats3,
-                status = GameStatus.END)
+                status = GameStatus.END,
+                winner = Steelers
+        )
+
+        val game4 = Game(
+                GuestTeam = Pilots, HostTeam = Kings,
+                GuestPlayerStats = fakeGuestPlayerStats4,
+                HostPlayerStats = fakeHostPlayerStats4,
+                status = GameStatus.END,
+                winner = Kings
+        )
+
+        val game5 = Game(
+                GuestTeam = Lioneers, HostTeam = Braves,
+                GuestPlayerStats = fakeGuestPlayerStats5,
+                HostPlayerStats = fakeHostPlayerStats5,
+                status = GameStatus.END,
+                winner = Lioneers
+        )
 
     }
 }

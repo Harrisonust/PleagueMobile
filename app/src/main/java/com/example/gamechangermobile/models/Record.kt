@@ -4,20 +4,20 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Record(private val win: Float = 0F,
-             private val lose: Float = 0F,
-             var records: ArrayList<String> = ArrayList<String>()
+class Record(val wins: Float = 0F,
+                  val loses: Float = 0F,
+                  var records: ArrayList<String> = ArrayList<String>()
 ) : Parcelable {
 
     fun getRecord(): String {
-        return "${win.toInt()} - ${lose.toInt()}"
+        return "${wins.toInt()} - ${loses.toInt()}"
     }
 
     fun setRecord(r: ArrayList<String>) {
         records = r
     }
 
-    fun getLast10(): String {
+    fun getStreak(): String {
         if (records.isEmpty()) return "0"
         var first: String = ""
 
@@ -30,6 +30,10 @@ class Record(private val win: Float = 0F,
             else break
         }
         return first + acc.toString()
+    }
+
+    fun getLast10(): Record {
+        return Record()
     }
 
 }
