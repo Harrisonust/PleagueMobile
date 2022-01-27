@@ -26,7 +26,7 @@ class TeamActivity : AppCompatActivity() {
         }
         team_page_team_location.text = teamData?.location
         team_page_team_name.text = teamData?.name
-        team_page_record.text = teamData?.totalRecord
+        team_page_record.text = teamData?.totalRecord?.getRecord()
         team_page_team_ranking.text = teamData?.ranking
 
         team_page_team_favorite_btn.setOnClickListener { view ->

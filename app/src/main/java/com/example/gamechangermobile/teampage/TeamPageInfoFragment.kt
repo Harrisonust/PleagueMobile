@@ -25,10 +25,10 @@ class TeamPageInfoFragment(val team: Team) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        total_record.text = team.totalRecord
-        home_record.text = team.homeRecord
-        away_record.text = team.awayRecord
-        last10.text = team.last10
+        total_record.text = team.totalRecord.getRecord()
+        home_record.text = team.homeRecord.getRecord()
+        away_record.text = team.awayRecord.getRecord()
+        last10.text = team.last10.getRecord()
         streak.text = team.streak
         arena.text = team.arena
 

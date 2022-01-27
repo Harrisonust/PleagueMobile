@@ -47,12 +47,12 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
         holder.hostScore.text = game.HostStats.points.toInt().toString()
         holder.hostImg.setImageResource(game.HostTeam.profilePic)
         holder.hostName.text = game.HostTeam.name
-        holder.hostRecord.text = game.HostTeam.totalRecord
+        holder.hostRecord.text = game.HostTeam.totalRecord.getRecord()
 
         holder.guestScore.text = game.GuestStats.points.toInt().toString()
         holder.guestImg.setImageResource(game.GuestTeam.profilePic)
         holder.guestName.text = game.GuestTeam.name
-        holder.guestRecord.text = game.GuestTeam.totalRecord
+        holder.guestRecord.text = game.GuestTeam.totalRecord.getRecord()
 
         if (game.status == GameStatus.INGAME) {
             holder.remainingTime.text = game.remainingTime
