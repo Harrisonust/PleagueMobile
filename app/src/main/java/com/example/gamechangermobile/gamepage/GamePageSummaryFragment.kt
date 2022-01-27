@@ -40,7 +40,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startActivity(intent)
         }
 
-        val gs = game.GuestStats
+        val gs = game.guestStats.data
 
         guest_point_leader_image.setImageResource(game.guestPointLeader.profilePic)
         guest_point_leader_name.text = game.guestPointLeader.fullName
@@ -81,34 +81,34 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startTeamActivity(game.GuestTeam)
         }
 
-        guest_field_goal.text = gs.fieldGoal.toInt().toString() + "/" + gs.fieldGoalAttempt.toInt().toString() + "(" + gs.fieldGoalPercentage.toString() + "%)"
+        guest_field_goal.text = gs["fieldGoal"]!!.toInt().toString() + "/" + gs["fieldGoalAttempt"]!!.toInt().toString() + "(" + gs["fieldGoalPercentage"]!!.toString() + "%)"
 //        guest_field_goal_bar.layoutParams.width = 50
-        guest_3_pointer.text = gs.fieldGoal3pt.toInt().toString() + "/" + gs.fieldGoalAttempt3pt.toInt().toString() + "(" + gs.fieldGoalPercentage3pt.toString() + "%)"
+        guest_3_pointer.text = gs["fieldGoal3pt"]!!.toInt().toString() + "/" + gs["fieldGoalAttempt3pt"]!!.toInt().toString() + "(" + gs["fieldGoalPercentage3pt"]!!.toString() + "%)"
 //        guest_3_pointer_bar.layoutParams.width = 10
-        guest_free_throw.text = gs.freeThrow.toInt().toString() + "/" + gs.freeThrowAttempt.toInt().toString() + "(" + gs.freeThrowAttemptPercentage.toString() + "%)"
+        guest_free_throw.text = gs["freeThrow"]!!.toInt().toString() + "/" + gs["freeThrowAttempt"]!!.toInt().toString() + "(" + gs["freeThrowAttemptPercentage"]!!.toString() + "%)"
 //        guest_fouls_bar.layoutParams.width =
-        guest_assist.text = gs.assists.toInt().toString()
+        guest_assist.text = gs["assists"]!!.toInt().toString()
 //        guest_assist_bar.layoutParams.width =
-        guest_total_rebound.text = gs.rebounds.toInt().toString()
+        guest_total_rebound.text = gs["rebounds"]!!.toInt().toString()
 //        guest_total_rebound_bar.layoutParams.width = 10
-        guest_offensive_rebound.text = gs.offensiveRebounds.toInt().toString()
+        guest_offensive_rebound.text = gs["offensiveRebounds"]!!.toInt().toString()
 //        guest_offensive_rebound_bar.layoutParams.width
-        guest_defensive_rebound.text = gs.defensiveRebounds.toInt().toString()
+        guest_defensive_rebound.text = gs["defensiveRebounds"]!!.toInt().toString()
 //        guest_defensive_rebound_bar.layoutParams.width =
-        guest_steal.text = gs.steals.toInt().toString()
+        guest_steal.text = gs["steals"]!!.toInt().toString()
 //        guest_steal_bar.layoutParams.width =
-        guest_block.text = gs.blocks.toInt().toString()
+        guest_block.text = gs["blocks"]!!.toInt().toString()
 //        guest_steal_bar.layoutParams.width =
-        guest_turnover.text = gs.turnovers.toInt().toString()
+        guest_turnover.text = gs["turnovers"]!!.toInt().toString()
 //        guest_turnover_bar.layoutParams.width =
-        guest_points_off_turnovers.text = gs.pointsOffTurnovers.toInt().toString()
+        guest_points_off_turnovers.text = game.guestStats.data["pointsOffTurnovers"]!!.toInt().toString()
 //        guest_points_off_turnovers_bar.layoutParams.width =
-        guest_fouls.text = gs.fouls.toInt().toString()
+        guest_fouls.text = gs["personalFouls"]!!.toInt().toString()
 //        guest_fouls_bar.layoutParams.width =
-        guest_timeouts_remaining.text = gs.timeoutRemaining.toString()
+        guest_timeouts_remaining.text = game.guestStats.data["timeoutRemaining"]!!.toInt().toString()
 
 
-        val hs = game.HostStats
+        val hs = game.hostStats.data
 
         host_point_leader_image.setImageResource(game.hostPointLeader.profilePic)
         host_point_leader_name.text = game.hostPointLeader.fullName
@@ -149,30 +149,30 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startTeamActivity(game.HostTeam)
         }
 
-        host_field_goal.text = hs.fieldGoal.toInt().toString() + "/" + hs.fieldGoalAttempt.toInt().toString() + "(" + hs.fieldGoalPercentage.toString() + "%)"
+        host_field_goal.text = hs["fieldGoal"]!!.toInt().toString() + "/" + hs["fieldGoalAttempt"]!!.toInt().toString() + "(" + hs["fieldGoalPercentage"]!!.toString() + "%)"
 //        host_field_goal_bar.layoutParams.width = 50
-        host_3_pointer.text = hs.fieldGoal3pt.toInt().toString() + "/" + hs.fieldGoalAttempt3pt.toInt().toString() + "(" + hs.fieldGoalPercentage3pt.toString() + "%)"
+        host_3_pointer.text = hs["fieldGoal3pt"]!!.toInt().toString() + "/" + hs["fieldGoalAttempt3pt"]!!.toInt().toString() + "(" + hs["fieldGoalPercentage3pt"]!!.toString() + "%)"
 //        host_3_pointer_bar.layoutParams.width = 10
-        host_free_throw.text = hs.freeThrow.toInt().toString() + "/" + hs.freeThrowAttempt.toInt().toString() + "(" + hs.freeThrowAttemptPercentage.toString() + "%)"
+        host_free_throw.text = hs["freeThrow"]!!.toInt().toString() + "/" + hs["freeThrowAttempt"]!!.toInt().toString() + "(" + hs["freeThrowAttemptPercentage"]!!.toString() + "%)"
 //        host_fouls_bar.layoutParams.width =
-        host_assist.text = hs.assists.toInt().toString()
+        host_assist.text = hs["assists"]!!.toInt().toString()
 //        host_assist_bar.layoutParams.width =
-        host_total_rebound.text = hs.rebounds.toInt().toString()
+        host_total_rebound.text = hs["rebounds"]!!.toInt().toString()
 //        host_total_rebound_bar.layoutParams.width = 10
-        host_offensive_rebound.text = hs.offensiveRebounds.toInt().toString()
+        host_offensive_rebound.text = hs["offensiveRebounds"]!!.toInt().toString()
 //        host_offensive_rebound_bar.layoutParams.width
-        host_defensive_rebound.text = hs.defensiveRebounds.toInt().toString()
+        host_defensive_rebound.text = hs["defensiveRebounds"]!!.toInt().toString()
 //        host_defensive_rebound_bar.layoutParams.width =
-        host_steal.text = hs.steals.toInt().toString()
+        host_steal.text = hs["steals"]!!.toInt().toString()
 //        host_steal_bar.layoutParams.width =
-        host_block.text = hs.blocks.toInt().toString()
+        host_block.text = hs["blocks"]!!.toInt().toString()
 //        host_steal_bar.layoutParams.width =
-        host_turnover.text = hs.turnovers.toInt().toString()
+        host_turnover.text = hs["turnovers"]!!.toInt().toString()
 //        host_turnover_bar.layoutParams.width =
-        host_points_off_turnovers.text = hs.pointsOffTurnovers.toInt().toString()
+        host_points_off_turnovers.text = game.hostStats.data["pointsOffTurnovers"]!!.toInt().toString()
 //        host_points_off_turnovers_bar.layoutParams.width =
-        host_fouls.text = hs.fouls.toInt().toString()
+        host_fouls.text = hs["personalFouls"]!!.toInt().toString()
 //        host_fouls_bar.layoutParams.width =
-        host_timeouts_remaining.text = hs.timeoutRemaining.toString()
+        host_timeouts_remaining.text = game.hostStats.data["timeoutRemaining"]!!.toInt().toString()
     }
 }

@@ -20,8 +20,8 @@ class GameActivity : AppCompatActivity() {
         if (game_data != null) {
             game_page_header_guest_icon.setImageResource(game_data!!.GuestTeam.profilePic)
             game_page_header_host_icon.setImageResource(game_data!!.HostTeam.profilePic)
-            game_page_header_guest_score.text = game_data!!.GuestStats.points.toInt().toString()
-            game_page_header_host_score.text = game_data!!.HostStats.points.toInt().toString()
+            game_page_header_guest_score.text = game_data!!.guestStats.data["points"]!!.toInt().toString()
+            game_page_header_host_score.text = game_data!!.hostStats.data["points"]!!.toInt().toString()
             game_page_header_time.text = game_data!!.remainingTime
         }
 

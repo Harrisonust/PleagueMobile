@@ -74,9 +74,9 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
         holder.opponent_image.setImageResource(game.GuestTeam.profilePic)
         holder.win_lose.text = "W"
         holder.score.text =
-                game.GuestStats.points.toInt().toString() +
+                game.guestStats.data["points"]!!.toInt().toString() +
                         " : " +
-                        game.HostStats.points.toInt().toString()
+                        game.hostStats.data["points"]!!.toInt().toString()
     }
 
     override fun getItemCount(): Int = gameScheduleList.size

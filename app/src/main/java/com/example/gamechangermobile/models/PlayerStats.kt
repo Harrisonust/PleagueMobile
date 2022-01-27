@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-class PlayerStats(
+open class PlayerStats(
         val data: MutableMap<String, Float> = mutableMapOf<String, Float>(
                 "points" to 0F,
                 "rebounds" to 0F,

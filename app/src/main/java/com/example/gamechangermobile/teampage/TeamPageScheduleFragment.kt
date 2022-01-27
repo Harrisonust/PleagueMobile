@@ -6,23 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gamechangermobile.MainActivity.Companion.Braves
-import com.example.gamechangermobile.MainActivity.Companion.Kings
-import com.example.gamechangermobile.MainActivity.Companion.Lioneers
-import com.example.gamechangermobile.MainActivity.Companion.Steelers
 import com.example.gamechangermobile.MainActivity.Companion.game1
 import com.example.gamechangermobile.MainActivity.Companion.game2
 import com.example.gamechangermobile.MainActivity.Companion.game3
 import com.example.gamechangermobile.MainActivity.Companion.game4
 import com.example.gamechangermobile.MainActivity.Companion.game5
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.database.Database
 import com.example.gamechangermobile.models.Game
-import com.example.gamechangermobile.models.GameStats
-import com.example.gamechangermobile.models.GameStatus
 import com.example.gamechangermobile.models.Team
 import kotlinx.android.synthetic.main.fragment_team_page_schedule.*
-import java.util.*
 
 
 class TeamPageScheduleFragment(team: Team) : Fragment() {

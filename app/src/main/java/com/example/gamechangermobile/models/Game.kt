@@ -1,7 +1,6 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
-import android.util.Log
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -29,20 +28,26 @@ data class Game(
         return sum
     }
 
-    var GuestStats: GameStats = GameStats()
+    var guestStats: TeamStats = TeamStats()
         get() {
-            val pointsSum = sumOfStat(GuestPlayerStats, "points")
-            val reboundsSum = sumOfStat(GuestPlayerStats, "rebounds")
-            val assistsSum = sumOfStat(GuestPlayerStats, "assists")
-            return GameStats(points = pointsSum, rebounds = reboundsSum, assists = assistsSum)
+            var gameStats = TeamStats()
+            for (playerStats in GuestPlayerStats.values) {
+                playerStats.data.forEach {
+                    gameStats.data[it.key] = gameStats.data[it.key]!! + playerStats.data[it.key]!!
+                }
+            }
+            return gameStats
         }
 
-    var HostStats: GameStats = GameStats()
+    var hostStats: TeamStats = TeamStats()
         get() {
-            val pointsSum = sumOfStat(HostPlayerStats, "points")
-            val reboundsSum = sumOfStat(HostPlayerStats, "rebounds")
-            val assistsSum = sumOfStat(HostPlayerStats, "assists")
-            return GameStats(points = pointsSum, rebounds = reboundsSum, assists = assistsSum)
+            var gameStats = TeamStats()
+            for (playerStats in HostPlayerStats.values) {
+                playerStats.data.forEach {
+                    gameStats.data[it.key] = gameStats.data[it.key]!! + playerStats.data[it.key]!!
+                }
+            }
+            return gameStats
         }
 
     var hostPointLeader: Player = Player()
@@ -85,7 +90,7 @@ data class Game(
         get() {
             return GuestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
         }
-        
+
     var location: String = HostTeam.location
 
     fun getPlayerStats(player: Player): PlayerStats? {
