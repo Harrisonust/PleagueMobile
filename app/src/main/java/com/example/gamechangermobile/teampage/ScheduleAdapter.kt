@@ -11,11 +11,12 @@ import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.models.getGameById
 import com.example.gamechangermobile.models.getTeamById
 import java.text.SimpleDateFormat
 
-class ScheduleAdapter(val gameScheduleList: List<Game>) :
+class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day: TextView = itemView.findViewById(R.id.day)
@@ -72,8 +73,11 @@ class ScheduleAdapter(val gameScheduleList: List<Game>) :
         val game = gameScheduleList[position]
         holder.day.text = SimpleDateFormat("EE").format(game.date)
         holder.date.text = SimpleDateFormat("MM/dd").format(game.date)
-        holder.opponent_name.text = getTeamById(game.guestTeam)!!.name
-        holder.opponent_image.setImageResource(getTeamById(game.guestTeam)!!.profilePic)
+        val opponent =
+                if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
+                else getTeamById(game.guestTeam)
+        holder.opponent_name.text = opponent!!.name
+        holder.opponent_image.setImageResource(opponent!!.profilePic)
         holder.win_lose.text = "W"
         holder.score.text =
                 game.guestStats.data["points"]!!.toInt().toString() +

@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Parcelize
-class Team(
+data class Team(
         var teamId: TeamID,
         var name: String = "",
         var location: String = "",
@@ -89,4 +89,9 @@ class Team(
         get() {
             return this.record.getLast10()
         }
+
+//    override fun equals(other: Any?): Boolean {
+//        if(other == null) return false
+//        return this.teamId == other.teamId
+//    }
 }
