@@ -17,7 +17,6 @@ data class Game(
         val quarter: String = "",
         val remainingTime: String = "",
         val date: Date = Date(),
-        val winner: TeamID = TeamID(-1)
 ) : Parcelable {
 
 
@@ -98,6 +97,13 @@ data class Game(
         return guestPlayerStats[player] ?: hostPlayerStats[player]
     }
 
+    val winner: TeamID
+    get() {
+        if (guestStats.data["points"]!! > hostStats.data["points"]!!)
+            return guestTeam
+        else
+            return hostTeam
+    }
 
 }
 

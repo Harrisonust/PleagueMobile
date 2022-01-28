@@ -46,7 +46,13 @@ data class Team(
     }
 
     private fun gamesPlayed(): Int {
-        return gamesIdList.size
+        var gameplayed = 0
+        for (gameId in gamesIdList) {
+            val game = getGameById(gameId) ?: continue
+            if (game.status != GameStatus.END) continue
+            gameplayed += 1
+        }
+        return gameplayed
     }
 
     var totalRecord: Record = Record(0F, 0F)
@@ -54,7 +60,9 @@ data class Team(
             var wins = 0
             for (gameId in gamesIdList) {
                 val game = getGameById(gameId) ?: return Record()
-                if (getTeamById(game.winner) == this) wins += 1
+                if (game.status != GameStatus.END) continue
+                val winnerTeam = getTeamById(game.winner) ?: continue
+                if (winnerTeam!!.teamId == this.teamId) wins += 1
             }
             val loses = gamesPlayed() - wins
             return Record(wins.toFloat(), loses.toFloat())
@@ -68,7 +76,9 @@ data class Team(
             for (gameId in gamesIdList) {
                 val game = getGameById(gameId) ?: return Record()
                 if (game.location == this.location) {
-                    if (getTeamById(game.winner) == this) wins += 1
+                    val winnerTeam = getTeamById(game.winner) ?: continue
+                    if (game.status != GameStatus.END) continue
+                    if (winnerTeam!!.teamId == this.teamId) wins += 1
                     else loses += 1
                 }
             }

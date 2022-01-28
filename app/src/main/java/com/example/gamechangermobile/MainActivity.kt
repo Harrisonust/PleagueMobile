@@ -38,14 +38,29 @@ class MainActivity : AppCompatActivity() {
         }
         getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021002))
         getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021005))
+        getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021009))
+
         getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021001))
         getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021004))
+        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021008))
+        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021010))
+
         getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021002))
         getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021004))
+        getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021006))
+
         getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021001))
         getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021005))
+        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021007))
+        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021009))
+        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021010))
+
         getTeamByName(TeamName.DREAMERS)!!.gamesIdList.add(GameID(2021003))
+        getTeamByName(TeamName.DREAMERS)!!.gamesIdList.add(GameID(2021007))
+
         getTeamByName(TeamName.STEELERS)!!.gamesIdList.add(GameID(2021003))
+        getTeamByName(TeamName.STEELERS)!!.gamesIdList.add(GameID(2021006))
+        getTeamByName(TeamName.STEELERS)!!.gamesIdList.add(GameID(2021008))
 
     }
 
@@ -858,69 +873,63 @@ class MainActivity : AppCompatActivity() {
                         )
                 )
         )
-
-        val fakeGuestPlayerStats1 = mutableMapOf<Player, PlayerStats>(
-                q_davis to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
-                hsing_chih_yang to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
-                thomas_welsh to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
-                chun_nan_chen to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
-        val fakeHostPlayerStats1 = mutableMapOf<Player, PlayerStats>(
-                kuo_hao_kao to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
-                ming_yi to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
-                nick_faust to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
-                bhullar to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
-
-        val fakeGuestPlayerStats2 = mutableMapOf<Player, PlayerStats>(
+        private val fakeBravesStats1 = mutableMapOf<Player, PlayerStats>(
                 chih_chieh_lin to PlayerStats(10F, 4F, 1F, steals = 0F, blocks = 1F),
                 hsiang_chun_tseng to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
                 michael_sigletary to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
                 shu_wei_lin to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
-        val fakeHostPlayerStats2 = mutableMapOf<Player, PlayerStats>(
-                d_roboson to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
-                chuh_hsiang_lu to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
-                jordan_tolbert to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
-                chih_yao_shih to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
-
-        val fakeGuestPlayerStats3 = mutableMapOf<Player, PlayerStats>(
-                jerry_chen to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
-                tucker to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
-                cheng_ju_lu to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
-                po_chih_wang to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
-        val fakeHostPlayerStats3 = mutableMapOf<Player, PlayerStats>(
-                calvin_chieng to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
-                chun_chi_lin to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
-                derek_Lee to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
-                kenneth to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
-
-        val fakeGuestPlayerStats4 = mutableMapOf<Player, PlayerStats>(
-                d_roboson to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
-                chuh_hsiang_lu to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
-                jordan_tolbert to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
-                chih_yao_shih to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
-        val fakeHostPlayerStats4 = mutableMapOf<Player, PlayerStats>(
+        private val fakeBravesStats2 = mutableMapOf<Player, PlayerStats>(
+                chih_chieh_lin to PlayerStats(23F, 8F, 2F, steals = 2F, blocks = 0F),
+                hsiang_chun_tseng to PlayerStats(3F, 11F, 1F, steals = 1F, blocks = 3F),
+                michael_sigletary to PlayerStats(33F, 10F, 4F, steals = 4F, blocks = 2F),
+                shu_wei_lin to PlayerStats(18F, 2F, 7F, steals = 2F, blocks = 0F))
+        private val fakeKingsStats1 = mutableMapOf<Player, PlayerStats>(
+                q_davis to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 2F),
+                hsing_chih_yang to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
+                thomas_welsh to PlayerStats(23F, 21F, 4F, steals = 2F, blocks = 4F),
+                chun_nan_chen to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
+        private val fakeKingsStats2 = mutableMapOf<Player, PlayerStats>(
                 q_davis to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
-                thomas_welsh to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
-                chun_nan_chen to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
-                hsing_chih_yang to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
+                thomas_welsh to PlayerStats(29F, 20F, 6F, steals = 2F, blocks = 4F),
+                chun_nan_chen to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
+                hsing_chih_yang to PlayerStats(9F, 2F, 1F, steals = 1F, blocks = 1F))
+        private val fakePilotsStats1 = mutableMapOf<Player, PlayerStats>(
+                d_roboson to PlayerStats(43F, 12F, 0F, steals = 3F, blocks = 2F),
+                chuh_hsiang_lu to PlayerStats(13F, 1F, 1F, steals = 1F, blocks = 0F),
+                jordan_tolbert to PlayerStats(17F, 13F, 1F, steals = 2F, blocks = 4F),
+                chih_yao_shih to PlayerStats(4F, 2F, 0F, steals = 0F, blocks = 0F))
+        private val fakePilotsStats2 = mutableMapOf<Player, PlayerStats>(
+                d_roboson to PlayerStats(38F, 7F, 1F, steals = 0F, blocks = 1F),
+                chuh_hsiang_lu to PlayerStats(16F, 4F, 1F, steals = 2F, blocks = 0F),
+                jordan_tolbert to PlayerStats(22F, 16F, 4F, steals = 2F, blocks = 3F),
+                chih_yao_shih to PlayerStats(4F, 2F, 0F, steals = 0F, blocks = 0F))
+        private val fakeLioneersStats1 = mutableMapOf<Player, PlayerStats>(
+                kuo_hao_kao to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
+                ming_yi to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
+                nick_faust to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
+                bhullar to PlayerStats(29F, 22F, 3F, steals = 1F, blocks = 6F))
+        private val fakeLioneersStats2 = mutableMapOf<Player, PlayerStats>(
+                kuo_hao_kao to PlayerStats(18F, 5F, 1F, steals = 3F, blocks = 1F),
+                nick_faust to PlayerStats(4F, 8F, 1F, steals = 3F, blocks = 1F),
+                b_dawson to PlayerStats(17F, 11F, 4F, steals = 4F, blocks = 4F),
+                even_lee to PlayerStats(10F, 7F, 2F, steals = 0F, blocks = 2F))
+        private val fakeDreamersStats1 = mutableMapOf<Player, PlayerStats>(
+                calvin_chieng to PlayerStats(13F, 8F, 1F, steals = 1F, blocks = 0F),
+                chun_chi_lin to PlayerStats(23F, 1F, 4F, steals = 1F, blocks = 0F),
+                derek_Lee to PlayerStats(27F, 11F, 1F, steals = 2F, blocks = 3F),
+                kenneth to PlayerStats(19F, 8F, 3F, steals = 1F, blocks = 1F))
+        private val fakeSteelersStats1 = mutableMapOf<Player, PlayerStats>(
+                jerry_chen to PlayerStats(11F, 4F, 10F, steals = 0F, blocks = 1F),
+                tucker to PlayerStats(24F, 4F, 1F, steals = 0F, blocks = 0F),
+                cheng_ju_lu to PlayerStats(22F, 5F, 4F, steals = 2F, blocks = 1F),
+                po_chih_wang to PlayerStats(6F, 0F, 0F, steals = 0F, blocks = 2F))
 
-        val fakeGuestPlayerStats5 = mutableMapOf<Player, PlayerStats>(
-                kuo_hao_kao to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
-                nick_faust to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
-                b_dawson to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
-                even_lee to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F))
-
-        val fakeHostPlayerStats5 = mutableMapOf<Player, PlayerStats>(
-                chih_chieh_lin to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
-                hsiang_chun_tseng to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
-                michael_sigletary to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
-                shu_wei_lin to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
 
         val games = arrayListOf<Game>(
                 Game(
                         gameId = GameID(2021001),
                         guestTeam = getTeamIdByName(TeamName.KINGS), hostTeam = getTeamIdByName(TeamName.LIONEERS),
-                        guestPlayerStats = fakeGuestPlayerStats1,
-                        hostPlayerStats = fakeHostPlayerStats1,
+                        guestPlayerStats = fakeKingsStats1, hostPlayerStats = fakeLioneersStats1,
                         status = GameStatus.INGAME,
                         startingTime = Date(2022, 1, 1, 13, 0),
                         quarter = "1st", remainingTime = "4:17"
@@ -928,34 +937,58 @@ class MainActivity : AppCompatActivity() {
                 Game(
                         gameId = GameID(2021002),
                         guestTeam = getTeamIdByName(TeamName.BRAVES), hostTeam = getTeamIdByName(TeamName.PILOTS),
-                        guestPlayerStats = fakeGuestPlayerStats2,
-                        hostPlayerStats = fakeHostPlayerStats2,
+                        guestPlayerStats = fakeBravesStats1, hostPlayerStats = fakePilotsStats1,
                         status = GameStatus.NOT_YET_START,
                         startingTime = Date(2022, 1, 1, 19, 0),
                 ),
                 Game(
                         gameId = GameID(2021003),
                         guestTeam = getTeamIdByName(TeamName.STEELERS), getTeamIdByName(TeamName.DREAMERS),
-                        guestPlayerStats = fakeGuestPlayerStats3,
-                        hostPlayerStats = fakeHostPlayerStats3,
+                        guestPlayerStats = fakeSteelersStats1, hostPlayerStats = fakeDreamersStats1,
                         status = GameStatus.END,
-                        winner = getTeamIdByName(TeamName.STEELERS)
                 ),
                 Game(
                         gameId = GameID(2021004),
                         guestTeam = getTeamIdByName(TeamName.PILOTS), hostTeam = getTeamIdByName(TeamName.KINGS),
-                        guestPlayerStats = fakeGuestPlayerStats4,
-                        hostPlayerStats = fakeHostPlayerStats4,
+                        guestPlayerStats = fakePilotsStats2, hostPlayerStats = fakeKingsStats2,
                         status = GameStatus.END,
-                        winner = getTeamIdByName(TeamName.KINGS)
                 ),
                 Game(
                         gameId = GameID(2021005),
                         guestTeam = getTeamIdByName(TeamName.LIONEERS), hostTeam = getTeamIdByName(TeamName.BRAVES),
-                        guestPlayerStats = fakeGuestPlayerStats5,
-                        hostPlayerStats = fakeHostPlayerStats5,
+                        guestPlayerStats = fakeLioneersStats2, hostPlayerStats = fakeBravesStats2,
                         status = GameStatus.END,
-                        winner = getTeamIdByName(TeamName.LIONEERS)
+                ),
+                Game(
+                        gameId = GameID(2021006),
+                        guestTeam = getTeamIdByName(TeamName.PILOTS), hostTeam = getTeamIdByName(TeamName.STEELERS),
+                        guestPlayerStats = fakePilotsStats2, hostPlayerStats = fakeSteelersStats1,
+                        status = GameStatus.END,
+                ),
+                Game(
+                        gameId = GameID(2021007),
+                        guestTeam = getTeamIdByName(TeamName.LIONEERS), hostTeam = getTeamIdByName(TeamName.DREAMERS),
+                        guestPlayerStats = fakeLioneersStats1, hostPlayerStats = fakeDreamersStats1,
+                        status = GameStatus.END,
+                        startingTime = Date(2022, 1, 1, 19, 0),
+                ),
+                Game(
+                        gameId = GameID(2021008),
+                        guestTeam = getTeamIdByName(TeamName.KINGS), getTeamIdByName(TeamName.STEELERS),
+                        guestPlayerStats = fakeKingsStats1, hostPlayerStats = fakeSteelersStats1,
+                        status = GameStatus.END,
+                ),
+                Game(
+                        gameId = GameID(2021009),
+                        guestTeam = getTeamIdByName(TeamName.LIONEERS), hostTeam = getTeamIdByName(TeamName.BRAVES),
+                        guestPlayerStats = fakeLioneersStats1, hostPlayerStats = fakeBravesStats2,
+                        status = GameStatus.END,
+                ),
+                Game(
+                        gameId = GameID(2021010),
+                        guestTeam = getTeamIdByName(TeamName.DREAMERS), hostTeam = getTeamIdByName(TeamName.KINGS),
+                        guestPlayerStats = fakeDreamersStats1, hostPlayerStats = fakeKingsStats2,
+                        status = GameStatus.END,
                 )
         )
 
