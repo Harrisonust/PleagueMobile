@@ -7,8 +7,8 @@ import java.util.*
 
 @Parcelize
 data class Game(
-        var guestTeam: Team,
-        var hostTeam: Team,
+        var guestTeam: Team = Team(),
+        var hostTeam: Team = Team(),
         val guestPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
         val hostPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
         val status: GameStatus = GameStatus.NO_STATUS,

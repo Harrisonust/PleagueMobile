@@ -19,10 +19,10 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(gamesFrag)
 
         debugButton.setOnClickListener {
-            val intent = Intent(this, TeamActivity::class.java)
-            val team = Lioneers
-            intent.putExtra("SELECTED_TEAM", team)
-            startActivity(intent)
+//            val intent = Intent(this, TeamActivity::class.java)
+//            val team = Lioneers
+//            intent.putExtra("SELECTED_TEAM", team)
+//            startActivity(intent)
         }
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
