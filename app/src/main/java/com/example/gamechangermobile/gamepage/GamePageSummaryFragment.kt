@@ -95,8 +95,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_3_pointer_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_free_throw.text = gs["freeThrow"]!!.toInt().toString() + "/" + gs["freeThrowAttempt"]!!.toInt().toString() + "(" + gs["freeThrowAttemptPercentage"]!!.toString() + "%)"
-//        guest_fouls_bar.layoutParams.width =
-        guest_fouls_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+//        guest_free_throw_bar.layoutParams.width =
+        guest_free_throw_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_assist.text = gs["assists"]!!.toInt().toString()
 //        guest_assist_bar.layoutParams.width =
@@ -104,38 +104,38 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         
         guest_total_rebound.text = gs["rebounds"]!!.toInt().toString()
 //        guest_total_rebound_bar.layoutParams.width = 10
-        guest_field_goal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+        guest_total_rebound_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_offensive_rebound.text = gs["offensiveRebounds"]!!.toInt().toString()
 //        guest_offensive_rebound_bar.layoutParams.width
-        guest_field_goal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+        guest_offensive_rebound_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_defensive_rebound.text = gs["defensiveRebounds"]!!.toInt().toString()
 //        guest_defensive_rebound_bar.layoutParams.width =
-        guest_field_goal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+        guest_defensive_rebound_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_steal.text = gs["steals"]!!.toInt().toString()
 //        guest_steal_bar.layoutParams.width =
         guest_steal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_block.text = gs["blocks"]!!.toInt().toString()
-//        guest_steal_bar.layoutParams.width =
-        guest_steal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+//        guest_block_bar.layoutParams.width =
+        guest_block_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_turnover.text = gs["turnovers"]!!.toInt().toString()
 //        guest_turnover_bar.layoutParams.width =
-        guest_field_goal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+        guest_turnover_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_points_off_turnovers.text = game.guestStats.data["pointsOffTurnovers"]!!.toInt().toString()
 //        guest_points_off_turnovers_bar.layoutParams.width =
-        guest_field_goal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+        guest_points_off_turnovers_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_fouls.text = gs["personalFouls"]!!.toInt().toString()
 //        guest_fouls_bar.layoutParams.width =
         guest_fouls_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_timeouts_remaining.text = game.guestStats.data["timeoutRemaining"]!!.toInt().toString()
-
+        guest_timeouts_remaining_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
 
         val hs = game.hostStats.data
 
@@ -192,8 +192,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_3_pointer_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_free_throw.text = hs["freeThrow"]!!.toInt().toString() + "/" + hs["freeThrowAttempt"]!!.toInt().toString() + "(" + hs["freeThrowAttemptPercentage"]!!.toString() + "%)"
-//        host_fouls_bar.layoutParams.width =
-        host_fouls_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
+//        host_free_throw_bar.layoutParams.width =
+        host_free_throw_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_assist.text = hs["assists"]!!.toInt().toString()
 //        host_assist_bar.layoutParams.width =
@@ -216,8 +216,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_steal_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_block.text = hs["blocks"]!!.toInt().toString()
-//        host_steal_bar.layoutParams.width =
-        host_steal_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
+//        host_block_bar.layoutParams.width =
+        host_block_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_turnover.text = hs["turnovers"]!!.toInt().toString()
 //        host_turnover_bar.layoutParams.width =
@@ -232,5 +232,6 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_fouls_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_timeouts_remaining.text = game.hostStats.data["timeoutRemaining"]!!.toInt().toString()
+        host_timeouts_remaining_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
     }
 }
