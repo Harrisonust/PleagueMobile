@@ -67,6 +67,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_block_leader_point.text = game.getPlayerStats(game.guestBlockLeader)!!.data["blocks"]!!.toInt().toString()
         guest_block_leader_point.setTextColor(resources.getColor(game.guestTeam.color))
 
+        guest_icon.setImageResource(game.guestTeam.profilePic)
+
         guest_point_leader_image.setOnClickListener {
             startPlayerActivity(game.guestPointLeader)
         }
@@ -163,6 +165,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_block_leader_name.text = game.hostBlockLeader.fullName
         host_block_leader_point.text = game.getPlayerStats(game.hostBlockLeader)!!.data["blocks"]!!.toInt().toString()
         host_block_leader_point.setTextColor(resources.getColor(game.hostTeam.color))
+
+        host_icon.setImageResource(game.hostTeam.profilePic)
 
         host_point_leader_image.setOnClickListener {
             startPlayerActivity(game.hostPointLeader)
