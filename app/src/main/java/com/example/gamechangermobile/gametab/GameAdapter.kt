@@ -44,15 +44,15 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val game = gameList[position]
-        holder.hostScore.text = game.HostStats.points.toInt().toString()
-        holder.hostImg.setImageResource(game.HostTeam.profilePic)
-        holder.hostName.text = game.HostTeam.name
-        holder.hostRecord.text = game.HostTeam.totalRecord.getRecord()
+        holder.hostScore.text = game.hostStats.data["points"]!!.toInt().toString()
+        holder.hostImg.setImageResource(game.hostTeam.profilePic)
+        holder.hostName.text = game.hostTeam.name
+        holder.hostRecord.text = game.hostTeam.totalRecord.getRecord()
 
-        holder.guestScore.text = game.GuestStats.points.toInt().toString()
-        holder.guestImg.setImageResource(game.GuestTeam.profilePic)
-        holder.guestName.text = game.GuestTeam.name
-        holder.guestRecord.text = game.GuestTeam.totalRecord.getRecord()
+        holder.guestScore.text = game.guestStats.data["points"]!!.toInt().toString()
+        holder.guestImg.setImageResource(game.guestTeam.profilePic)
+        holder.guestName.text = game.guestTeam.name
+        holder.guestRecord.text = game.guestTeam.totalRecord.getRecord()
 
         if (game.status == GameStatus.INGAME) {
             holder.remainingTime.text = game.remainingTime

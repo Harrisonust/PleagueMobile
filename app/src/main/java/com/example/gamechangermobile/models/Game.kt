@@ -1,22 +1,22 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
-import android.util.Log
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 
 @Parcelize
 data class Game(
-        var GuestTeam: Team,
-        var HostTeam: Team,
-        val GuestPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
-        val HostPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
+        var guestTeam: Team = Team(),
+        var hostTeam: Team = Team(),
+        val guestPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
+        val hostPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
         val status: GameStatus = GameStatus.NO_STATUS,
         val startingTime: Date = Date(),
         val quarter: String = "",
         val remainingTime: String = "",
-        val date: Date = Date()
+        val date: Date = Date(),
+        val winner: Team = Team()
 ) : Parcelable {
 
 
@@ -28,65 +28,75 @@ data class Game(
         return sum
     }
 
-    var GuestStats: GameStats = GameStats()
+    var guestStats: TeamStats = TeamStats()
         get() {
-            val pointsSum = sumOfStat(GuestPlayerStats, "points")
-            val reboundsSum = sumOfStat(GuestPlayerStats, "rebounds")
-            val assistsSum = sumOfStat(GuestPlayerStats, "assists")
-            return GameStats(points = pointsSum, rebounds = reboundsSum, assists = assistsSum)
+            var gameStats = TeamStats()
+            for (playerStats in guestPlayerStats.values) {
+                playerStats.data.forEach {
+                    gameStats.data[it.key] = gameStats.data[it.key]!! + playerStats.data[it.key]!!
+                }
+            }
+            return gameStats
         }
 
-    var HostStats: GameStats = GameStats()
+    var hostStats: TeamStats = TeamStats()
         get() {
-            val pointsSum = sumOfStat(HostPlayerStats, "points")
-            val reboundsSum = sumOfStat(HostPlayerStats, "rebounds")
-            val assistsSum = sumOfStat(HostPlayerStats, "assists")
-            return GameStats(points = pointsSum, rebounds = reboundsSum, assists = assistsSum)
+            var gameStats = TeamStats()
+            for (playerStats in hostPlayerStats.values) {
+                playerStats.data.forEach {
+                    gameStats.data[it.key] = gameStats.data[it.key]!! + playerStats.data[it.key]!!
+                }
+            }
+            return gameStats
         }
 
     var hostPointLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key ?: Player()
         }
     var hostReboundLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key ?: Player()
         }
     var hostAssistLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key ?: Player()
         }
     var hostStealLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key ?: Player()
         }
     var hostBlockLeader: Player = Player()
         get() {
-            return HostPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
         }
     var guestPointLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key ?: Player()
         }
     var guestReboundLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key ?: Player()
         }
     var guestAssistLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key ?: Player()
         }
     var guestStealLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key ?: Player()
         }
     var guestBlockLeader: Player = Player()
         get() {
-            return GuestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
         }
 
+    var location: String = hostTeam.location
+
     fun getPlayerStats(player: Player): PlayerStats? {
-        return GuestPlayerStats[player] ?: HostPlayerStats[player]
+        return guestPlayerStats[player] ?: hostPlayerStats[player]
     }
+
+
 }
 
