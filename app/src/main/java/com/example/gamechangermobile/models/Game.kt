@@ -7,8 +7,9 @@ import java.util.*
 
 @Parcelize
 data class Game(
-        var guestTeam: Team = Team(),
-        var hostTeam: Team = Team(),
+        val gameId: GameID,
+        var guestTeam: TeamID,
+        var hostTeam: TeamID,
         val guestPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
         val hostPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
         val status: GameStatus = GameStatus.NO_STATUS,
@@ -16,7 +17,7 @@ data class Game(
         val quarter: String = "",
         val remainingTime: String = "",
         val date: Date = Date(),
-        val winner: Team = Team()
+        val winner: TeamID = TeamID(-1)
 ) : Parcelable {
 
 
@@ -91,7 +92,7 @@ data class Game(
             return guestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
         }
 
-    var location: String = hostTeam.location
+    var location: String = getTeamById(TeamID(hostTeam.ID))!!.location
 
     fun getPlayerStats(player: Player): PlayerStats? {
         return guestPlayerStats[player] ?: hostPlayerStats[player]

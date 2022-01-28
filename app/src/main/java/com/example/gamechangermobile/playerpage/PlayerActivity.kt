@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.models.getTeamById
 
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -24,7 +25,7 @@ class PlayerActivity : AppCompatActivity() {
         player_page_profile_pic.setImageResource(playerData!!.profilePic)
         player_page_player_firstname.text = playerData?.firstName
         player_page_player_lastname.text = playerData?.lastName
-        player_page_player_team.text = playerData?.team.name
+        player_page_player_team.text = getTeamById(playerData?.teamId)?.name
         player_page_player_number.text = "#" + playerData?.number.toString()
         player_page_player_position.text = playerData?.position
         player_page_player_pts.text = playerData.averageStat.data["points"].toString()

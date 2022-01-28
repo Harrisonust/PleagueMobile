@@ -11,6 +11,7 @@ import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.GameStatus
+import com.example.gamechangermobile.models.getTeamById
 import java.text.SimpleDateFormat
 
 class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.ViewHolder>() {
@@ -44,15 +45,18 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val game = gameList[position]
+        val hostTeam = getTeamById(game.hostTeam)!!
+        val guestTeam = getTeamById(game.guestTeam)!!
+
         holder.hostScore.text = game.hostStats.data["points"]!!.toInt().toString()
-        holder.hostImg.setImageResource(game.hostTeam.profilePic)
-        holder.hostName.text = game.hostTeam.name
-        holder.hostRecord.text = game.hostTeam.totalRecord.getRecord()
+        holder.hostImg.setImageResource(hostTeam.profilePic)
+        holder.hostName.text = hostTeam.name
+        holder.hostRecord.text = hostTeam.totalRecord.getRecord()
 
         holder.guestScore.text = game.guestStats.data["points"]!!.toInt().toString()
-        holder.guestImg.setImageResource(game.guestTeam.profilePic)
-        holder.guestName.text = game.guestTeam.name
-        holder.guestRecord.text = game.guestTeam.totalRecord.getRecord()
+        holder.guestImg.setImageResource(guestTeam.profilePic)
+        holder.guestName.text = guestTeam.name
+        holder.guestRecord.text = guestTeam.totalRecord.getRecord()
 
         if (game.status == GameStatus.INGAME) {
             holder.remainingTime.text = game.remainingTime

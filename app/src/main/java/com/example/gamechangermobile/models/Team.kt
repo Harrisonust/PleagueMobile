@@ -7,33 +7,54 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Parcelize
-class Team(val name: String = "",
-           var location: String = "",
-           var profilePic: Int = 0,
-           var arena: String = "",
-           var foundingDate: Date = Date(),
-           var ranking: String = "",
-           var color: Int = R.color.bg_color,
-           var playerList: ArrayList<Player> = ArrayList<Player>(),
-           var gamesList: ArrayList<Game> = ArrayList<Game>(),
-           var record: Record = Record(),
+class Team(
+        var teamId: TeamID,
+        var name: String = "",
+        var location: String = "",
+        var profilePic: Int = 0,
+        var arena: String = "",
+        var foundingDate: Date = Date(),
+        var ranking: String = "",
+        var color: Int = R.color.bg_color,
+        var playerList: ArrayList<Player> = ArrayList<Player>(),
+        var gamesIdList: ArrayList<GameID> = ArrayList<GameID>(),
+        var record: Record = Record(),
 ) : Parcelable {
 
-    fun getGame(date: Date): Game? {
-        for (game in gamesList)
-            if (game.date == date) return game
+    fun getGame(gameId: GameID): Game? {
+        for (gameId in gamesIdList) {
+            return getGameById(gameId)
+        }
         return null
     }
 
-    fun gamesPlayed(): Int {
-        return gamesList.size
+    fun getGame(date: Date): Game? {
+        for (gameId in gamesIdList) {
+            val game = getGameById(gameId) ?: return null
+            if (game.date == date) return game
+        }
+        return null
+    }
+
+    fun getGameList(): ArrayList<Game> {
+        val games = ArrayList<Game>()
+        for (gameId in gamesIdList) {
+            val game = getGameById(gameId) ?: continue
+            games.add(game)
+        }
+        return games
+    }
+
+    private fun gamesPlayed(): Int {
+        return gamesIdList.size
     }
 
     var totalRecord: Record = Record(0F, 0F)
         get() {
             var wins = 0
-            for (game in gamesList) {
-                if (game.winner == this) wins += 1
+            for (gameId in gamesIdList) {
+                val game = getGameById(gameId) ?: return Record()
+                if (getTeamById(game.winner) == this) wins += 1
             }
             val loses = gamesPlayed() - wins
             return Record(wins.toFloat(), loses.toFloat())
@@ -44,9 +65,10 @@ class Team(val name: String = "",
             var wins = 0
             var loses = 0
 
-            for (game in gamesList) {
+            for (gameId in gamesIdList) {
+                val game = getGameById(gameId) ?: return Record()
                 if (game.location == this.location) {
-                    if (game.winner == this) wins += 1
+                    if (getTeamById(game.winner) == this) wins += 1
                     else loses += 1
                 }
             }
