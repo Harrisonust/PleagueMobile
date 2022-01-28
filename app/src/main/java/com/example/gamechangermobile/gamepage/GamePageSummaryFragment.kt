@@ -2,6 +2,7 @@ package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.gamechangermobile.playerpage.PlayerActivity
 
 
 class GamePageSummaryFragment(val game: Game) : Fragment() {
+    private val viewBarMargin = 10
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +43,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         }
 
         val gs = game.guestStats.data
+        val hs = game.hostStats.data
 
         guest_point_leader_image.setImageResource(game.guestPointLeader.profilePic)
         guest_point_leader_name.text = game.guestPointLeader.fullName
@@ -90,7 +93,6 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         guest_field_goal.text = gs["fieldGoal"]!!.toInt().toString() + "/" + gs["fieldGoalAttempt"]!!.toInt().toString() + "(" + gs["fieldGoalPercentage"]!!.toString() + "%)"
         guest_field_goal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
-        //        guest_field_goal_bar.layoutParams.width = 50
         
         guest_3_pointer.text = gs["fieldGoal3pt"]!!.toInt().toString() + "/" + gs["fieldGoalAttempt3pt"]!!.toInt().toString() + "(" + gs["fieldGoalPercentage3pt"]!!.toString() + "%)"
 //        guest_3_pointer_bar.layoutParams.width = 10
@@ -101,12 +103,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_free_throw_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_assist.text = gs["assists"]!!.toInt().toString()
-//        guest_assist_bar.layoutParams.width =
-        guest_assist_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_total_rebound.text = gs["rebounds"]!!.toInt().toString()
-//        guest_total_rebound_bar.layoutParams.width = 10
-        guest_total_rebound_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_offensive_rebound.text = gs["offensiveRebounds"]!!.toInt().toString()
 //        guest_offensive_rebound_bar.layoutParams.width
@@ -117,12 +115,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_defensive_rebound_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_steal.text = gs["steals"]!!.toInt().toString()
-//        guest_steal_bar.layoutParams.width =
-        guest_steal_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_block.text = gs["blocks"]!!.toInt().toString()
-//        guest_block_bar.layoutParams.width =
-        guest_block_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
         
         guest_turnover.text = gs["turnovers"]!!.toInt().toString()
 //        guest_turnover_bar.layoutParams.width =
@@ -139,7 +133,6 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_timeouts_remaining.text = game.guestStats.data["timeoutRemaining"]!!.toInt().toString()
         guest_timeouts_remaining_bar.setBackgroundColor(resources.getColor(game.guestTeam.color))
 
-        val hs = game.hostStats.data
 
         host_point_leader_image.setImageResource(game.hostPointLeader.profilePic)
         host_point_leader_name.text = game.hostPointLeader.fullName
@@ -200,12 +193,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_free_throw_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_assist.text = hs["assists"]!!.toInt().toString()
-//        host_assist_bar.layoutParams.width =
-        host_assist_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_total_rebound.text = hs["rebounds"]!!.toInt().toString()
-//        host_total_rebound_bar.layoutParams.width = 10
-        host_total_rebound_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_offensive_rebound.text = hs["offensiveRebounds"]!!.toInt().toString()
 //        host_offensive_rebound_bar.layoutParams.width
@@ -216,12 +205,8 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_defensive_rebound_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_steal.text = hs["steals"]!!.toInt().toString()
-//        host_steal_bar.layoutParams.width =
-        host_steal_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_block.text = hs["blocks"]!!.toInt().toString()
-//        host_block_bar.layoutParams.width =
-        host_block_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
 
         host_turnover.text = hs["turnovers"]!!.toInt().toString()
 //        host_turnover_bar.layoutParams.width =
@@ -237,5 +222,27 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         host_timeouts_remaining.text = game.hostStats.data["timeoutRemaining"]!!.toInt().toString()
         host_timeouts_remaining_bar.setBackgroundColor(resources.getColor(game.hostTeam.color))
+
+        // set bar width
+        val displayMetrics = DisplayMetrics()
+        val scale = context?.resources?.displayMetrics?.density
+        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
+        val completeBarWidth = screenWidth - (2 * viewBarMargin * scale!! + 0.5F)
+
+        changeBarWidth(completeBarWidth, guest_assist_bar, host_assist_bar, gs["assists"]!!, hs["assists"]!!)
+        changeBarWidth(completeBarWidth, guest_total_rebound_bar, host_total_rebound_bar, gs["rebounds"]!!, hs["rebounds"]!!)
+        changeBarWidth(completeBarWidth, guest_steal_bar, host_steal_bar, gs["steals"]!!, hs["steals"]!!)
+        changeBarWidth(completeBarWidth, guest_block_bar, host_block_bar, gs["blocks"]!!, hs["blocks"]!!)
+
+    }
+
+    private fun changeBarWidth(completeBarWidth: Float, guestBar: View, hostBar: View, guestValue: Float, hostValue: Float) {
+        val totalValue: Float = guestValue + hostValue
+        guestBar.layoutParams.width = ((guestValue/totalValue) * completeBarWidth).toInt()
+        hostBar.layoutParams.width = ((hostValue/totalValue) * completeBarWidth).toInt()
+        guestBar.setBackgroundColor(resources.getColor(game.guestTeam.color))
+        hostBar.setBackgroundColor(resources.getColor(game.hostTeam.color))
+
     }
 }
