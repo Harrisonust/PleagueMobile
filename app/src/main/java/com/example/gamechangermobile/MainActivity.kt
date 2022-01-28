@@ -711,6 +711,11 @@ class MainActivity : AppCompatActivity() {
                         position = "C"
                 )
 
+        var league_average_player = Player(
+                firstName = "Average",
+                profilePic = R.drawable.ic_baseline_sports_basketball_24
+        )
+
         var Braves =
                 Team(
                         name = "Braves",
