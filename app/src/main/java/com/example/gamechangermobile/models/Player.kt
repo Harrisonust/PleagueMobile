@@ -11,7 +11,7 @@ class Player(
         val lastName: String = "",
         var profilePic: Int = R.drawable.ic_baseline_sports_basketball_24,
         var stats: MutableMap<Date, PlayerStats> = mutableMapOf<Date, PlayerStats>(),
-        var team: Team = Team("", "", 0),
+        var teamId: TeamID = TeamID(-1),
         var age: Int = 0,
         var number: String = "",
         var position: String = "",

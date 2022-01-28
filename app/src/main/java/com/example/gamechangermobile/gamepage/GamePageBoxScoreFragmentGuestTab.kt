@@ -9,6 +9,7 @@ import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.PlayerStats
+import com.example.gamechangermobile.models.getTeamById
 import com.example.gamechangermobile.views.DynamicTable
 
 class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
@@ -22,7 +23,7 @@ class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         val players: MutableMap<Player, PlayerStats> = mutableMapOf()
 
-        for (player in game.guestTeam.playerList) {
+        for (player in getTeamById(game.guestTeam)!!.playerList) {
             players[player] = game.getPlayerStats(player) ?: PlayerStats()
         }
         dynamicTable.renderTable(

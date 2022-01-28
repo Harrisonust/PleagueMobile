@@ -1,6 +1,5 @@
 package com.example.gamechangermobile
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -37,17 +36,17 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021002))
+        getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021005))
+        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021001))
+        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021004))
+        getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021002))
+        getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021004))
+        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021001))
+        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021005))
+        getTeamByName(TeamName.DREAMERS)!!.gamesIdList.add(GameID(2021003))
+        getTeamByName(TeamName.STEELERS)!!.gamesIdList.add(GameID(2021003))
 
-//        Braves.gamesList.add(game2)
-//        Braves.gamesList.add(game5)
-//        Kings.gamesList.add(game1)
-//        Kings.gamesList.add(game4)
-//        Pilots.gamesList.add(game2)
-//        Pilots.gamesList.add(game4)
-//        Lioneers.gamesList.add(game1)
-//        Lioneers.gamesList.add(game5)
-//        Dreamers.gamesList.add(game3)
-//        Steelers.gamesList.add(game3)
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -74,7 +73,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 38,
                         number = "12",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.BRAVES)
                 )
         var hsiang_chun_tseng =
                 Player(
@@ -93,7 +93,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 22,
                         number = "21",
-                        position = "C"
+                        position = "C",
+                        teamId = getTeamIdByName(TeamName.BRAVES)
                 )
         var michael_sigletary =
                 Player(
@@ -112,7 +113,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 28,
                         number = "17",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.BRAVES)
                 )
         var shu_wei_lin =
                 Player(
@@ -131,7 +133,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 28,
                         number = "1",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.BRAVES)
                 )
 
         var q_davis =
@@ -150,7 +153,9 @@ class MainActivity : AppCompatActivity() {
                                         )
                         ),
                         number = "50",
-                        position = "C"
+                        position = "C",
+                        teamId = getTeamIdByName(TeamName.KINGS)
+
                 )
         var thomas_welsh =
                 Player(
@@ -169,7 +174,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 24,
                         number = "40",
-                        position = "C"
+                        position = "C",
+                        teamId = getTeamIdByName(TeamName.KINGS)
                 )
         var chun_nan_chen =
                 Player(
@@ -188,7 +194,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 20,
                         number = "3",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.KINGS)
                 )
         var hsing_chih_yang =
                 Player(
@@ -207,7 +214,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 27,
                         number = "33",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.KINGS)
                 )
 
         var d_roboson =
@@ -227,7 +235,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 25,
                         number = "0",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.PILOTS)
                 )
         var chuh_hsiang_lu =
                 Player(
@@ -245,7 +254,8 @@ class MainActivity : AppCompatActivity() {
                                         )
                         ),
                         number = "69",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.PILOTS)
                 )
         var jordan_tolbert =
                 Player(
@@ -264,7 +274,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 28,
                         number = "1",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.PILOTS)
                 )
         var chih_yao_shih =
                 Player(
@@ -283,7 +294,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 30,
                         number = "28",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.PILOTS)
                 )
 
         var kuo_hao_kao =
@@ -302,7 +314,8 @@ class MainActivity : AppCompatActivity() {
                                         )
                         ),
                         number = "4",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var nick_faust =
                 Player(
@@ -328,7 +341,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 27,
                         number = "7",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var b_dawson =
                 Player(
@@ -346,7 +360,8 @@ class MainActivity : AppCompatActivity() {
                                         )
                         ),
                         number = "22",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var even_lee =
                 Player(
@@ -365,7 +380,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 26,
                         number = "12",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var ming_yi =
                 Player(
@@ -384,7 +400,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 24,
                         number = "3",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var bhullar =
                 Player(
@@ -403,7 +420,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 28,
                         number = "35",
-                        position = "C"
+                        position = "C",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var yi_huei =
                 Player(
@@ -422,7 +440,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 34,
                         number = "36",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var leon_sung =
                 Player(
@@ -441,7 +460,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 31,
                         number = "5",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var elliot =
                 Player(
@@ -460,7 +480,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 32,
                         number = "6",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var yun_hao =
                 Player(
@@ -478,7 +499,8 @@ class MainActivity : AppCompatActivity() {
                                         )
                         ),
                         number = "8",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var hao_tien =
                 Player(
@@ -497,7 +519,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 22,
                         number = "9",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var shun_yi =
                 Player(
@@ -516,7 +539,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 28,
                         number = "11",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var shao_chieh =
                 Player(
@@ -535,7 +559,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 30,
                         number = "24",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
         var tai_hao =
                 Player(
@@ -554,7 +579,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 35,
                         number = "54",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.LIONEERS)
                 )
 
         var calvin_chieng =
@@ -574,7 +600,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 32,
                         number = "7",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.DREAMERS)
                 )
         var chun_chi_lin =
                 Player(
@@ -593,7 +620,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 22,
                         number = "11",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.DREAMERS)
                 )
         var derek_Lee =
                 Player(
@@ -612,7 +640,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 29,
                         number = "26",
-                        position = "C"
+                        position = "C",
+                        teamId = getTeamIdByName(TeamName.DREAMERS)
                 )
         var kenneth =
                 Player(
@@ -631,7 +660,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 25,
                         number = "23",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.DREAMERS)
                 )
 
         var jerry_chen =
@@ -651,7 +681,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 21,
                         number = "4",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.STEELERS)
                 )
         var tucker =
                 Player(
@@ -670,7 +701,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 31,
                         number = "1",
-                        position = "G"
+                        position = "G",
+                        teamId = getTeamIdByName(TeamName.STEELERS)
                 )
         var cheng_ju_lu =
                 Player(
@@ -689,7 +721,8 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 34,
                         number = "13",
-                        position = "F"
+                        position = "F",
+                        teamId = getTeamIdByName(TeamName.STEELERS)
                 )
         var po_chih_wang =
                 Player(
@@ -708,11 +741,12 @@ class MainActivity : AppCompatActivity() {
                         ),
                         age = 24,
                         number = "10",
-                        position = "C"
+                        position = "C",
+                        teamId = getTeamIdByName(TeamName.STEELERS)
                 )
-
-        var Braves =
+        var teams: ArrayList<Team> = arrayListOf(
                 Team(
+                        teamId = TeamID(0),
                         name = "Braves",
                         location = "Taipei",
                         profilePic = R.drawable.braves,
@@ -727,9 +761,9 @@ class MainActivity : AppCompatActivity() {
                                 michael_sigletary,
                                 shu_wei_lin
                         )
-                )
-        var Kings =
+                ),
                 Team(
+                        teamId = getTeamIdByName(TeamName.KINGS),
                         name = "Kings",
                         location = "New Taipei",
                         profilePic = R.drawable.kings,
@@ -744,9 +778,9 @@ class MainActivity : AppCompatActivity() {
                                 chun_nan_chen,
                                 hsing_chih_yang
                         )
-                )
-        var Pilots =
+                ),
                 Team(
+                        teamId = getTeamIdByName(TeamName.PILOTS),
                         name = "Pilots",
                         location = "Taoyuan",
                         profilePic = R.drawable.pilots,
@@ -761,9 +795,9 @@ class MainActivity : AppCompatActivity() {
                                 jordan_tolbert,
                                 chih_yao_shih
                         )
-                )
-        var Lioneers =
+                ),
                 Team(
+                        teamId = getTeamIdByName(TeamName.LIONEERS),
                         name = "Lioneers",
                         location = "Hsinchu",
                         profilePic = R.drawable.lioneers,
@@ -788,10 +822,9 @@ class MainActivity : AppCompatActivity() {
                                 shao_chieh,
                                 tai_hao
                         )
-                )
-
-        var Dreamers =
+                ),
                 Team(
+                        teamId = getTeamIdByName(TeamName.DREAMERS),
                         name = "Dreamers",
                         location = "Changhua",
                         profilePic = R.drawable.dreamers,
@@ -806,9 +839,9 @@ class MainActivity : AppCompatActivity() {
                                 derek_Lee,
                                 kenneth
                         )
-                )
-        var Steelers =
+                ),
                 Team(
+                        teamId = getTeamIdByName(TeamName.STEELERS),
                         name = "Steelers",
                         location = "Kaoshung",
                         profilePic = R.drawable.steelers,
@@ -824,6 +857,7 @@ class MainActivity : AppCompatActivity() {
                                 po_chih_wang
                         )
                 )
+        )
 
         val fakeGuestPlayerStats1 = mutableMapOf<Player, PlayerStats>(
                 q_davis to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 1F),
@@ -881,45 +915,48 @@ class MainActivity : AppCompatActivity() {
                 michael_sigletary to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
                 shu_wei_lin to PlayerStats(19F, 22F, 3F, steals = 1F, blocks = 6F))
 
-        val game1 = Game(
-                guestTeam = Kings, hostTeam = Lioneers,
-                guestPlayerStats = fakeGuestPlayerStats1,
-                hostPlayerStats = fakeHostPlayerStats1,
-                status = GameStatus.INGAME,
-                startingTime = Date(2022, 1, 1, 13, 0),
-                quarter = "1st", remainingTime = "4:17"
-        )
-
-        val game2 = Game(
-                guestTeam = Braves, hostTeam = Pilots,
-                guestPlayerStats = fakeGuestPlayerStats2,
-                hostPlayerStats = fakeHostPlayerStats2,
-                status = GameStatus.NOT_YET_START,
-                startingTime = Date(2022, 1, 1, 19, 0),
-        )
-
-        val game3 = Game(
-                guestTeam = Steelers, hostTeam = Dreamers,
-                guestPlayerStats = fakeGuestPlayerStats3,
-                hostPlayerStats = fakeHostPlayerStats3,
-                status = GameStatus.END,
-                winner = Steelers
-        )
-
-        val game4 = Game(
-                guestTeam = Pilots, hostTeam = Kings,
-                guestPlayerStats = fakeGuestPlayerStats4,
-                hostPlayerStats = fakeHostPlayerStats4,
-                status = GameStatus.END,
-                winner = Kings
-        )
-
-        val game5 = Game(
-                guestTeam = Lioneers, hostTeam = Braves,
-                guestPlayerStats = fakeGuestPlayerStats5,
-                hostPlayerStats = fakeHostPlayerStats5,
-                status = GameStatus.END,
-                winner = Lioneers
+        val games = arrayListOf<Game>(
+                Game(
+                        gameId = GameID(2021001),
+                        guestTeam = getTeamIdByName(TeamName.KINGS), hostTeam = getTeamIdByName(TeamName.LIONEERS),
+                        guestPlayerStats = fakeGuestPlayerStats1,
+                        hostPlayerStats = fakeHostPlayerStats1,
+                        status = GameStatus.INGAME,
+                        startingTime = Date(2022, 1, 1, 13, 0),
+                        quarter = "1st", remainingTime = "4:17"
+                ),
+                Game(
+                        gameId = GameID(2021002),
+                        guestTeam = getTeamIdByName(TeamName.BRAVES), hostTeam = getTeamIdByName(TeamName.PILOTS),
+                        guestPlayerStats = fakeGuestPlayerStats2,
+                        hostPlayerStats = fakeHostPlayerStats2,
+                        status = GameStatus.NOT_YET_START,
+                        startingTime = Date(2022, 1, 1, 19, 0),
+                ),
+                Game(
+                        gameId = GameID(2021003),
+                        guestTeam = getTeamIdByName(TeamName.STEELERS), getTeamIdByName(TeamName.DREAMERS),
+                        guestPlayerStats = fakeGuestPlayerStats3,
+                        hostPlayerStats = fakeHostPlayerStats3,
+                        status = GameStatus.END,
+                        winner = getTeamIdByName(TeamName.STEELERS)
+                ),
+                Game(
+                        gameId = GameID(2021004),
+                        guestTeam = getTeamIdByName(TeamName.PILOTS), hostTeam = getTeamIdByName(TeamName.KINGS),
+                        guestPlayerStats = fakeGuestPlayerStats4,
+                        hostPlayerStats = fakeHostPlayerStats4,
+                        status = GameStatus.END,
+                        winner = getTeamIdByName(TeamName.KINGS)
+                ),
+                Game(
+                        gameId = GameID(2021005),
+                        guestTeam = getTeamIdByName(TeamName.LIONEERS), hostTeam = getTeamIdByName(TeamName.BRAVES),
+                        guestPlayerStats = fakeGuestPlayerStats5,
+                        hostPlayerStats = fakeHostPlayerStats5,
+                        status = GameStatus.END,
+                        winner = getTeamIdByName(TeamName.LIONEERS)
+                )
         )
 
     }

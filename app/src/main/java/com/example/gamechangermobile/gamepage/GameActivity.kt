@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.getTeamById
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
 
@@ -17,9 +18,12 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         val game_data = intent.getParcelableExtra<Game>("SELECTED_GAME")
+        val guestTeam = getTeamById(game_data!!.guestTeam)!!
+        val hostTeam = getTeamById(game_data!!.hostTeam)!!
+
         if (game_data != null) {
-            game_page_header_guest_icon.setImageResource(game_data!!.guestTeam.profilePic)
-            game_page_header_host_icon.setImageResource(game_data!!.hostTeam.profilePic)
+            game_page_header_guest_icon.setImageResource(guestTeam!!.profilePic)
+            game_page_header_host_icon.setImageResource(hostTeam!!.profilePic)
             game_page_header_guest_score.text = game_data!!.guestStats.data["points"]!!.toInt().toString()
             game_page_header_host_score.text = game_data!!.hostStats.data["points"]!!.toInt().toString()
             game_page_header_time.text = game_data!!.remainingTime
@@ -37,13 +41,13 @@ class GameActivity : AppCompatActivity() {
 
         game_page_header_host_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
-            val team = game_data?.hostTeam
+            val team = hostTeam
             intent.putExtra("SELECTED_TEAM", team)
             startActivity(intent)
         }
         game_page_header_guest_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
-            val team = game_data?.guestTeam
+            val team = guestTeam
             intent.putExtra("SELECTED_TEAM", team)
             startActivity(intent)
         }

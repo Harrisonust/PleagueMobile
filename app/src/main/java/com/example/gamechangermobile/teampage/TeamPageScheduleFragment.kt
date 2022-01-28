@@ -23,15 +23,8 @@ class TeamPageScheduleFragment(val team: Team) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val games: List<Game> = listOf(
-//                game1, game2, game3, game4, game5,
-//                game1, game2, game3, game4, game5,
-//                game1, game2, game3, game4, game5,
-//                game1, game2, game3, game4, game5,
-//        )
 
-
-        schedule_recycler.adapter = ScheduleAdapter(team.gamesList)
+        schedule_recycler.adapter = ScheduleAdapter(team.getGameList())
         schedule_recycler.layoutManager = LinearLayoutManager(context)
 
     }
