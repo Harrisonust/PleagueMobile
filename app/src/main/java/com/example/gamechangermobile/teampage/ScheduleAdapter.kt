@@ -10,14 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.gamepage.GameActivity
-import com.example.gamechangermobile.models.Game
-import com.example.gamechangermobile.models.Team
-import com.example.gamechangermobile.models.getGameById
-import com.example.gamechangermobile.models.getTeamById
+import com.example.gamechangermobile.models.*
 import java.text.SimpleDateFormat
 
 class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
-        RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+    RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day: TextView = itemView.findViewById(R.id.day)
         val date: TextView = itemView.findViewById(R.id.date)
@@ -29,7 +26,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.schedule_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.schedule_item, parent, false)
         val viewHolder = ViewHolder(view)
 
         fun startTeamPage() {
@@ -77,15 +74,25 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         holder.day.text = SimpleDateFormat("EE").format(game.date)
         holder.date.text = SimpleDateFormat("MM/dd").format(game.date)
         val opponent =
-                if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
-                else getTeamById(game.guestTeam)
-        holder.opponent_name.text = opponent!!.name
-        holder.opponent_image.setImageResource(opponent!!.profilePic)
-        holder.win_lose.text = "W"
-        holder.score.text =
+            if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
+            else getTeamById(game.guestTeam)
+
+        opponent?.name?.let {
+            holder.opponent_name.text = it
+        }
+        holder.opponent_image.setImageResource(
+            opponent?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
+        )
+
+        if (game.status == GameStatus.END) {
+            holder.win_lose.text = if (game.winner == myteam.teamId) "W" else "L"
+            holder.score.text =
                 game.guestStats.data["points"]!!.toInt().toString() +
                         " : " +
                         game.hostStats.data["points"]!!.toInt().toString()
+        }else{
+            holder.win_lose.text = SimpleDateFormat("MM/DD HH:mm").format(game.date)
+        }
     }
 
     override fun getItemCount(): Int = gameScheduleList.size
