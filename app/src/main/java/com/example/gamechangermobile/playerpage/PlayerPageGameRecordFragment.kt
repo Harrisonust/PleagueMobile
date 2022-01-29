@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.models.Player
 
-class PlayerPageGameRecordFragment : Fragment() {
+class PlayerPageGameRecordFragment(val player: Player) : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,

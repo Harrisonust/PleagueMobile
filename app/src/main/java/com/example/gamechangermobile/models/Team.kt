@@ -21,21 +21,6 @@ data class Team(
     var gamesIdList: ArrayList<GameID> = ArrayList<GameID>(),
 ) : Parcelable {
 
-    fun getGame(gameId: GameID): Game? {
-        for (gameId in gamesIdList) {
-            return getGameById(gameId)
-        }
-        return null
-    }
-
-    fun getGame(date: Date): Game? {
-        for (gameId in gamesIdList) {
-            val game = getGameById(gameId) ?: return null
-            if (game.date == date) return game
-        }
-        return null
-    }
-
     fun getGameList(): ArrayList<Game> {
         val games = ArrayList<Game>()
         for (gameId in gamesIdList) {

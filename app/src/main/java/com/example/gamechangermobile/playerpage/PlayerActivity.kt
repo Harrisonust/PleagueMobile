@@ -56,7 +56,7 @@ class PlayerActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> PlayerPageGameRecordFragment()
+                0 -> PlayerPageGameRecordFragment(player)
                 1 -> PlayerPageStatsFragment(player)
                 2 -> PlayerPageCareerFragment(player)
                 3 -> PlayerPageAdvancedStatsFragment(player)
