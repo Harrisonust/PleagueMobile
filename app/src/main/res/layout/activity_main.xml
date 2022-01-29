@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-    <com.loonggg.weekcalendar.view.WeekCalendar
-        android:id="@+id/week_calendar"
-        android:layout_width="fill_parent"
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:paddingBottom="10dp"
-        app:daysSelectedBackground="#D60C0C"
-        app:isCornerMark="true"
-        app:monthBackgroundColor="@color/bg_color"/>
+        app:mcv_showOtherDates="all"
+        app:mcv_selectionColor="@color/bg_color"
+        app:mcv_tileSize="50dp"
+        app:mcv_calendarMode="week"/>
     <FrameLayout
         android:id="@+id/mainFragView"
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,10 @@ import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
 import kotlinx.android.synthetic.main.fragment_game.*
+import java.util.*
 import kotlin.collections.ArrayList
 
-class GameFragment : Fragment() {
-    private val gameList = ArrayList<Game>()
+class GameFragment() : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +28,6 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         game_recyclerview?.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = GameAdapter(games)
         }
     }
 }

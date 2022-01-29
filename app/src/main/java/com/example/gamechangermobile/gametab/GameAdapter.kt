@@ -62,7 +62,7 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
             holder.remainingTime.text = game.remainingTime
             holder.quarter.text = game.quarter
         } else if (game.status == GameStatus.NOT_YET_START) {
-            holder.remainingTime.text = SimpleDateFormat("HH:mm").format(game.startingTime)
+            holder.remainingTime.text = SimpleDateFormat("HH:mm").format(game.date)
             holder.quarter.text = ""
         } else {
             holder.remainingTime.text = "END"

@@ -7,16 +7,15 @@ import java.util.*
 
 @Parcelize
 data class Game(
-        val gameId: GameID,
-        var guestTeam: TeamID,
-        var hostTeam: TeamID,
-        val guestPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
-        val hostPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
-        val status: GameStatus = GameStatus.NO_STATUS,
-        val startingTime: Date = Date(),
-        val quarter: String = "",
-        val remainingTime: String = "",
-        val date: Date = Date(),
+    val gameId: GameID,
+    var guestTeam: TeamID,
+    var hostTeam: TeamID,
+    val date: Date = Date(),
+    val guestPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
+    val hostPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
+    val status: GameStatus = GameStatus.NO_STATUS,
+    val quarter: String = "",
+    val remainingTime: String = "",
 ) : Parcelable {
 
 
