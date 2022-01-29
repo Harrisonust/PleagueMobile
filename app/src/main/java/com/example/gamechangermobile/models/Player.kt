@@ -7,16 +7,16 @@ import java.util.*
 
 @Parcelize
 class Player(
-        val firstName: String = "",
-        val lastName: String = "",
-        var profilePic: Int = R.drawable.ic_baseline_sports_basketball_24,
-        var stats: MutableMap<Date, PlayerStats> = mutableMapOf<Date, PlayerStats>(),
-        var teamId: TeamID = TeamID(-1),
-        var age: Int = 0,
-        var number: String = "",
-        var position: String = "",
+    val firstName: String = "",
+    val lastName: String = "",
+    var profilePic: Int = R.drawable.ic_baseline_sports_basketball_24,
+    var stats: MutableMap<GameID, PlayerStats> = mutableMapOf<GameID, PlayerStats>(),
+    var teamId: TeamID = TeamID(-1),
+    var age: Int = 0,
+    var number: String = "",
+    var position: String = "",
 
-        ) : Parcelable {
+    ) : Parcelable {
     var fullName: String = ""
         get() {
             return "$firstName $lastName"
@@ -36,14 +36,9 @@ class Player(
     var averageStat: PlayerStats = PlayerStats()
         get() {
             var averagePlayerStats = PlayerStats()
-            stats.values.forEachIndexed { _, eachGameStats ->
-                eachGameStats.data.forEach {
-                    averagePlayerStats.data[it.key] = averagePlayerStats.data[it.key]!! + eachGameStats.data[it.key]!!
-                }
-            }
 
-            averagePlayerStats.data.forEach {
-                averagePlayerStats.data[it.key] = averagePlayerStats.data[it.key]!! / gamePlayed
+            accumulatedStats.data.forEach {
+                averagePlayerStats.data[it.key] = accumulatedStats.data[it.key]!! / gamePlayed
             }
 
             return averagePlayerStats
@@ -51,29 +46,22 @@ class Player(
 
     var accumulatedStats: PlayerStats = PlayerStats()
         get() {
-            var averagePlayerStats = PlayerStats()
+            var sumPlayerStats = PlayerStats()
             stats.values.forEachIndexed { _, eachGameStats ->
                 eachGameStats.data.forEach {
-                    averagePlayerStats.data[it.key] = averagePlayerStats.data[it.key]!! + eachGameStats.data[it.key]!!
+                    sumPlayerStats.data[it.key] =
+                        sumPlayerStats.data[it.key]!! + eachGameStats.data[it.key]!!
                 }
             }
 
-            return averagePlayerStats
+            return sumPlayerStats
         }
 
-    fun getStat(date: Date, type: String): Float {
-        return this.stats[date]?.data?.get(type) ?: 0F
+    fun getStat(gameId: GameID): PlayerStats {
+        return this.stats[gameId] ?: PlayerStats()
     }
 
-    fun getStats(date: Date): PlayerStats {
-        return stats[date] ?: PlayerStats()
-    }
-
-    fun setStats(date: Date, type: String, value: Float) {
-        this.stats[date]?.data?.set(type, value)
-    }
-
-    fun setStats(date: Date, stats: PlayerStats) {
-        this.stats[date] = stats
+    fun setStat(gameId: GameID, stats: PlayerStats) {
+        this.stats[gameId] = stats
     }
 }
