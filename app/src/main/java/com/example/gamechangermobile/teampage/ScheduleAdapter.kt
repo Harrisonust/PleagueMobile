@@ -34,9 +34,12 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
 
         fun startTeamPage() {
             val position = viewHolder.adapterPosition
-            val team = getTeamById(gameScheduleList[position].guestTeam)
+            val game = gameScheduleList[position]
+            val opponent =
+                if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
+                else getTeamById(game.guestTeam)
             val intent = Intent(parent.context, TeamActivity::class.java)
-            intent.putExtra("SELECTED_TEAM", team)
+            intent.putExtra("SELECTED_TEAM", opponent)
             parent.context.startActivity(intent)
         }
 
