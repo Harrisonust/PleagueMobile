@@ -97,12 +97,11 @@ data class Game(
     }
 
     val winner: TeamID
-    get() {
-        if (guestStats.data["points"]!! > hostStats.data["points"]!!)
-            return guestTeam
+        get() = if (guestStats.data["points"]!! > hostStats.data["points"]!!)
+            guestTeam
         else
-            return hostTeam
-    }
+            hostTeam
+
 
 }
 
