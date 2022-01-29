@@ -91,7 +91,7 @@
                     android:id="@+id/guest_game_q1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -99,7 +99,7 @@
                     android:id="@+id/guest_game_q2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -107,7 +107,7 @@
                     android:id="@+id/guest_game_q3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -115,7 +115,7 @@
                     android:id="@+id/guest_game_q4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -123,7 +123,7 @@
                     android:id="@+id/guest_game_tot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="98"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -147,7 +147,7 @@
                     android:id="@+id/host_game_q1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -155,7 +155,7 @@
                     android:id="@+id/host_game_q2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -163,7 +163,7 @@
                     android:id="@+id/host_game_q3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="19"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -171,7 +171,7 @@
                     android:id="@+id/host_game_q4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -179,7 +179,7 @@
                     android:id="@+id/host_game_tot"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="73"
+                    android:text="0"
                     android:gravity="center"
                     android:layout_weight="1"
                     android:layout_margin="3dp"/>
@@ -235,7 +235,7 @@
                     app:layout_constraintRight_toLeftOf="@id/points"
                     android:textSize="25sp"
                     android:textColor="@color/blue_500"
-                    android:text="17"
+                    android:text="0"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/host_point_leader_point"
@@ -247,7 +247,7 @@
                     app:layout_constraintRight_toLeftOf="@id/host_point_leader_image"
                     android:textSize="25sp"
                     android:textColor="@color/blue_200"
-                    android:text="27"
+                    android:text="0"
                     android:textStyle="bold"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -256,7 +256,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/braves_brendon_smart"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/guest_point_leader_name"
@@ -264,7 +264,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/guest_point_leader_image"
-                    android:text="Braden Smart"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -273,7 +273,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/lioneers_kuo_hao_kao"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/host_point_leader_name"
@@ -281,7 +281,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/host_point_leader_image"
-                    android:text="Kao Kuo Hao"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
                 <View
                     android:layout_width="match_parent"
@@ -318,7 +318,7 @@
                     app:layout_constraintRight_toLeftOf="@id/rebounds"
                     android:textSize="25sp"
                     android:textColor="@color/blue_500"
-                    android:text="17"
+                    android:text="0"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/host_rebounds_leader_point"
@@ -330,7 +330,7 @@
                     app:layout_constraintRight_toLeftOf="@id/host_rebounds_leader_image"
                     android:textSize="25sp"
                     android:textColor="@color/blue_200"
-                    android:text="27"
+                    android:text="0"
                     android:textStyle="bold"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -339,7 +339,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/braves_brendon_smart"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/guest_rebounds_leader_name"
@@ -347,7 +347,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/guest_rebounds_leader_image"
-                    android:text="Braden Smart"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -356,7 +356,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/lioneers_kuo_hao_kao"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/host_rebounds_leader_name"
@@ -364,7 +364,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/host_rebounds_leader_image"
-                    android:text="Kao Kuo Hao"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
                 <View
                     android:layout_width="match_parent"
@@ -401,7 +401,7 @@
                     app:layout_constraintRight_toLeftOf="@id/assists"
                     android:textSize="25sp"
                     android:textColor="@color/blue_500"
-                    android:text="17"
+                    android:text="0"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/host_assist_leader_point"
@@ -413,7 +413,7 @@
                     app:layout_constraintRight_toLeftOf="@id/host_assist_leader_image"
                     android:textSize="25sp"
                     android:textColor="@color/blue_200"
-                    android:text="27"
+                    android:text="0"
                     android:textStyle="bold"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -422,7 +422,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/braves_brendon_smart"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/guest_assist_leader_name"
@@ -430,7 +430,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/guest_assist_leader_image"
-                    android:text="Braden Smart"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -439,7 +439,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/lioneers_kuo_hao_kao"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/host_assist_leader_name"
@@ -447,7 +447,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/host_assist_leader_image"
-                    android:text="Kao Kuo Hao"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
                 <View
                     android:layout_width="match_parent"
@@ -484,7 +484,7 @@
                     app:layout_constraintRight_toLeftOf="@id/steals"
                     android:textSize="25sp"
                     android:textColor="@color/blue_500"
-                    android:text="17"
+                    android:text="0"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/host_steal_leader_point"
@@ -496,7 +496,7 @@
                     app:layout_constraintLeft_toRightOf="@id/steals"
                     android:textSize="25sp"
                     android:textColor="@color/blue_200"
-                    android:text="27"
+                    android:text="0"
                     android:textStyle="bold"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -505,7 +505,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/braves_brendon_smart"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/guest_steal_leader_name"
@@ -513,7 +513,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/guest_steal_leader_image"
-                    android:text="Braden Smart"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -522,7 +522,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/lioneers_kuo_hao_kao"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/host_steal_leader_name"
@@ -530,7 +530,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/host_steal_leader_image"
-                    android:text="Kao Kuo Hao"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
                 <View
                     android:layout_width="match_parent"
@@ -567,7 +567,7 @@
                     app:layout_constraintRight_toLeftOf="@id/blocks"
                     android:textSize="25sp"
                     android:textColor="@color/blue_500"
-                    android:text="17"
+                    android:text="0"
                     android:textStyle="bold"/>
                 <TextView
                     android:id="@+id/host_block_leader_point"
@@ -579,7 +579,7 @@
                     app:layout_constraintLeft_toRightOf="@id/blocks"
                     android:textSize="25sp"
                     android:textColor="@color/blue_200"
-                    android:text="27"
+                    android:text="0"
                     android:textStyle="bold"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -588,7 +588,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/braves_brendon_smart"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/guest_block_leader_name"
@@ -596,7 +596,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/guest_block_leader_image"
-                    android:text="Braden Smart"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -605,7 +605,7 @@
                     android:layout_height="50dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/lioneers_kuo_hao_kao"
+                    android:src="@drawable/ic_baseline_sports_basketball_24"
                     android:layout_gravity="center"/>
                 <TextView
                     android:id="@+id/host_block_leader_name"
@@ -613,7 +613,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/host_block_leader_image"
-                    android:text="Kao Kuo Hao"
+                    android:text="player"
                     android:layout_marginTop="5dp"/>
                 <View
                     android:layout_width="match_parent"
@@ -647,7 +647,7 @@
                 android:layout_marginHorizontal="20dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:src="@drawable/braves"/>
+                android:src="@drawable/ic_baseline_sports_basketball_24"/>
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/host_icon"
                 android:layout_width="60dp"
@@ -655,7 +655,7 @@
                 android:layout_marginHorizontal="20dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/lioneers"/>
+                android:src="@drawable/ic_baseline_sports_basketball_24"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--        field_goals-->
@@ -673,7 +673,7 @@
                     android:id="@+id/guest_field_goal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -688,7 +688,7 @@
                     android:id="@+id/host_field_goal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -733,7 +733,7 @@
                     android:id="@+id/guest_3_pointer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -748,7 +748,7 @@
                     android:id="@+id/host_3_pointer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -793,7 +793,7 @@
                     android:id="@+id/guest_free_throw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -808,7 +808,7 @@
                     android:id="@+id/host_free_throw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -853,7 +853,7 @@
                     android:id="@+id/guest_assist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -868,7 +868,7 @@
                     android:id="@+id/host_assist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -913,7 +913,7 @@
                     android:id="@+id/guest_total_rebound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -928,7 +928,7 @@
                     android:id="@+id/host_total_rebound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -973,7 +973,7 @@
                     android:id="@+id/guest_offensive_rebound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -988,7 +988,7 @@
                     android:id="@+id/host_offensive_rebound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1033,7 +1033,7 @@
                     android:id="@+id/guest_defensive_rebound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -1048,7 +1048,7 @@
                     android:id="@+id/host_defensive_rebound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1093,7 +1093,7 @@
                     android:id="@+id/guest_steal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -1108,7 +1108,7 @@
                     android:id="@+id/host_steal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1153,7 +1153,7 @@
                     android:id="@+id/guest_block"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -1168,7 +1168,7 @@
                     android:id="@+id/host_block"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1213,7 +1213,7 @@
                     android:id="@+id/guest_turnover"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -1228,7 +1228,7 @@
                     android:id="@+id/host_turnover"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1273,7 +1273,7 @@
                     android:id="@+id/guest_points_off_turnovers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -1288,7 +1288,7 @@
                     android:id="@+id/host_points_off_turnovers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1333,7 +1333,7 @@
                     android:id="@+id/guest_fouls"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -1348,7 +1348,7 @@
                     android:id="@+id/host_fouls"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -1393,7 +1393,7 @@
                     android:id="@+id/guest_timeouts_remaining"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
@@ -1408,7 +1408,7 @@
                     android:id="@+id/host_timeouts_remaining"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41/95(43.2%)"
+                    android:text="0"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

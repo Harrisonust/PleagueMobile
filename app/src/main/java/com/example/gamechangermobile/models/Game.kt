@@ -49,45 +49,54 @@ data class Game(
             return gameStats
         }
 
-    var hostPointLeader: Player = Player()
+    var hostPointLeader: Player? = null
         get() {
-            return hostPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key
         }
-    var hostReboundLeader: Player = Player()
+
+    var hostReboundLeader: Player? = null
         get() {
-            return hostPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key
         }
-    var hostAssistLeader: Player = Player()
+
+    var hostAssistLeader: Player? = null
         get() {
-            return hostPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key
         }
-    var hostStealLeader: Player = Player()
+
+    var hostStealLeader: Player? = null
         get() {
-            return hostPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key
         }
-    var hostBlockLeader: Player = Player()
+
+    var hostBlockLeader: Player? = null
         get() {
-            return hostPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
+            return hostPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key
         }
-    var guestPointLeader: Player = Player()
+
+    var guestPointLeader: Player? = null
         get() {
-            return guestPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key
         }
-    var guestReboundLeader: Player = Player()
+
+    var guestReboundLeader: Player? = null
         get() {
-            return guestPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key
         }
-    var guestAssistLeader: Player = Player()
+
+    var guestAssistLeader: Player? = null
         get() {
-            return guestPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key
         }
-    var guestStealLeader: Player = Player()
+
+    var guestStealLeader: Player? = null
         get() {
-            return guestPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key
         }
-    var guestBlockLeader: Player = Player()
+
+    var guestBlockLeader: Player? = null
         get() {
-            return guestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key ?: Player()
+            return guestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key
         }
 
     var location: String = getTeamById(TeamID(hostTeam.ID))!!.location
