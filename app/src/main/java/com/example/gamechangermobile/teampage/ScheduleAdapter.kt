@@ -22,6 +22,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         val opponent_name: TextView = itemView.findViewById(R.id.opponent)
         val win_lose: TextView = itemView.findViewById(R.id.win_lose)
         val score: TextView = itemView.findViewById(R.id.score)
+        val vs_or_at: TextView = itemView.findViewById(R.id.vs_or_at)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -73,6 +74,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         val game = gameScheduleList[position]
         holder.day.text = SimpleDateFormat("EE").format(game.date)
         holder.date.text = SimpleDateFormat("MM/dd").format(game.date)
+        holder.vs_or_at.text = if (game.location == myteam.location) "vs" else "@"
         val opponent =
             if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
             else getTeamById(game.guestTeam)
@@ -90,9 +92,11 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
                 game.guestStats.data["points"]!!.toInt().toString() +
                         " : " +
                         game.hostStats.data["points"]!!.toInt().toString()
-        }else{
+        } else {
             holder.win_lose.text = SimpleDateFormat("MM/DD HH:mm").format(game.date)
         }
+
+
     }
 
     override fun getItemCount(): Int = gameScheduleList.size

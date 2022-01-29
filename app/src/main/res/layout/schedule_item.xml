@@ -36,11 +36,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
             <TextView
+                android:id="@+id/vs_or_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:text="vs"/>
+                android:layout_marginRight="10dp"/>
             <ImageView
                 android:id="@+id/opponentImage"
                 android:layout_width="40dp"
