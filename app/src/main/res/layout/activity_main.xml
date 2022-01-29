@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-    <Button
-        android:id="@+id/debugButton"
-        android:layout_width="wrap_content"
+    <com.loonggg.weekcalendar.view.WeekCalendar
+        android:id="@+id/week_calendar"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="debug"/>
+        android:background="#ffffff"
+        android:paddingBottom="10dp"
+        app:daysSelectedBackground="#D60C0C"
+        app:isCornerMark="true"
+        app:monthBackgroundColor="@color/bg_color"/>
     <FrameLayout
         android:id="@+id/mainFragView"
         android:layout_width="match_parent"
