@@ -52,31 +52,31 @@ class MainActivity : AppCompatActivity() {
         }
         calendarView.selectedDate = (CalendarDay.today())
 
-        getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021002))
-        getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021005))
-        getTeamByName(TeamName.BRAVES)!!.gamesIdList.add(GameID(2021009))
+        getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021002))
+        getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021005))
+        getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021009))
 
-        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021001))
-        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021004))
-        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021008))
-        getTeamByName(TeamName.KINGS)!!.gamesIdList.add(GameID(2021010))
+        getTeamByName(TeamName.KINGS)?.gamesIdList?.add(GameID(2021001))
+        getTeamByName(TeamName.KINGS)?.gamesIdList?.add(GameID(2021004))
+        getTeamByName(TeamName.KINGS)?.gamesIdList?.add(GameID(2021008))
+        getTeamByName(TeamName.KINGS)?.gamesIdList?.add(GameID(2021010))
 
-        getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021002))
-        getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021004))
-        getTeamByName(TeamName.PILOTS)!!.gamesIdList.add(GameID(2021006))
+        getTeamByName(TeamName.PILOTS)?.gamesIdList?.add(GameID(2021002))
+        getTeamByName(TeamName.PILOTS)?.gamesIdList?.add(GameID(2021004))
+        getTeamByName(TeamName.PILOTS)?.gamesIdList?.add(GameID(2021006))
 
-        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021001))
-        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021005))
-        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021007))
-        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021009))
-        getTeamByName(TeamName.LIONEERS)!!.gamesIdList.add(GameID(2021010))
+        getTeamByName(TeamName.LIONEERS)?.gamesIdList?.add(GameID(2021001))
+        getTeamByName(TeamName.LIONEERS)?.gamesIdList?.add(GameID(2021005))
+        getTeamByName(TeamName.LIONEERS)?.gamesIdList?.add(GameID(2021007))
+        getTeamByName(TeamName.LIONEERS)?.gamesIdList?.add(GameID(2021009))
+        getTeamByName(TeamName.LIONEERS)?.gamesIdList?.add(GameID(2021010))
 
-        getTeamByName(TeamName.DREAMERS)!!.gamesIdList.add(GameID(2021003))
-        getTeamByName(TeamName.DREAMERS)!!.gamesIdList.add(GameID(2021007))
+        getTeamByName(TeamName.DREAMERS)?.gamesIdList?.add(GameID(2021003))
+        getTeamByName(TeamName.DREAMERS)?.gamesIdList?.add(GameID(2021007))
 
-        getTeamByName(TeamName.STEELERS)!!.gamesIdList.add(GameID(2021003))
-        getTeamByName(TeamName.STEELERS)!!.gamesIdList.add(GameID(2021006))
-        getTeamByName(TeamName.STEELERS)!!.gamesIdList.add(GameID(2021008))
+        getTeamByName(TeamName.STEELERS)?.gamesIdList?.add(GameID(2021003))
+        getTeamByName(TeamName.STEELERS)?.gamesIdList?.add(GameID(2021006))
+        getTeamByName(TeamName.STEELERS)?.gamesIdList?.add(GameID(2021008))
 
     }
 
