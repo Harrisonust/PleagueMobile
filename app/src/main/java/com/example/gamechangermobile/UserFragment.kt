@@ -1,5 +1,6 @@
 package com.example.gamechangermobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,14 +10,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.text.buildSpannedString
 import com.example.gamechangermobile.models.User
-import com.example.gamechangermobile.user.UserInfoFragment
-import com.example.gamechangermobile.user.UserLoginFragment
+import com.example.gamechangermobile.user.*
 import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserFragment(val user: User) : Fragment() {
     val userInfoFragment = UserInfoFragment(user)
     val userLoginFragment = UserLoginFragment(user)
-    val isLogin: Boolean = true
+    val isLogin: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +33,16 @@ class UserFragment(val user: User) : Fragment() {
             Toast.makeText(view.context, "setting", Toast.LENGTH_SHORT).show()
         }
         my_info_button.setOnClickListener {
-            Toast.makeText(view.context, "info", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, UserDataActivity::class.java)
+            startActivity(intent)
         }
         my_teams_button.setOnClickListener {
-            Toast.makeText(view.context, "teams", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, UserFavTeamsActivity::class.java)
+            startActivity(intent)
         }
         my_players_button.setOnClickListener {
-            Toast.makeText(view.context, "players", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, UserFavPlayersActivity::class.java)
+            startActivity(intent)
         }
 
         if (isLogin) {
