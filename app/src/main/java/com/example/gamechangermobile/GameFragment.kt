@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.fragment_game.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -17,8 +18,8 @@ import kotlin.collections.ArrayList
 class GameFragment() : Fragment() {
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
         return view
@@ -26,8 +27,26 @@ class GameFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        calendarView.setOnDateChangedListener { widget, date, selected ->
+            var selectedGames = ArrayList<Game>()
+            val selectedDate = Date(date.year - 1900, date.month - 1, date.day)
+            for (game in games) {
+                if (game.date.day == selectedDate.day
+                    && game.date.year == selectedDate.year
+                    && game.date.month == selectedDate.month
+                ) {
+                    selectedGames.add(game)
+                }
+            }
+            game_recyclerview.adapter = GameAdapter(selectedGames)
+            game_recyclerview.adapter?.notifyDataSetChanged()
+        }
+        calendarView.selectedDate = (CalendarDay.today())
+
         game_recyclerview?.apply {
             layoutManager = LinearLayoutManager(activity)
         }
+
     }
 }

@@ -34,24 +34,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
-        calendarView.setOnDateChangedListener { widget, date, selected ->
-            var selectedGames = ArrayList<Game>()
-            val selectedDate = Date(date.year - 1900, date.month - 1, date.day)
-            for (game in games) {
-                if (game.date.day == selectedDate.day
-                    && game.date.year == selectedDate.year
-                    && game.date.month == selectedDate.month
-                ) {
-                    selectedGames.add(game)
-                }
-            }
-            game_recyclerview.adapter = GameAdapter(selectedGames)
-            game_recyclerview.adapter?.notifyDataSetChanged()
-        }
-        calendarView.selectedDate = (CalendarDay.today())
-
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021002))
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021005))
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021009))
