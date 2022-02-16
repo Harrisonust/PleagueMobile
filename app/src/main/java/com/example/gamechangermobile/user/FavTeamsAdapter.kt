@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.TeamID
+import com.example.gamechangermobile.models.User
 import com.example.gamechangermobile.models.getTeamById
 
 
-class FavTeamsAdapter(val teamList: List<TeamID>) :
+class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean) :
     RecyclerView.Adapter<FavTeamsAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -21,12 +22,13 @@ class FavTeamsAdapter(val teamList: List<TeamID>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.fav_team_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.fav_team_item, parent, false)
         val viewHolder = ViewHolder(view)
 
 //        viewHolder.itemView.setOnClickListener {
-//
+//            val pos: Int = viewHolder.adapterPosition
+//            if (!isFavList) addToFavorite(user, teamList[pos])
+//            else dropFromFavorite(user, teamList[pos])
 //        }
 
         return viewHolder
@@ -43,4 +45,8 @@ class FavTeamsAdapter(val teamList: List<TeamID>) :
     }
 
     override fun getItemCount() = teamList.size
+
+//    interface onItemClickListener{
+//        fun onItemClick(user: User)
+//    }
 }

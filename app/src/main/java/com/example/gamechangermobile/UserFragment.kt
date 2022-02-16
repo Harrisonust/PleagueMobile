@@ -38,6 +38,7 @@ class UserFragment(val user: User) : Fragment() {
         }
         my_teams_button.setOnClickListener {
             val intent = Intent(activity, UserFavTeamsActivity::class.java)
+            intent.putExtra("USER", user)
             startActivity(intent)
         }
         my_players_button.setOnClickListener {
