@@ -18,7 +18,8 @@ class MainActivity : AppCompatActivity() {
         actionBar?.hide()
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
-        val userFrag = UserFragment()
+        val user  = User("Harrison", "henhen.luo@gmail.com", "harrison0616")
+        val userFrag = UserFragment(user)
         replaceFragment(gamesFrag)
 
         bottom_navigation.setOnNavigationItemSelectedListener {

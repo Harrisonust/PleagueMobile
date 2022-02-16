@@ -7,10 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.text.buildSpannedString
+import com.example.gamechangermobile.models.User
+import com.example.gamechangermobile.user.UserInfoFragment
+import com.example.gamechangermobile.user.UserLoginFragment
 import kotlinx.android.synthetic.main.fragment_user.*
 
-class UserFragment : Fragment() {
-
+class UserFragment(val user: User) : Fragment() {
+    val temp: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,7 +26,7 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        button_setting.setOnClickListener{
+        button_setting.setOnClickListener {
             Toast.makeText(view.context, "setting", Toast.LENGTH_SHORT).show()
         }
         my_info_button.setOnClickListener {
@@ -33,6 +37,21 @@ class UserFragment : Fragment() {
         }
         my_players_button.setOnClickListener {
             Toast.makeText(view.context, "players", Toast.LENGTH_SHORT).show()
+        }
+        val isLogin: Boolean = true
+        val userInfoFragment = UserInfoFragment(user)
+        val userLoginFragment = UserLoginFragment(user)
+        if (isLogin) {
+            replaceFragment(userInfoFragment)
+        } else {
+            replaceFragment(userLoginFragment)
+        }
+    }
+
+    fun replaceFragment(fragment: Fragment) {
+        childFragmentManager.beginTransaction().apply {
+            replace(R.id.framelayout, fragment)
+            commit()
         }
     }
 }
