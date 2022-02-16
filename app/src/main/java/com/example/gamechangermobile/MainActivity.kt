@@ -278,8 +278,8 @@ class MainActivity : AppCompatActivity() {
             )
         var jordan_tolbert =
             Player(
-                firstName = "Chun-nan",
-                lastName = "Chen",
+                firstName = "Jordan",
+                lastName = "Tolbert",
                 profilePic = R.drawable.pilots_jordan_tolbert,
                 stats =
                 mutableMapOf(
