@@ -14,7 +14,10 @@ import com.example.gamechangermobile.user.UserLoginFragment
 import kotlinx.android.synthetic.main.fragment_user.*
 
 class UserFragment(val user: User) : Fragment() {
-    val temp: String = ""
+    val userInfoFragment = UserInfoFragment(user)
+    val userLoginFragment = UserLoginFragment(user)
+    val isLogin: Boolean = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,9 +41,7 @@ class UserFragment(val user: User) : Fragment() {
         my_players_button.setOnClickListener {
             Toast.makeText(view.context, "players", Toast.LENGTH_SHORT).show()
         }
-        val isLogin: Boolean = true
-        val userInfoFragment = UserInfoFragment(user)
-        val userLoginFragment = UserLoginFragment(user)
+
         if (isLogin) {
             replaceFragment(userInfoFragment)
         } else {
