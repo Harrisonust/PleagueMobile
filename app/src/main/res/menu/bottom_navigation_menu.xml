@@ -10,4 +10,10 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_bar_chart_24"
         android:title="Stats"/>
+
+    <item
+        android:id="@+id/user_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_user_foreground"
+        android:title="User"/>
 </menu>

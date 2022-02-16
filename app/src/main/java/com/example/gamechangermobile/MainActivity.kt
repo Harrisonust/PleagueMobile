@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         actionBar?.hide()
         val gamesFrag = GameFragment()
         val statsFrag = StatsFragment()
+        val userFrag = UserFragment()
         replaceFragment(gamesFrag)
 
         bottom_navigation.setOnNavigationItemSelectedListener {
@@ -28,6 +29,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.stats_page -> {
                     replaceFragment(statsFrag)
+                    true
+                }
+                R.id.user_page -> {
+                    replaceFragment(userFrag)
                     true
                 }
                 else -> false
