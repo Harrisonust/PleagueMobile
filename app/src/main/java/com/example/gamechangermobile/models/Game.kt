@@ -1,6 +1,7 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
+import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -16,6 +17,7 @@ data class Game(
     val status: GameStatus = GameStatus.NO_STATUS,
     val quarter: String = "",
     val remainingTime: String = "",
+    val highlightPhoto: Int = R.drawable.ic_baseline_sports_basketball_24,
 ) : Parcelable {
 
 

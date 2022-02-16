@@ -41,6 +41,9 @@ class GameActivity : AppCompatActivity() {
             game_page_header_time.text = it
         }
 
+        game_data?.highlightPhoto?.let {
+            game_page_image_view.setImageResource(it)
+        }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Box Score"))
