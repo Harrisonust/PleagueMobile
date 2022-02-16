@@ -14,28 +14,36 @@ import com.example.gamechangermobile.models.getTeamById
 
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import java.util.*
 
 
 class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val playerData = intent.getParcelableExtra<Player>("SELECTED_PLAYER")
-        player_page_profile_pic.setImageResource(playerData!!.profilePic)
-        player_page_player_firstname.text = playerData?.firstName
-        player_page_player_lastname.text = playerData?.lastName
-        player_page_player_team.text = getTeamById(playerData?.teamId)?.name
-        player_page_player_number.text = "#" + playerData?.number.toString()
-        player_page_player_position.text = playerData?.position
-        player_page_player_pts.text = playerData.averageStat.data["points"].toString()
-        player_page_player_reb.text = playerData.averageStat.data["rebounds"].toString()
-        player_page_player_ast.text = playerData.averageStat.data["assists"].toString()
+        val player = intent.getParcelableExtra<Player>("SELECTED_PLAYER")
+
+        player_page_profile_pic.setImageResource(
+            player?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
+        )
+        player_page_player_firstname.text = player?.firstName
+        player_page_player_lastname.text = player?.lastName
+        player_page_player_team.text = getTeamById(player?.teamId)?.name
+        player_page_player_number.text = "#" + player?.number.toString()
+        player_page_player_position.text = player?.position
+        player?.averageStat?.data?.get("points")?.let {
+            player_page_player_pts.text = it.toString()
+        }
+        player?.averageStat?.data?.get("rebounds")?.let {
+            player_page_player_reb.text = it.toString()
+        }
+        player?.averageStat?.data?.get("assists")?.let {
+            player_page_player_ast.text = it.toString()
+        }
 
         player_page_player_favorite_btn.setOnClickListener { view ->
             Snackbar.make(view, "Add to Favorite", Snackbar.LENGTH_SHORT)
-                    .setAction("Undo") { Log.i("SNACKBAR", "OK") }
-                    .show()
+                .setAction("Undo") { Log.i("SNACKBAR", "OK") }
+                .show()
         }
 
         player_page_tab.addTab(player_page_tab.newTab().setText("Game Record"))
@@ -44,14 +52,23 @@ class PlayerActivity : AppCompatActivity() {
         player_page_tab.addTab(player_page_tab.newTab().setText("Adv"))
         player_page_tab.addTab(player_page_tab.newTab().setText("Team eff"))
 
-        player_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(player_page_tab))
-        player_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 5, playerData!!)
+        player_page_viewpager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
+                player_page_tab
+            )
+        )
+        player_page_viewpager.adapter = player?.let { VPagerAdapter(supportFragmentManager, 5, it) }
         player_page_viewpager.setCurrentItem(0)
-        player_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(player_page_viewpager))
+        player_page_tab.addOnTabSelectedListener(
+            TabLayout.ViewPagerOnTabSelectedListener(
+                player_page_viewpager
+            )
+        )
 
     }
 
-    inner class VPagerAdapter(f: FragmentManager, bh: Int, val player: Player) : FragmentPagerAdapter(f, bh) {
+    inner class VPagerAdapter(f: FragmentManager, bh: Int, val player: Player) :
+        FragmentPagerAdapter(f, bh) {
         override fun getCount(): Int = 5
 
         override fun getItem(position: Int): Fragment {

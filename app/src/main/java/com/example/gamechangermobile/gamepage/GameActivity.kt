@@ -3,6 +3,7 @@ package com.example.gamechangermobile.gamepage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -18,26 +19,46 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         val game_data = intent.getParcelableExtra<Game>("SELECTED_GAME")
-        val guestTeam = getTeamById(game_data!!.guestTeam)!!
-        val hostTeam = getTeamById(game_data!!.hostTeam)!!
+        val guestTeam = getTeamById(game_data?.guestTeam)
+        val hostTeam = getTeamById(game_data?.hostTeam)
 
-        if (game_data != null) {
-            game_page_header_guest_icon.setImageResource(guestTeam!!.profilePic)
-            game_page_header_host_icon.setImageResource(hostTeam!!.profilePic)
-            game_page_header_guest_score.text = game_data!!.guestStats.data["points"]!!.toInt().toString()
-            game_page_header_host_score.text = game_data!!.hostStats.data["points"]!!.toInt().toString()
-            game_page_header_time.text = game_data!!.remainingTime
+        game_page_header_guest_icon.setImageResource(
+            guestTeam?.profilePic ?: R.drawable.ic_baseline_bar_chart_24
+        )
+        game_page_header_host_icon.setImageResource(
+            hostTeam?.profilePic ?: R.drawable.ic_baseline_bar_chart_24
+        )
+
+        game_data?.guestStats?.data?.get("points")?.let {
+            game_page_header_guest_score.text = it.toInt().toString()
         }
+
+        game_data?.hostStats?.data?.get("points")?.let {
+            game_page_header_host_score.text = it.toInt().toString()
+        }
+
+        game_data?.remainingTime?.let {
+            game_page_header_time.text = it
+        }
+
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Box Score"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Highlights"))
         game_page_tab.addTab(game_page_tab.newTab().setText("Plays"))
 
-        game_page_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(game_page_tab))
+        game_page_viewpager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
+                game_page_tab
+            )
+        )
         game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 4, game_data!!)
         game_page_viewpager.setCurrentItem(0)
-        game_page_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(game_page_viewpager))
+        game_page_tab.addOnTabSelectedListener(
+            TabLayout.ViewPagerOnTabSelectedListener(
+                game_page_viewpager
+            )
+        )
 
         game_page_header_host_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
@@ -53,7 +74,8 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game) : FragmentPagerAdapter(f, bh) {
+    inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game) :
+        FragmentPagerAdapter(f, bh) {
         override fun getCount(): Int = 4
 
         override fun getItem(position: Int): Fragment {

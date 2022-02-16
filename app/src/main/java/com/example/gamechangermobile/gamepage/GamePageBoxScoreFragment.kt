@@ -25,11 +25,15 @@ class GamePageBoxScoreFragment(val game: Game) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        game_page_score_tab_team_tab.addTab(game_page_score_tab_team_tab.newTab().setText(getTeamById(game.guestTeam)!!.name))
-        game_page_score_tab_team_tab.addTab(game_page_score_tab_team_tab.newTab().setText(getTeamById(game.hostTeam)!!.name))
+        game_page_score_tab_team_tab.addTab(game_page_score_tab_team_tab.newTab().setText(
+            getTeamById(game.guestTeam)?.name
+        ))
+        game_page_score_tab_team_tab.addTab(game_page_score_tab_team_tab.newTab().setText(
+            getTeamById(game.hostTeam)?.name
+        ))
 
         game_page_score_tab_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(game_page_score_tab_team_tab))
-        game_page_score_tab_view_pager.adapter = PagerAdapter(childFragmentManager, 2, game!!)
+        game_page_score_tab_view_pager.adapter = PagerAdapter(childFragmentManager, 2, game)
         game_page_score_tab_view_pager.setCurrentItem(0)
         game_page_score_tab_team_tab.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(game_page_score_tab_view_pager))
     }
