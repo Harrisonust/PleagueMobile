@@ -1,9 +1,11 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
+import com.example.gamechangermobile.MainActivity.Companion.chih_chieh_lin
+import com.example.gamechangermobile.MainActivity.Companion.hsiang_chun_tseng
+import com.example.gamechangermobile.MainActivity.Companion.thomas_welsh
 import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 @Parcelize
 class Player(
@@ -65,3 +67,5 @@ class Player(
         this.stats[gameId] = stats
     }
 }
+
+fun getAllPlayer(): Set<Player> = setOf(chih_chieh_lin, hsiang_chun_tseng, thomas_welsh)

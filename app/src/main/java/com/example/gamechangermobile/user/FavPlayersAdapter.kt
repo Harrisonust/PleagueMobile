@@ -1,5 +1,6 @@
 package com.example.gamechangermobile.user
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.getTeamById
 
-class FavPlayersAdapter(private val playerList: List<Player>) :
+class FavPlayersAdapter(private val playerList: List<Player>, val isFavList: Boolean) :
     RecyclerView.Adapter<FavPlayersAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -27,10 +28,10 @@ class FavPlayersAdapter(private val playerList: List<Player>) :
                 .inflate(R.layout.fav_player_item, parent, false)
         val viewHolder = ViewHolder(view)
 
-//        viewHolder.itemView.setOnClickListener {
-//
-//        }
-
+        viewHolder.itemView.setOnClickListener {
+            val pos: Int = viewHolder.adapterPosition
+            notifyFavPlayerDataChanged(playerList[pos], addToFav = !isFavList)
+        }
         return viewHolder
     }
 

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.TeamID
-import com.example.gamechangermobile.models.User
 import com.example.gamechangermobile.models.getTeamById
 
 
@@ -25,11 +24,10 @@ class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean) :
             LayoutInflater.from(parent.context).inflate(R.layout.fav_team_item, parent, false)
         val viewHolder = ViewHolder(view)
 
-//        viewHolder.itemView.setOnClickListener {
-//            val pos: Int = viewHolder.adapterPosition
-//            if (!isFavList) addToFavorite(user, teamList[pos])
-//            else dropFromFavorite(user, teamList[pos])
-//        }
+        viewHolder.itemView.setOnClickListener {
+            val pos: Int = viewHolder.adapterPosition
+            notifyFavTeamDataChanged(teamList[pos], addToFav = !isFavList)
+        }
 
         return viewHolder
     }

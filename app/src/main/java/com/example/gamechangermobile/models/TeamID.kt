@@ -58,3 +58,12 @@ fun getTeamIdByName(name: TeamName): TeamID =
         else -> TeamID(-1)
     }
 
+fun getAllTeam(): List<TeamID> =
+    listOf<TeamID>(
+        TeamID(0),
+        TeamID(1),
+        TeamID(2),
+        TeamID(3),
+        TeamID(4),
+        TeamID(5)
+    )

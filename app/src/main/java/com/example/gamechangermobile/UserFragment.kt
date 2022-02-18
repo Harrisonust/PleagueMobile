@@ -2,20 +2,18 @@ package com.example.gamechangermobile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.text.buildSpannedString
-import com.example.gamechangermobile.models.User
+import com.example.gamechangermobile.MainActivity.Companion.currentUser
 import com.example.gamechangermobile.user.*
 import kotlinx.android.synthetic.main.fragment_user.*
 
-class UserFragment(val user: User) : Fragment() {
-    val userInfoFragment = UserInfoFragment(user)
-    val userLoginFragment = UserLoginFragment(user)
+class UserFragment() : Fragment() {
+    val userInfoFragment = UserInfoFragment()
+    val userLoginFragment = UserLoginFragment()
     val isLogin: Boolean = false
 
     override fun onCreateView(
@@ -35,18 +33,19 @@ class UserFragment(val user: User) : Fragment() {
         my_info_button.setOnClickListener {
             val intent = Intent(activity, UserDataActivity::class.java)
             startActivity(intent)
+
         }
         my_teams_button.setOnClickListener {
             val intent = Intent(activity, UserFavTeamsActivity::class.java)
-            intent.putExtra("USER", user)
             startActivity(intent)
+
         }
         my_players_button.setOnClickListener {
             val intent = Intent(activity, UserFavPlayersActivity::class.java)
             startActivity(intent)
         }
 
-        if (isLogin) {
+        if (currentUser.isLogIn) {
             replaceFragment(userInfoFragment)
         } else {
             replaceFragment(userLoginFragment)

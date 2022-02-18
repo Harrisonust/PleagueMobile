@@ -25,7 +25,7 @@
             android:name=".user.UserCreateAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".user.UserSigninActivity"
+            android:name=".user.UserSignInActivity"
             android:exported="false" />
         <activity
             android:name=".TeamActivity"
