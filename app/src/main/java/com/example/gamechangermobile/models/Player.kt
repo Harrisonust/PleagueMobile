@@ -5,11 +5,11 @@ import com.example.gamechangermobile.MainActivity.Companion.chih_chieh_lin
 import com.example.gamechangermobile.MainActivity.Companion.hsiang_chun_tseng
 import com.example.gamechangermobile.MainActivity.Companion.thomas_welsh
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.Utils.sha256
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Player(
-    val playerID: PlayerID = PlayerID(),
     val firstName: String = "",
     val lastName: String = "",
     var profilePic: Int = R.drawable.ic_baseline_sports_basketball_24,
@@ -20,6 +20,11 @@ class Player(
     var position: String = "",
 
     ) : Parcelable {
+    val playerID: PlayerID
+        get() {
+            return PlayerID(fullName.sha256())
+        }
+
     var fullName: String = ""
         get() {
             return "$firstName $lastName"
