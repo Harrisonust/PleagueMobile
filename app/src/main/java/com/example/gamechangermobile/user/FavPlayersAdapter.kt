@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
@@ -30,7 +31,12 @@ class FavPlayersAdapter(private val playerList: List<Player>, val isFavList: Boo
 
         viewHolder.itemView.setOnClickListener {
             val pos: Int = viewHolder.adapterPosition
-            notifyFavPlayerDataChanged(playerList[pos], addToFav = !isFavList)
+
+            if (isFavList) {
+                removeFromFavPlayer(view, playerList[pos])
+            } else {
+                addToFavPlayer(view, playerList[pos])
+            }
         }
         return viewHolder
     }

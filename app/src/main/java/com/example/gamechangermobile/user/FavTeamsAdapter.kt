@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.TeamID
@@ -26,7 +27,11 @@ class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean) :
 
         viewHolder.itemView.setOnClickListener {
             val pos: Int = viewHolder.adapterPosition
-            notifyFavTeamDataChanged(teamList[pos], addToFav = !isFavList)
+            if (isFavList) {
+                removeFromFavTeam(it, teamList[pos])
+            } else {
+                addToFavTeam(it, teamList[pos])
+            }
         }
 
         return viewHolder

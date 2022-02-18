@@ -1,11 +1,15 @@
 package com.example.gamechangermobile.user
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.currentUser
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_user_fav_teams.*
 
 class UserFavTeamsActivity() : AppCompatActivity() {
@@ -41,10 +45,16 @@ class UserFavTeamsActivity() : AppCompatActivity() {
 
 }
 
-fun notifyFavTeamDataChanged(teamId: TeamID, addToFav: Boolean) {
-    if (addToFav) {
-        currentUser.favTeam.add(teamId)
-    }else{
-        currentUser.favTeam.remove(teamId)
-    }
+fun addToFavTeam(view: View, teamId: TeamID) {
+    currentUser.favTeam.add(teamId)
+    Snackbar.make(view, "${getTeamById(teamId)?.name} is added to Favorite", Snackbar.LENGTH_SHORT)
+        .setAction("Undo") { removeFromFavTeam(view, teamId) }
+        .show()
+}
+
+fun removeFromFavTeam(view: View, teamId: TeamID) {
+    currentUser.favTeam.remove(teamId)
+    Snackbar.make(view, "${getTeamById(teamId)?.name} is removed from Favorite", Snackbar.LENGTH_SHORT)
+        .setAction("Undo") { addToFavTeam(view, teamId) }
+        .show()
 }

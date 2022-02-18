@@ -11,6 +11,7 @@ import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.getTeamById
+import com.example.gamechangermobile.user.addToFavPlayer
 
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -41,9 +42,7 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         player_page_player_favorite_btn.setOnClickListener { view ->
-            Snackbar.make(view, "Add to Favorite", Snackbar.LENGTH_SHORT)
-                .setAction("Undo") { Log.i("SNACKBAR", "OK") }
-                .show()
+            player?.let { addToFavPlayer(view, it) }
         }
 
         player_page_tab.addTab(player_page_tab.newTab().setText("Game Record"))

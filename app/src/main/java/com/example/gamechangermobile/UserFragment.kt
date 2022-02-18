@@ -31,14 +31,16 @@ class UserFragment() : Fragment() {
             Toast.makeText(view.context, "setting", Toast.LENGTH_SHORT).show()
         }
         my_info_button.setOnClickListener {
-            val intent = Intent(activity, UserDataActivity::class.java)
-            startActivity(intent)
-
+            if (currentUser.isLogIn) {
+                val intent = Intent(activity, UserDataActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "Please Login", Toast.LENGTH_SHORT).show()
+            }
         }
         my_teams_button.setOnClickListener {
             val intent = Intent(activity, UserFavTeamsActivity::class.java)
             startActivity(intent)
-
         }
         my_players_button.setOnClickListener {
             val intent = Intent(activity, UserFavPlayersActivity::class.java)
