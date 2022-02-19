@@ -16,7 +16,7 @@ class UserSignInActivity() : AppCompatActivity() {
         sign_in_button.setOnClickListener {
             val email = account_edittext_view.text.toString()
             val password = password_edittext_view.text.toString()
-            if (email.isEmpty()|| password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Invalid account or password", Toast.LENGTH_SHORT).show()
             } else {
                 val ret: Pair<Boolean, User> = verifyAccount(email.toString(), password.toString())
@@ -34,6 +34,6 @@ class UserSignInActivity() : AppCompatActivity() {
 
     private fun verifyAccount(email: String, password: String): Pair<Boolean, User> {
         // TODO
-        return Pair<Boolean, User>(true, User("Harrison"))
+        return Pair<Boolean, User>(true, User("Harrison", "LO", email = email, password = password))
     }
 }

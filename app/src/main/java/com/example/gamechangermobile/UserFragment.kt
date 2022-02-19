@@ -47,11 +47,11 @@ class UserFragment() : Fragment() {
             startActivity(intent)
         }
 
-        if (currentUser.isLogIn) {
-            replaceFragment(userInfoFragment)
-        } else {
-            replaceFragment(userLoginFragment)
-        }
+//        if (currentUser.isLogIn) {
+        replaceFragment(userInfoFragment)
+//        } else {
+//            replaceFragment(userLoginFragment)
+//        }
     }
 
     fun replaceFragment(fragment: Fragment) {

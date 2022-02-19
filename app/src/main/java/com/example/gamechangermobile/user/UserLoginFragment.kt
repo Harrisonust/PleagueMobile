@@ -40,12 +40,16 @@ class UserLoginFragment() : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            SIGN_IN_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
-                val ret = data?.getParcelableExtra<User>("USER")
-                ret?.let { currentUser = it }
-                Log.d("Debug", ret?.name.toString())
-            }
-        }
+//        when (requestCode) {
+//            SIGN_IN_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
+//                val ret = data?.getParcelableExtra<User>("USER")
+//                ret?.let {
+//                    currentUser = it
+//                    currentUser.isLogIn = true
+//                    // switch to UserInfoFragment
+//                }
+//                Log.d("Debug", ret?.name.toString())
+//            }
+//        }
     }
 }
