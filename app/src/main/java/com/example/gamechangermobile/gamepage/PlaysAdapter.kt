@@ -1,6 +1,5 @@
 package com.example.gamechangermobile.gamepage
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Play
 import com.example.gamechangermobile.models.getTeamById
-import com.example.gamechangermobile.playerpage.PlayerActivity
 
 
 class PlaysAdapter(val plays: List<Play>) : RecyclerView.Adapter<PlaysAdapter.ViewHolder>() {

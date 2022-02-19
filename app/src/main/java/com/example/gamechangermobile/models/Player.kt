@@ -1,9 +1,6 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
-import com.example.gamechangermobile.MainActivity.Companion.chih_chieh_lin
-import com.example.gamechangermobile.MainActivity.Companion.hsiang_chun_tseng
-import com.example.gamechangermobile.MainActivity.Companion.thomas_welsh
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.Utils.sha256
 import kotlinx.android.parcel.Parcelize
@@ -74,4 +71,15 @@ class Player(
     }
 }
 
-fun getAllPlayer(): Set<Player> = setOf(chih_chieh_lin, hsiang_chun_tseng, thomas_welsh)
+fun getAllPlayer(): Set<Player> {
+    val playerList = mutableSetOf<Player>()
+    val allTeamIDList = getAllTeam()
+    for (teamId in allTeamIDList) {
+        val team = getTeamById(teamId)
+        if (team != null) {
+            for (player in team.playerList)
+                playerList.add(player)
+        }
+    }
+    return playerList
+}

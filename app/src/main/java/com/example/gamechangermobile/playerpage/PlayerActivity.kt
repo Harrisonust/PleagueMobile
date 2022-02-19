@@ -3,7 +3,6 @@ package com.example.gamechangermobile.playerpage
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -13,7 +12,6 @@ import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.getTeamById
 import com.example.gamechangermobile.user.addToFavPlayer
 
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 
 
