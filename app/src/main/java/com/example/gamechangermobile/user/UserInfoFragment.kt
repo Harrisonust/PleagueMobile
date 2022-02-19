@@ -13,9 +13,8 @@ import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.User
 import kotlinx.android.synthetic.main.fragment_user_info.*
 import kotlinx.android.synthetic.main.fragment_user_info.sign_in_button
-import kotlinx.android.synthetic.main.fragment_user_login.*
 
-
+const val SIGN_IN_REQUEST_CODE = 1
 class UserInfoFragment() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
