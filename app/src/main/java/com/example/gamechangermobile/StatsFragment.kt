@@ -5,49 +5,48 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.example.gamechangermobile.gamepage.GamePageBoxScoreFragmentGuestTab
+import com.example.gamechangermobile.gamepage.GamePageBoxScoreFragmentHostTab
+import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.Team
+import com.example.gamechangermobile.models.getTeamById
 import com.example.gamechangermobile.views.DynamicTable
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_game_page_box_score.*
+import kotlinx.android.synthetic.main.fragment_stats.*
 
 
 class StatsFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_stats, container, false)
-        val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
-        val headers = listOf("W", "L", "WIN%", "GB", "HOME", "ROAD", "LAST 10", "STREAK")
-        val teams = mutableMapOf<Team, List<String>>()
-        for (team in MainActivity.teams) {
-            val stats = mutableListOf<String>()
-            stats.add(team.totalRecord.wins.toInt().toString())
-            stats.add(team.totalRecord.loses.toInt().toString())
-            stats.add((team.totalRecord.wins/(team.totalRecord.wins+team.totalRecord.loses)).toString())
-            stats.add("0")
-            stats.add(team.homeRecord.getRecord())
-            stats.add(team.awayRecord.getRecord())
-            stats.add(team.last10.getRecord())
-            stats.add(team.streak)
-            teams[team] = stats
+        return inflater.inflate(R.layout.fragment_stats, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        tab_layout.addTab(tab_layout.newTab().setText("Teams"))
+        tab_layout.addTab(tab_layout.newTab().setText("Players"))
+
+        view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
+        view_pager.adapter = PagerAdapter(childFragmentManager)
+        view_pager.setCurrentItem(0)
+        tab_layout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view_pager))
+    }
+
+    inner class PagerAdapter(f: FragmentManager) : FragmentPagerAdapter(f) {
+        override fun getCount(): Int = 2
+
+        override fun getItem(position: Int): Fragment {
+            return when (position) {
+                0 -> StatsFragmentTeamTab()
+                else -> StatsFragmentPlayerTab()
+            }
         }
-        dynamicTable.renderStandingsTable(
-            headers,
-            teams,
-            90,
-            280,
-            "cell_view_header_longer",
-            "player_data",
-            "cell_view_column",
-            "player_name",
-            "player_image",
-            "cell_view_content_longer",
-            "player_data"
-        )
-        return view
     }
 }
