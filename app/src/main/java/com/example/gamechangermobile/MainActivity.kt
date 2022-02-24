@@ -616,6 +616,13 @@ class MainActivity : AppCompatActivity() {
                                 13.25F,
                                 4.13F,
                                 2.29F
+                            ),
+                    GameID(2021002)
+                            to
+                            PlayerStats(
+                                13.25F,
+                                4.13F,
+                                2.29F
                             )
                 ),
                 age = 32,
@@ -969,7 +976,7 @@ class MainActivity : AppCompatActivity() {
                 guestPlayerStats = fakeSteelersStats1,
                 hostPlayerStats = fakeDreamersStats1,
                 status = GameStatus.END,
-                 highlightPhoto = R.drawable.game_steelers_vs_dreamers,
+                highlightPhoto = R.drawable.game_steelers_vs_dreamers,
             ),
             Game(
                 gameId = GameID(2021004),
@@ -979,7 +986,7 @@ class MainActivity : AppCompatActivity() {
                 guestPlayerStats = fakePilotsStats2,
                 hostPlayerStats = fakeKingsStats2,
                 status = GameStatus.END,
-                 highlightPhoto = R.drawable.game_pilots_vs_kings,
+                highlightPhoto = R.drawable.game_pilots_vs_kings,
             ),
             Game(
                 gameId = GameID(2021005),
@@ -989,7 +996,7 @@ class MainActivity : AppCompatActivity() {
                 guestPlayerStats = fakeLioneersStats2,
                 hostPlayerStats = fakeBravesStats2,
                 status = GameStatus.INGAME,
-                 highlightPhoto = R.drawable.game_braves_vs_lioneers,
+                highlightPhoto = R.drawable.game_braves_vs_lioneers,
                 quarter = "3rd",
                 remainingTime = "0:16"
             ),
@@ -1001,7 +1008,7 @@ class MainActivity : AppCompatActivity() {
                 guestPlayerStats = fakePilotsStats2,
                 hostPlayerStats = fakeSteelersStats1,
                 status = GameStatus.INGAME,
-                 highlightPhoto = R.drawable.game_pilots_vs_steelers,
+                highlightPhoto = R.drawable.game_pilots_vs_steelers,
                 quarter = "1st",
                 remainingTime = "4:16"
             ),
@@ -1013,7 +1020,7 @@ class MainActivity : AppCompatActivity() {
 //                guestPlayerStats = fakeLioneersStats1,
 //                hostPlayerStats = fakeDreamersStats1,
                 status = GameStatus.NOT_YET_START,
-                 highlightPhoto = R.drawable.game_lioneers_vs_dreamers,
+                highlightPhoto = R.drawable.game_lioneers_vs_dreamers,
             ),
             Game(
                 gameId = GameID(2021008),
@@ -1023,7 +1030,7 @@ class MainActivity : AppCompatActivity() {
 //                guestPlayerStats = fakeKingsStats1,
 //                hostPlayerStats = fakeSteelersStats1,
                 status = GameStatus.NOT_YET_START,
-                 highlightPhoto = R.drawable.game_kings_vs_steelers,
+                highlightPhoto = R.drawable.game_kings_vs_steelers,
             ),
             Game(
                 gameId = GameID(2021009),
@@ -1033,7 +1040,7 @@ class MainActivity : AppCompatActivity() {
 //                guestPlayerStats = fakeLioneersStats1,
 //                hostPlayerStats = fakeBravesStats2,
                 status = GameStatus.NOT_YET_START,
-                 highlightPhoto = R.drawable.game_braves_vs_lioneers,
+                highlightPhoto = R.drawable.game_braves_vs_lioneers,
             ),
             Game(
                 gameId = GameID(2021010),
@@ -1043,7 +1050,7 @@ class MainActivity : AppCompatActivity() {
 //                guestPlayerStats = fakeDreamersStats1,
 //                hostPlayerStats = fakeKingsStats2,
                 status = GameStatus.NOT_YET_START,
-                 highlightPhoto = R.drawable.game_kings_vs_dreamers
+                highlightPhoto = R.drawable.game_kings_vs_dreamers
             )
         )
 

@@ -10,9 +10,9 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.database.Database
-import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.models.PlayerStats
+import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.playerpage.PlayerActivity
+import java.text.SimpleDateFormat
 
 class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs), HorizontalScroll.ScrollViewListener, VerticalScroll.ScrollViewListener {
     private var fixedRelativeLayout: RelativeLayout? = null
@@ -174,6 +174,126 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
                 if (!ignoreFields.contains(statsName)) {
                     renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
                 }
+            }
+            contentTableLayout?.addView(contentTableRow)
+        }
+    }
+
+    fun renderPlayerGameTable(
+        games: Map<GameID, PlayerStats>,
+        headerHeight: Int,
+        columnWidth: Int,
+        headerLayoutName: String,
+        headerTextViewName: String,
+        columnLayoutName: String,
+        columnTextViewName: String,
+        contentLayoutName: String,
+        contentTextViewName: String
+    ) {
+        fixedRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        fixedRelativeLayout?.let { it.layoutParams.width = columnWidth }
+        headerRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        columnRelativeLayout?.let { it.layoutParams.width = columnWidth }
+
+        val headerViewId = resources.getIdentifier(headerLayoutName, "layout", context.packageName)
+        val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
+        val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
+        val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
+        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
+
+        // fixed layout text
+        val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
+        val textView: TextView = view.findViewById(headerTextId)
+        textView.text = "Game"
+        view.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        fixedRelativeLayout?.addView(view)
+
+
+        // header, column, content
+        var headerSet = false
+        val ignoreFields = listOf("fieldGoal2pt", "fieldGoalAttempt2pt", "fieldGoalPercentage2pt", "effFieldGoalPercentage")
+        for ((gameId, playerStats) in games) {
+            if (!headerSet) {
+                val tableRow = TableRow(context)
+                for ((statsName, _) in playerStats.data) {
+                    if (!ignoreFields.contains(statsName)) {
+                        Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }
+                    }
+                }
+                headerTableLayout?.addView(tableRow)
+                headerSet = true
+            }
+
+            val columnTableRow = TableRow(context)
+            renderCell(SimpleDateFormat("yyyy/MM/DD").format(getGameById(gameId)?.date), columnViewId, columnTextId, columnTableRow)
+            columnTableLayout?.addView(columnTableRow)
+
+            val contentTableRow = TableRow(context)
+            for ((statsName, stats) in playerStats.data) {
+                if (!ignoreFields.contains(statsName)) {
+                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
+                }
+            }
+            contentTableLayout?.addView(contentTableRow)
+        }
+    }
+
+    // all text table
+    fun renderTable(
+        stats: Map<String, List<String>>,
+        headers: List<String>,
+        headerHeight: Int,
+        columnWidth: Int,
+        headerLayoutName: String,
+        headerTextViewName: String,
+        columnLayoutName: String,
+        columnTextViewName: String,
+        contentLayoutName: String,
+        contentTextViewName: String
+    ) {
+        fixedRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        fixedRelativeLayout?.let { it.layoutParams.width = columnWidth }
+        headerRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        columnRelativeLayout?.let { it.layoutParams.width = columnWidth }
+
+        val headerViewId = resources.getIdentifier(headerLayoutName, "layout", context.packageName)
+        val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
+        val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
+        val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
+        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
+
+        // fixed layout text
+        val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
+        val textView: TextView = view.findViewById(headerTextId)
+        textView.text = ""
+        view.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        fixedRelativeLayout?.addView(view)
+
+
+        // header
+        for (header in headers) {
+            val tableRow = TableRow(context)
+            renderCell(header, headerViewId, headerTextId, tableRow)
+            headerTableLayout?.addView(tableRow)
+        }
+
+        // column, content
+        for ((name, data) in stats) {
+            val columnTableRow = TableRow(context)
+            renderCell(name, columnViewId, columnTextId, columnTableRow)
+            columnTableLayout?.addView(columnTableRow)
+
+            val contentTableRow = TableRow(context)
+            for (datum in data) {
+                renderCell(datum, contentViewId, contentTextId, contentTableRow)
             }
             contentTableLayout?.addView(contentTableRow)
         }
