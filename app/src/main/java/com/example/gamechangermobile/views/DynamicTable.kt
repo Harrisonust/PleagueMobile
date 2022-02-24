@@ -279,11 +279,11 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
 
         // header
+        val tableRow = TableRow(context)
         for (header in headers) {
-            val tableRow = TableRow(context)
             renderCell(header, headerViewId, headerTextId, tableRow)
-            headerTableLayout?.addView(tableRow)
         }
+        headerTableLayout?.addView(tableRow)
 
         // column, content
         for ((name, data) in stats) {
