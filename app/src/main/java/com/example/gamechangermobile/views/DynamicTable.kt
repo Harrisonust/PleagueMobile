@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.database.Database
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.playerpage.PlayerActivity
@@ -174,6 +175,64 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
                 if (!ignoreFields.contains(statsName)) {
                     renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
                 }
+            }
+            contentTableLayout?.addView(contentTableRow)
+        }
+    }
+
+    fun renderStandingsTable(
+        headers: List<String>,
+        teams: Map<Team, List<String>>,
+        headerHeight: Int,
+        columnWidth: Int,
+        headerLayoutName: String,
+        headerTextViewName: String,
+        columnLayoutName: String,
+        columnTextViewName: String,
+        columnImageViewName: String,
+        contentLayoutName: String,
+        contentTextViewName: String
+    ) {
+        fixedRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        fixedRelativeLayout?.let { it.layoutParams.width = columnWidth }
+        headerRelativeLayout?.let { it.layoutParams.height = headerHeight }
+        columnRelativeLayout?.let { it.layoutParams.width = columnWidth }
+
+        val headerViewId = resources.getIdentifier(headerLayoutName, "layout", context.packageName)
+        val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
+        val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
+        val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
+        val columnImageId = resources.getIdentifier(columnImageViewName, "id", context.packageName)
+        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
+
+        // fixed layout text
+        val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
+        val textView: TextView = view.findViewById(headerTextId)
+        textView.text = "Team"
+        view.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        fixedRelativeLayout?.addView(view)
+
+        // header
+        val tableRow = TableRow(context)
+        for (header in headers) {
+            renderCell(header, headerViewId, headerTextId, tableRow)
+        }
+        headerTableLayout?.addView(tableRow)
+
+
+        // column, content
+        for ((team, stats) in teams) {
+            val columnTableRow = TableRow(context)
+            renderCell(team, columnViewId, columnTextId, columnImageId, columnTableRow)
+            columnTableLayout?.addView(columnTableRow)
+
+            val contentTableRow = TableRow(context)
+            for (stat in stats) {
+                renderCell(stat, contentViewId, contentTextId, contentTableRow)
             }
             contentTableLayout?.addView(contentTableRow)
         }
@@ -380,6 +439,21 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         view.setOnClickListener {
             val intent = Intent(view.context, PlayerActivity::class.java).apply {
                 putExtra("SELECTED_PLAYER", player)
+            }
+            view.context.startActivity(intent)
+        }
+        tableRow.addView(view)
+    }
+
+    private fun renderCell(team: Team, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
+        val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
+        val textView: TextView = view.findViewById(textId)
+        textView.text = team.name
+        val imageView: ImageView = view.findViewById(imageId)
+        imageView.setImageResource(team.profilePic)
+        view.setOnClickListener {
+            val intent = Intent(view.context, TeamActivity::class.java).apply {
+                putExtra("SELECTED_TEAM", team)
             }
             view.context.startActivity(intent)
         }
