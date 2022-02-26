@@ -32,7 +32,7 @@ class UserFragment() : Fragment() {
         }
         my_info_button.setOnClickListener {
             if (currentUser.isLogIn) {
-                val intent = Intent(activity, UserDataActivity::class.java)
+                val intent = Intent(activity, UserInformationActivity::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(context, "Please Login", Toast.LENGTH_SHORT).show()

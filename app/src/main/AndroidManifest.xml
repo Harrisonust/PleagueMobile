@@ -19,7 +19,7 @@
             android:name=".user.UserFavTeamsActivity"
             android:exported="false" />
         <activity
-            android:name=".user.UserDataActivity"
+            android:name=".user.UserInformationActivity"
             android:exported="false" />
         <activity
             android:name=".user.UserCreateAccountActivity"
