@@ -49,6 +49,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30'
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+    implementation 'com.beust:klaxon:5.5'
 
     testImplementation 'junit:junit:4.+'
     

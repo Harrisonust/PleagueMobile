@@ -1,13 +1,13 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.gamechangermobile.gametab.GameAdapter
+import com.example.gamechangermobile.database.StatsParser
+import com.example.gamechangermobile.database.test_json
 import com.example.gamechangermobile.models.*
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_game.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +38,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        var dataList = StatsParser().parse_player_game_data(test_json)
+        Log.d("Debug", "id 0: " + dataList?.get(0)?.info?.opponent_team_name.toString())
+        Log.d("Debug", "id 1: " + dataList?.get(1)?.info?.opponent_team_name.toString())
 
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021002))
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021005))
