@@ -49,6 +49,7 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.30'
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+    implementation 'com.google.android.gms:play-services-cronet:16.0.0'
 
     testImplementation 'junit:junit:4.+'
     

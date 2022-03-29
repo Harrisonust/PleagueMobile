@@ -1,16 +1,38 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.network.Api
+import com.example.gamechangermobile.network.UrlRequestCallback
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_game.*
+import org.chromium.net.CronetEngine
+import org.chromium.net.UrlRequest
+import org.json.JSONObject
 import java.util.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
+import org.json.JSONException
 
 class MainActivity : AppCompatActivity() {
+    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest = networkRequestCallbackFunc()
+    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
+
+    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
+        return object: UrlRequestCallback.OnFinishRequest {
+            override fun onFinishRequest(result: String?) {
+                runOnUiThread {
+                    // TODO: Update Game List
+                    // ex. testing.text = result
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +42,21 @@ class MainActivity : AppCompatActivity() {
         val statsFrag = StatsFragment()
         val userFrag = UserFragment()
         replaceFragment(gamesFrag)
+
+        // Network call section starts
+        val myBuilder = CronetEngine.Builder(this)
+        val cronetEngine: CronetEngine = myBuilder.build()
+        val executor: Executor = Executors.newSingleThreadExecutor()
+
+        val requestBuilder = cronetEngine.newUrlRequestBuilder(
+            Api.url("game_data", mapOf("season_id" to "4")),
+            urlRequestCallback,
+            executor
+        )
+
+        val request: UrlRequest = requestBuilder.build()
+        request.start()
+        // Network call section ends
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
