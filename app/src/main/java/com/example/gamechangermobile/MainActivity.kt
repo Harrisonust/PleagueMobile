@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.database.StatsParser
+import com.example.gamechangermobile.database.test_box_json
+import com.example.gamechangermobile.database.test_game_json
 import com.example.gamechangermobile.database.test_json
 import com.example.gamechangermobile.models.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,9 +41,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        var dataList = StatsParser().parse_player_game_data(test_json)
-        Log.d("Debug", "id 0: " + dataList?.get(0)?.info?.opponent_team_name.toString())
-        Log.d("Debug", "id 1: " + dataList?.get(1)?.info?.opponent_team_name.toString())
+//        var dataList = StatsParser().parse_player_game_data(test_json)
+//        Log.d("Debug", "id 0: " + dataList?.get(0)?.info?.opponent_team_name.toString())
+//        Log.d("Debug", "id 1: " + dataList?.get(1)?.info?.opponent_team_name.toString())
+//
+//        var dataList2 = StatsParser().parse_player_game_data2(test_box_json)
+//        Log.d("Debug", "another: " + dataList2?.get(0)?.box[1].two_pts.toString())
+//        Log.d("Debug", "another: " + dataList2?.get(0)?.box[1].avg_two_pts.toString())
+//
+//        var dataList3 = StatsParser().parse_player_game_data(test_game_json)
+//        Log.d("Debug","is foreign " +dataList3?.get(0)?.info.is_foreign_player.toString())
+//        Log.d("Debug","avg off reb " +dataList3?.get(0)?.box?.avg_def_reb.toString())
 
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021002))
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021005))
