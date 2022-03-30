@@ -1,5 +1,6 @@
 package com.example.gamechangermobile.database
 
+import android.util.Log
 import com.beust.klaxon.JsonReader
 import com.beust.klaxon.Klaxon
 import java.io.StringReader
@@ -18,8 +19,8 @@ class StatsParser() {
         JsonReader(StringReader(data)).use { reader ->
             reader.beginArray {
                 while (reader.hasNext()) {
-                    val d = Klaxon().parse<Game>(reader)
-                    dataList.add(d!!)
+                    val d: Game? = Klaxon().parse<Game>(reader)
+                    d?.let { dataList.add(it) }
                 }
             }
         }

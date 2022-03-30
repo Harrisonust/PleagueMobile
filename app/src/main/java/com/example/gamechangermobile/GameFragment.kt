@@ -31,23 +31,21 @@ class GameFragment() : Fragment() {
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
-                if (result != null) {
-                    Log.d("Debug", result.substring(12000))
-                }
 
                 var dataList = result?.let { StatsParser().parse_game_data(it) }
 
                 if (dataList != null) {
                     for (data in dataList) {
-                        val temp: Date =
-                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'").parse(data.date)
-                        Log.d(
-                            "Debug",
-                            data.home_team_name.toString()
-                                    + " vs "
-                                    + data.away_team_name.toString()
-                                    + " : " + temp.toLocaleString()
-                        )
+                        val temp: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(data.date)
+
+//                        Log.d(
+//                            "Debug",
+//                            data.home_team_name.toString()
+//                                    + " vs "
+//                                    + data.away_team_name.toString()
+//                                    + temp.toLocaleString()
+//                        )
+
                         games.add(
                             Game(
                                 gameId = GameID(data.id),
