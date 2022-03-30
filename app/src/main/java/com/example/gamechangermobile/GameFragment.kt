@@ -1,11 +1,10 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.database.StatsParser
@@ -14,18 +13,18 @@ import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import kotlinx.android.synthetic.main.fragment_game.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.fragment_game.*
+import org.chromium.net.CronetEngine
+import org.chromium.net.UrlRequest
 
 class GameFragment() : Fragment() {
     private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
+            networkRequestCallbackFunc()
     private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
 
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
@@ -38,21 +37,13 @@ class GameFragment() : Fragment() {
                     for (data in dataList) {
                         val temp: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(data.date)
 
-//                        Log.d(
-//                            "Debug",
-//                            data.home_team_name.toString()
-//                                    + " vs "
-//                                    + data.away_team_name.toString()
-//                                    + temp.toLocaleString()
-//                        )
-
                         games.add(
-                            Game(
-                                gameId = GameID(data.id),
-                                guestTeam = getTeamIdByName(data.away_team_name),
-                                hostTeam = getTeamIdByName(data.home_team_name),
-                                date = temp
-                            )
+                                Game(
+                                        gameId = GameID(data.id),
+                                        guestTeam = getTeamIdByName(data.away_team_name),
+                                        hostTeam = getTeamIdByName(data.home_team_name),
+                                        date = temp
+                                )
                         )
                     }
                 }
@@ -67,8 +58,9 @@ class GameFragment() : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
         // Network call section starts
@@ -76,11 +68,12 @@ class GameFragment() : Fragment() {
         val cronetEngine: CronetEngine = myBuilder.build()
         val executor: Executor = Executors.newSingleThreadExecutor()
 
-        val requestBuilder = cronetEngine.newUrlRequestBuilder(
-            Api.url("game_data", mapOf("season_id" to "4")),
-            urlRequestCallback,
-            executor
-        )
+        val requestBuilder =
+                cronetEngine.newUrlRequestBuilder(
+                        Api.url("game_data", mapOf("season_id" to "4")),
+                        urlRequestCallback,
+                        executor
+                )
 
         val request: UrlRequest = requestBuilder.build()
         request.start()
@@ -95,9 +88,9 @@ class GameFragment() : Fragment() {
             var selectedGames = ArrayList<Game>()
             val selectedDate = Date(date.year - 1900, date.month - 1, date.day)
             for (game in games) {
-                if (game.date.day == selectedDate.day
-                    && game.date.year == selectedDate.year
-                    && game.date.month == selectedDate.month
+                if (game.date.date == selectedDate.date &&
+                                game.date.year == selectedDate.year &&
+                                game.date.month == selectedDate.month
                 ) {
                     selectedGames.add(game)
                 }
@@ -107,9 +100,6 @@ class GameFragment() : Fragment() {
         }
         calendarView.selectedDate = (CalendarDay.today())
 
-        game_recyclerview?.apply {
-            layoutManager = LinearLayoutManager(activity)
-        }
-
+        game_recyclerview?.apply { layoutManager = LinearLayoutManager(activity) }
     }
 }
