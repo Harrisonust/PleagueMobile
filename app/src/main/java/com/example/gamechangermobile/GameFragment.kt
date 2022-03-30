@@ -23,6 +23,7 @@ import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
 
 class GameFragment() : Fragment() {
+    private var selectedDate: Date = Date()
     private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
             networkRequestCallbackFunc()
     private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
@@ -49,9 +50,7 @@ class GameFragment() : Fragment() {
                 }
 
                 activity?.runOnUiThread {
-                    // TODO: Update Game List
-                    // ex. testing.text = result
-                    game_recyclerview.adapter?.notifyDataSetChanged()
+                    updateGameCardView()
                 }
             }
         }
@@ -85,21 +84,25 @@ class GameFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         calendarView.setOnDateChangedListener { widget, date, selected ->
-            var selectedGames = ArrayList<Game>()
-            val selectedDate = Date(date.year - 1900, date.month - 1, date.day)
-            for (game in games) {
-                if (game.date.date == selectedDate.date &&
-                                game.date.year == selectedDate.year &&
-                                game.date.month == selectedDate.month
-                ) {
-                    selectedGames.add(game)
-                }
-            }
-            game_recyclerview.adapter = GameAdapter(selectedGames)
-            game_recyclerview.adapter?.notifyDataSetChanged()
+            selectedDate = Date(date.year - 1900, date.month - 1, date.day)
+            updateGameCardView()
         }
         calendarView.selectedDate = (CalendarDay.today())
 
         game_recyclerview?.apply { layoutManager = LinearLayoutManager(activity) }
+    }
+
+    private fun updateGameCardView() {
+        var selectedGames = ArrayList<Game>()
+        for (game in games) {
+            if (game.date.date == selectedDate.date &&
+                game.date.year == selectedDate.year &&
+                game.date.month == selectedDate.month
+            ) {
+                selectedGames.add(game)
+            }
+        }
+        game_recyclerview.adapter = GameAdapter(selectedGames)
+        game_recyclerview.adapter?.notifyDataSetChanged()
     }
 }
