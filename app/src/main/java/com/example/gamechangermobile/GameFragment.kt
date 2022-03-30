@@ -31,39 +31,11 @@ class GameFragment() : Fragment() {
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
-                val result1 = """
-                   [
-    {
-        "id": 218,
-        "quarter_count": 4,
-        "date": "2021-11-05T16:00:00.288000Z",
-        "name": "G01",
-        "home_team_id": 22,
-        "home_team_name": "新竹街口攻城獅",
-        
-        "home_team_score": 96,
-        "away_team_id": 23,
-        "away_team_name": "新北國王",
-        
-        "away_team_score": 87
-    },
-    {
-        "id": 219,
-        "quarter_count": 4,
-        "date": "2021-11-06T16:00:00.288000Z",
-        "name": "G02",
-        "home_team_id": 20,
-        "home_team_name": "桃園領航猿",
-       
-        "home_team_score": 97,
-        "away_team_id": 22,
-        "away_team_name": "新竹街口攻城獅",
-        
-        "away_team_score": 82
-    }] 
-                """
+                if (result != null) {
+                    Log.d("Debug", result.substring(12000))
+                }
 
-                var dataList = result1?.let { StatsParser().parse_game_data(it) }
+                var dataList = result?.let { StatsParser().parse_game_data(it) }
 
                 if (dataList != null) {
                     for (data in dataList) {
