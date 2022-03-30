@@ -23,19 +23,6 @@ import java.util.concurrent.Executors
 import org.json.JSONException
 
 class MainActivity : AppCompatActivity() {
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest = networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object: UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-                runOnUiThread {
-                    // TODO: Update Game List
-                    // ex. testing.text = result
-                }
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,20 +33,7 @@ class MainActivity : AppCompatActivity() {
         val userFrag = UserFragment()
         replaceFragment(gamesFrag)
 
-        // Network call section starts
-        val myBuilder = CronetEngine.Builder(this)
-        val cronetEngine: CronetEngine = myBuilder.build()
-        val executor: Executor = Executors.newSingleThreadExecutor()
 
-        val requestBuilder = cronetEngine.newUrlRequestBuilder(
-            Api.url("game_data", mapOf("season_id" to "4")),
-            urlRequestCallback,
-            executor
-        )
-
-        val request: UrlRequest = requestBuilder.build()
-        request.start()
-        // Network call section ends
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -78,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
 //        var dataList = StatsParser().parse_player_game_data(test_json)
 //        Log.d("Debug", "id 0: " + dataList?.get(0)?.info?.opponent_team_name.toString())
 //        Log.d("Debug", "id 1: " + dataList?.get(1)?.info?.opponent_team_name.toString())

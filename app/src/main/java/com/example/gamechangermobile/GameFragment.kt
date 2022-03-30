@@ -8,20 +8,113 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.games
+import com.example.gamechangermobile.database.StatsParser
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.network.Api
+import com.example.gamechangermobile.network.UrlRequestCallback
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.fragment_game.*
+import org.chromium.net.CronetEngine
+import org.chromium.net.UrlRequest
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
 
 class GameFragment() : Fragment() {
+    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
+        networkRequestCallbackFunc()
+    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
+
+    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
+        return object : UrlRequestCallback.OnFinishRequest {
+            override fun onFinishRequest(result: String?) {
+                val result1 = """
+                   [
+    {
+        "id": 218,
+        "quarter_count": 4,
+        "date": "2021-11-05T16:00:00.288000Z",
+        "name": "G01",
+        "home_team_id": 22,
+        "home_team_name": "新竹街口攻城獅",
+        
+        "home_team_score": 96,
+        "away_team_id": 23,
+        "away_team_name": "新北國王",
+        
+        "away_team_score": 87
+    },
+    {
+        "id": 219,
+        "quarter_count": 4,
+        "date": "2021-11-06T16:00:00.288000Z",
+        "name": "G02",
+        "home_team_id": 20,
+        "home_team_name": "桃園領航猿",
+       
+        "home_team_score": 97,
+        "away_team_id": 22,
+        "away_team_name": "新竹街口攻城獅",
+        
+        "away_team_score": 82
+    }] 
+                """
+
+                var dataList = result1?.let { StatsParser().parse_game_data(it) }
+
+                if (dataList != null) {
+                    for (data in dataList) {
+                        val temp: Date =
+                            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'").parse(data.date)
+                        Log.d(
+                            "Debug",
+                            data.home_team_name.toString()
+                                    + " vs "
+                                    + data.away_team_name.toString()
+                                    + " : " + temp.toLocaleString()
+                        )
+                        games.add(
+                            Game(
+                                gameId = GameID(data.id),
+                                guestTeam = getTeamIdByName(data.away_team_name),
+                                hostTeam = getTeamIdByName(data.home_team_name),
+                                date = temp
+                            )
+                        )
+                    }
+                }
+
+                activity?.runOnUiThread {
+                    // TODO: Update Game List
+                    // ex. testing.text = result
+                    game_recyclerview.adapter?.notifyDataSetChanged()
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
+        // Network call section starts
+        val myBuilder = CronetEngine.Builder(context)
+        val cronetEngine: CronetEngine = myBuilder.build()
+        val executor: Executor = Executors.newSingleThreadExecutor()
+
+        val requestBuilder = cronetEngine.newUrlRequestBuilder(
+            Api.url("game_data", mapOf("season_id" to "4")),
+            urlRequestCallback,
+            executor
+        )
+
+        val request: UrlRequest = requestBuilder.build()
+        request.start()
+        // Network call section ends
         return view
     }
 

@@ -3,6 +3,9 @@ package com.example.gamechangermobile.database
 import com.beust.klaxon.JsonReader
 import com.beust.klaxon.Klaxon
 import java.io.StringReader
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 //var dataList = StatsParser().parse(test_json)
@@ -10,6 +13,19 @@ import java.io.StringReader
 //Log.d("Debug", "id 1: " + dataList?.get(1)?.info?.opponent_team_name.toString())
 
 class StatsParser() {
+    fun parse_game_data(data: String): ArrayList<Game> {
+        val dataList = arrayListOf<Game>()
+        JsonReader(StringReader(data)).use { reader ->
+            reader.beginArray {
+                while (reader.hasNext()) {
+                    val d = Klaxon().parse<Game>(reader)
+                    dataList.add(d!!)
+                }
+            }
+        }
+        return dataList
+    }
+
     fun parse_player_game_data(data: String): ArrayList<PlayerGameStats> {
         val dataList = arrayListOf<PlayerGameStats>()
         JsonReader(StringReader(data)).use { reader ->
@@ -41,7 +57,10 @@ class PlayerGameStats(val info: PlayerInfo = PlayerInfo(), val box: PlayerStats 
 
 }
 
-class PlayerGameStats2(val info: PlayerInfo = PlayerInfo(), val box: ArrayList<PlayerStats> = arrayListOf()) {
+class PlayerGameStats2(
+    val info: PlayerInfo = PlayerInfo(),
+    val box: ArrayList<PlayerStats> = arrayListOf()
+) {
 
 }
 
@@ -99,14 +118,16 @@ class Ranking(
     val avg: Float = 0F
 ) {}
 
-class Tag() {
+class Tag(
+    val name: String = ""
+) {
 
 }
 
 class Photo(
-    val image: String = "",
-    val tag: Tag = Tag(),
-    val file_name: String = ""
+    val image: String? = "",
+    val tag: Tag? = Tag(),
+    val file_name: String? = ""
 ) {}
 
 class PlayerStats(
@@ -186,12 +207,33 @@ class PlayerStats(
 }
 
 class GameCategory(
-    val id: Int = 0,
-    val name: String = "",
-    val description: String = "",
-    val start_date: String = "",
-    val end_date: String = ""
+    val id: Int? = 0,
+    val name: String? = "",
+    val description: String? = "",
+    val start_date: String? = "",
+    val end_date: String? = ""
 ) {
+
+}
+
+class Game(
+    val id: Int = 0,
+    val quarter_count: Int = 0,
+    val date: String = "",
+    val category: GameCategory = GameCategory(),
+    val name: String = "",
+    val home_team_id: Int = 0,
+    val home_team_name: String = "",
+    val home_team_logo: Photo = Photo(),
+    val home_team_score: Int = 0,
+
+    val away_team_id: Int = 0,
+    val away_team_name: String = "",
+    val away_team_logo: Photo = Photo(),
+    val away_team_score: Int = 0,
+) {
+
+//    "2021-11-05T16:00:00.288000Z",
 
 }
 

@@ -58,6 +58,17 @@ fun getTeamIdByName(name: TeamName): TeamID =
         else -> TeamID(-1)
     }
 
+fun getTeamIdByName(name: String): TeamID =
+    when (name) {
+        "台北富邦勇士" -> TeamID(0)
+        "新北國王" -> TeamID(1)
+        "桃園領航猿" -> TeamID(2)
+        "新竹街口攻城獅" -> TeamID(3)
+        "福爾摩沙台新夢想家" -> TeamID(4)
+        "高雄鋼鐵人" -> TeamID(5)
+        else -> TeamID(-1)
+    }
+
 fun getAllTeam(): List<TeamID> =
     listOf<TeamID>(
         TeamID(0),
