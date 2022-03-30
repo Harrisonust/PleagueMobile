@@ -18,6 +18,8 @@ data class Game(
     val quarter: String = "",
     val remainingTime: String = "",
     val highlightPhoto: Int = R.drawable.ic_baseline_sports_basketball_24,
+    val guestScore: Int = 0,
+    val hostScore: Int = 0
 ) : Parcelable {
 
 
@@ -32,21 +34,32 @@ data class Game(
     var guestStats: TeamStats = TeamStats()
         get() {
             var gameStats = TeamStats()
-            for (playerStats in guestPlayerStats.values) {
-                playerStats.data.forEach {
-                    gameStats.data[it.key] = gameStats.data[it.key]!! + playerStats.data[it.key]!!
+            if (guestPlayerStats.isNotEmpty()) {
+                for (playerStats in guestPlayerStats.values) {
+                    playerStats.data.forEach {
+                        gameStats.data[it.key] =
+                            gameStats.data[it.key]!! + playerStats.data[it.key]!!
+                    }
                 }
+            } else {
+                gameStats.data["points"] = guestScore.toFloat()
             }
+
             return gameStats
         }
 
     var hostStats: TeamStats = TeamStats()
         get() {
             var gameStats = TeamStats()
-            for (playerStats in hostPlayerStats.values) {
-                playerStats.data.forEach {
-                    gameStats.data[it.key] = gameStats.data[it.key]!! + playerStats.data[it.key]!!
+            if (hostPlayerStats.isNotEmpty()) {
+                for (playerStats in hostPlayerStats.values) {
+                    playerStats.data.forEach {
+                        gameStats.data[it.key] =
+                            gameStats.data[it.key]!! + playerStats.data[it.key]!!
+                    }
                 }
+            } else {
+                gameStats.data["points"] = hostScore.toFloat()
             }
             return gameStats
         }

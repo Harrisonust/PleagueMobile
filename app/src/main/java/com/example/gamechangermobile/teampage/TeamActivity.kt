@@ -6,25 +6,83 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.models.Team
+import com.example.gamechangermobile.database.StatsParser
+import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.network.Api
+import com.example.gamechangermobile.network.UrlRequestCallback
 import com.example.gamechangermobile.teampage.TeamPageInfoFragment
 import com.example.gamechangermobile.teampage.TeamPageRosterFragment
 import com.example.gamechangermobile.teampage.TeamPageScheduleFragment
 import com.example.gamechangermobile.user.addToFavTeam
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_team.*
+import kotlinx.android.synthetic.main.fragment_game.*
+import org.chromium.net.CronetEngine
+import org.chromium.net.UrlRequest
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 class TeamActivity : AppCompatActivity() {
+    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
+        networkRequestCallbackFunc()
+    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
+    private var teamData = Team(TeamID(-1))
+
+    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
+        return object : UrlRequestCallback.OnFinishRequest {
+            override fun onFinishRequest(result: String?) {
+
+                var data = result?.let { StatsParser().parse_team_data(it) }
+
+                runOnUiThread {
+                    // TODO: Update Game List
+                    // ex. testing.text = result
+                    if (data != null) {
+                        teamData.totalRecord.wins = data.info.win_count.toFloat()
+                        teamData.totalRecord.loses = data.info.lose_count.toFloat()
+                        team_page_record.text =
+                            "${data.info.win_count.toInt()} - ${ data.info.lose_count.toInt()}"
+                    }
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team)
 
-        val teamData = intent.getParcelableExtra<Team>("SELECTED_TEAM")
+        teamData = intent.getParcelableExtra<Team>("SELECTED_TEAM")!!
+
+        // Network call section starts
+        val myBuilder = CronetEngine.Builder(this)
+        val cronetEngine: CronetEngine = myBuilder.build()
+        val executor: Executor = Executors.newSingleThreadExecutor()
+
+        val requestBuilder =
+            cronetEngine.newUrlRequestBuilder(
+                Api.url(
+                    "team_season_data", mapOf(
+                        "season_id" to "4",
+                        "part" to "info,ranking",
+                        "team_id" to teamData.teamId.ID.toString()
+                    )
+                ),
+                urlRequestCallback,
+                executor
+            )
+//        season_id=4&part=info,ranking&team_id=23
+
+        val request: UrlRequest = requestBuilder.build()
+        request.start()
+
 
         if (teamData != null) {
-            team_page_profile_pic.setImageResource(teamData!!.profilePic)
+            team_page_profile_pic.setImageResource(teamData.profilePic)
         }
+
         team_page_team_location.text = teamData?.location
         team_page_team_name.text = teamData?.name
         team_page_record.text = teamData?.totalRecord?.getRecord()
@@ -43,13 +101,16 @@ class TeamActivity : AppCompatActivity() {
                 team_page_tab
             )
         )
-        team_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 3, teamData!!)
+        if (teamData != null)
+            team_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 3, teamData)
+
         team_page_viewpager.setCurrentItem(0)
         team_page_tab.addOnTabSelectedListener(
             TabLayout.ViewPagerOnTabSelectedListener(
                 team_page_viewpager
             )
         )
+
 
     }
 

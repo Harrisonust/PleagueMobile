@@ -24,7 +24,7 @@ import org.chromium.net.UrlRequest
 
 class GameFragment() : Fragment() {
     private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-            networkRequestCallbackFunc()
+        networkRequestCallbackFunc()
     private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
 
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
@@ -35,15 +35,17 @@ class GameFragment() : Fragment() {
 
                 if (dataList != null) {
                     for (data in dataList) {
-                        val temp: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(data.date)
+                        val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(data.date)
 
                         games.add(
-                                Game(
-                                        gameId = GameID(data.id),
-                                        guestTeam = getTeamIdByName(data.away_team_name),
-                                        hostTeam = getTeamIdByName(data.home_team_name),
-                                        date = temp
-                                )
+                            Game(
+                                gameId = GameID(data.id),
+                                guestTeam = getTeamIdByName(data.away_team_name),
+                                hostTeam = getTeamIdByName(data.home_team_name),
+                                date = date,
+                                guestScore = data.away_team_score,
+                                hostScore = data.home_team_score
+                            )
                         )
                     }
                 }
@@ -58,22 +60,23 @@ class GameFragment() : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
+
         // Network call section starts
         val myBuilder = CronetEngine.Builder(context)
         val cronetEngine: CronetEngine = myBuilder.build()
         val executor: Executor = Executors.newSingleThreadExecutor()
 
         val requestBuilder =
-                cronetEngine.newUrlRequestBuilder(
-                        Api.url("game_data", mapOf("season_id" to "4")),
-                        urlRequestCallback,
-                        executor
-                )
+            cronetEngine.newUrlRequestBuilder(
+                Api.url("game_data", mapOf("season_id" to "4")),
+                urlRequestCallback,
+                executor
+            )
 
         val request: UrlRequest = requestBuilder.build()
         request.start()
@@ -89,8 +92,8 @@ class GameFragment() : Fragment() {
             val selectedDate = Date(date.year - 1900, date.month - 1, date.day)
             for (game in games) {
                 if (game.date.date == selectedDate.date &&
-                                game.date.year == selectedDate.year &&
-                                game.date.month == selectedDate.month
+                    game.date.year == selectedDate.year &&
+                    game.date.month == selectedDate.month
                 ) {
                     selectedGames.add(game)
                 }

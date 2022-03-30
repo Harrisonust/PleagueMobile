@@ -5,9 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.database.StatsParser
-import com.example.gamechangermobile.database.test_box_json
-import com.example.gamechangermobile.database.test_game_json
-import com.example.gamechangermobile.database.test_json
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
@@ -785,7 +782,7 @@ class MainActivity : AppCompatActivity() {
             )
         var teams: ArrayList<Team> = arrayListOf(
             Team(
-                teamId = TeamID(0),
+                teamId = getTeamIdByName(TeamName.BRAVES),
                 name = "Braves",
                 location = "Taipei",
                 profilePic = R.drawable.braves,

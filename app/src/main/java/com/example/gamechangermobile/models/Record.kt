@@ -4,8 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Record(val wins: Float = 0F,
-                  val loses: Float = 0F,
+class Record(var wins: Float = 0F,
+                  var loses: Float = 0F,
                   var records: ArrayList<String> = ArrayList<String>()
 ) : Parcelable {
 

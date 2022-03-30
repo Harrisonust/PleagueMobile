@@ -9,13 +9,13 @@ data class TeamID(val ID: Int) : Parcelable {
 
 }
 
-enum class TeamName {
-    BRAVES,
-    KINGS,
-    PILOTS,
-    LIONEERS,
-    DREAMERS,
-    STEELERS
+enum class TeamName(val id: Int) {
+    BRAVES(19),
+    KINGS(23),
+    PILOTS(20),
+    LIONEERS(22),
+    DREAMERS(21),
+    STEELERS(24)
 }
 
 fun getTeamById(id: TeamID?): Team? {
@@ -49,32 +49,32 @@ fun getTeamByName(name: TeamName): Team? =
 
 fun getTeamIdByName(name: TeamName): TeamID =
     when (name) {
-        TeamName.BRAVES -> TeamID(0)
-        TeamName.KINGS -> TeamID(1)
-        TeamName.PILOTS -> TeamID(2)
-        TeamName.LIONEERS -> TeamID(3)
-        TeamName.DREAMERS -> TeamID(4)
-        TeamName.STEELERS -> TeamID(5)
+        TeamName.BRAVES -> TeamID(19)
+        TeamName.KINGS -> TeamID(23)
+        TeamName.PILOTS -> TeamID(20)
+        TeamName.LIONEERS -> TeamID(22)
+        TeamName.DREAMERS -> TeamID(21)
+        TeamName.STEELERS -> TeamID(24)
         else -> TeamID(-1)
     }
 
 fun getTeamIdByName(name: String): TeamID =
     when (name) {
-        "台北富邦勇士" -> TeamID(0)
-        "新北國王" -> TeamID(1)
-        "桃園領航猿" -> TeamID(2)
-        "新竹街口攻城獅" -> TeamID(3)
-        "福爾摩沙台新夢想家" -> TeamID(4)
-        "高雄鋼鐵人" -> TeamID(5)
+        "台北富邦勇士" -> TeamID(19)
+        "新北國王" -> TeamID(23)
+        "桃園領航猿" -> TeamID(20)
+        "新竹街口攻城獅" -> TeamID(22)
+        "福爾摩沙台新夢想家" -> TeamID(21)
+        "高雄鋼鐵人" -> TeamID(24)
         else -> TeamID(-1)
     }
 
 fun getAllTeam(): List<TeamID> =
     listOf<TeamID>(
-        TeamID(0),
-        TeamID(1),
-        TeamID(2),
-        TeamID(3),
-        TeamID(4),
-        TeamID(5)
+        TeamID(19),
+        TeamID(23),
+        TeamID(20),
+        TeamID(22),
+        TeamID(21),
+        TeamID(24)
     )
