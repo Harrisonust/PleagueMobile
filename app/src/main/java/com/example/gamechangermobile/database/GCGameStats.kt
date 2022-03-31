@@ -55,7 +55,7 @@ data class GCPlayerInfo(
 
 data class GCTeam(
     val info: GCTeamInfo = GCTeamInfo(),
-    val ranking: GCRanking = GCRanking(),
+    val ranking: GCRankings = GCRankings(),
 ) {}
 
 data class GCRanking(

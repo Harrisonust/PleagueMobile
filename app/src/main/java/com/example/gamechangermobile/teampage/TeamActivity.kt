@@ -32,15 +32,29 @@ class TeamActivity : AppCompatActivity() {
 
                 var data = result?.let { GCStatsParser().parseTeamData(it) }
 
+                var ranking = "na"
+
+                if (data != null) {
+
+                    teamData.totalRecord.wins = data.info.win_count.toFloat()
+                    teamData.totalRecord.loses = data.info.lose_count.toFloat()
+                    teamData.streak = data.info.winning_streak.toString()
+                    teamData.ranking = data.ranking.team.ranking.toString()
+
+                    ranking = data.ranking.team.ranking.toString()
+                    ranking += if (ranking == "1") "st"
+                    else if (ranking == "2") "nd"
+                    else "th"
+                }
+
                 runOnUiThread {
                     // TODO: Update Game List
                     // ex. testing.text = result
                     if (data != null) {
-                        teamData.totalRecord.wins = data.info.win_count.toFloat()
-                        teamData.totalRecord.loses = data.info.lose_count.toFloat()
-                        teamData.streak = data.info.winning_streak.toString()
                         team_page_record.text =
-                            "${data.info.win_count.toInt()} - ${ data.info.lose_count.toInt()}"
+                            "${data.info.win_count.toInt()} - ${data.info.lose_count.toInt()}"
+
+                        team_page_team_ranking.text = ranking
                     }
                 }
             }
