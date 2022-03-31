@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.*
-import kotlinx.android.synthetic.main.fragment_game_page_highlights.*
 import kotlinx.android.synthetic.main.fragment_game_page_plays.*
 
 class GamePagePlaysFragment(val game: Game) : Fragment() {

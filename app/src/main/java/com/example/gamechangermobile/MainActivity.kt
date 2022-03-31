@@ -5,18 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_game.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import org.json.JSONObject
 import java.util.*
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
-import org.json.JSONException
 
 class MainActivity : AppCompatActivity() {
 

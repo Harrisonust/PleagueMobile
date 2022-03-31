@@ -7,14 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.gamepage.GamePageBoxScoreFragmentGuestTab
-import com.example.gamechangermobile.gamepage.GamePageBoxScoreFragmentHostTab
-import com.example.gamechangermobile.models.Game
-import com.example.gamechangermobile.models.Team
-import com.example.gamechangermobile.models.getTeamById
-import com.example.gamechangermobile.views.DynamicTable
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_game_page_box_score.*
 import kotlinx.android.synthetic.main.fragment_stats.*
 
 
