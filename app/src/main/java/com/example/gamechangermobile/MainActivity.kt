@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.gamechangermobile.database.StatsParser
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback

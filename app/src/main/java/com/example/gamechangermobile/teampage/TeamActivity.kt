@@ -2,11 +2,10 @@ package com.example.gamechangermobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.database.StatsParser
+import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
@@ -16,11 +15,8 @@ import com.example.gamechangermobile.teampage.TeamPageScheduleFragment
 import com.example.gamechangermobile.user.addToFavTeam
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_team.*
-import kotlinx.android.synthetic.main.fragment_game.*
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -34,7 +30,7 @@ class TeamActivity : AppCompatActivity() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var data = result?.let { StatsParser().parse_team_data(it) }
+                var data = result?.let { GCStatsParser().parseTeamData(it) }
 
                 runOnUiThread {
                     // TODO: Update Game List
