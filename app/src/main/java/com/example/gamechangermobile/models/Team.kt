@@ -18,6 +18,7 @@ data class Team(
     var color: Int = R.color.bg_color,
     var playerList: ArrayList<Player> = ArrayList<Player>(),
     var gamesIdList: ArrayList<GameID> = ArrayList<GameID>(),
+    var streak: String = "",
 ) : Parcelable {
 
     fun getGameList(): ArrayList<Game> {
@@ -79,31 +80,31 @@ data class Team(
         else "L"
     }
 
-    var streak: String = ""
-        get() {
-            if (gamesIdList.isEmpty()) return "0"
-            var acc: Int = 1
-            var first: String = ""
-
-            for (i in gamesIdList.size - 1 downTo 0) {
-                val game = getGameById(gamesIdList[i])!!
-                if (game.status != GameStatus.END) continue
-                first = getGameResult(game)
-            }
-
-            if (gamesIdList.size == 1) return first + "1"
-
-            for (i in 1 until gamesIdList.size - 1) {
-                val game: Game = getGameById(gamesIdList[i])!!
-                val prevGame: Game = getGameById(gamesIdList[i - 1])!!
-                if (game.status != GameStatus.END) continue
-                if (prevGame.status != GameStatus.END) continue
-
-                if (getGameResult(game) == getGameResult(prevGame)) acc += 1
-                else break
-            }
-            return first + acc.toString()
-        }
+//    var streak: String
+//        get() {
+//            if (gamesIdList.isEmpty()) return "0"
+//            var acc: Int = 1
+//            var first: String = ""
+//
+//            for (i in gamesIdList.size - 1 downTo 0) {
+//                val game = getGameById(gamesIdList[i])!!
+//                if (game.status != GameStatus.END) continue
+//                first = getGameResult(game)
+//            }
+//
+//            if (gamesIdList.size == 1) return first + "1"
+//
+//            for (i in 1 until gamesIdList.size - 1) {
+//                val game: Game = getGameById(gamesIdList[i])!!
+//                val prevGame: Game = getGameById(gamesIdList[i - 1])!!
+//                if (game.status != GameStatus.END) continue
+//                if (prevGame.status != GameStatus.END) continue
+//
+//                if (getGameResult(game) == getGameResult(prevGame)) acc += 1
+//                else break
+//            }
+//            return first + acc.toString()
+//        }
 
     var last10: Record = Record(0F, 0F)
         get() {

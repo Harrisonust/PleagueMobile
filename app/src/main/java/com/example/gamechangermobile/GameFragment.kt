@@ -45,7 +45,7 @@ class GameFragment() : Fragment() {
                                 hostTeam = getTeamIdByName(data.home_team_name),
                                 date = date,
                                 guestScore = data.away_team_score,
-                                hostScore = data.home_team_score
+                                hostScore = data.home_team_score,
                             )
                         )
                     }

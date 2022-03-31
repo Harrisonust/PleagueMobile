@@ -42,6 +42,7 @@ class TeamActivity : AppCompatActivity() {
                     if (data != null) {
                         teamData.totalRecord.wins = data.info.win_count.toFloat()
                         teamData.totalRecord.loses = data.info.lose_count.toFloat()
+                        teamData.streak = data.info.winning_streak.toString()
                         team_page_record.text =
                             "${data.info.win_count.toInt()} - ${ data.info.lose_count.toInt()}"
                     }
