@@ -1,6 +1,7 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,17 +38,18 @@ class GameFragment() : Fragment() {
                 if (dataList != null) {
                     for (data in dataList) {
                         val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(data.date)
-
-                        games.add(
-                            Game(
-                                gameId = GameID(data.id),
-                                guestTeam = getTeamIdByName(data.away_team_name),
-                                hostTeam = getTeamIdByName(data.home_team_name),
-                                date = date,
-                                guestScore = data.away_team_score,
-                                hostScore = data.home_team_score,
-                            )
+                        val game = Game(
+                            gameId = GameID(data.id),
+                            guestTeam = getTeamIdByName(data.away_team_name),
+                            hostTeam = getTeamIdByName(data.home_team_name),
+                            date = date,
+                            guestScore = data.away_team_score,
+                            hostScore = data.home_team_score,
+                            status = GameStatus.END
                         )
+                        games.add(game)
+                        getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
+                        getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
                     }
                 }
 

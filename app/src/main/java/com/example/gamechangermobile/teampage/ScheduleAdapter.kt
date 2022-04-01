@@ -93,7 +93,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
                         " : " +
                         game.hostStats.data["points"]!!.toInt().toString()
         } else {
-            holder.win_lose.text = SimpleDateFormat("MM/DD HH:mm").format(game.date)
+//            holder.win_lose.text = SimpleDateFormat("MM/DD HH:mm").format(game.date)
         }
 
 
