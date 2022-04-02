@@ -31,11 +31,9 @@ class TeamActivity : AppCompatActivity() {
             override fun onFinishRequest(result: String?) {
 
                 var data = result?.let { GCStatsParser().parseTeamData(it) }
-
                 var ranking = "na"
 
                 if (data != null) {
-
                     teamData.totalRecord.wins = data.info.win_count.toFloat()
                     teamData.totalRecord.loses = data.info.lose_count.toFloat()
                     teamData.streak = data.info.winning_streak.toString()
@@ -84,12 +82,11 @@ class TeamActivity : AppCompatActivity() {
                 urlRequestCallback,
                 executor
             )
-//        season_id=4&part=info,ranking&team_id=23
 
         val request: UrlRequest = requestBuilder.build()
         request.start()
 
-
+        // start rendering ui
         if (teamData != null) {
             team_page_profile_pic.setImageResource(teamData.profilePic)
         }

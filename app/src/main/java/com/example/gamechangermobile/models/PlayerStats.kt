@@ -67,18 +67,23 @@ open class PlayerStats(
         this.data["points"] = points
         this.data["rebounds"] = rebounds
         this.data["assists"] = assists
+
         this.data["fieldGoalMade"] = fieldGoalMade
         this.data["fieldGoalAttempt"] = fieldGoalAttempt
         this.data["fieldGoalPercentage"] = fieldGoalPercentage
+
         this.data["twoPointMade"] = twoPointMade
         this.data["twoPointAttempt"] = twoPointAttempt
         this.data["twoPointPercentage"] = twoPointPercentage
+
         this.data["threePointMade"] = threePointMade
         this.data["threePointAttempt"] = threePointAttempt
         this.data["threePointPercentage"] = threePointPercentage
+
         this.data["freeThrow"] = freeThrowMade
         this.data["freeThrowAttempt"] = freeThrowAttempt
         this.data["freeThrowPercentage"] = freeThrowPercentage
+
         this.data["offensiveRebounds"] = offensiveRebounds
         this.data["defensiveRebounds"] = defensiveRebounds
         this.data["steals"] = steals
