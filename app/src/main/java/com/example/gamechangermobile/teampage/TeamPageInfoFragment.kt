@@ -29,9 +29,9 @@ class TeamPageInfoFragment(val team: Team) : Fragment() {
         total_record.text = team.totalRecord.getRecord()
         home_record.text = team.homeRecord.getRecord()
         away_record.text = team.awayRecord.getRecord()
-//        streak.text = team.streak
         streak.text = team.streak
-//        arena.text = team.arena
+        arena.text = team.arena
+        last10.text = team.last10.getRecord()
 
         founding_date.text = SimpleDateFormat("yyyy/M/dd").format(team.foundingDate)
     }

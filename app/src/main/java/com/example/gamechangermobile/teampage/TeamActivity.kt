@@ -34,8 +34,8 @@ class TeamActivity : AppCompatActivity() {
                 var ranking = "na"
 
                 if (data != null) {
-                    teamData.totalRecord.wins = data.info.win_count.toFloat()
-                    teamData.totalRecord.loses = data.info.lose_count.toFloat()
+                    teamData.totalRecord.wins = data.info.win_count
+                    teamData.totalRecord.loses = data.info.lose_count
                     teamData.streak = data.info.winning_streak.toString()
                     teamData.ranking = data.ranking.team.ranking.toString()
 
