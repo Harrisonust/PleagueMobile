@@ -11,7 +11,7 @@ class User(
     var email: String = "",
     var password: String = "",
     val favTeam: MutableSet<TeamID> = mutableSetOf<TeamID>(),
-    val favPlayer: MutableSet<Player> = mutableSetOf<Player>(),
+    val favPlayer: MutableSet<PlayerID> = mutableSetOf<PlayerID>(),
 ) : Parcelable {
 
     val fullName: String

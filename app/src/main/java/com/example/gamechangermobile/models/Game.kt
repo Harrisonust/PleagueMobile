@@ -12,8 +12,8 @@ data class Game(
     var guestTeam: TeamID,
     var hostTeam: TeamID,
     val date: Date = Date(),
-    val guestPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
-    val hostPlayerStats: MutableMap<Player, PlayerStats> = mutableMapOf(),
+    val guestPlayerStats: MutableMap<PlayerID, PlayerStats> = mutableMapOf(),
+    val hostPlayerStats: MutableMap<PlayerID, PlayerStats> = mutableMapOf(),
     val status: GameStatus = GameStatus.NO_STATUS,
     val quarter: String = "",
     val remainingTime: String = "",
@@ -64,60 +64,60 @@ data class Game(
             return gameStats
         }
 
-    var hostPointLeader: Player? = null
+    var hostPointLeader: PlayerID? = null
         get() {
             return hostPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key
         }
 
-    var hostReboundLeader: Player? = null
+    var hostReboundLeader: PlayerID? = null
         get() {
             return hostPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key
         }
 
-    var hostAssistLeader: Player? = null
+    var hostAssistLeader: PlayerID? = null
         get() {
             return hostPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key
         }
 
-    var hostStealLeader: Player? = null
+    var hostStealLeader: PlayerID? = null
         get() {
             return hostPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key
         }
 
-    var hostBlockLeader: Player? = null
+    var hostBlockLeader: PlayerID? = null
         get() {
             return hostPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key
         }
 
-    var guestPointLeader: Player? = null
+    var guestPointLeader: PlayerID? = null
         get() {
             return guestPlayerStats.maxByOrNull { it.value.data["points"]!! }?.key
         }
 
-    var guestReboundLeader: Player? = null
+    var guestReboundLeader: PlayerID? = null
         get() {
             return guestPlayerStats.maxByOrNull { it.value.data["rebounds"]!! }?.key
         }
 
-    var guestAssistLeader: Player? = null
+    var guestAssistLeader: PlayerID? = null
         get() {
             return guestPlayerStats.maxByOrNull { it.value.data["assists"]!! }?.key
         }
 
-    var guestStealLeader: Player? = null
+    var guestStealLeader: PlayerID? = null
         get() {
             return guestPlayerStats.maxByOrNull { it.value.data["steals"]!! }?.key
         }
 
-    var guestBlockLeader: Player? = null
+    var guestBlockLeader: PlayerID? = null
         get() {
             return guestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key
         }
 
     var location: String = getTeamById(TeamID(hostTeam.ID))!!.location
 
-    fun getPlayerStats(player: Player): PlayerStats? {
-        return guestPlayerStats[player] ?: hostPlayerStats[player]
+    fun getPlayerStats(playerID: PlayerID): PlayerStats? {
+        return guestPlayerStats[playerID] ?: hostPlayerStats[playerID]
     }
 
     val winner: TeamID

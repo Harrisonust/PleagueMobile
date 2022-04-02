@@ -4,12 +4,12 @@ import kotlin.collections.ArrayList
 
 
 
-data class GCPlayerGameStats(
+data class GCPlayerInfoWithBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: GCPlayerStats = GCPlayerStats()
 ) {}
 
-data class GCPlayerGameStats2(
+data class GCPlayerInfoWithFullBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: ArrayList<GCPlayerStats> = arrayListOf()
 ) {}
@@ -19,36 +19,36 @@ data class GCPlayerInfo(
 
     // personal
     val player_name: String = "",
-    val name: String = player_name,
+    val name: String = "",
     val player_jersey_number: Int = 0,
-    val height: Float? = 0F,
-    val weight: Float? = 0F,
-    val birthday: String = "",
+    val height: Int? = 0,
+    val weight: Int? = 0,
+    val birthday: String? = "",
     val is_foreign_player: Boolean = false,
 //    val photo: GCPhoto = GCPhoto(),
 
     // team
     val team_id: Int = 0,
     val team_name: String = "",
-    val team_pts: Int = 0,
+//    val team_pts: Int = 0,
 
     // game
-    val game_id: Int = 0,
-    val game_date: String = "",
-    val game_name: String = "",
-    val game_category: GCGameCategory = GCGameCategory(),
-    val opponent_team_name: String = "",
-    val opponent_team_pts: Int = 0,
-    val is_home: Boolean = false,
-    val is_win: Boolean = false,
-    val is_starter: Boolean = false,
+//    val game_id: Int = 0,
+//    val game_date: String = "",
+//    val game_name: String = "",
+//    val game_category: GCGameCategory = GCGameCategory(),
+//    val opponent_team_name: String = "",
+//    val opponent_team_pts: Int = 0,
+//    val is_home: Boolean = false,
+//    val is_win: Boolean = false,
+//    val is_starter: Boolean = false,
     val matched: Int = 0,
     val record_matches: Int = 0,
     val season_name: String = "",
 //
 //    // unknown
-    val state: String = "",
-    val split: String = "",
+//    val state: String? = "",
+//    val split: String? = "",
 //    val split_info: String = "",
 
 ) {}

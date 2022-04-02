@@ -11,6 +11,33 @@ import java.io.StringReader
 
 
 class GCStatsParser() {
+    fun parsePlayersInfoWithBox(data: String): ArrayList<GCPlayerInfoWithBox> {
+        var playersInfo = arrayListOf<GCPlayerInfoWithBox>()
+        JsonReader(StringReader(data)).use { reader ->
+            reader.beginArray {
+                while (reader.hasNext()) {
+                    val d: GCPlayerInfoWithBox? = Klaxon().parse<GCPlayerInfoWithBox>(reader)
+                    d?.let { playersInfo.add(it) }
+                }
+            }
+        }
+        return playersInfo
+    }
+
+    fun parsePlayersInfoWithFullBox(data: String): ArrayList<GCPlayerInfoWithFullBox> {
+        var playerStatsList = arrayListOf<GCPlayerInfoWithFullBox>()
+        JsonReader(StringReader(data)).use { reader ->
+            reader.beginArray {
+                while (reader.hasNext()) {
+                    val d: GCPlayerInfoWithFullBox? =
+                        Klaxon().parse<GCPlayerInfoWithFullBox>(reader)
+                    d?.let { playerStatsList.add(it) }
+                }
+            }
+        }
+        return playerStatsList
+    }
+
     fun parseTeamData(data: String): GCTeam {
         var team = GCTeam()
         JsonReader(StringReader(data)).use { reader ->
@@ -36,29 +63,4 @@ class GCStatsParser() {
         return dataList
     }
 
-    fun parsePlayerGameData(data: String): ArrayList<GCPlayerGameStats> {
-        val dataList = arrayListOf<GCPlayerGameStats>()
-        JsonReader(StringReader(data)).use { reader ->
-            reader.beginArray {
-                while (reader.hasNext()) {
-                    val d = Klaxon().parse<GCPlayerGameStats>(reader)
-                    dataList.add(d!!)
-                }
-            }
-        }
-        return dataList
-    }
-
-    fun parsePlayerGameData2(data: String): ArrayList<GCPlayerGameStats2> {
-        val dataList = arrayListOf<GCPlayerGameStats2>()
-        JsonReader(StringReader(data)).use { reader ->
-            reader.beginArray {
-                while (reader.hasNext()) {
-                    val d = Klaxon().parse<GCPlayerGameStats2>(reader)
-                    dataList.add(d!!)
-                }
-            }
-        }
-        return dataList
-    }
 }

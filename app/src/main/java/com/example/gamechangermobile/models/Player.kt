@@ -7,20 +7,19 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Player(
+    var playerID: PlayerID = PlayerID(),
     val firstName: String = "",
     val lastName: String = "",
     var profilePic: Int = R.drawable.ic_baseline_sports_basketball_24,
     var stats: MutableMap<GameID, PlayerStats> = mutableMapOf<GameID, PlayerStats>(),
+    var averageStat: PlayerStats = PlayerStats(),
     var teamId: TeamID = TeamID(-1),
     var age: Int = 0,
     var number: String = "",
     var position: String = "",
+    var isForeignPlayer:Boolean = false,
 
     ) : Parcelable {
-    val playerID: PlayerID
-        get() {
-            return PlayerID(fullName.sha256())
-        }
 
     var fullName: String = ""
         get() {
@@ -38,16 +37,16 @@ class Player(
             return stats.size
         }
 
-    var averageStat: PlayerStats = PlayerStats()
-        get() {
-            var averagePlayerStats = PlayerStats()
-
-            accumulatedStats.data.forEach {
-                averagePlayerStats.data[it.key] = accumulatedStats.data[it.key]!! / gamePlayed
-            }
-
-            return averagePlayerStats
-        }
+//    var averageStat: PlayerStats = PlayerStats()
+//        get() {
+//            var averagePlayerStats = PlayerStats()
+//
+//            accumulatedStats.data.forEach {
+//                averagePlayerStats.data[it.key] = accumulatedStats.data[it.key]!! / gamePlayed
+//            }
+//
+//            return averagePlayerStats
+//        }
 
     var accumulatedStats: PlayerStats = PlayerStats()
         get() {
@@ -71,8 +70,8 @@ class Player(
     }
 }
 
-fun getAllPlayer(): Set<Player> {
-    val playerList = mutableSetOf<Player>()
+fun getAllPlayer(): Set<PlayerID> {
+    val playerList = mutableSetOf<PlayerID>()
     val allTeamIDList = getAllTeam()
     for (teamId in allTeamIDList) {
         val team = getTeamById(teamId)

@@ -9,12 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.models.Game
 import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import com.example.gamechangermobile.TeamActivity
-import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.models.Team
-import com.example.gamechangermobile.models.getTeamById
+import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.playerpage.PlayerActivity
 
 
@@ -37,9 +34,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fun startPlayerActivity(player: Player) {
+        fun startPlayerActivity(playerID: PlayerID) {
             val intent = Intent(view.context, PlayerActivity::class.java)
-            intent.putExtra("SELECTED_PLAYER", player)
+            intent.putExtra("SELECTED_PLAYER", playerID)
             startActivity(intent)
         }
 
@@ -78,9 +75,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // guest point leader
         guest_point_leader_image.setImageResource(
-            game.guestPointLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.guestPointLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.guestPointLeader?.fullName?.let {
+        getPlayerById(game.guestPointLeader)?.fullName?.let {
             guest_point_leader_name.text = it
         }
         game.guestPointLeader?.let {
@@ -92,9 +89,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // guest rebounds leader
         guest_rebounds_leader_image.setImageResource(
-            game.guestReboundLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.guestReboundLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.guestReboundLeader?.fullName?.let {
+        getPlayerById(game.guestReboundLeader)?.fullName?.let {
             guest_rebounds_leader_name.text = it
         }
         game.guestReboundLeader?.let {
@@ -110,9 +107,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // guest assist leader
         guest_assist_leader_image.setImageResource(
-            game.guestAssistLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.guestAssistLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.guestAssistLeader?.fullName?.let {
+        getPlayerById(game.guestAssistLeader)?.fullName?.let {
             guest_assist_leader_name.text = it
         }
         game.guestAssistLeader?.let {
@@ -128,9 +125,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // guest steal leader
         guest_steal_leader_image.setImageResource(
-            game.guestStealLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.guestStealLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.guestStealLeader?.fullName?.let {
+        getPlayerById(game.guestStealLeader)?.fullName?.let {
             guest_steal_leader_name.text = it
         }
         game.guestStealLeader?.let {
@@ -142,9 +139,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // guest block leader
         guest_block_leader_image.setImageResource(
-            game.guestBlockLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.guestBlockLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.guestBlockLeader?.fullName?.let {
+        getPlayerById(game.guestBlockLeader)?.fullName?.let {
             guest_block_leader_name.text = it
         }
         game.guestBlockLeader?.let {
@@ -184,9 +181,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // host point leader
         host_point_leader_image.setImageResource(
-            game.hostPointLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.hostPointLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.hostPointLeader?.fullName?.let {
+        getPlayerById(game.hostPointLeader)?.fullName?.let {
             host_point_leader_name.text = it
         }
         game.hostPointLeader?.let {
@@ -198,9 +195,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // host rebound leader
         host_rebounds_leader_image.setImageResource(
-            game.hostReboundLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.hostReboundLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.hostReboundLeader?.fullName?.let {
+        getPlayerById(game.hostReboundLeader)?.fullName?.let {
             host_rebounds_leader_name.text = it
         }
         game.hostReboundLeader?.let {
@@ -216,9 +213,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // host assist leader
         host_assist_leader_image.setImageResource(
-            game.hostAssistLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.hostAssistLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.hostAssistLeader?.fullName?.let {
+        getPlayerById(game.hostAssistLeader)?.fullName?.let {
             host_assist_leader_name.text = it
         }
         game.hostAssistLeader?.let {
@@ -230,9 +227,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // host steal leader
         host_steal_leader_image.setImageResource(
-            game.hostStealLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.hostStealLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.hostStealLeader?.fullName?.let {
+        getPlayerById(game.hostStealLeader)?.fullName?.let {
             host_steal_leader_name.text = it
         }
         game.hostStealLeader?.let {
@@ -244,9 +241,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // host block leader
         host_block_leader_image.setImageResource(
-            game.hostBlockLeader?.profilePic ?: R.drawable.ic_user_foreground
+            getPlayerById(game.hostBlockLeader)?.profilePic ?: R.drawable.ic_user_foreground
         )
-        game.hostBlockLeader?.fullName?.let {
+        getPlayerById(game.hostBlockLeader)?.fullName?.let {
             host_block_leader_name.text = it
         }
         game.hostBlockLeader?.let { it ->

@@ -4,11 +4,90 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.network.Api
+import com.example.gamechangermobile.network.UrlRequestCallback
 import kotlinx.android.synthetic.main.activity_main.*
+import org.chromium.net.CronetEngine
+import org.chromium.net.UrlRequest
 import java.util.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
+    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
+        networkRequestCallbackFunc()
+    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
+
+    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
+        return object : UrlRequestCallback.OnFinishRequest {
+            override fun onFinishRequest(result: String?) {
+                var GCPlayerList = result?.let { GCStatsParser().parsePlayersInfoWithBox(it) }
+
+                if (GCPlayerList != null) {
+                    for (gcplayer in GCPlayerList) {
+                        var stat = mutableMapOf<String, Float>()
+                        stat["points"] = gcplayer.box.avg_pts
+                        stat["rebounds"] = gcplayer.box.avg_reb
+                        stat["assists"] = gcplayer.box.avg_ast
+
+                        stat["fieldGoal"] = gcplayer.box.avg_fg_m
+                        stat["fieldGoalAttempt"] = gcplayer.box.avg_fg_a
+                        stat["fieldGoalPercentage"] = gcplayer.box.avg_fg_percent
+
+                        stat["fieldGoal2pt"] = gcplayer.box.avg_two_pts_m
+                        stat["fieldGoalAttempt2pt"] = gcplayer.box.avg_two_pts_a
+                        stat["fieldGoalPercentage2pt"] = gcplayer.box.avg_two_pts_percent
+
+                        stat["fieldGoal3pt"] = gcplayer.box.avg_three_pts_m
+                        stat["fieldGoalAttempt3pt"] = gcplayer.box.avg_three_pts_a
+                        stat["fieldGoalPercentage3pt"] = gcplayer.box.avg_three_pts_percent
+
+                        stat["freeThrow"] = gcplayer.box.avg_ft_m
+                        stat["freeThrowAttempt"] = gcplayer.box.avg_ft_a
+                        stat["freeThrowAttemptPercentage"] = gcplayer.box.avg_ft_percent
+
+                        stat["offensiveRebounds"] = gcplayer.box.avg_off_reb
+                        stat["defensiveRebounds"] = gcplayer.box.avg_def_reb
+                        stat["steals"] = gcplayer.box.avg_stl
+                        stat["blocks"] = gcplayer.box.avg_blk
+                        stat["turnovers"] = gcplayer.box.avg_to
+                        stat["personalFouls"] = gcplayer.box.avg_pf
+                        stat["effFieldGoalPercentage"] = gcplayer.box.eff.toFloat()
+
+                        var player = Player(
+                            playerID = PlayerID(gcplayer.info.id),
+                            firstName = gcplayer.info.name,
+                            lastName = "",
+                            profilePic = R.drawable.ic_baseline_sports_basketball_24,
+                            averageStat = PlayerStats(data = stat),
+                            teamId = TeamID(gcplayer.info.team_id),
+                            age = 20,
+                            number = gcplayer.info.player_jersey_number.toString(),
+                            position = "N",
+                            isForeignPlayer = gcplayer.info.is_foreign_player
+                        )
+                        players.add(player)
+                        getTeamById(player.teamId)?.playerList?.add(player.playerID)
+                    }
+                }
+
+                for (teamID in getAllTeam()) {
+                    val team = getTeamById(teamID)
+                    if (team != null)
+                        for (playerID in team.playerList) {
+                            Log.d("Debug", "!@#name: " + getPlayerById(playerID)?.firstName)
+                        }
+                }
+
+                runOnUiThread {
+//                    updateGameCardView()
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +97,26 @@ class MainActivity : AppCompatActivity() {
         val statsFrag = StatsFragment()
         val userFrag = UserFragment()
         replaceFragment(gamesFrag)
+
+        val myBuilder = CronetEngine.Builder(this)
+        val cronetEngine: CronetEngine = myBuilder.build()
+        val executor: Executor = Executors.newSingleThreadExecutor()
+
+        val requestBuilder =
+            cronetEngine.newUrlRequestBuilder(
+                Api.url(
+                    "player_season_data", mapOf(
+                        "season_id" to "4",
+                        "part" to "info,box",
+                        "team_id" to "19,20,21,22,23,24"
+                    )
+                ),
+                urlRequestCallback,
+                executor
+            )
+        val request: UrlRequest = requestBuilder.build()
+        request.start()
+        //https://api.gamechanger.tw/api/team_season_data/?season_id=4&part=info,ranking&team_id=19,20,21,22,23,24
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -36,7 +135,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021002))
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021005))
         getTeamByName(TeamName.BRAVES)?.gamesIdList?.add(GameID(2021009))
@@ -75,700 +173,665 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var currentUser = User()
 
-        var chih_chieh_lin =
-            Player(
-                firstName = "chih-chieh",
-                lastName = "Lin",
-                profilePic = R.drawable.braves_chih_chieh_lin,
-                stats =
-                mutableMapOf(
-                    GameID(2001001)
-                            to PlayerStats(
-                        9.5F,
-                        3.33F,
-                        1.83F
-                    )
-                ),
-                age = 38,
-                number = "12",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.BRAVES)
-            )
-        var hsiang_chun_tseng =
-            Player(
-                firstName = "Hsiang-chun",
-                lastName = "Tseng",
-                profilePic = R.drawable.braves_hsiang_chun_tseng,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                3.38F,
-                                3.25F,
-                                0.5F
-                            )
-                ),
-                age = 22,
-                number = "21",
-                position = "C",
-                teamId = getTeamIdByName(TeamName.BRAVES)
-            )
-        var michael_sigletary =
-            Player(
-                firstName = "Michael",
-                lastName = "Singletary",
-                profilePic = R.drawable.braves_michael_singletary,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                12.8F,
-                                3.4F,
-                                3.1F
-                            )
-                ),
-                age = 28,
-                number = "17",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.BRAVES)
-            )
-        var shu_wei_lin =
-            Player(
-                firstName = "Shu_wei",
-                lastName = "Lin",
-                profilePic = R.drawable.braves_shu_wei_lin,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                12.13F,
-                                2.88F,
-                                4.13F
-                            )
-                ),
-                age = 28,
-                number = "1",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.BRAVES)
-            )
-
-        var q_davis =
-            Player(
-                firstName = "Q",
-                lastName = "Davis",
-                profilePic = R.drawable.kings_q_davis,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                5F,
-                                11F,
-                                1F
-                            )
-                ),
-                number = "50",
-                position = "C",
-                teamId = getTeamIdByName(TeamName.KINGS)
-
-            )
-        var thomas_welsh =
-            Player(
-                firstName = "Thomas",
-                lastName = "Welsh",
-                profilePic = R.drawable.kings_thomas_welsh,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                18.57F,
-                                19.57F,
-                                2.71F
-                            )
-                ),
-                age = 24,
-                number = "40",
-                position = "C",
-                teamId = getTeamIdByName(TeamName.KINGS)
-            )
-        var chun_nan_chen =
-            Player(
-                firstName = "Chun-nan",
-                lastName = "Chen",
-                profilePic = R.drawable.kings_chun_nan_chen,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                3.2F,
-                                1.8F,
-                                0.8F
-                            )
-                ),
-                age = 20,
-                number = "3",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.KINGS)
-            )
-        var hsing_chih_yang =
-            Player(
-                firstName = "Hsing-chih",
-                lastName = "Yang",
-                profilePic = R.drawable.kings_hsing_chih_yang,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                4.11F,
-                                3.22F,
-                                0.44F
-                            )
-                ),
-                age = 27,
-                number = "33",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.KINGS)
-            )
-
-        var d_roboson =
-            Player(
-                firstName = "Devin",
-                lastName = "Roboson",
-                profilePic = R.drawable.pilots_devin_robinson,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                24.8F,
-                                14.6F,
-                                2.2F
-                            )
-                ),
-                age = 25,
-                number = "0",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.PILOTS)
-            )
-        var chuh_hsiang_lu =
-            Player(
-                firstName = "Chun-hsiang",
-                lastName = "Lu",
-                profilePic = R.drawable.pilots_chun_hsiang_lu,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                15.33F,
-                                5F,
-                                0.33F
-                            )
-                ),
-                number = "69",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.PILOTS)
-            )
-        var jordan_tolbert =
-            Player(
-                firstName = "Jordan",
-                lastName = "Tolbert",
-                profilePic = R.drawable.pilots_jordan_tolbert,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                19.17F,
-                                14.17F,
-                                4.33F
-                            )
-                ),
-                age = 28,
-                number = "1",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.PILOTS)
-            )
-        var chih_yao_shih =
-            Player(
-                firstName = "Chin-Yao",
-                lastName = "Shih",
-                profilePic = R.drawable.pilots_chin_yao_shih,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                14.17F,
-                                3.25F,
-                                3.63F
-                            )
-                ),
-                age = 30,
-                number = "28",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.PILOTS)
-            )
-
-        var kuo_hao_kao =
-            Player(
-                firstName = "Oscar",
-                lastName = "Kao",
-                profilePic = R.drawable.lioneers_kuo_hao_kao,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                7.17F,
-                                6.17F,
-                                3F
-                            )
-                ),
-                number = "4",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var nick_faust =
-            Player(
-                firstName = "Nicholas",
-                lastName = "Faust",
-                profilePic = R.drawable.lioneers_nicholas_faust,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                27F,
-                                8F,
-                                3F
-                            ),
-                    GameID(2021002)
-                            to
-                            PlayerStats(
-                                45F,
-                                12F,
-                                2F
-                            )
-                ),
-                age = 27,
-                number = "7",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var b_dawson =
-            Player(
-                firstName = "Branden",
-                lastName = "Dawson",
-                profilePic = R.drawable.lioneers_branden_dawson,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                14.33F,
-                                14F,
-                                1.67F
-                            )
-                ),
-                number = "22",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var even_lee =
-            Player(
-                firstName = "Chia-jul",
-                lastName = "Lee",
-                profilePic = R.drawable.lioneers_chia_jul_lee,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                6.89F,
-                                4.22F,
-                                2.67F
-                            )
-                ),
-                age = 26,
-                number = "12",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var ming_yi =
-            Player(
-                firstName = "Ming-yi",
-                lastName = "Lin",
-                profilePic = R.drawable.lioneers_ming_yi_lin,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                3.94F,
-                                2.71F,
-                                2.88F
-                            )
-                ),
-                age = 24,
-                number = "3",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var bhullar =
-            Player(
-                firstName = "Singh",
-                lastName = "Bhullar",
-                profilePic = R.drawable.lioneers_simbhullar,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                26.33F,
-                                21.89F,
-                                2.44F
-                            )
-                ),
-                age = 28,
-                number = "35",
-                position = "C",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var yi_huei =
-            Player(
-                firstName = "Yi-huei",
-                lastName = "Lin",
-                profilePic = R.drawable.lioneers_yi_huei_lin,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                11.56F,
-                                4.22F,
-                                3.4F
-                            )
-                ),
-                age = 34,
-                number = "36",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var leon_sung =
-            Player(
-                firstName = "Yu-hsuan",
-                lastName = "Sung",
-                profilePic = R.drawable.lioneers_yu_hsuan_sung,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                5.2F,
-                                0.8F,
-                                1F
-                            )
-                ),
-                age = 31,
-                number = "5",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var elliot =
-            Player(
-                firstName = "Elliot",
-                lastName = "Tan",
-                profilePic = R.drawable.lioneers_elliot_tan,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                7.82F,
-                                2.88F,
-                                1.53F
-                            )
-                ),
-                age = 32,
-                number = "6",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var yun_hao =
-            Player(
-                firstName = "Yun-hao",
-                lastName = "Chu",
-                profilePic = R.drawable.lioneers_yun_hao_chu,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                5.44F,
-                                5F,
-                                1.33F
-                            )
-                ),
-                number = "8",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var hao_tien =
-            Player(
-                firstName = "Hao",
-                lastName = "Tien",
-                profilePic = R.drawable.lioneers_hao_tien,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                4.84F,
-                                2.74F,
-                                3.16F
-                            )
-                ),
-                age = 22,
-                number = "9",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var shun_yi =
-            Player(
-                firstName = "Shun-yi",
-                lastName = "Hsiao",
-                profilePic = R.drawable.lioneers_shun_yi_hsiao,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                4.33F,
-                                1.71F,
-                                0.81F
-                            )
-                ),
-                age = 28,
-                number = "11",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var shao_chieh =
-            Player(
-                firstName = "Shao-chieh",
-                lastName = "Kuo",
-                profilePic = R.drawable.lioneers_shao_chieh_kuo,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                2.29F,
-                                0.86F,
-                                0.29F
-                            )
-                ),
-                age = 30,
-                number = "24",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-        var tai_hao =
-            Player(
-                firstName = "Tai-hao",
-                lastName = "Wu",
-                profilePic = R.drawable.lioneers_tai_hao_wu,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                2.67F,
-                                1.89F,
-                                1.17F
-                            )
-                ),
-                age = 35,
-                number = "54",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.LIONEERS)
-            )
-
-        var calvin_chieng =
-            Player(
-                firstName = "Li-Huan",
-                lastName = "Chieng",
-                profilePic = R.drawable.dreamers_li_huan_chieng,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                13.25F,
-                                4.13F,
-                                2.29F
-                            ),
-                    GameID(2021002)
-                            to
-                            PlayerStats(
-                                13.25F,
-                                4.13F,
-                                2.29F
-                            )
-                ),
-                age = 32,
-                number = "7",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.DREAMERS)
-            )
-        var chun_chi_lin =
-            Player(
-                firstName = "Chun-chi",
-                lastName = "Lin",
-                profilePic = R.drawable.dreamers_chun_chi_lin,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                9.9F,
-                                1.6F,
-                                1.5F
-                            )
-                ),
-                age = 22,
-                number = "11",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.DREAMERS)
-            )
-        var derek_Lee =
-            Player(
-                firstName = "Te-wei",
-                lastName = "Lee",
-                profilePic = R.drawable.dreamers_te_wei_lee,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                8.5F,
-                                8.27F,
-                                1.5F
-                            )
-                ),
-                age = 29,
-                number = "26",
-                position = "C",
-                teamId = getTeamIdByName(TeamName.DREAMERS)
-            )
-        var kenneth =
-            Player(
-                firstName = "Kenneth",
-                lastName = "Chen",
-                profilePic = R.drawable.dreamers_kenneth_chen,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                6.62F,
-                                3.14F,
-                                2F
-                            )
-                ),
-                age = 25,
-                number = "23",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.DREAMERS)
-            )
-
-        var jerry_chen =
-            Player(
-                firstName = "Yu-wei",
-                lastName = "Chen",
-                profilePic = R.drawable.steelers_yu_wei_chen,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                11.14F,
-                                2.71F,
-                                2.29F
-                            )
-                ),
-                age = 21,
-                number = "4",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.STEELERS)
-            )
-        var tucker =
-            Player(
-                firstName = "Anthony",
-                lastName = "Tucker",
-                profilePic = R.drawable.steelers_anthony_tucker,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                27.88F,
-                                8.12F,
-                                5.59F
-                            )
-                ),
-                age = 31,
-                number = "1",
-                position = "G",
-                teamId = getTeamIdByName(TeamName.STEELERS)
-            )
-        var cheng_ju_lu =
-            Player(
-                firstName = "Cheng-ju",
-                lastName = "Lu",
-                profilePic = R.drawable.steelers_cheng_ju_lu,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                15.71F,
-                                2.86F,
-                                2.29F
-                            )
-                ),
-                age = 34,
-                number = "13",
-                position = "F",
-                teamId = getTeamIdByName(TeamName.STEELERS)
-            )
-        var po_chih_wang =
-            Player(
-                firstName = "Po-chih",
-                lastName = "Wang",
-                profilePic = R.drawable.steelers_po_chih_wang,
-                stats =
-                mutableMapOf(
-                    GameID(2021001)
-                            to
-                            PlayerStats(
-                                2F,
-                                1.4F,
-                                0.13F
-                            )
-                ),
-                age = 24,
-                number = "10",
-                position = "C",
-                teamId = getTeamIdByName(TeamName.STEELERS)
-            )
+        //        var players = arrayListOf<Player>(
+//            Player(
+//                firstName = "chih-chieh",
+//                lastName = "Lin",
+//                profilePic = R.drawable.braves_chih_chieh_lin,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2001001)
+//                            to PlayerStats(
+//                        9.5F,
+//                        3.33F,
+//                        1.83F
+//                    )
+//                ),
+//                age = 38,
+//                number = "12",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.BRAVES)
+//            ),
+//            Player(
+//                firstName = "Hsiang-chun",
+//                lastName = "Tseng",
+//                profilePic = R.drawable.braves_hsiang_chun_tseng,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                3.38F,
+//                                3.25F,
+//                                0.5F
+//                            )
+//                ),
+//                age = 22,
+//                number = "21",
+//                position = "C",
+//                teamId = getTeamIdByName(TeamName.BRAVES)
+//            ),
+//            Player(
+//                firstName = "Michael",
+//                lastName = "Singletary",
+//                profilePic = R.drawable.braves_michael_singletary,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                12.8F,
+//                                3.4F,
+//                                3.1F
+//                            )
+//                ),
+//                age = 28,
+//                number = "17",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.BRAVES)
+//            ),
+//            Player(
+//                firstName = "Shu_wei",
+//                lastName = "Lin",
+//                profilePic = R.drawable.braves_shu_wei_lin,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                12.13F,
+//                                2.88F,
+//                                4.13F
+//                            )
+//                ),
+//                age = 28,
+//                number = "1",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.BRAVES)
+//            ),
+//            Player(
+//                firstName = "Q",
+//                lastName = "Davis",
+//                profilePic = R.drawable.kings_q_davis,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                5F,
+//                                11F,
+//                                1F
+//                            )
+//                ),
+//                number = "50",
+//                position = "C",
+//                teamId = getTeamIdByName(TeamName.KINGS)
+//
+//            ),
+//            Player(
+//                firstName = "Thomas",
+//                lastName = "Welsh",
+//                profilePic = R.drawable.kings_thomas_welsh,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                18.57F,
+//                                19.57F,
+//                                2.71F
+//                            )
+//                ),
+//                age = 24,
+//                number = "40",
+//                position = "C",
+//                teamId = getTeamIdByName(TeamName.KINGS)
+//            ),
+//            Player(
+//                firstName = "Chun-nan",
+//                lastName = "Chen",
+//                profilePic = R.drawable.kings_chun_nan_chen,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                3.2F,
+//                                1.8F,
+//                                0.8F
+//                            )
+//                ),
+//                age = 20,
+//                number = "3",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.KINGS)
+//            ),
+//            Player(
+//                firstName = "Hsing-chih",
+//                lastName = "Yang",
+//                profilePic = R.drawable.kings_hsing_chih_yang,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                4.11F,
+//                                3.22F,
+//                                0.44F
+//                            )
+//                ),
+//                age = 27,
+//                number = "33",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.KINGS)
+//            ),
+//            Player(
+//                firstName = "Devin",
+//                lastName = "Roboson",
+//                profilePic = R.drawable.pilots_devin_robinson,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                24.8F,
+//                                14.6F,
+//                                2.2F
+//                            )
+//                ),
+//                age = 25,
+//                number = "0",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.PILOTS)
+//            ),
+//            Player(
+//                firstName = "Chun-hsiang",
+//                lastName = "Lu",
+//                profilePic = R.drawable.pilots_chun_hsiang_lu,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                15.33F,
+//                                5F,
+//                                0.33F
+//                            )
+//                ),
+//                number = "69",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.PILOTS)
+//            ),
+//            Player(
+//                firstName = "Jordan",
+//                lastName = "Tolbert",
+//                profilePic = R.drawable.pilots_jordan_tolbert,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                19.17F,
+//                                14.17F,
+//                                4.33F
+//                            )
+//                ),
+//                age = 28,
+//                number = "1",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.PILOTS)
+//            ),
+//            Player(
+//                firstName = "Chin-Yao",
+//                lastName = "Shih",
+//                profilePic = R.drawable.pilots_chin_yao_shih,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                14.17F,
+//                                3.25F,
+//                                3.63F
+//                            )
+//                ),
+//                age = 30,
+//                number = "28",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.PILOTS)
+//            ),
+//            Player(
+//                firstName = "Oscar",
+//                lastName = "Kao",
+//                profilePic = R.drawable.lioneers_kuo_hao_kao,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                7.17F,
+//                                6.17F,
+//                                3F
+//                            )
+//                ),
+//                number = "4",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Nicholas",
+//                lastName = "Faust",
+//                profilePic = R.drawable.lioneers_nicholas_faust,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                27F,
+//                                8F,
+//                                3F
+//                            ),
+//                    GameID(2021002)
+//                            to
+//                            PlayerStats(
+//                                45F,
+//                                12F,
+//                                2F
+//                            )
+//                ),
+//                age = 27,
+//                number = "7",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Branden",
+//                lastName = "Dawson",
+//                profilePic = R.drawable.lioneers_branden_dawson,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                14.33F,
+//                                14F,
+//                                1.67F
+//                            )
+//                ),
+//                number = "22",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Chia-jul",
+//                lastName = "Lee",
+//                profilePic = R.drawable.lioneers_chia_jul_lee,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                6.89F,
+//                                4.22F,
+//                                2.67F
+//                            )
+//                ),
+//                age = 26,
+//                number = "12",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Ming-yi",
+//                lastName = "Lin",
+//                profilePic = R.drawable.lioneers_ming_yi_lin,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                3.94F,
+//                                2.71F,
+//                                2.88F
+//                            )
+//                ),
+//                age = 24,
+//                number = "3",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Singh",
+//                lastName = "Bhullar",
+//                profilePic = R.drawable.lioneers_simbhullar,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                26.33F,
+//                                21.89F,
+//                                2.44F
+//                            )
+//                ),
+//                age = 28,
+//                number = "35",
+//                position = "C",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Yi-huei",
+//                lastName = "Lin",
+//                profilePic = R.drawable.lioneers_yi_huei_lin,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                11.56F,
+//                                4.22F,
+//                                3.4F
+//                            )
+//                ),
+//                age = 34,
+//                number = "36",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Yu-hsuan",
+//                lastName = "Sung",
+//                profilePic = R.drawable.lioneers_yu_hsuan_sung,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                5.2F,
+//                                0.8F,
+//                                1F
+//                            )
+//                ),
+//                age = 31,
+//                number = "5",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Elliot",
+//                lastName = "Tan",
+//                profilePic = R.drawable.lioneers_elliot_tan,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                7.82F,
+//                                2.88F,
+//                                1.53F
+//                            )
+//                ),
+//                age = 32,
+//                number = "6",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Yun-hao",
+//                lastName = "Chu",
+//                profilePic = R.drawable.lioneers_yun_hao_chu,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                5.44F,
+//                                5F,
+//                                1.33F
+//                            )
+//                ),
+//                number = "8",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Hao",
+//                lastName = "Tien",
+//                profilePic = R.drawable.lioneers_hao_tien,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                4.84F,
+//                                2.74F,
+//                                3.16F
+//                            )
+//                ),
+//                age = 22,
+//                number = "9",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Shun-yi",
+//                lastName = "Hsiao",
+//                profilePic = R.drawable.lioneers_shun_yi_hsiao,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                4.33F,
+//                                1.71F,
+//                                0.81F
+//                            )
+//                ),
+//                age = 28,
+//                number = "11",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Shao-chieh",
+//                lastName = "Kuo",
+//                profilePic = R.drawable.lioneers_shao_chieh_kuo,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                2.29F,
+//                                0.86F,
+//                                0.29F
+//                            )
+//                ),
+//                age = 30,
+//                number = "24",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Tai-hao",
+//                lastName = "Wu",
+//                profilePic = R.drawable.lioneers_tai_hao_wu,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                2.67F,
+//                                1.89F,
+//                                1.17F
+//                            )
+//                ),
+//                age = 35,
+//                number = "54",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.LIONEERS)
+//            ),
+//            Player(
+//                firstName = "Li-Huan",
+//                lastName = "Chieng",
+//                profilePic = R.drawable.dreamers_li_huan_chieng,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                13.25F,
+//                                4.13F,
+//                                2.29F
+//                            ),
+//                    GameID(2021002)
+//                            to
+//                            PlayerStats(
+//                                13.25F,
+//                                4.13F,
+//                                2.29F
+//                            )
+//                ),
+//                age = 32,
+//                number = "7",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.DREAMERS)
+//            ),
+//            Player(
+//                firstName = "Chun-chi",
+//                lastName = "Lin",
+//                profilePic = R.drawable.dreamers_chun_chi_lin,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                9.9F,
+//                                1.6F,
+//                                1.5F
+//                            )
+//                ),
+//                age = 22,
+//                number = "11",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.DREAMERS)
+//            ),
+//            Player(
+//                firstName = "Te-wei",
+//                lastName = "Lee",
+//                profilePic = R.drawable.dreamers_te_wei_lee,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                8.5F,
+//                                8.27F,
+//                                1.5F
+//                            )
+//                ),
+//                age = 29,
+//                number = "26",
+//                position = "C",
+//                teamId = getTeamIdByName(TeamName.DREAMERS)
+//            ),
+//            Player(
+//                firstName = "Kenneth",
+//                lastName = "Chen",
+//                profilePic = R.drawable.dreamers_kenneth_chen,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                6.62F,
+//                                3.14F,
+//                                2F
+//                            )
+//                ),
+//                age = 25,
+//                number = "23",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.DREAMERS)
+//            ),
+//            Player(
+//                firstName = "Yu-wei",
+//                lastName = "Chen",
+//                profilePic = R.drawable.steelers_yu_wei_chen,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                11.14F,
+//                                2.71F,
+//                                2.29F
+//                            )
+//                ),
+//                age = 21,
+//                number = "4",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.STEELERS)
+//            ),
+//            Player(
+//                firstName = "Anthony",
+//                lastName = "Tucker",
+//                profilePic = R.drawable.steelers_anthony_tucker,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                27.88F,
+//                                8.12F,
+//                                5.59F
+//                            )
+//                ),
+//                age = 31,
+//                number = "1",
+//                position = "G",
+//                teamId = getTeamIdByName(TeamName.STEELERS)
+//            ),
+//            Player(
+//                firstName = "Cheng-ju",
+//                lastName = "Lu",
+//                profilePic = R.drawable.steelers_cheng_ju_lu,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                15.71F,
+//                                2.86F,
+//                                2.29F
+//                            )
+//                ),
+//                age = 34,
+//                number = "13",
+//                position = "F",
+//                teamId = getTeamIdByName(TeamName.STEELERS)
+//            ),
+//            Player(
+//                firstName = "Po-chih",
+//                lastName = "Wang",
+//                profilePic = R.drawable.steelers_po_chih_wang,
+//                stats =
+//                mutableMapOf(
+//                    GameID(2021001)
+//                            to
+//                            PlayerStats(
+//                                2F,
+//                                1.4F,
+//                                0.13F
+//                            )
+//                ),
+//                age = 24,
+//                number = "10",
+//                position = "C",
+//                teamId = getTeamIdByName(TeamName.STEELERS)
+//            )
+//        )
+        // TODO change to set
+        var players: ArrayList<Player> = arrayListOf<Player>()
         var teams: ArrayList<Team> = arrayListOf(
             Team(
                 teamId = getTeamIdByName(TeamName.BRAVES),
@@ -779,13 +842,13 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2001 - 1900, 1 - 1, 1),
                 arena = "Hoping",
                 color = R.color.braves_color,
-                playerList =
-                arrayListOf(
-                    chih_chieh_lin,
-                    hsiang_chun_tseng,
-                    michael_sigletary,
-                    shu_wei_lin
-                )
+//                playerList =
+//                arrayListOf(
+//                    chih_chieh_lin,
+//                    hsiang_chun_tseng,
+//                    michael_sigletary,
+//                    shu_wei_lin
+//                )
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.KINGS),
@@ -796,13 +859,13 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2021 - 1900, 1 - 1, 1),
                 arena = "HsinChung",
                 color = R.color.kings_color,
-                playerList =
-                arrayListOf(
-                    q_davis,
-                    thomas_welsh,
-                    chun_nan_chen,
-                    hsing_chih_yang
-                )
+//                playerList =
+//                arrayListOf(
+//                    q_davis,
+//                    thomas_welsh,
+//                    chun_nan_chen,
+//                    hsing_chih_yang
+//                )
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.PILOTS),
@@ -813,13 +876,13 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(1999 - 1900, 1 - 1, 1),
                 arena = "Taoyuan",
                 color = R.color.pilots_color,
-                playerList =
-                arrayListOf(
-                    d_roboson,
-                    chuh_hsiang_lu,
-                    jordan_tolbert,
-                    chih_yao_shih
-                )
+//                playerList =
+//                arrayListOf(
+//                    d_roboson,
+//                    chuh_hsiang_lu,
+//                    jordan_tolbert,
+//                    chih_yao_shih
+//                )
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.LIONEERS),
@@ -830,23 +893,23 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2020 - 1900, 1 - 1, 1),
                 arena = "ChuPei",
                 color = R.color.lioneers_color,
-                playerList =
-                arrayListOf(
-                    kuo_hao_kao,
-                    nick_faust,
-                    b_dawson,
-                    even_lee,
-                    ming_yi,
-                    bhullar,
-                    yi_huei,
-                    leon_sung,
-                    elliot,
-                    yun_hao,
-                    hao_tien,
-                    shun_yi,
-                    shao_chieh,
-                    tai_hao
-                )
+//                playerList =
+//                arrayListOf(
+//                    kuo_hao_kao,
+//                    nick_faust,
+//                    b_dawson,
+//                    even_lee,
+//                    ming_yi,
+//                    bhullar,
+//                    yi_huei,
+//                    leon_sung,
+//                    elliot,
+//                    yun_hao,
+//                    hao_tien,
+//                    shun_yi,
+//                    shao_chieh,
+//                    tai_hao
+//                )
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.DREAMERS),
@@ -857,13 +920,13 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2005 - 1900, 1 - 1, 1),
                 arena = "ChungHau",
                 color = R.color.dreamers_color,
-                playerList =
-                arrayListOf(
-                    calvin_chieng,
-                    chun_chi_lin,
-                    derek_Lee,
-                    kenneth
-                )
+//                playerList =
+//                arrayListOf(
+//                    calvin_chieng,
+//                    chun_chi_lin,
+//                    derek_Lee,
+//                    kenneth
+//                )
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.STEELERS),
@@ -874,75 +937,75 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2021 - 1900, 1 - 1, 1),
                 arena = "KH",
                 color = R.color.steelers_color,
-                playerList =
-                arrayListOf(
-                    jerry_chen,
-                    tucker,
-                    cheng_ju_lu,
-                    po_chih_wang
-                )
+//                playerList =
+//                arrayListOf(
+//                    jerry_chen,
+//                    tucker,
+//                    cheng_ju_lu,
+//                    po_chih_wang
+//                )
             )
         )
-        private val fakeBravesStats1 = mutableMapOf<Player, PlayerStats>(
-            chih_chieh_lin to PlayerStats(10F, 4F, 1F, steals = 0F, blocks = 1F),
-            hsiang_chun_tseng to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
-            michael_sigletary to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
-            shu_wei_lin to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F)
-        )
-        private val fakeBravesStats2 = mutableMapOf<Player, PlayerStats>(
-            chih_chieh_lin to PlayerStats(23F, 8F, 2F, steals = 2F, blocks = 0F),
-            hsiang_chun_tseng to PlayerStats(3F, 11F, 1F, steals = 1F, blocks = 3F),
-            michael_sigletary to PlayerStats(33F, 10F, 4F, steals = 4F, blocks = 2F),
-            shu_wei_lin to PlayerStats(18F, 2F, 7F, steals = 2F, blocks = 0F)
-        )
-        private val fakeKingsStats1 = mutableMapOf<Player, PlayerStats>(
-            q_davis to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 2F),
-            hsing_chih_yang to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
-            thomas_welsh to PlayerStats(23F, 21F, 4F, steals = 2F, blocks = 4F),
-            chun_nan_chen to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F)
-        )
-        private val fakeKingsStats2 = mutableMapOf<Player, PlayerStats>(
-            q_davis to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
-            thomas_welsh to PlayerStats(29F, 20F, 6F, steals = 2F, blocks = 4F),
-            chun_nan_chen to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
-            hsing_chih_yang to PlayerStats(9F, 2F, 1F, steals = 1F, blocks = 1F)
-        )
-        private val fakePilotsStats1 = mutableMapOf<Player, PlayerStats>(
-            d_roboson to PlayerStats(43F, 12F, 0F, steals = 3F, blocks = 2F),
-            chuh_hsiang_lu to PlayerStats(13F, 1F, 1F, steals = 1F, blocks = 0F),
-            jordan_tolbert to PlayerStats(17F, 13F, 1F, steals = 2F, blocks = 4F),
-            chih_yao_shih to PlayerStats(4F, 2F, 0F, steals = 0F, blocks = 0F)
-        )
-        private val fakePilotsStats2 = mutableMapOf<Player, PlayerStats>(
-            d_roboson to PlayerStats(38F, 7F, 1F, steals = 0F, blocks = 1F),
-            chuh_hsiang_lu to PlayerStats(16F, 4F, 1F, steals = 2F, blocks = 0F),
-            jordan_tolbert to PlayerStats(22F, 16F, 4F, steals = 2F, blocks = 3F),
-            chih_yao_shih to PlayerStats(4F, 2F, 0F, steals = 0F, blocks = 0F)
-        )
-        private val fakeLioneersStats1 = mutableMapOf<Player, PlayerStats>(
-            kuo_hao_kao to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
-            ming_yi to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
-            nick_faust to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
-            bhullar to PlayerStats(29F, 22F, 3F, steals = 1F, blocks = 6F)
-        )
-        private val fakeLioneersStats2 = mutableMapOf<Player, PlayerStats>(
-            kuo_hao_kao to PlayerStats(18F, 5F, 1F, steals = 3F, blocks = 1F),
-            nick_faust to PlayerStats(4F, 8F, 1F, steals = 3F, blocks = 1F),
-            b_dawson to PlayerStats(17F, 11F, 4F, steals = 4F, blocks = 4F),
-            even_lee to PlayerStats(10F, 7F, 2F, steals = 0F, blocks = 2F)
-        )
-        private val fakeDreamersStats1 = mutableMapOf<Player, PlayerStats>(
-            calvin_chieng to PlayerStats(13F, 8F, 1F, steals = 1F, blocks = 0F),
-            chun_chi_lin to PlayerStats(23F, 1F, 4F, steals = 1F, blocks = 0F),
-            derek_Lee to PlayerStats(27F, 11F, 1F, steals = 2F, blocks = 3F),
-            kenneth to PlayerStats(19F, 8F, 3F, steals = 1F, blocks = 1F)
-        )
-        private val fakeSteelersStats1 = mutableMapOf<Player, PlayerStats>(
-            jerry_chen to PlayerStats(11F, 4F, 10F, steals = 0F, blocks = 1F),
-            tucker to PlayerStats(24F, 4F, 1F, steals = 0F, blocks = 0F),
-            cheng_ju_lu to PlayerStats(22F, 5F, 4F, steals = 2F, blocks = 1F),
-            po_chih_wang to PlayerStats(6F, 0F, 0F, steals = 0F, blocks = 2F)
-        )
+//        private val fakeBravesStats1 = mutableMapOf<Player, PlayerStats>(
+//            chih_chieh_lin to PlayerStats(10F, 4F, 1F, steals = 0F, blocks = 1F),
+//            hsiang_chun_tseng to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
+//            michael_sigletary to PlayerStats(22F, 21F, 4F, steals = 2F, blocks = 4F),
+//            shu_wei_lin to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F)
+//        )
+//        private val fakeBravesStats2 = mutableMapOf<Player, PlayerStats>(
+//            chih_chieh_lin to PlayerStats(23F, 8F, 2F, steals = 2F, blocks = 0F),
+//            hsiang_chun_tseng to PlayerStats(3F, 11F, 1F, steals = 1F, blocks = 3F),
+//            michael_sigletary to PlayerStats(33F, 10F, 4F, steals = 4F, blocks = 2F),
+//            shu_wei_lin to PlayerStats(18F, 2F, 7F, steals = 2F, blocks = 0F)
+//        )
+//        private val fakeKingsStats1 = mutableMapOf<Player, PlayerStats>(
+//            q_davis to PlayerStats(11F, 4F, 1F, steals = 0F, blocks = 2F),
+//            hsing_chih_yang to PlayerStats(4F, 4F, 1F, steals = 0F, blocks = 1F),
+//            thomas_welsh to PlayerStats(23F, 21F, 4F, steals = 2F, blocks = 4F),
+//            chun_nan_chen to PlayerStats(0F, 0F, 0F, steals = 0F, blocks = 0F)
+//        )
+//        private val fakeKingsStats2 = mutableMapOf<Player, PlayerStats>(
+//            q_davis to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
+//            thomas_welsh to PlayerStats(29F, 20F, 6F, steals = 2F, blocks = 4F),
+//            chun_nan_chen to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
+//            hsing_chih_yang to PlayerStats(9F, 2F, 1F, steals = 1F, blocks = 1F)
+//        )
+//        private val fakePilotsStats1 = mutableMapOf<Player, PlayerStats>(
+//            d_roboson to PlayerStats(43F, 12F, 0F, steals = 3F, blocks = 2F),
+//            chuh_hsiang_lu to PlayerStats(13F, 1F, 1F, steals = 1F, blocks = 0F),
+//            jordan_tolbert to PlayerStats(17F, 13F, 1F, steals = 2F, blocks = 4F),
+//            chih_yao_shih to PlayerStats(4F, 2F, 0F, steals = 0F, blocks = 0F)
+//        )
+//        private val fakePilotsStats2 = mutableMapOf<Player, PlayerStats>(
+//            d_roboson to PlayerStats(38F, 7F, 1F, steals = 0F, blocks = 1F),
+//            chuh_hsiang_lu to PlayerStats(16F, 4F, 1F, steals = 2F, blocks = 0F),
+//            jordan_tolbert to PlayerStats(22F, 16F, 4F, steals = 2F, blocks = 3F),
+//            chih_yao_shih to PlayerStats(4F, 2F, 0F, steals = 0F, blocks = 0F)
+//        )
+//        private val fakeLioneersStats1 = mutableMapOf<Player, PlayerStats>(
+//            kuo_hao_kao to PlayerStats(13F, 8F, 4F, steals = 5F, blocks = 0F),
+//            ming_yi to PlayerStats(3F, 1F, 1F, steals = 1F, blocks = 0F),
+//            nick_faust to PlayerStats(33F, 11F, 1F, steals = 2F, blocks = 3F),
+//            bhullar to PlayerStats(29F, 22F, 3F, steals = 1F, blocks = 6F)
+//        )
+//        private val fakeLioneersStats2 = mutableMapOf<Player, PlayerStats>(
+//            kuo_hao_kao to PlayerStats(18F, 5F, 1F, steals = 3F, blocks = 1F),
+//            nick_faust to PlayerStats(4F, 8F, 1F, steals = 3F, blocks = 1F),
+//            b_dawson to PlayerStats(17F, 11F, 4F, steals = 4F, blocks = 4F),
+//            even_lee to PlayerStats(10F, 7F, 2F, steals = 0F, blocks = 2F)
+//        )
+//        private val fakeDreamersStats1 = mutableMapOf<Player, PlayerStats>(
+//            calvin_chieng to PlayerStats(13F, 8F, 1F, steals = 1F, blocks = 0F),
+//            chun_chi_lin to PlayerStats(23F, 1F, 4F, steals = 1F, blocks = 0F),
+//            derek_Lee to PlayerStats(27F, 11F, 1F, steals = 2F, blocks = 3F),
+//            kenneth to PlayerStats(19F, 8F, 3F, steals = 1F, blocks = 1F)
+//        )
+//        private val fakeSteelersStats1 = mutableMapOf<Player, PlayerStats>(
+//            jerry_chen to PlayerStats(11F, 4F, 10F, steals = 0F, blocks = 1F),
+//            tucker to PlayerStats(24F, 4F, 1F, steals = 0F, blocks = 0F),
+//            cheng_ju_lu to PlayerStats(22F, 5F, 4F, steals = 2F, blocks = 1F),
+//            po_chih_wang to PlayerStats(6F, 0F, 0F, steals = 0F, blocks = 2F)
+//        )
 
 
         val games = arrayListOf<Game>(

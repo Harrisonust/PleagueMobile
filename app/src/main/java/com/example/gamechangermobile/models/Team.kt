@@ -16,7 +16,7 @@ data class Team(
     var foundingDate: Date = Date(),
     var ranking: String = "",
     var color: Int = R.color.bg_color,
-    var playerList: ArrayList<Player> = ArrayList<Player>(),
+    var playerList: ArrayList<PlayerID> = ArrayList<PlayerID>(),
     var gamesIdList: MutableList<GameID> = mutableListOf(),
     var streak: String = "",
 ) : Parcelable {

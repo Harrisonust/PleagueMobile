@@ -31,28 +31,33 @@ open class PlayerStats(
         )
 ) : Parcelable {
     constructor(
-            points: Float = 0F,
-            rebounds: Float = 0F,
-            assists: Float = 0F,
-            fieldGoal: Float = 0F,
-            fieldGoalAttempt: Float = 0F,
-            fieldGoalPercentage: Float = 0F,
-            fieldGoal2pt: Float = 0F,
-            fieldGoalAttempt2pt: Float = 0F,
-            fieldGoalPercentage2pt: Float = 0F,
-            fieldGoal3pt: Float = 0F,
-            fieldGoalAttempt3pt: Float = 0F,
-            fieldGoalPercentage3pt: Float = 0F,
-            freeThrow: Float = 0F,
-            freeThrowAttempt: Float = 0F,
-            freeThrowAttemptPercentage: Float = 0F,
-            offensiveRebounds: Float = 0F,
-            defensiveRebounds: Float = 0F,
-            steals: Float = 0F,
-            blocks: Float = 0F,
-            turnovers: Float = 0F,
-            personalFouls: Float = 0F,
-            effFieldGoalPercentage: Float = 0F,
+        points: Float = 0F,
+        rebounds: Float = 0F,
+        assists: Float = 0F,
+
+        fieldGoal: Float = 0F,
+        fieldGoalAttempt: Float = 0F,
+        fieldGoalPercentage: Float = 0F,
+
+        twoPointMade: Float = 0F,
+        twoPointAttempt: Float = 0F,
+        twoPointPercentage: Float = 0F,
+
+        threePointMade: Float = 0F,
+        threePointAttempt: Float = 0F,
+        threePointPercentage: Float = 0F,
+
+        freeThrowMade: Float = 0F,
+        freeThrowAttempt: Float = 0F,
+        freeThrowPercentage: Float = 0F,
+
+        offensiveRebounds: Float = 0F,
+        defensiveRebounds: Float = 0F,
+        steals: Float = 0F,
+        blocks: Float = 0F,
+        turnovers: Float = 0F,
+        personalFouls: Float = 0F,
+        effFieldGoalPercentage: Float = 0F,
     ) : this() {
         this.data["points"] = points
         this.data["rebounds"] = rebounds
@@ -60,15 +65,15 @@ open class PlayerStats(
         this.data["fieldGoal"] = fieldGoal
         this.data["fieldGoalAttempt"] = fieldGoalAttempt
         this.data["fieldGoalPercentage"] = fieldGoalPercentage
-        this.data["fieldGoal2pt"] = fieldGoal2pt
-        this.data["fieldGoalAttempt2pt"] = fieldGoalAttempt2pt
-        this.data["fieldGoalPercentage2pt"] = fieldGoalPercentage2pt
-        this.data["fieldGoal3pt"] = fieldGoal3pt
-        this.data["fieldGoalAttempt3pt"] = fieldGoalAttempt3pt
-        this.data["fieldGoalPercentage3pt"] = fieldGoalPercentage3pt
-        this.data["freeThrow"] = freeThrow
+        this.data["fieldGoal2pt"] = twoPointMade
+        this.data["fieldGoalAttempt2pt"] = twoPointAttempt
+        this.data["fieldGoalPercentage2pt"] = twoPointPercentage
+        this.data["fieldGoal3pt"] = threePointMade
+        this.data["fieldGoalAttempt3pt"] = threePointAttempt
+        this.data["fieldGoalPercentage3pt"] = threePointPercentage
+        this.data["freeThrow"] = freeThrowMade
         this.data["freeThrowAttempt"] = freeThrowAttempt
-        this.data["freeThrowAttemptPercentage"] = freeThrowAttemptPercentage
+        this.data["freeThrowAttemptPercentage"] = freeThrowPercentage
         this.data["offensiveRebounds"] = offensiveRebounds
         this.data["defensiveRebounds"] = defensiveRebounds
         this.data["steals"] = steals

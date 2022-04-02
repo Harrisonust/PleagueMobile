@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.models.PlayerID
+import com.example.gamechangermobile.models.getPlayerById
 import com.example.gamechangermobile.models.getTeamById
 import com.example.gamechangermobile.user.addToFavPlayer
 
@@ -19,7 +21,8 @@ class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        val player = intent.getParcelableExtra<Player>("SELECTED_PLAYER")
+        val playerID = intent.getParcelableExtra<PlayerID>("SELECTED_PLAYER")
+        val player = playerID?.let { getPlayerById(it) }
 
         player_page_profile_pic.setImageResource(
             player?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
@@ -40,7 +43,7 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         player_page_player_favorite_btn.setOnClickListener { view ->
-            player?.let { addToFavPlayer(view, it) }
+            player?.let { addToFavPlayer(view, it.playerID) }
         }
 
         player_page_tab.addTab(player_page_tab.newTab().setText("Game Record"))

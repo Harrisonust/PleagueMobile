@@ -33,18 +33,18 @@ class GameFragment() : Fragment() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var dataList = result?.let { GCStatsParser().parseGameData(it) }
+                var GCGameList = result?.let { GCStatsParser().parseGameData(it) }
 
-                if (dataList != null) {
-                    for (data in dataList) {
-                        val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(data.date)
+                if (GCGameList != null) {
+                    for (gcGameData in GCGameList) {
+                        val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(gcGameData.date)
                         val game = Game(
-                            gameId = GameID(data.id),
-                            guestTeam = getTeamIdByName(data.away_team_name),
-                            hostTeam = getTeamIdByName(data.home_team_name),
+                            gameId = GameID(gcGameData.id),
+                            guestTeam = getTeamIdByName(gcGameData.away_team_name),
+                            hostTeam = getTeamIdByName(gcGameData.home_team_name),
                             date = date,
-                            guestScore = data.away_team_score,
-                            hostScore = data.home_team_score,
+                            guestScore = gcGameData.away_team_score,
+                            hostScore = gcGameData.home_team_score,
                             status = GameStatus.END
                         )
                         games.add(game)
@@ -78,7 +78,6 @@ class GameFragment() : Fragment() {
                 urlRequestCallback,
                 executor
             )
-
         val request: UrlRequest = requestBuilder.build()
         request.start()
         // Network call section ends

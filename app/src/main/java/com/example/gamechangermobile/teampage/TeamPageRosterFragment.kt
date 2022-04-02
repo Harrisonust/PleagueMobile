@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.database.Database
-import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.models.PlayerStats
-import com.example.gamechangermobile.models.Team
-import com.example.gamechangermobile.models.getTeamById
+import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.views.DynamicTable
 
 
@@ -18,15 +15,17 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
     private var fakeRosterList = ArrayList<Player>()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_team_page_roster, container, false)
         val players: MutableMap<Player, PlayerStats> = mutableMapOf()
 
-        for (player in team.playerList) {
-            players[player] = player.averageStat
+        for (playerID in team.playerList) {
+            val player = getPlayerById(playerID)
+            if (player != null)
+                players[player] = player.averageStat
         }
 
 //        view.team_page_roster_recycler.apply {
@@ -44,16 +43,16 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
 
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         dynamicTable.renderTable(
-                players,
-                90,
-                280,
-                "cell_view_header",
-                "player_data",
-                "cell_view_column",
-                "player_name",
-                "player_image",
-                "cell_view_content",
-                "player_data"
+            players,
+            90,
+            280,
+            "cell_view_header",
+            "player_data",
+            "cell_view_column",
+            "player_name",
+            "player_image",
+            "cell_view_content",
+            "player_data"
         )
 
         return view
