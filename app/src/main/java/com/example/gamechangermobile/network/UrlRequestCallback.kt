@@ -64,7 +64,7 @@ class UrlRequestCallback(): UrlRequest.Callback() {
             it.get(byteArray)
             String(byteArray, Charset.forName("UTF-8"))
         }.apply {
-            Log.i(TAG, "Response: $this")
+//            Log.i(TAG, "Response: $this")
             response += this
         }
 
@@ -75,7 +75,7 @@ class UrlRequestCallback(): UrlRequest.Callback() {
 
     override fun onSucceeded(request: UrlRequest?, info: UrlResponseInfo?) {
         Log.i(TAG, "onSucceeded method called.")
-        Log.i(TAG, response)
+//        Log.i(TAG, response)
         delegate?.onFinishRequest(response)
     }
 

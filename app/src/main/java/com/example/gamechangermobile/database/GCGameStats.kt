@@ -11,7 +11,7 @@ data class GCPlayerInfoWithBox(
 
 data class GCPlayerInfoWithFullBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
-    val box: ArrayList<GCPlayerStats> = arrayListOf()
+    val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>()
 ) {}
 
 data class GCPlayerInfo(
