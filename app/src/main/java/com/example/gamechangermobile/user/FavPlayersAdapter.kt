@@ -12,8 +12,17 @@ import com.example.gamechangermobile.models.PlayerID
 import com.example.gamechangermobile.models.getPlayerById
 import com.example.gamechangermobile.models.getTeamById
 
-class FavPlayersAdapter(private val playerList: List<PlayerID>, val isFavList: Boolean) :
+class FavPlayersAdapter(private val playerList: List<PlayerID>, val isFavList: Boolean, val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<FavPlayersAdapter.ViewHolder>() {
+    private var delegate: ItemClickListener? = null
+
+    init {
+        delegate = itemClickListener
+    }
+
+    interface ItemClickListener{
+        fun onItemClickListener()
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val playerImageView: ImageView = itemView.findViewById<ImageView>(R.id.player_image)
@@ -31,12 +40,12 @@ class FavPlayersAdapter(private val playerList: List<PlayerID>, val isFavList: B
 
         viewHolder.itemView.setOnClickListener {
             val pos: Int = viewHolder.adapterPosition
-
             if (isFavList) {
                 playerList[pos]?.let { it1 -> removeFromFavPlayer(view, it1) }
             } else {
                 playerList[pos]?.let { it1 -> addToFavPlayer(view, it1) }
             }
+            delegate?.onItemClickListener()
         }
         return viewHolder
     }

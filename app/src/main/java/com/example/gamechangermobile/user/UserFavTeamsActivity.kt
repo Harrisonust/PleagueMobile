@@ -21,7 +21,7 @@ class UserFavTeamsActivity() : AppCompatActivity() {
             override fun onItemClickListener() {
                 fav_teams_recycler_view.adapter = FavTeamsAdapter(favTeam.toList(), true, onItemClickCallback)
                 fav_teams_recycler_view.adapter?.notifyDataSetChanged()
-                other_team_recycler_view.adapter = FavTeamsAdapter(getAllTeam().minus(favTeam), false, onItemClickCallback)
+                other_team_recycler_view.adapter = FavTeamsAdapter(getAllTeam().minus(favTeam).toList(), false, onItemClickCallback)
                 other_team_recycler_view.adapter?.notifyDataSetChanged()
             }
         }
@@ -37,21 +37,6 @@ class UserFavTeamsActivity() : AppCompatActivity() {
         other_team_recycler_view.layoutManager = LinearLayoutManager(this)
 
     }
-
-    //    fun onAddToFavorite(team: TeamID) {
-    //        user.favTeam.add(team)
-    //        user.otherTeam.remove(team)
-    //        fav_teams_recycler_view.adapter!!.notifyDataSetChanged()
-    //        other_team_recycler_view.adapter!!.notifyDataSetChanged()
-    //    }
-    //
-    //    fun onDropFromFavorite(team: TeamID) {
-    //        user.otherTeam.add(team)
-    //        user.favTeam.remove(team)
-    //        fav_teams_recycler_view.adapter!!.notifyDataSetChanged()
-    //        other_team_recycler_view.adapter!!.notifyDataSetChanged()
-    //    }
-
 }
 
 fun addToFavTeam(view: View, teamId: TeamID) {

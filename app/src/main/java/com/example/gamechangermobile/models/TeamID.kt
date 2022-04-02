@@ -69,8 +69,8 @@ fun getTeamIdByName(name: String): TeamID =
         else -> TeamID(-1)
     }
 
-fun getAllTeam(): List<TeamID> =
-    listOf<TeamID>(
+fun getAllTeam(): Set<TeamID> =
+    setOf<TeamID>(
         TeamID(19),
         TeamID(23),
         TeamID(20),

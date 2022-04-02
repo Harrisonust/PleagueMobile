@@ -11,7 +11,7 @@ import com.example.gamechangermobile.models.TeamID
 import com.example.gamechangermobile.models.getTeamById
 
 
-class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean, val itemClickListener: ItemClickListener) :
+class FavTeamsAdapter(private val teamList: List<TeamID>, val isFavList: Boolean, val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<FavTeamsAdapter.ViewHolder>() {
     private var delegate: ItemClickListener? = null
 
@@ -42,7 +42,6 @@ class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean, val it
             }
             delegate?.onItemClickListener()
         }
-
         return viewHolder
     }
 
