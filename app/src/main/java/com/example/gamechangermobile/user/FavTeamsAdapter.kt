@@ -11,12 +11,21 @@ import com.example.gamechangermobile.models.TeamID
 import com.example.gamechangermobile.models.getTeamById
 
 
-class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean) :
+class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean, val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<FavTeamsAdapter.ViewHolder>() {
+    private var delegate: ItemClickListener? = null
+
+    init {
+        delegate = itemClickListener
+    }
+
+    interface ItemClickListener{
+        fun onItemClickListener()
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val teamImageView = itemView.findViewById<ImageView>(R.id.team_icon)
-        val teamNameTextView = itemView.findViewById<TextView>(R.id.team_name)
+        val teamImageView: ImageView = itemView.findViewById(R.id.team_icon)
+        val teamNameTextView: TextView = itemView.findViewById(R.id.team_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +40,7 @@ class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean) :
             } else {
                 addToFavTeam(it, teamList[pos])
             }
+            delegate?.onItemClickListener()
         }
 
         return viewHolder
@@ -47,8 +57,4 @@ class FavTeamsAdapter(val teamList: List<TeamID>, val isFavList: Boolean) :
     }
 
     override fun getItemCount() = teamList.size
-
-//    interface onItemClickListener{
-//        fun onItemClick(user: User)
-//    }
 }
