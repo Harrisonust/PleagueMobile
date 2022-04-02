@@ -107,19 +107,19 @@ data class Team(
 //        }
 
     var last10: Record = Record(0F, 0F)
-        get() {
-            var wins = 0
-            var loses = 0
-            var cnt = 1
-
-            for (gameId in gamesIdList) {
-                if (cnt > 10) break
-                val game = getGameById(gameId)!!
-                if (game.status != GameStatus.END) continue
-                if (game.winner == this.teamId) wins++
-                else loses++
-                cnt++
-            }
-            return Record(wins.toFloat(), loses.toFloat())
-        }
+//        get() {
+//            var wins = 0
+//            var loses = 0
+//            var cnt = 1
+//
+//            for (gameId in gamesIdList) {
+//                if (cnt > 10) break
+//                val game = getGameById(gameId)!!
+//                if (game.status != GameStatus.END) continue
+//                if (game.winner == this.teamId) wins++
+//                else loses++
+//                cnt++
+//            }
+//            return Record(wins.toFloat(), loses.toFloat())
+//        }
 }
