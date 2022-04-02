@@ -153,7 +153,7 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
         // header, column, content
         var headerSet = false
-        val ignoreFields = listOf("fieldGoal2pt", "fieldGoalAttempt2pt", "fieldGoalPercentage2pt", "effFieldGoalPercentage")
+        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
         for ((player, playerStats) in players) {
             if (!headerSet) {
                 val tableRow = TableRow(context)
@@ -274,7 +274,7 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
         // header, column, content
         var headerSet = false
-        val ignoreFields = listOf("fieldGoal2pt", "fieldGoalAttempt2pt", "fieldGoalPercentage2pt", "effFieldGoalPercentage")
+        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
         for ((gameId, playerStats) in games) {
             if (!headerSet) {
                 val tableRow = TableRow(context)
@@ -401,7 +401,7 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         // header, column, content
         val tableRow = TableRow(context)
         val contentTableRow = TableRow(context)
-        val ignoreFields = listOf("fieldGoal2pt", "fieldGoalAttempt2pt", "fieldGoalPercentage2pt", "effFieldGoalPercentage")
+        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
         for ((statsName, stats) in playerStats) {
             if (!ignoreFields.contains(statsName)) {
                 Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }

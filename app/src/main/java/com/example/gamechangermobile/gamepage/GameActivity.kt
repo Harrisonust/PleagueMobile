@@ -36,7 +36,7 @@ class GameActivity : AppCompatActivity() {
                             rebounds = player.box[0].reb.toFloat(),
                             assists = player.box[0].ast.toFloat(),
 
-                            fieldGoal = player.box[0].fg_m.toFloat(),
+                            fieldGoalMade = player.box[0].fg_m.toFloat(),
                             fieldGoalAttempt = player.box[0].fg_a.toFloat(),
                             fieldGoalPercentage = player.box[0].fg_percent,
 

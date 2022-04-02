@@ -259,7 +259,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
          */
         // guest stats chart
         guest_field_goal.text =
-            gs["fieldGoal"]?.toInt().toString() +
+            gs["fieldGoalMade"]?.toInt().toString() +
                     "/" + gs["fieldGoalAttempt"]?.toInt().toString() +
                     "(" + gs["fieldGoalPercentage"]?.toString() + "%)"
         guest_field_goal_bar.setBackgroundColor(
@@ -269,9 +269,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         )
 
         guest_3_pointer.text =
-            gs["fieldGoal3pt"]?.toInt().toString() +
-                    "/" + gs["fieldGoalAttempt3pt"]?.toInt().toString() +
-                    "(" + gs["fieldGoalPercentage3pt"]?.toString() + "%)"
+            gs["threePointMade"]?.toInt().toString() +
+                    "/" + gs["threePointAttempt"]?.toInt().toString() +
+                    "(" + gs["threePointPercentage"]?.toString() + "%)"
         guest_3_pointer_bar.setBackgroundColor(
             resources.getColor(
                 guestTeam?.color ?: R.color.black
@@ -281,7 +281,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_free_throw.text =
             gs["freeThrow"]?.toInt().toString() +
                     "/" + gs["freeThrowAttempt"]?.toInt().toString() +
-                    "(" + gs["freeThrowAttemptPercentage"]?.toString() + "%)"
+                    "(" + gs["freeThrowPercentage"]?.toString() + "%)"
         guest_free_throw_bar.setBackgroundColor(
             resources.getColor(
                 guestTeam?.color ?: R.color.black
@@ -342,21 +342,21 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
 
         // host stats chart
         host_field_goal.text =
-            hs["fieldGoal"]?.toInt().toString() +
+            hs["fieldGoalMade"]?.toInt().toString() +
                     "/" + hs["fieldGoalAttempt"]?.toInt().toString() +
                     "(" + hs["fieldGoalPercentage"]?.toString() + "%)"
         host_field_goal_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
 
         host_3_pointer.text =
-            hs["fieldGoal3pt"]?.toInt().toString() +
-                    "/" + hs["fieldGoalAttempt3pt"]?.toInt().toString() +
-                    "(" + hs["fieldGoalPercentage3pt"]?.toString() + "%)"
+            hs["threePointMade"]?.toInt().toString() +
+                    "/" + hs["threePointAttempt"]?.toInt().toString() +
+                    "(" + hs["threePointPercentage"]?.toString() + "%)"
         host_3_pointer_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
 
         host_free_throw.text =
             hs["freeThrow"]?.toInt().toString() +
                     "/" + hs["freeThrowAttempt"]?.toInt().toString() +
-                    "(" + hs["freeThrowAttemptPercentage"]?.toString() + "%)"
+                    "(" + hs["freeThrowPercentage"]?.toString() + "%)"
         host_free_throw_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
 
         host_assist.text = hs["assists"]?.toInt().toString()
@@ -429,15 +429,15 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             completeBarWidth,
             guest_3_pointer_bar,
             host_3_pointer_bar,
-            gs["fieldGoalPercentage3pt"],
-            hs["fieldGoalPercentage3pt"]
+            gs["threePointPercentage"],
+            hs["threePointPercentage"]
         )
         changeBarWidth(
             completeBarWidth,
             guest_free_throw_bar,
             host_free_throw_bar,
-            gs["freeThrowAttemptPercentage"],
-            hs["freeThrowAttemptPercentage"]
+            gs["freeThrowPercentage"],
+            hs["freeThrowPercentage"]
         )
         changeBarWidth(
             completeBarWidth,

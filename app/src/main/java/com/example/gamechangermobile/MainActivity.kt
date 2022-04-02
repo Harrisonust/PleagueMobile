@@ -33,21 +33,21 @@ class MainActivity : AppCompatActivity() {
                         stat["rebounds"] = gcplayer.box.avg_reb
                         stat["assists"] = gcplayer.box.avg_ast
 
-                        stat["fieldGoal"] = gcplayer.box.avg_fg_m
+                        stat["fieldGoalMade"] = gcplayer.box.avg_fg_m
                         stat["fieldGoalAttempt"] = gcplayer.box.avg_fg_a
                         stat["fieldGoalPercentage"] = gcplayer.box.avg_fg_percent
 
-                        stat["fieldGoal2pt"] = gcplayer.box.avg_two_pts_m
-                        stat["fieldGoalAttempt2pt"] = gcplayer.box.avg_two_pts_a
-                        stat["fieldGoalPercentage2pt"] = gcplayer.box.avg_two_pts_percent
+                        stat["twoPointMade"] = gcplayer.box.avg_two_pts_m
+                        stat["twoPointAttempt"] = gcplayer.box.avg_two_pts_a
+                        stat["twoPointPercentage"] = gcplayer.box.avg_two_pts_percent
 
-                        stat["fieldGoal3pt"] = gcplayer.box.avg_three_pts_m
-                        stat["fieldGoalAttempt3pt"] = gcplayer.box.avg_three_pts_a
-                        stat["fieldGoalPercentage3pt"] = gcplayer.box.avg_three_pts_percent
+                        stat["threePointMade"] = gcplayer.box.avg_three_pts_m
+                        stat["threePointAttempt"] = gcplayer.box.avg_three_pts_a
+                        stat["threePointPercentage"] = gcplayer.box.avg_three_pts_percent
 
                         stat["freeThrow"] = gcplayer.box.avg_ft_m
                         stat["freeThrowAttempt"] = gcplayer.box.avg_ft_a
-                        stat["freeThrowAttemptPercentage"] = gcplayer.box.avg_ft_percent
+                        stat["freeThrowPercentage"] = gcplayer.box.avg_ft_percent
 
                         stat["offensiveRebounds"] = gcplayer.box.avg_off_reb
                         stat["defensiveRebounds"] = gcplayer.box.avg_def_reb
