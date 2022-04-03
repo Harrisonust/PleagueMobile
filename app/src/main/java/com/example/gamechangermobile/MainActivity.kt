@@ -70,10 +70,13 @@ class MainActivity : AppCompatActivity() {
                             isForeignPlayer = gcplayer.info.is_foreign_player
                         )
                         players.add(player)
-                        getTeamById(player.teamId)?.playerList?.add(player.playerID)
+                        if (getTeamById(player.teamId) != null)
+                            getTeamById(player.teamId)?.playerList?.add(player.playerID)
+                        else {
+                            Log.d("Debug", "Fail to find team by id. ${player.fullName}")
+                        }
                     }
                 }
-
                 runOnUiThread {
 //                    updateGameCardView()
                 }
