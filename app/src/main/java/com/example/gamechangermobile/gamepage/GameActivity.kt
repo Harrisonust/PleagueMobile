@@ -30,7 +30,8 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        gameData = intent.getParcelableExtra<Game>("SELECTED_GAME")!!
+        val gameID = intent.getParcelableExtra<GameID>("SELECTED_GAME")!!
+        val gameData = getGameById(gameID)
         guestTeam = getTeamById(gameData?.guestTeam)!!
         hostTeam = getTeamById(gameData?.hostTeam)!!
 
