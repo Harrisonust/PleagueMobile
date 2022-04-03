@@ -37,7 +37,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
                 if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
                 else getTeamById(game.guestTeam)
             val intent = Intent(parent.context, TeamActivity::class.java)
-            intent.putExtra("SELECTED_TEAM", opponent)
+            intent.putExtra("SELECTED_TEAM", opponent?.teamId)
             parent.context.startActivity(intent)
         }
 

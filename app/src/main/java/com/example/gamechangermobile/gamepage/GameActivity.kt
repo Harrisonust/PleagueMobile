@@ -81,13 +81,13 @@ class GameActivity : AppCompatActivity() {
         game_page_header_host_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
             val team = hostTeam
-            intent.putExtra("SELECTED_TEAM", team)
+            intent.putExtra("SELECTED_TEAM", team.teamId)
             startActivity(intent)
         }
         game_page_header_guest_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
             val team = guestTeam
-            intent.putExtra("SELECTED_TEAM", team)
+            intent.putExtra("SELECTED_TEAM", team.teamId)
             startActivity(intent)
         }
     }

@@ -24,7 +24,7 @@ class TeamActivity : AppCompatActivity() {
     private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
         networkRequestCallbackFunc()
     private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-    private var teamData = Team(TeamID(-1))
+    private var teamID: TeamID? = null
 
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
@@ -34,10 +34,11 @@ class TeamActivity : AppCompatActivity() {
                 var ranking = "na"
 
                 if (data != null) {
-                    teamData.totalRecord.wins = data.info.win_count
-                    teamData.totalRecord.loses = data.info.lose_count
-                    teamData.streak = data.info.winning_streak.toString()
-                    teamData.ranking = data.ranking.team.ranking.toString()
+                    val team = getTeamById(teamID)
+                    team?.totalRecord?.wins = data.info.win_count
+                    team?.totalRecord?.loses = data.info.lose_count
+                    team?.streak = data.info.winning_streak.toString()
+                    team?.ranking = data.ranking.team.ranking.toString()
 
                     ranking = data.ranking.team.ranking.toString()
                     ranking += if (ranking == "1") "st"
@@ -62,28 +63,32 @@ class TeamActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team)
 
-        teamData = intent.getParcelableExtra<Team>("SELECTED_TEAM")!!
+        teamID = intent.getParcelableExtra<TeamID>("SELECTED_TEAM")
+        val teamData = getTeamById(teamID)
+        if (teamData == null) {
 
-        // Network call section starts
-        val myBuilder = CronetEngine.Builder(this)
-        val cronetEngine: CronetEngine = myBuilder.build()
-        val executor: Executor = Executors.newSingleThreadExecutor()
+        } else {
+            // Network call section starts
+            val myBuilder = CronetEngine.Builder(this)
+            val cronetEngine: CronetEngine = myBuilder.build()
+            val executor: Executor = Executors.newSingleThreadExecutor()
 
-        val requestBuilder =
-            cronetEngine.newUrlRequestBuilder(
-                Api.url(
-                    "team_season_data", mapOf(
-                        "season_id" to "4",
-                        "part" to "info,ranking",
-                        "team_id" to teamData.teamId.ID.toString()
-                    )
-                ),
-                urlRequestCallback,
-                executor
-            )
+            val requestBuilder =
+                cronetEngine.newUrlRequestBuilder(
+                    Api.url(
+                        "team_season_data", mapOf(
+                            "season_id" to "4",
+                            "part" to "info,ranking",
+                            "team_id" to teamData.teamId.ID.toString()
+                        )
+                    ),
+                    urlRequestCallback,
+                    executor
+                )
 
-        val request: UrlRequest = requestBuilder.build()
-        request.start()
+            val request: UrlRequest = requestBuilder.build()
+            request.start()
+        }
 
         // start rendering ui
         if (teamData != null) {
@@ -121,17 +126,18 @@ class TeamActivity : AppCompatActivity() {
 
     inner class VPagerAdapter(f: FragmentManager, bh: Int, val team: Team) :
         FragmentPagerAdapter(f, bh) {
-        val fragments = mutableListOf<Fragment>(
-            TeamPageInfoFragment(team),
-            TeamPageScheduleFragment(team),
-            TeamPageRosterFragment(team)
+        val id = team.teamId
+        private val fragments = mutableListOf<Fragment>(
+            TeamPageInfoFragment(id),
+            TeamPageScheduleFragment(id),
+            TeamPageRosterFragment(id)
         )
 
         override fun getCount(): Int = fragments.size
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]
-            }
+        }
 
         fun refreshFragment(index: Int, f: Fragment) {
             fragments[index] = f
