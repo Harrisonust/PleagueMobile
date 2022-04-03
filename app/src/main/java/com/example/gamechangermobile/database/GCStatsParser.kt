@@ -38,6 +38,19 @@ class GCStatsParser() {
         return playerStatsList
     }
 
+    fun parseTeamsData(data: String): ArrayList<GCTeam> {
+        var teams = arrayListOf<GCTeam>()
+        JsonReader(StringReader(data)).use { reader ->
+            reader.beginArray {
+                while (reader.hasNext()) {
+                    val d = Klaxon().parse<GCTeam>(reader)
+                    d?.let { teams.add(it) }
+                }
+            }
+        }
+        return teams
+    }
+
     fun parseTeamData(data: String): GCTeam {
         var team = GCTeam()
         JsonReader(StringReader(data)).use { reader ->
