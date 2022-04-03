@@ -23,7 +23,6 @@ import java.util.concurrent.Executors
 
 class GameActivity : AppCompatActivity() {
 
-    private lateinit var gameData: Game
     private lateinit var guestTeam: Team
     private lateinit var hostTeam: Team
 

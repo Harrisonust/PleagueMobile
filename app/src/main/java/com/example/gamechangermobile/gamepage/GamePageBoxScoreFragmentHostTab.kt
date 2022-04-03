@@ -66,7 +66,6 @@ class GamePageBoxScoreFragmentHostTab(val game: Game) : Fragment() {
                             "Debug",
                             "$$ Name: ${player.info.player_name} points: ${player.box[0].pts}"
                         )
-
                         game.hostPlayerStats[PlayerID(player.info.id)] = stat
                     }
                 }

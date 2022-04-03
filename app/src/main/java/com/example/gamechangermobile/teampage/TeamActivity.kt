@@ -46,14 +46,11 @@ class TeamActivity : AppCompatActivity() {
                     else "th"
                 }
                 runOnUiThread {
-                    // TODO: Update Game List
-                    // ex. testing.text = result
                     if (data != null) {
                         team_page_record.text =
                             "${data.info.win_count.toInt()} - ${data.info.lose_count.toInt()}"
                         team_page_team_ranking.text = ranking
                     }
-//                    team_page_viewpager.adapter.refreshFragment(0, TeamPageInfoFragment(teamData))
                 }
             }
         }
@@ -137,11 +134,6 @@ class TeamActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]
-        }
-
-        fun refreshFragment(index: Int, f: Fragment) {
-            fragments[index] = f
-//            notifyItemChanged(index)
         }
     }
 }

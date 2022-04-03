@@ -1,22 +1,20 @@
 package com.example.gamechangermobile.user
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.currentUser
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.models.PlayerID
-import com.example.gamechangermobile.models.getAllPlayer
-import com.example.gamechangermobile.models.getPlayerById
+import com.example.gamechangermobile.models.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_user_fav_players.*
 
 class UserFavPlayersActivity : AppCompatActivity() {
     private val onItemClickCallback: FavPlayersAdapter.ItemClickListener = onItemCLickCallbackFunc()
-    val favPlayer: MutableSet<PlayerID> = currentUser.favPlayer
-    val otherPlayer: MutableSet<PlayerID> =
+    private val favPlayer: MutableSet<PlayerID> = currentUser.favPlayer
+    private val otherPlayer: MutableSet<PlayerID> =
         getAllPlayer().minus(currentUser.favPlayer) as MutableSet<PlayerID>
 
 
@@ -29,7 +27,6 @@ class UserFavPlayersActivity : AppCompatActivity() {
                 other_players_recycler_view.adapter =
                     FavPlayersAdapter(getAllPlayer().minus(favPlayer).toList(), false, onItemClickCallback)
                 other_players_recycler_view.adapter?.notifyDataSetChanged()
-
             }
         }
     }
