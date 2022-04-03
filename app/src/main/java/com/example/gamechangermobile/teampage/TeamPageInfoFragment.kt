@@ -32,7 +32,6 @@ class TeamPageInfoFragment(val team: Team) : Fragment() {
         streak.text = team.streak
         arena.text = team.arena
         last10.text = team.last10.getRecord()
-
         founding_date.text = SimpleDateFormat("yyyy/M/dd").format(team.foundingDate)
     }
 

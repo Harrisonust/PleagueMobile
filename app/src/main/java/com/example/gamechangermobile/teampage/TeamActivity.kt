@@ -44,16 +44,15 @@ class TeamActivity : AppCompatActivity() {
                     else if (ranking == "2") "nd"
                     else "th"
                 }
-
                 runOnUiThread {
                     // TODO: Update Game List
                     // ex. testing.text = result
                     if (data != null) {
                         team_page_record.text =
                             "${data.info.win_count.toInt()} - ${data.info.lose_count.toInt()}"
-
                         team_page_team_ranking.text = ranking
                     }
+//                    team_page_viewpager.adapter.refreshFragment(0, TeamPageInfoFragment(teamData))
                 }
             }
         }
@@ -118,20 +117,25 @@ class TeamActivity : AppCompatActivity() {
                 team_page_viewpager
             )
         )
-
-
     }
 
     inner class VPagerAdapter(f: FragmentManager, bh: Int, val team: Team) :
         FragmentPagerAdapter(f, bh) {
-        override fun getCount(): Int = 3
+        val fragments = mutableListOf<Fragment>(
+            TeamPageInfoFragment(team),
+            TeamPageScheduleFragment(team),
+            TeamPageRosterFragment(team)
+        )
+
+        override fun getCount(): Int = fragments.size
 
         override fun getItem(position: Int): Fragment {
-            return when (position) {
-                0 -> TeamPageInfoFragment(team)
-                1 -> TeamPageScheduleFragment(team)
-                else -> TeamPageRosterFragment(team)
+            return fragments[position]
             }
+
+        fun refreshFragment(index: Int, f: Fragment) {
+            fragments[index] = f
+//            notifyItemChanged(index)
         }
     }
 }
