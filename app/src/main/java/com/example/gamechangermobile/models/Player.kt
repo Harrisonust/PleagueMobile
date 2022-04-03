@@ -70,7 +70,7 @@ class Player(
     }
 }
 
-fun getAllPlayer(): Set<PlayerID> {
+fun getAllPlayer(): MutableSet<PlayerID> {
     val playerList = mutableSetOf<PlayerID>()
     val allTeamIDList = getAllTeam()
     for (teamId in allTeamIDList) {
