@@ -32,7 +32,6 @@ class StatsFragmentTeamTab() : Fragment() {
 
                 if (teamList != null) {
                     for (gcteam in teamList) {
-                        Log.d("Debug", "!@#" + gcteam.info.name)
                         val team = getTeamById(TeamID(gcteam.info.id))
                         team?.totalRecord = Record(gcteam.info.win_count, gcteam.info.lose_count)
                         val strk = gcteam.info.winning_streak.toString()
@@ -41,6 +40,8 @@ class StatsFragmentTeamTab() : Fragment() {
                         var rank = gcteam.ranking.team.ranking.toString()
                         rank += if (rank == "1") "st" else if (rank == "2") "nd" else "rd"
                         team?.ranking = rank
+
+                        team?.GB = gcteam.info.game_behind
                     }
                 }
 
@@ -82,11 +83,15 @@ class StatsFragmentTeamTab() : Fragment() {
         val teams = mutableMapOf<Team, List<String>>()
         for (team in MainActivity.teams.sortedBy { it.ranking }) {
             val stats = mutableListOf<String>()
-            stats.add(team.totalRecord.wins.toInt().toString())
-            stats.add(team.totalRecord.loses.toInt().toString())
-            if (team.totalRecord.wins + team.totalRecord.loses != 0)
-                stats.add((team.totalRecord.wins / (team.totalRecord.wins + team.totalRecord.loses)).toString())
-            stats.add("0")
+            stats.add(team.totalRecord.wins.toString())
+            stats.add(team.totalRecord.loses.toString())
+            if (team.totalRecord.wins + team.totalRecord.loses != 0){
+                val value = String.format("%.2f", (team.totalRecord.wins / (team.totalRecord.wins + team.totalRecord.loses).toFloat()).toDouble())
+                stats.add(value)
+            }
+            else
+                stats.add("0")
+            stats.add(team.GB.toString())
             stats.add(team.homeRecord.getRecord())
             stats.add(team.awayRecord.getRecord())
             stats.add(team.last10.getRecord())
