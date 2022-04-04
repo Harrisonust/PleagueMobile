@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
                         var player = Player(
                             playerID = PlayerID(gcplayer.info.id),
-                            firstName = gcplayer.info.name,
-                            lastName = "",
+                            firstName = gcplayer.info.name[0].toString(),
+                            lastName = gcplayer.info.name.substring(1),
                             profilePic = R.drawable.ic_baseline_sports_basketball_24,
                             averageStat = PlayerStats(data = stat),
                             teamId = TeamID(gcplayer.info.team_id),
