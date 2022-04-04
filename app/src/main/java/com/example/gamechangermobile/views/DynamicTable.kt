@@ -438,7 +438,7 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         imageView.setImageResource(player.profilePic)
         view.setOnClickListener {
             val intent = Intent(view.context, PlayerActivity::class.java).apply {
-                putExtra("SELECTED_PLAYER", player)
+                putExtra("SELECTED_PLAYER", player.playerID)
             }
             view.context.startActivity(intent)
         }
