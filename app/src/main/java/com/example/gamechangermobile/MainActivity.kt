@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
-                var GCPlayerList = result?.let { GCStatsParser().parseList<GCPlayerInfoWithBox>(it) }
+                var GCPlayerList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
 
                 if (GCPlayerList != null) {
                     for (gcplayer in GCPlayerList) {

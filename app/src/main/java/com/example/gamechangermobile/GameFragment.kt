@@ -34,7 +34,7 @@ class GameFragment() : Fragment() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var GCGameList = result?.let { GCStatsParser().parseList<GCGame>(it) }
+                var GCGameList = result?.let { GCStatsParser().parse<GCGame>(it) }
 
                 if (GCGameList != null) {
                     for (gcGameData in GCGameList) {

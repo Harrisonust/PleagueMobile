@@ -29,7 +29,7 @@ class StatsFragmentTeamTab() : Fragment() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var teamList = result?.let { GCStatsParser().parseList<GCTeam>(it) }
+                var teamList = result?.let { GCStatsParser().parse<GCTeam>(it) }
 
                 if (teamList != null) {
                     for (gcteam in teamList) {

@@ -29,7 +29,7 @@ class GamePageBoxScoreFragmentHostTab(val game: Game) : Fragment() {
             override fun onFinishRequest(result: String?) {
                 Log.d("Debug","Host Start Parsing ${result}")
                 var playerStatsList =
-                    result?.let { GCStatsParser().parseList<GCPlayerInfoWithFullBox>(it) }
+                    result?.let { GCStatsParser().parse<GCPlayerInfoWithFullBox>(it) }
                 Log.d("Debug","Host Finish Parsing")
                 if (playerStatsList != null) {
                     for (player in playerStatsList) {
