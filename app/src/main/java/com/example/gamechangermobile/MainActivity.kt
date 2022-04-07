@@ -15,7 +15,6 @@ import org.chromium.net.UrlRequest
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =

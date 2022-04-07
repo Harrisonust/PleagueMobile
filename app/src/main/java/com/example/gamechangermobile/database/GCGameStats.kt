@@ -3,7 +3,6 @@ package com.example.gamechangermobile.database
 import kotlin.collections.ArrayList
 
 
-
 data class GCPlayerInfoWithBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: GCPlayerStats = GCPlayerStats()
@@ -237,3 +236,87 @@ data class GCRankings(
     val off_reb_rate: GCRanking = GCRanking(),
     val def_reb_rate: GCRanking = GCRanking(),
 ) {}
+
+data class PlgTeamBox(
+    val mins: String = "",
+    val two: String = "",
+    val two_m: String = "",
+    val trey: String = "",
+    val trey_m: String = "",
+    val ft: String = "",
+    val ft_m: String = "",
+    val points: String = "",
+    val reb: String = "",
+    val reb_o: String = "",
+    val reb_d: String = "",
+    val ast: String = "",
+    val stl: String = "",
+    val blk: String = "",
+    val turnover: String = "",
+    val pfoul: String = "",
+    val positive: String = "",
+    val seconds: String = "",
+    val twop: String = "",
+    val treyp: String = "",
+    val ftp: String = "",
+) {}
+
+data class PlgPlayerBox(
+    val points: String = "",
+    val positive: String = "",
+    val seconds: String = "",
+    val starter: String = "",
+    val turnover: String = "",
+    val ast: String = "",
+    val blk: String = "",
+    val reb_d: String = "",
+    val eff: String = "",
+    val efgp: String = "",
+    val ft_m: String = "",
+    val ft_a: String = "",
+    val reb_o: String = "",
+    val pfoul: String = "",
+    val profile_picture: String = "",
+    val name_alt: String = "",
+    val player_id: String = "",
+    val name: String = "",
+    val jersey: String = "",
+    val position: String = "",
+    val stl: String = "",
+    val trey_m: String = "",
+    val trey_a: String = "",
+    val reb: String = "",
+    val tsp: String = "",
+    val two_m: String = "",
+    val two_a: String = "",
+    val ugp: String = "",
+    val mins: String = "",
+    val two: String = "",
+    val two_m_two: String = "",
+    val twop: String = "",
+    val trey: String = "",
+    val trey_m_trey: String = "",
+    val treyp: String = "",
+    val ft: String = "",
+    val ft_m_ft: String = "",
+    val ftp: String = ""
+) {}
+
+data class PlgData(
+    val q1_home: String = "",
+    val q2_home: String = "",
+    val q3_home: String = "",
+    val q4_home: String = "",
+    val score_home: String = "",
+    val score_away: String = "",
+    val home: List<PlgPlayerBox> = arrayListOf<PlgPlayerBox>(),
+    val home_total: PlgTeamBox = PlgTeamBox(),
+    val away: List<PlgPlayerBox> = arrayListOf<PlgPlayerBox>(),
+    val away_total: PlgTeamBox = PlgTeamBox(),
+) {}
+
+data class PlgGame(
+    val error: String = "",
+    val data: PlgData = PlgData(),
+) {}
+
