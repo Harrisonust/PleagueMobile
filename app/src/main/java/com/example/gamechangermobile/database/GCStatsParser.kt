@@ -11,69 +11,28 @@ import java.io.StringReader
 
 
 class GCStatsParser() {
-    fun parsePlayersInfoWithBox(data: String): ArrayList<GCPlayerInfoWithBox> {
-        var playersInfo = arrayListOf<GCPlayerInfoWithBox>()
+    inline fun <reified T> parseItem(data: String): T{
+        var item = T::class.java.newInstance()
         JsonReader(StringReader(data)).use { reader ->
             reader.beginArray {
                 while (reader.hasNext()) {
-                    val d: GCPlayerInfoWithBox? = Klaxon().parse<GCPlayerInfoWithBox>(reader)
-                    d?.let { playersInfo.add(it) }
+                    Klaxon().parse<T>(reader)?.let { item = it }
                 }
             }
         }
-        return playersInfo
+        return item
     }
 
-    fun parsePlayersInfoWithFullBox(data: String): ArrayList<GCPlayerInfoWithFullBox> {
-        var playerStatsList = arrayListOf<GCPlayerInfoWithFullBox>()
+    inline fun <reified T> parseList(data: String): ArrayList<T> {
+        var list = arrayListOf<T>()
         JsonReader(StringReader(data)).use { reader ->
             reader.beginArray {
                 while (reader.hasNext()) {
-                    val d: GCPlayerInfoWithFullBox? =
-                        Klaxon().parse<GCPlayerInfoWithFullBox>(reader)
-                    d?.let { playerStatsList.add(it) }
+                    val d: T? = Klaxon().parse<T>(reader)
+                    d?.let { list.add(it) }
                 }
             }
         }
-        return playerStatsList
+        return list
     }
-
-    fun parseTeamsData(data: String): ArrayList<GCTeam> {
-        var teams = arrayListOf<GCTeam>()
-        JsonReader(StringReader(data)).use { reader ->
-            reader.beginArray {
-                while (reader.hasNext()) {
-                    val d = Klaxon().parse<GCTeam>(reader)
-                    d?.let { teams.add(it) }
-                }
-            }
-        }
-        return teams
-    }
-
-    fun parseTeamData(data: String): GCTeam {
-        var team = GCTeam()
-        JsonReader(StringReader(data)).use { reader ->
-            reader.beginArray {
-                while (reader.hasNext()) {
-                    Klaxon().parse<GCTeam>(reader)?.let { team = it }
-                }
-            }
-        }
-        return team
-    }
-
-    fun parseGameData(data: String): ArrayList<GCGame> {
-        val dataList = arrayListOf<GCGame>()
-        JsonReader(StringReader(data)).use { reader ->
-            reader.beginArray {
-                while (reader.hasNext()) {
-                    val d: GCGame? = Klaxon().parse<GCGame>(reader)
-                    d?.let { dataList.add(it) }
-                }
-            }
-        }
-        return dataList
-    }
-
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.gamechangermobile.database.GCPlayerInfoWithBox
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
-                var GCPlayerList = result?.let { GCStatsParser().parsePlayersInfoWithBox(it) }
+                var GCPlayerList = result?.let { GCStatsParser().parseList<GCPlayerInfoWithBox>(it) }
 
                 if (GCPlayerList != null) {
                     for (gcplayer in GCPlayerList) {

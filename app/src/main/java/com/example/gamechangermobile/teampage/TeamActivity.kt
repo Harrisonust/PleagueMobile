@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
@@ -30,7 +31,7 @@ class TeamActivity : AppCompatActivity() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var data = result?.let { GCStatsParser().parseTeamData(it) }
+                var data = result?.let { GCStatsParser().parseItem<GCTeam>(it) }
                 var ranking = "na"
 
                 if (data != null) {
