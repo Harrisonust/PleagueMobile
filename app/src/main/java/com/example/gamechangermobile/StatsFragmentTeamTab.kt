@@ -33,7 +33,6 @@ class StatsFragmentTeamTab() : Fragment() {
 
                 if (teamList != null) {
                     for (gcteam in teamList) {
-                        Log.d("Debug", "!@#" + gcteam.info.name)
                         val team = getTeamById(TeamID(gcteam.info.id))
                         team?.totalRecord = Record(gcteam.info.win_count, gcteam.info.lose_count)
                         val strk = gcteam.info.winning_streak.toString()
