@@ -33,7 +33,6 @@ class GameFragment() : Fragment() {
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
-
                 var GCGameList = result?.let { GCStatsParser().parse<GCGame>(it) }
 
                 if (GCGameList != null) {
@@ -75,7 +74,7 @@ class GameFragment() : Fragment() {
 
         val requestBuilder =
             cronetEngine.newUrlRequestBuilder(
-                Api.url("game_data", mapOf("season_id" to "4")),
+                Api.url("game_data", mapOf("season_id" to "4"), source = "GC"),
                 urlRequestCallback,
                 executor
             )

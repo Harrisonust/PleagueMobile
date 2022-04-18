@@ -4,9 +4,12 @@ object Api {
     private const val API_HEADER = "https://api.gamechanger.tw/api"
     private const val P_API_HEADER = "https://pleagueofficial.com/api"
 
-    fun url(path: String, queryParams: Map<String, String>, testing: Boolean = false): String =
-        if (testing) "$P_API_HEADER/$path/${queryParamsString(queryParams)}"
-        else "$API_HEADER/$path${queryParamsString(queryParams)}"
+    fun url(path: String, queryParams: Map<String, String>, source: String): String =
+        when(source){
+            "PLG" -> "$P_API_HEADER/$path/${queryParamsString(queryParams)}"
+            "GC" -> "$API_HEADER/$path${queryParamsString(queryParams)}"
+            else -> "null"
+        }
 
 
     private fun queryParamsString(queryParams: Map<String, String>): String {

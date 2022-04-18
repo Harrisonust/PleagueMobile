@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                         "season_id" to "4",
                         "part" to "info,box",
                         "team_id" to "19,20,21,22,23,24"
-                    )
+                    ), source = "GC"
                 ),
                 urlRequestCallback,
                 executor

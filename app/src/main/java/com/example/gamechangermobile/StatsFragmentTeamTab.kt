@@ -69,7 +69,7 @@ class StatsFragmentTeamTab() : Fragment() {
                     "team_season_data", mapOf(
                         "season_id" to "4",
                         "part" to "info,ranking"
-                    )
+                    ), source = "GC"
                 ),
                 urlRequestCallback,
                 executor

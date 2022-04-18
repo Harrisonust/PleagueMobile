@@ -79,7 +79,7 @@ class TeamActivity : AppCompatActivity() {
                             "season_id" to "4",
                             "part" to "info,ranking",
                             "team_id" to teamData.teamId.ID.toString()
-                        )
+                        ), source = "GC"
                     ),
                     urlRequestCallback,
                     executor

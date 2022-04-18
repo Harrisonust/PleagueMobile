@@ -239,26 +239,35 @@ data class GCRankings(
 
 data class PlgTeamBox(
     val mins: String = "",
+    val points: String = "",
+
     val two: String = "",
     val two_m: String = "",
+    val twop: String = "",
+
     val trey: String = "",
     val trey_m: String = "",
+    val treyp: String = "",
+
     val ft: String = "",
     val ft_m: String = "",
-    val points: String = "",
+    val ftp: String = "",
+
     val reb: String = "",
     val reb_o: String = "",
     val reb_d: String = "",
+
     val ast: String = "",
+
     val stl: String = "",
     val blk: String = "",
     val turnover: String = "",
     val pfoul: String = "",
+
     val positive: String = "",
     val seconds: String = "",
-    val twop: String = "",
-    val treyp: String = "",
-    val ftp: String = "",
+
+
 ) {}
 
 data class PlgPlayerBox(

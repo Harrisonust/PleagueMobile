@@ -19,40 +19,6 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-                Log.d("Debug", "result: ${result}")
-                Log.d("Debug", "Guest Start Parsing")
-                var gamedata =
-                    result?.let { GCStatsParser().parsePlg<PlgGame>(it) }
-                Log.d("Debug", "Guest Finish Parsing")
-                if (gamedata != null) {
-                    for (player in gamedata.data.home) {
-                        Log.d(
-                            "Debug",
-                            "${player.name_alt} pts:${player.points} id:${player.player_id}"
-                        )
-                    }
-                    for (player in gamedata.data.away) {
-                        Log.d(
-                            "Debug",
-                            "${player.name_alt} pts:${player.points} id:${player.player_id}"
-                        )
-                    }
-//                        game.guestPlayerStats[PlayerID(player.player_id)] = stat
-
-                }
-                activity?.runOnUiThread {
-//                    updateGameCardView()
-                }
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,31 +35,6 @@ class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
             if (player != null)
                 players[player] = game.getPlayerStats(playerID) ?: PlayerStats()
         }
-
-        // Network call section starts
-        val myBuilder = CronetEngine.Builder(context)
-        val cronetEngine: CronetEngine = myBuilder.build()
-        val executor: Executor = Executors.newSingleThreadExecutor()
-
-        // host data
-//        https://pleagueofficial.com/api/boxscore.php?id=140&away_tab=total&home_tab=total
-        val api = Api.url(
-            "boxscore.php", mapOf(
-                "id" to "140",
-                "away_tab" to "total",
-                "home_tab" to "total",
-            ),
-            testing = true
-        )
-        val requestBuilder =
-            cronetEngine.newUrlRequestBuilder(
-                api,
-                urlRequestCallback,
-                executor
-            )
-        Log.d("Debug", "result" + api)
-        val request: UrlRequest = requestBuilder.build()
-        request.start()
 
         dynamicTable.renderTable(
             players,
