@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.database.GCStatsParser
@@ -22,43 +24,10 @@ import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.fragment_game.*
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
+import java.util.EnumSet.of
 
 class GameFragment() : Fragment() {
     private var selectedDate: Date = Date()
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-
-                var GCGameList = result?.let { GCStatsParser().parseGameData(it) }
-
-                if (GCGameList != null) {
-                    for (gcGameData in GCGameList) {
-                        val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(gcGameData.date)
-                        val game = Game(
-                            gameId = GameID(gcGameData.id),
-                            guestTeam = getTeamIdByName(gcGameData.away_team_name),
-                            hostTeam = getTeamIdByName(gcGameData.home_team_name),
-                            date = date,
-                            guestScore = gcGameData.away_team_score,
-                            hostScore = gcGameData.home_team_score,
-                            status = GameStatus.END
-                        )
-                        games.add(game)
-                        getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
-                        getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
-                    }
-                }
-
-                activity?.runOnUiThread {
-                    updateGameCardView()
-                }
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,20 +36,11 @@ class GameFragment() : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
 
-        // Network call section starts
-        val myBuilder = CronetEngine.Builder(context)
-        val cronetEngine: CronetEngine = myBuilder.build()
-        val executor: Executor = Executors.newSingleThreadExecutor()
+        val model: GameListViewModel by viewModels()
 
-        val requestBuilder =
-            cronetEngine.newUrlRequestBuilder(
-                Api.url("game_data", mapOf("season_id" to "4")),
-                urlRequestCallback,
-                executor
-            )
-        val request: UrlRequest = requestBuilder.build()
-        request.start()
-        // Network call section ends
+        model.getGames().observe(viewLifecycleOwner,  {
+            updateGameCardView()
+        })
         return view
     }
 
