@@ -1,20 +1,24 @@
 package com.example.gamechangermobile
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.database.GCGame
 import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.PlgGame
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import kotlinx.android.synthetic.main.activity_game.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executor
@@ -23,6 +27,7 @@ import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.fragment_game.*
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
+import org.jsoup.Jsoup
 
 class GameFragment() : Fragment() {
     private var selectedDate: Date = Date()
@@ -32,27 +37,41 @@ class GameFragment() : Fragment() {
 
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
+            @RequiresApi(Build.VERSION_CODES.N)
             override fun onFinishRequest(result: String?) {
-                var GCGameList = result?.let { GCStatsParser().parse<GCGame>(it) }
-
-                if (GCGameList != null) {
-                    for (gcGameData in GCGameList) {
-                        val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(gcGameData.date)
+                val doc = Jsoup.connect("https://pleagueofficial.com/schedule-regular-season/2021-22").get()
+                var games = mutableListOf<Game>()
+                var textList = mutableListOf<String>()
+                doc.select("div.col-lg-12.col-12")
+                    .parallelStream()
+                    .filter { it != null }
+                    .forEach {
+                        val regex =
+                            "^([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (\\S+) (.*?) ([0-9]*?) [0-9]*? G([0-9][0-9]) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (\\S+) (.*?) 數據 售票 (.*? / .*?)\$".toRegex()
+                        val parsed = regex.find(it.text())
+                        val month = parsed?.groups?.get(1)?.value
+                        val date = parsed?.groups?.get(2)?.value
+                        val time = parsed?.groups?.get(3)?.value
+                        val guest = parsed?.groups?.get(5)?.value
+                        val guestScore = parsed?.groups?.get(6)?.value
+                        val id = parsed?.groups?.get(7)?.value
+                        val location = parsed?.groups?.get(8)?.value
+                        val audience = parsed?.groups?.get(9)?.value
+                        val hostScore = parsed?.groups?.get(10)?.value
+                        val host = parsed?.groups?.get(12)?.value
                         val game = Game(
-                            gameId = GameID(gcGameData.id),
-                            guestTeam = getTeamIdByName(gcGameData.away_team_name),
-                            hostTeam = getTeamIdByName(gcGameData.home_team_name),
-                            date = date,
-                            guestScore = gcGameData.away_team_score,
-                            hostScore = gcGameData.home_team_score,
+                            gameId = GameID(id!!.toInt()),
+                            date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("2022-$month-${date}T${time}:00Z"),
+                            guestTeam = getTeamIdByName(guest!!),
+                            hostTeam = getTeamIdByName(host!!),
+                            guestScore = guestScore!!.toInt(),
+                            hostScore = hostScore!!.toInt(),
                             status = GameStatus.END
                         )
-                        games.add(game)
+                        MainActivity.games.add(game)
                         getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
                         getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
                     }
-                }
-
                 activity?.runOnUiThread {
                     updateGameCardView()
                 }
@@ -72,9 +91,14 @@ class GameFragment() : Fragment() {
         val cronetEngine: CronetEngine = myBuilder.build()
         val executor: Executor = Executors.newSingleThreadExecutor()
 
+        val api = Api.url(
+            "", mapOf(),
+            source = "PLG_WEB"
+        )
+        Log.d("Debug", api.toString())
         val requestBuilder =
             cronetEngine.newUrlRequestBuilder(
-                Api.url("game_data", mapOf("season_id" to "4"), source = "GC"),
+                api,
                 urlRequestCallback,
                 executor
             )

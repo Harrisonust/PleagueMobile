@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.PlgGame
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
@@ -22,6 +23,65 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class GameActivity : AppCompatActivity() {
+    private lateinit var gameData: Game
+    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
+        networkRequestCallbackFunc()
+    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
+
+    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
+        return object : UrlRequestCallback.OnFinishRequest {
+            override fun onFinishRequest(result: String?) {
+//                Log.wtf("Debug", "result ${result}")
+                var g = result?.let { GCStatsParser().parsePlg<PlgGame>(it) }
+                if (g != null) {
+                    for (plgPlayer in g.data.home + g.data.away) {
+//                        Log.d(
+//                            "Debug",
+//                            "${plgPlayer.name_alt} pts:${plgPlayer.points.toFloatOrNull()} id:${plgPlayer.player_id}"
+//                        )
+                        var stat = PlayerStats(
+                            points = plgPlayer.points.toFloatOrNull() ?: 0F,
+                            rebounds = plgPlayer.reb.toFloatOrNull() ?: 0F,
+                            assists = plgPlayer.ast.toFloatOrNull() ?: 0F,
+
+                            fieldGoalMade = plgPlayer.two_m.toFloatOrNull() ?: 0F,
+                            fieldGoalAttempt = plgPlayer.two_a.toFloatOrNull() ?: 0F,
+
+                            twoPointMade = plgPlayer.two_m.toFloatOrNull() ?: 0F,
+                            twoPointAttempt = plgPlayer.two_a.toFloatOrNull() ?: 0F,
+
+                            threePointMade = plgPlayer.trey_m.toFloatOrNull() ?: 0F,
+                            threePointAttempt = plgPlayer.trey_a.toFloatOrNull() ?: 0F,
+
+                            freeThrowMade = plgPlayer.ft_m.toFloatOrNull() ?: 0F,
+                            freeThrowAttempt = plgPlayer.ft_a.toFloatOrNull() ?: 0F,
+
+                            offensiveRebounds = plgPlayer.reb_o.toFloatOrNull() ?: 0F,
+                            defensiveRebounds = plgPlayer.reb_d.toFloatOrNull() ?: 0F,
+                            steals = plgPlayer.stl.toFloatOrNull() ?: 0F,
+                            blocks = plgPlayer.blk.toFloatOrNull() ?: 0F,
+                            turnovers = plgPlayer.turnover.toFloatOrNull() ?: 0F,
+                            personalFouls = plgPlayer.pfoul.toFloatOrNull() ?: 0F,
+
+                            effFieldGoalPercentage = plgPlayer.eff.toFloatOrNull() ?: 0F,
+                        )
+//                        stat.field =  stats
+//                        stat.twoPointPercentage = plgPlayer.two_m.toFloatOrNull()?: 0F / plgPlayer.two_a.toFloatOrNull(),
+//                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),
+//                        stat.freeThrowPercentage = plgPlayer.ft_m.toFloatOrNull()?: 0F / plgPlayer.ft_a.toFloatOrNull(),
+                        if (plgPlayer in g.data.home) {
+                            gameData.hostPlayerStats[PlayerID(plgPlayer.player_id.toInt())] = stat
+                        } else {
+                            gameData.guestPlayerStats[PlayerID(plgPlayer.player_id.toInt())] = stat
+                        }
+                    }
+                }
+                runOnUiThread {
+//                    updateGameCardView()
+                }
+            }
+        }
+    }
 
     private lateinit var guestTeam: Team
     private lateinit var hostTeam: Team
@@ -30,7 +90,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         val gameID = intent.getParcelableExtra<GameID>("SELECTED_GAME")!!
-        val gameData = getGameById(gameID)
+        gameData = getGameById(gameID)!!
         guestTeam = getTeamById(gameData?.guestTeam)!!
         hostTeam = getTeamById(gameData?.hostTeam)!!
 
@@ -90,6 +150,30 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("SELECTED_TEAM", team.teamId)
             startActivity(intent)
         }
+
+        // Network call section starts
+        val myBuilder = CronetEngine.Builder(this)
+        val cronetEngine: CronetEngine = myBuilder.build()
+        val executor: Executor = Executors.newSingleThreadExecutor()
+
+//        https://pleagueofficial.com/api/boxscore.php?id=140&away_tab=total&home_tab=total
+        val api = Api.url(
+            "boxscore.php", mapOf(
+                "id" to gameData.gameId.ID.toString(),
+                "away_tab" to "total",
+                "home_tab" to "total",
+            ),
+            source = "PLG"
+        )
+//        Log.wtf("Debug", "s: $api")
+        val requestBuilder =
+            cronetEngine.newUrlRequestBuilder(
+                api,
+                urlRequestCallback,
+                executor
+            )
+        val request: UrlRequest = requestBuilder.build()
+        request.start()
     }
 
     inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game) :
