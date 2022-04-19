@@ -93,9 +93,13 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         if (game.status == GameStatus.END) {
             holder.win_lose.text = if (game.winner == myteam.teamId) "W" else "L"
             holder.score.text =
-                game.guestStats.data["points"]!!.toInt().toString() +
-                        " : " +
-                        game.hostStats.data["points"]!!.toInt().toString()
+                if (game.guestStats.data["points"] != null && game.hostStats.data["points"] != null) {
+                    game.guestStats.data["points"]!!.toInt().toString() +
+                            " : " +
+                            game.hostStats.data["points"]!!.toInt().toString()
+                } else {
+                    ""
+                }
         } else {
 //            holder.win_lose.text = SimpleDateFormat("MM/DD HH:mm").format(game.date)
         }

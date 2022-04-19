@@ -29,7 +29,7 @@ class TeamPageScheduleFragment(private val teamID: TeamID) : Fragment() {
 
         val team = getTeamById(teamID)
         if (team != null)
-            schedule_recycler.adapter = ScheduleAdapter(team, team.getGameList())
+            schedule_recycler.adapter = ScheduleAdapter(team, team.getGameList().sortedBy { it.date })
         else
             schedule_recycler.adapter = ScheduleAdapter(Team(TeamID(-1)), arrayListOf<Game>())
         schedule_recycler.layoutManager = LinearLayoutManager(context)
