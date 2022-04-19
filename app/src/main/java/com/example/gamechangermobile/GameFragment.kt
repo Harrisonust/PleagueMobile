@@ -35,7 +35,9 @@ class GameFragment() : Fragment() {
         return object : UrlRequestCallback.OnFinishRequest {
             @RequiresApi(Build.VERSION_CODES.N)
             override fun onFinishRequest(result: String?) {
-                val doc = Jsoup.connect("https://pleagueofficial.com/schedule-regular-season/2021-22").get()
+                val doc =
+                    Jsoup.connect("https://pleagueofficial.com/schedule-regular-season/2021-22")
+                        .get()
                 doc.select("div.col-lg-12.col-12")
                     .parallelStream()
                     .filter { it != null }
@@ -54,7 +56,7 @@ class GameFragment() : Fragment() {
                         val hostScore = parsed?.groups?.get(10)?.value
                         val host = parsed?.groups?.get(12)?.value
                         var game = Game(
-                            gameId = GameID(id!!.toInt()),
+                            gameId = GameID(id!!.toInt() + 72),
                             date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("2022-$month-${date}T${time}:00Z"),
                             guestTeam = getTeamIdByName(guest!!),
                             hostTeam = getTeamIdByName(host!!),
@@ -62,7 +64,7 @@ class GameFragment() : Fragment() {
                             hostScore = hostScore!!.toInt(),
                         )
                         val today = Date()
-                        if(today.compareTo(game.date) > 0)
+                        if (today.compareTo(game.date) > 0)
                             game.status = GameStatus.END
                         else
                             game.status = GameStatus.NOT_YET_START

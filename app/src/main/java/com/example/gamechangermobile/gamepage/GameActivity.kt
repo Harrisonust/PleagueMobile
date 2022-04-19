@@ -17,6 +17,7 @@ import com.example.gamechangermobile.network.UrlRequestCallback
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.fragment_game.*
+import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
 import java.util.concurrent.Executor
@@ -74,6 +75,14 @@ class GameActivity : AppCompatActivity() {
                         } else {
                             gameData.guestPlayerStats[PlayerID(plgPlayer.player_id.toInt())] = stat
                         }
+                        getPlayerById(PlayerID(plgPlayer.player_id.toInt()))?.stats?.set(
+                            gameData.gameId,
+                            stat
+                        )
+//                        Log.d(
+//                            "Debug",
+//                            "s: ${plgPlayer.name_alt} ${stat.data["points"]} ${stat.data["rebounds"]} ${stat.data["assists"]}"
+//                        )
                     }
                 }
                 runOnUiThread {
