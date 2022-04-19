@@ -10,15 +10,11 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.games
-import com.example.gamechangermobile.database.GCGame
-import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.database.PlgGame
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import kotlinx.android.synthetic.main.activity_game.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executor
@@ -40,8 +36,6 @@ class GameFragment() : Fragment() {
             @RequiresApi(Build.VERSION_CODES.N)
             override fun onFinishRequest(result: String?) {
                 val doc = Jsoup.connect("https://pleagueofficial.com/schedule-regular-season/2021-22").get()
-                var games = mutableListOf<Game>()
-                var textList = mutableListOf<String>()
                 doc.select("div.col-lg-12.col-12")
                     .parallelStream()
                     .filter { it != null }
@@ -59,16 +53,20 @@ class GameFragment() : Fragment() {
                         val audience = parsed?.groups?.get(9)?.value
                         val hostScore = parsed?.groups?.get(10)?.value
                         val host = parsed?.groups?.get(12)?.value
-                        val game = Game(
+                        var game = Game(
                             gameId = GameID(id!!.toInt()),
                             date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("2022-$month-${date}T${time}:00Z"),
                             guestTeam = getTeamIdByName(guest!!),
                             hostTeam = getTeamIdByName(host!!),
                             guestScore = guestScore!!.toInt(),
                             hostScore = hostScore!!.toInt(),
-                            status = GameStatus.END
                         )
-                        MainActivity.games.add(game)
+                        val today = Date()
+                        if(today.compareTo(game.date) > 0)
+                            game.status = GameStatus.END
+                        else
+                            game.status = GameStatus.NOT_YET_START
+                        games.add(game)
                         getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
                         getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
                     }

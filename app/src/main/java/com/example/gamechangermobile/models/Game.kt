@@ -14,7 +14,7 @@ data class Game(
     val date: Date = Date(),
     val guestPlayerStats: MutableMap<PlayerID, PlayerStats> = mutableMapOf(),
     val hostPlayerStats: MutableMap<PlayerID, PlayerStats> = mutableMapOf(),
-    val status: GameStatus = GameStatus.NO_STATUS,
+    var status: GameStatus = GameStatus.NO_STATUS,
     val quarter: String = "",
     val remainingTime: String = "",
     val highlightPhoto: Int = R.drawable.ic_baseline_sports_basketball_24,
