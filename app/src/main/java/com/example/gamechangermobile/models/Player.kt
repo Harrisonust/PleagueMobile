@@ -2,7 +2,6 @@ package com.example.gamechangermobile.models
 
 import android.os.Parcelable
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.Utils.sha256
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -70,7 +69,7 @@ class Player(
     }
 }
 
-fun getAllPlayer(): Set<PlayerID> {
+fun getAllPlayer(): MutableSet<PlayerID> {
     val playerList = mutableSetOf<PlayerID>()
     val allTeamIDList = getAllTeam()
     for (teamId in allTeamIDList) {

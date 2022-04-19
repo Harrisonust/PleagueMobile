@@ -36,7 +36,7 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
             val intent = Intent(view.context, GameActivity::class.java).apply {
-                putExtra("SELECTED_GAME", gameList[viewHolder.adapterPosition])
+                putExtra("SELECTED_GAME", gameList[viewHolder.adapterPosition].gameId)
             }
             view.context.startActivity(intent)
         }

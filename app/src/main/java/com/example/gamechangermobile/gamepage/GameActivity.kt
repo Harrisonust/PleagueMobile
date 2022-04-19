@@ -23,14 +23,14 @@ import java.util.concurrent.Executors
 
 class GameActivity : AppCompatActivity() {
 
-    private lateinit var gameData: Game
     private lateinit var guestTeam: Team
     private lateinit var hostTeam: Team
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        gameData = intent.getParcelableExtra<Game>("SELECTED_GAME")!!
+        val gameID = intent.getParcelableExtra<GameID>("SELECTED_GAME")!!
+        val gameData = getGameById(gameID)
         guestTeam = getTeamById(gameData?.guestTeam)!!
         hostTeam = getTeamById(gameData?.hostTeam)!!
 
@@ -81,13 +81,13 @@ class GameActivity : AppCompatActivity() {
         game_page_header_host_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
             val team = hostTeam
-            intent.putExtra("SELECTED_TEAM", team)
+            intent.putExtra("SELECTED_TEAM", team.teamId)
             startActivity(intent)
         }
         game_page_header_guest_icon.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
             val team = guestTeam
-            intent.putExtra("SELECTED_TEAM", team)
+            intent.putExtra("SELECTED_TEAM", team.teamId)
             startActivity(intent)
         }
     }

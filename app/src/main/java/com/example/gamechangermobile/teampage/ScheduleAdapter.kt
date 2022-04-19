@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
@@ -37,7 +38,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
                 if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
                 else getTeamById(game.guestTeam)
             val intent = Intent(parent.context, TeamActivity::class.java)
-            intent.putExtra("SELECTED_TEAM", opponent)
+            intent.putExtra("SELECTED_TEAM", opponent?.teamId)
             parent.context.startActivity(intent)
         }
 
@@ -45,7 +46,10 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
             val position = viewHolder.adapterPosition
             val game = getGameById(gameScheduleList[position].gameId)
             val intent = Intent(parent.context, GameActivity::class.java)
-            intent.putExtra("SELECTED_GAME", game)
+            if (game != null)
+                intent.putExtra("SELECTED_GAME", game.gameId)
+            else
+                Toast.makeText(parent.context, "Game not found", Toast.LENGTH_SHORT).show()
             parent.context.startActivity(intent)
         }
 

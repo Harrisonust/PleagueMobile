@@ -2,7 +2,6 @@ package com.example.gamechangermobile.models
 
 import android.os.Parcelable
 import com.example.gamechangermobile.MainActivity
-import com.example.gamechangermobile.Utils.sha256
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

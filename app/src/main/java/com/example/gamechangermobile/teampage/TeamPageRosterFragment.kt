@@ -11,7 +11,7 @@ import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.views.DynamicTable
 
 
-class TeamPageRosterFragment(val team: Team) : Fragment() {
+class TeamPageRosterFragment(private val teamID: TeamID) : Fragment() {
     private var fakeRosterList = ArrayList<Player>()
 
     override fun onCreateView(
@@ -21,12 +21,13 @@ class TeamPageRosterFragment(val team: Team) : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_team_page_roster, container, false)
         val players: MutableMap<Player, PlayerStats> = mutableMapOf()
-
-        for (playerID in team.playerList) {
-            val player = getPlayerById(playerID)
-            if (player != null)
-                players[player] = player.averageStat
-        }
+        val team = getTeamById(teamID)
+        if (team != null)
+            for (playerID in team.playerList) {
+                val player = getPlayerById(playerID)
+                if (player != null)
+                    players[player] = player.averageStat
+            }
 
 //        view.team_page_roster_recycler.apply {
 //            layoutManager = LinearLayoutManager(activity)

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.database.GCPlayerInfoWithFullBox
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
@@ -28,7 +29,7 @@ class GamePageBoxScoreFragmentHostTab(val game: Game) : Fragment() {
             override fun onFinishRequest(result: String?) {
                 Log.d("Debug","Host Start Parsing ${result}")
                 var playerStatsList =
-                    result?.let { GCStatsParser().parsePlayersInfoWithFullBox(it) }
+                    result?.let { GCStatsParser().parse<GCPlayerInfoWithFullBox>(it) }
                 Log.d("Debug","Host Finish Parsing")
                 if (playerStatsList != null) {
                     for (player in playerStatsList) {
@@ -66,7 +67,6 @@ class GamePageBoxScoreFragmentHostTab(val game: Game) : Fragment() {
                             "Debug",
                             "$$ Name: ${player.info.player_name} points: ${player.box[0].pts}"
                         )
-
                         game.hostPlayerStats[PlayerID(player.info.id)] = stat
                     }
                 }
