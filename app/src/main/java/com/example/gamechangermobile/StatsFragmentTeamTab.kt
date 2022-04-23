@@ -22,35 +22,6 @@ import java.util.concurrent.Executors
 
 // TODO move the networking to main activity
 class StatsFragmentTeamTab() : Fragment() {
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-
-                var teamList = result?.let { GCStatsParser().parse<GCTeam>(it) }
-
-                if (teamList != null) {
-                    for (gcteam in teamList) {
-                        val team = getTeamById(TeamID(gcteam.info.id))
-                        team?.totalRecord = Record(gcteam.info.win_count, gcteam.info.lose_count)
-                        val strk = gcteam.info.winning_streak.toString()
-                        team?.streak = if (strk.toInt() > 0) "W$strk" else "L${strk.toInt() * -1}"
-
-                        var rank = gcteam.ranking.team.ranking.toString()
-                        rank += if (rank == "1") "st" else if (rank == "2") "nd" else "rd"
-                        team?.ranking = rank
-                    }
-                }
-
-                activity?.runOnUiThread {
-
-                }
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,25 +29,6 @@ class StatsFragmentTeamTab() : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_stats_team_tab, container, false)
-
-        val myBuilder = CronetEngine.Builder(context)
-        val cronetEngine: CronetEngine = myBuilder.build()
-        val executor: Executor = Executors.newSingleThreadExecutor()
-
-//        /api/team_season_data/?season_id=4&part=info,ranking
-        val requestBuilder =
-            cronetEngine.newUrlRequestBuilder(
-                Api.url(
-                    "team_season_data", mapOf(
-                        "season_id" to "4",
-                        "part" to "info,ranking"
-                    ), source = "GC"
-                ),
-                urlRequestCallback,
-                executor
-            )
-        val request: UrlRequest = requestBuilder.build()
-        request.start()
 
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         val headers = listOf("W", "L", "WIN%", "GB", "HOME", "ROAD", "LAST 10", "STREAK")
