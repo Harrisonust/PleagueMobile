@@ -2,9 +2,7 @@ package com.example.gamechangermobile.playerpage
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.database.GCGame
 import com.example.gamechangermobile.database.GCStatsParser
@@ -19,7 +17,7 @@ import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class PlayerViewModel(application: Application) : AndroidViewModel(application) {
+class PlayerViewModel(application: Application, playerGCID: Int) : AndroidViewModel(application) {
     private val context = application
     private val urlRequestCallback = UrlRequestCallback(networkRequestCallbackFunc())
 
@@ -31,6 +29,7 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
             context,
             "game_data",
             mapOf("season_id" to "4"),
+            "GC",
             urlRequestCallback
         )
     }
