@@ -8,19 +8,19 @@ import java.util.concurrent.Executors
 
 class Network {
     companion object {
-        fun loadData(context: Context, path: String, queryParams: Map<String, String>, urlRequestCallback: UrlRequestCallback) {
+        fun loadData(context: Context, path: String, queryParams: Map<String, String>, source: String, urlRequestCallback: UrlRequestCallback) {
             val myBuilder = CronetEngine.Builder(context)
             val cronetEngine: CronetEngine = myBuilder.build()
             val executor: Executor = Executors.newSingleThreadExecutor()
 
-//            val requestBuilder =
-//                cronetEngine.newUrlRequestBuilder(
-//                    Api.url(path, queryParams),
-//                    urlRequestCallback,
-//                    executor
-//                )
-//            val request: UrlRequest = requestBuilder.build()
-//            request.start()
+            val requestBuilder =
+                cronetEngine.newUrlRequestBuilder(
+                    Api.url(path, queryParams, source),
+                    urlRequestCallback,
+                    executor
+                )
+            val request: UrlRequest = requestBuilder.build()
+            request.start()
         }
     }
 
