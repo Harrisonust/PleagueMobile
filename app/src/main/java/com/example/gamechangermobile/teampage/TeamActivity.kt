@@ -3,9 +3,11 @@ package com.example.gamechangermobile
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.viewModels
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
@@ -68,25 +70,30 @@ class TeamActivity : AppCompatActivity() {
 
         } else {
             // Network call section starts
-            val myBuilder = CronetEngine.Builder(this)
-            val cronetEngine: CronetEngine = myBuilder.build()
-            val executor: Executor = Executors.newSingleThreadExecutor()
-
-            val requestBuilder =
-                cronetEngine.newUrlRequestBuilder(
-                    Api.url(
-                        "team_season_data", mapOf(
-                            "season_id" to "4",
-                            "part" to "info,ranking",
-                            "team_id" to teamData.teamId.ID.toString()
-                        )
-                    ),
-                    urlRequestCallback,
-                    executor
-                )
-
-            val request: UrlRequest = requestBuilder.build()
-            request.start()
+//            val myBuilder = CronetEngine.Builder(this)
+//            val cronetEngine: CronetEngine = myBuilder.build()
+//            val executor: Executor = Executors.newSingleThreadExecutor()
+//            Log.d("DEBUG", "${teamData.teamId.ID} $teamID")
+//            val requestBuilder =
+//                cronetEngine.newUrlRequestBuilder(
+//                    Api.url(
+//                        "team_season_data", mapOf(
+//                            "season_id" to "4",
+//                            "part" to "info,ranking",
+////                            "team_id" to teamData.teamId.ID.toString()
+//                            "team_id" to teamID?.ID.toString()
+//                        )
+//                    ),
+//                    urlRequestCallback,
+//                    executor
+//                )
+//
+//            val request: UrlRequest = requestBuilder.build()
+//            request.start()
+            val model: TeamViewModel by viewModels{ TeamViewModel.Factory(application, teamID!!) }
+            model.getGameStatus().observe(this,  {
+                Log.d("DEBUG", "QWERTDNDN>FJ")
+            })
         }
 
         // start rendering ui

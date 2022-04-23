@@ -29,40 +29,6 @@ import java.util.EnumSet.of
 
 class GameFragment() : Fragment() {
     private var selectedDate: Date = Date()
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-
-                var GCGameList = result?.let { GCStatsParser().parse<GCGame>(it) }
-
-                if (GCGameList != null) {
-                    for (gcGameData in GCGameList) {
-                        val date: Date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(gcGameData.date)
-                        val game = Game(
-                            gameId = GameID(gcGameData.id),
-                            guestTeam = getTeamIdByName(gcGameData.away_team_name),
-                            hostTeam = getTeamIdByName(gcGameData.home_team_name),
-                            date = date,
-                            guestScore = gcGameData.away_team_score,
-                            hostScore = gcGameData.home_team_score,
-                            status = GameStatus.END
-                        )
-                        games.add(game)
-                        getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
-                        getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
-                    }
-                }
-
-                activity?.runOnUiThread {
-                    updateGameCardView()
-                }
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
