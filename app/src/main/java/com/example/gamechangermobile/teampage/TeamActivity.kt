@@ -40,9 +40,9 @@ class TeamActivity : AppCompatActivity() {
                     team?.totalRecord?.wins = data.info.win_count
                     team?.totalRecord?.loses = data.info.lose_count
                     team?.streak = data.info.winning_streak.toString()
-                    team?.ranking = data.ranking.team.ranking.toString()
+                    team?.ranking = data.ranking.team?.ranking.toString()
 
-                    ranking = data.ranking.team.ranking.toString()
+                    ranking = data.ranking.team?.ranking.toString()
                     ranking += if (ranking == "1") "st"
                     else if (ranking == "2") "nd"
                     else "th"

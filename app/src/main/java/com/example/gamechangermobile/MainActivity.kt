@@ -133,7 +133,8 @@ class MainActivity : AppCompatActivity() {
     inner class FetchGamesTask : AsyncTask<Unit, Int, Boolean>() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
-            val doc = Jsoup.connect("https://pleagueofficial.com/schedule-regular-season/2021-22").get()
+            val doc =
+                Jsoup.connect("https://pleagueofficial.com/schedule-regular-season/2021-22").get()
             doc.select("div.col-lg-12.col-12")
                 .parallelStream()
                 .filter { it != null }
@@ -185,8 +186,7 @@ class MainActivity : AppCompatActivity() {
     private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
-
-                var teamList = result?.let { GCStatsParser().parse<GCTeam>(it) }
+                var teamList: List<GCTeam>? = result?.let { GCStatsParser().parse<GCTeam>(it) }
                 if (teamList != null) {
                     for (gcteam in teamList) {
                         val team = getTeamById(TeamID(gcteam.info.id))
@@ -195,9 +195,10 @@ class MainActivity : AppCompatActivity() {
                         val strk = gcteam.info.winning_streak.toString()
                         team?.streak = if (strk.toInt() > 0) "W$strk" else "L${strk.toInt() * -1}"
 
-                        var rank = gcteam.ranking.team.ranking.toString()
-                        rank += if (rank == "1") "st" else if (rank == "2") "nd" else "rd"
+                        var rank = gcteam.ranking.team?.ranking.toString()
+                        rank += if (rank == "1") "st" else if (rank == "2") "nd" else if (rank == "3") "rd" else "th"
                         team?.ranking = rank
+//                        Log.d("Debug", "team: ${team?.name} ${team?.ranking}")
                     }
                 }
             }
@@ -211,14 +212,15 @@ class MainActivity : AppCompatActivity() {
             val executor: Executor = Executors.newSingleThreadExecutor()
 
 //        /api/team_season_data/?season_id=4&part=info,ranking
+            val api = Api.url(
+                "team_season_data", mapOf(
+                    "season_id" to "4",
+                    "part" to "info,ranking"
+                ), source = "GC"
+            )
             val requestBuilder =
                 cronetEngine.newUrlRequestBuilder(
-                    Api.url(
-                        "team_season_data", mapOf(
-                            "season_id" to "4",
-                            "part" to "info,ranking"
-                        ), source = "GC"
-                    ),
+                    api,
                     urlRequestCallback,
                     executor
                 )
