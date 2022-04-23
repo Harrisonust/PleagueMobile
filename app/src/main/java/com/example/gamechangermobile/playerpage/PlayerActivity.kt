@@ -3,6 +3,8 @@ package com.example.gamechangermobile.playerpage
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -23,6 +25,14 @@ class PlayerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_player)
         val playerID = intent.getParcelableExtra<PlayerID>("SELECTED_PLAYER")
         val player = playerID?.let { getPlayerById(it) }
+
+//        val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(application,
+//            player?.GCID!!
+//        ) }
+
+        val model: PlayerViewModel by viewModels()
+
+
 
         player_page_profile_pic.setImageResource(
             player?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
