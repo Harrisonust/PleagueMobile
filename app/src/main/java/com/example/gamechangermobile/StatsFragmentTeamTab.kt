@@ -35,11 +35,15 @@ class StatsFragmentTeamTab() : Fragment() {
         val teams = mutableMapOf<Team, List<String>>()
         for (team in MainActivity.teams.sortedBy { it.ranking }) {
             val stats = mutableListOf<String>()
-            stats.add(team.totalRecord.wins.toInt().toString())
-            stats.add(team.totalRecord.loses.toInt().toString())
-            if (team.totalRecord.wins + team.totalRecord.loses != 0)
-                stats.add((team.totalRecord.wins / (team.totalRecord.wins + team.totalRecord.loses)).toString())
-            stats.add("0")
+            stats.add(team.totalRecord.wins.toString())
+            stats.add(team.totalRecord.loses.toString())
+            if (team.totalRecord.wins + team.totalRecord.loses != 0) {
+                val WR: Float =
+                    100.0F * team.totalRecord.wins / (team.totalRecord.wins + team.totalRecord.loses)
+                stats.add(String.format("%2.2f", WR) + "%")
+            } else
+                stats.add("NA")
+            stats.add(team.gamesBack)
             stats.add(team.homeRecord.getRecord())
             stats.add(team.awayRecord.getRecord())
             stats.add(team.last10.getRecord())

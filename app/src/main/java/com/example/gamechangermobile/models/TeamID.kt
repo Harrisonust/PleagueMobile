@@ -60,18 +60,18 @@ fun getTeamIdByName(name: TeamName): TeamID =
 
 fun getTeamIdByName(name: String): TeamID =
     when (name) {
-        "台北富邦勇士" -> TeamID(19)
-        "Taipei Fubon Braves" -> TeamID(19)
-        "新北國王" -> TeamID(23)
-        "New Taipei Kings" -> TeamID(23)
-        "桃園領航猿" -> TeamID(20)
-        "Taoyuan Pilots" -> TeamID(20)
-        "新竹街口攻城獅" -> TeamID(22)
-        "Hsinchu Jko Lioneers" -> TeamID(22)
-        "福爾摩沙台新夢想家" -> TeamID(21)
-        "Formosa Taishin Dreamers" -> TeamID(21)
-        "高雄鋼鐵人" -> TeamID(24)
-        "Kaohsiung Steelers" -> TeamID(24)
+        in "台北富邦勇士" -> TeamID(19)
+        in "Taipei Fubon Braves" -> TeamID(19)
+        in "新北國王" -> TeamID(23)
+        in "New Taipei Kings" -> TeamID(23)
+        in "桃園領航猿" -> TeamID(20)
+        in "Taoyuan Pilots" -> TeamID(20)
+        in "新竹街口攻城獅" -> TeamID(22)
+        in "Hsinchu Jko Lioneers" -> TeamID(22)
+        in "福爾摩沙台新夢想家" -> TeamID(21)
+        in "Formosa Taishin Dreamers" -> TeamID(21)
+        in "高雄鋼鐵人" -> TeamID(24)
+        in "Kaohsiung Steelers" -> TeamID(24)
         else -> TeamID(-1)
     }
 

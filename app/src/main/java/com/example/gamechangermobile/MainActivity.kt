@@ -179,53 +179,42 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
+    inner class FetchTeamRankingTask : AsyncTask<Unit, Int, Boolean>() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+            val doc =
+                Jsoup.connect("https://pleagueofficial.com/standings/2021-22").get()
+            doc.select("tr.bg-gray.text-light.text-center")
+                .parallelStream()
+                .filter { it != null }
+                .forEach {
+                    println(it.text())
+                    val regex =
+                        "^([0-9]) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
+                    val parsed = regex.find(it.text())
+                    var ranking= parsed?.groups?.get(1)?.value
+                    val teamName= parsed?.groups?.get(2)?.value
+                    val total= parsed?.groups?.get(9)?.value
+                    val win= parsed?.groups?.get(10)?.value
+                    val lose= parsed?.groups?.get(11)?.value
+                    val gb= parsed?.groups?.get(13)?.value
+                    val streakL= parsed?.groups?.get(14)?.value
+                    val streakN= parsed?.groups?.get(15)?.value
 
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-                var teamList: List<GCTeam>? = result?.let { GCStatsParser().parse<GCTeam>(it) }
-                if (teamList != null) {
-                    for (gcteam in teamList) {
-                        val team = getTeamById(TeamID(gcteam.info.id))
-                        team?.totalRecord = Record(gcteam.info.win_count, gcteam.info.lose_count)
+                    val teamID = teamName?.let { it1 -> getTeamIdByName(it1) }
+                    val team = getTeamById(teamID)
 
-                        val strk = gcteam.info.winning_streak.toString()
-                        team?.streak = if (strk.toInt() > 0) "W$strk" else "L${strk.toInt() * -1}"
+                    ranking += if (ranking == "1") "st" else if (ranking == "2") "nd" else if (ranking == "3") "rd" else "th"
+                    team?.ranking = ranking!!
 
-                        var rank = gcteam.ranking.team?.ranking.toString()
-                        rank += if (rank == "1") "st" else if (rank == "2") "nd" else if (rank == "3") "rd" else "th"
-                        team?.ranking = rank
-//                        Log.d("Debug", "team: ${team?.name} ${team?.ranking}")
-                    }
+                    team?.totalRecord = Record(win!!.toInt(), lose!!.toInt())
+                    team?.streak = streakL!!+streakN!!
+
+                    team?.gamesBack = gb!!
                 }
-            }
-        }
-    }
-
-    inner class FetchTeamRankingTask {
-        fun execute() {
-            val myBuilder = CronetEngine.Builder(this@MainActivity)
-            val cronetEngine: CronetEngine = myBuilder.build()
-            val executor: Executor = Executors.newSingleThreadExecutor()
-
-//        /api/team_season_data/?season_id=4&part=info,ranking
-            val api = Api.url(
-                "team_season_data", mapOf(
-                    "season_id" to "4",
-                    "part" to "info,ranking"
-                ), source = "GC"
-            )
-            val requestBuilder =
-                cronetEngine.newUrlRequestBuilder(
-                    api,
-                    urlRequestCallback,
-                    executor
-                )
-            val request: UrlRequest = requestBuilder.build()
-            request.start()
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 }
