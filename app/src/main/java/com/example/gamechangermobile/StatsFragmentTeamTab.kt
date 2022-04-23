@@ -20,6 +20,7 @@ import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
+// TODO move the networking to main activity
 class StatsFragmentTeamTab() : Fragment() {
     private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
         networkRequestCallbackFunc()

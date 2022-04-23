@@ -1,89 +1,31 @@
 package com.example.gamechangermobile
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.database.GCPlayerInfoWithBox
 import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
+import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
+import org.jsoup.Jsoup
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
 
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-                var GCPlayerList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
-
-                if (GCPlayerList != null) {
-                    for (gcplayer in GCPlayerList) {
-                        var stat = mutableMapOf<String, Float>()
-                        stat["points"] = gcplayer.box.avg_pts
-                        stat["rebounds"] = gcplayer.box.avg_reb
-                        stat["assists"] = gcplayer.box.avg_ast
-
-                        stat["fieldGoalMade"] = gcplayer.box.avg_fg_m
-                        stat["fieldGoalAttempt"] = gcplayer.box.avg_fg_a
-                        stat["fieldGoalPercentage"] = gcplayer.box.avg_fg_percent
-
-                        stat["twoPointMade"] = gcplayer.box.avg_two_pts_m
-                        stat["twoPointAttempt"] = gcplayer.box.avg_two_pts_a
-                        stat["twoPointPercentage"] = gcplayer.box.avg_two_pts_percent
-
-                        stat["threePointMade"] = gcplayer.box.avg_three_pts_m
-                        stat["threePointAttempt"] = gcplayer.box.avg_three_pts_a
-                        stat["threePointPercentage"] = gcplayer.box.avg_three_pts_percent
-
-                        stat["freeThrow"] = gcplayer.box.avg_ft_m
-                        stat["freeThrowAttempt"] = gcplayer.box.avg_ft_a
-                        stat["freeThrowPercentage"] = gcplayer.box.avg_ft_percent
-
-                        stat["offensiveRebounds"] = gcplayer.box.avg_off_reb
-                        stat["defensiveRebounds"] = gcplayer.box.avg_def_reb
-                        stat["steals"] = gcplayer.box.avg_stl
-                        stat["blocks"] = gcplayer.box.avg_blk
-                        stat["turnovers"] = gcplayer.box.avg_to
-                        stat["personalFouls"] = gcplayer.box.avg_pf
-                        stat["effFieldGoalPercentage"] = gcplayer.box.eff.toFloat()
-
-                        var player = Player(
-                            playerID = PlayerID(gcplayer.info.id),
-                            firstName = gcplayer.info.name,
-                            lastName = "",
-                            profilePic = R.drawable.ic_baseline_sports_basketball_24,
-                            averageStat = PlayerStats(data = stat),
-                            teamId = TeamID(gcplayer.info.team_id),
-                            age = 20,
-                            number = gcplayer.info.player_jersey_number.toString(),
-                            position = "N",
-                            isForeignPlayer = gcplayer.info.is_foreign_player
-                        )
-                        players.add(player)
-                        if (getTeamById(player.teamId) != null)
-                            getTeamById(player.teamId)?.playerList?.add(player.playerID)
-                        else {
-                            Log.d("Debug", "Fail to find team by id. ${player.fullName}")
-                        }
-                    }
-                }
-                runOnUiThread {
-//                    updateGameCardView()
-                }
-            }
-        }
-    }
-
+    //    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -92,26 +34,6 @@ class MainActivity : AppCompatActivity() {
         val statsFrag = StatsFragment()
         val userFrag = UserFragment()
         replaceFragment(gamesFrag)
-
-        // network request
-        val myBuilder = CronetEngine.Builder(this)
-        val cronetEngine: CronetEngine = myBuilder.build()
-        val executor: Executor = Executors.newSingleThreadExecutor()
-
-        val requestBuilder =
-            cronetEngine.newUrlRequestBuilder(
-                Api.url(
-                    "player_season_data", mapOf(
-                        "season_id" to "4",
-                        "part" to "info,box",
-                        "team_id" to "19,20,21,22,23,24"
-                    ), source = "GC"
-                ),
-                urlRequestCallback,
-                executor
-            )
-        val request: UrlRequest = requestBuilder.build()
-        request.start()
 
         // ui binding and rendering
         bottom_navigation.setOnNavigationItemSelectedListener {
@@ -132,6 +54,47 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        Thread {
+            val doc =
+                Jsoup.connect("https://pleagueofficial.com/schedule-regular-season/2021-22").get()
+            doc.select("div.col-lg-12.col-12")
+                .parallelStream()
+                .filter { it != null }
+                .forEach {
+                    val regex =
+                        "^([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (\\S+) (.*?) ([0-9]*?) [0-9]*? G([0-9][0-9]) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (\\S+) (.*?) 數據 售票 (.*? / .*?)\$".toRegex()
+                    val parsed = regex.find(it.text())
+                    val month = parsed?.groups?.get(1)?.value
+                    val date = parsed?.groups?.get(2)?.value
+                    val time = parsed?.groups?.get(3)?.value
+                    val guest = parsed?.groups?.get(5)?.value
+                    val guestScore = parsed?.groups?.get(6)?.value
+                    val id = parsed?.groups?.get(7)?.value
+                    val location = parsed?.groups?.get(8)?.value
+                    val audience = parsed?.groups?.get(9)?.value
+                    val hostScore = parsed?.groups?.get(10)?.value
+                    val host = parsed?.groups?.get(12)?.value
+                    var game = Game(
+                        gameId = GameID(id!!.toInt() + 72),
+                        date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("2022-$month-${date}T${time}:00Z"),
+                        guestTeam = getTeamIdByName(guest!!),
+                        hostTeam = getTeamIdByName(host!!),
+                        guestScore = guestScore!!.toInt(),
+                        hostScore = hostScore!!.toInt(),
+                    )
+                    val today = Date()
+                    if (today.compareTo(game.date) > 0)
+                        game.status = GameStatus.END
+                    else
+                        game.status = GameStatus.NOT_YET_START
+                    games.add(game)
+                    getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
+                    getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
+
+                }
+////                Only the original thread that created a view hierarchy can touch its views.
+//                gamesFrag.updateGameCardView()
+        }.start()
     }
 
     private fun replaceFragment(fragment: Fragment) {
