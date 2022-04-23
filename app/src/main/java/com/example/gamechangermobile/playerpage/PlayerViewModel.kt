@@ -17,7 +17,7 @@ import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class PlayerViewModel(application: Application) : AndroidViewModel(application) {
+class PlayerViewModel(application: Application, playerGCID: Int) : AndroidViewModel(application) {
     private val context = application
     private val urlRequestCallback = UrlRequestCallback(networkRequestCallbackFunc())
 
@@ -32,11 +32,11 @@ class PlayerViewModel(application: Application) : AndroidViewModel(application) 
             "GC",
             urlRequestCallback
         )
-        Log.d("DEBUG", "YOU ARE HERE!!!!!! AHHHHH")
+        Log.d("DEBUG", "HIHIHIHIYOU ARE HERE!!!!!! AHHHHH $playerGCID")
     }
 
-    fun test(): String {
-        return "HIHIHIHI"
+    fun test() {
+        Log.d("DEBUG", "HIHIHIHIHIHIHI!!!!! askdlfja;sd")
     }
 
     fun getGames(): LiveData<MutableSet<Game>> {

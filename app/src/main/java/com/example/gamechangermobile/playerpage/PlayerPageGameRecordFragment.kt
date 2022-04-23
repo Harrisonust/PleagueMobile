@@ -1,10 +1,14 @@
 package com.example.gamechangermobile.playerpage
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.views.DynamicTable
@@ -20,6 +24,10 @@ class PlayerPageGameRecordFragment(val player: Player) : Fragment() {
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         val gameList = player.stats
 //        val headers = listOf("對手","比分","主/客","時間","命中","出手","命中率","進攻","防守","籃板","助攻","失誤","抄截","阻攻","犯規","得分")
+        val model: PlayerViewModel by activityViewModels{ PlayerViewModelFactory(requireActivity().application,
+            0
+        ) }
+        
 
         dynamicTable.renderPlayerGameTable(
             gameList,

@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
@@ -26,12 +27,13 @@ class PlayerActivity : AppCompatActivity() {
         val playerID = intent.getParcelableExtra<PlayerID>("SELECTED_PLAYER")
         val player = playerID?.let { getPlayerById(it) }
 
-//        val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(application,
-//            player?.GCID!!
-//        ) }
+        val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(application,
+            0
+        ) }
 
-        val model: PlayerViewModel by viewModels()
-
+//        val model: PlayerViewModel by viewModels()
+        Log.d("DEBUG", "HIHIHIH!!!")
+//        Log.d("DEBUG", "HIHIHIH!!! ${model.test()}")
 
 
         player_page_profile_pic.setImageResource(
