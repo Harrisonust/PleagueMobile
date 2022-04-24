@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.gamechangermobile.MainActivity.Companion.teams
 import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
@@ -28,7 +29,7 @@ class StatsFragmentTeamTab() : Fragment() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var teamList = result?.let { GCStatsParser().parseTeamsData(it) }
+                var teamList = result?.let { GCStatsParser().parse<GCTeam>(it) }
 
                 if (teamList != null) {
                     for (gcteam in teamList) {

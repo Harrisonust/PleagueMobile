@@ -2,10 +2,12 @@ package com.example.gamechangermobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
@@ -30,7 +32,7 @@ class TeamActivity : AppCompatActivity() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var data = result?.let { GCStatsParser().parseTeamData(it) }
+                var data = result?.let { GCStatsParser().parse<GCTeam>(it) }?.get(0)
                 var ranking = "na"
 
                 if (data != null) {

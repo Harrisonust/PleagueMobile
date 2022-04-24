@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.games
+import com.example.gamechangermobile.database.GCGame
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
@@ -33,7 +34,7 @@ class GameFragment() : Fragment() {
         return object : UrlRequestCallback.OnFinishRequest {
             override fun onFinishRequest(result: String?) {
 
-                var GCGameList = result?.let { GCStatsParser().parseGameData(it) }
+                var GCGameList = result?.let { GCStatsParser().parse<GCGame>(it) }
 
                 if (GCGameList != null) {
                     for (gcGameData in GCGameList) {
