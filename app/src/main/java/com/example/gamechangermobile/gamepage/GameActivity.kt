@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.gamechangermobile.MainActivity.Companion.players
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.database.GCStatsParser
@@ -36,53 +37,55 @@ class GameActivity : AppCompatActivity() {
                 var g = result?.let { GCStatsParser().parsePlg<PlgGame>(it) }
                 if (g != null) {
                     for (plgPlayer in g.data.home + g.data.away) {
-//                        Log.d(
-//                            "Debug",
-//                            "${plgPlayer.name_alt} pts:${plgPlayer.points.toFloatOrNull()} id:${plgPlayer.player_id}"
-//                        )
+                        Log.d(
+                            "Debug",
+                            "#${plgPlayer.player_id} ${plgPlayer.name_alt} "
+                        )
+                        plgPlayer.player_id?.let {
+                            val player = Player(
+                                playerID = PlayerID(it.toInt()),
+                            )
+                            player.firstName = plgPlayer.name_alt.toString()
+                            player.number = plgPlayer.jersey.toString()
+                            player.position = plgPlayer.position.toString()
+                            players.add(player)
+                        }
                         var stat = PlayerStats(
-                            points = plgPlayer.points.toFloatOrNull() ?: 0F,
-                            rebounds = plgPlayer.reb.toFloatOrNull() ?: 0F,
-                            assists = plgPlayer.ast.toFloatOrNull() ?: 0F,
+                            points = plgPlayer.points?.toFloatOrNull() ?: 0F,
+                            rebounds = plgPlayer.reb?.toFloatOrNull() ?: 0F,
+                            assists = plgPlayer.ast?.toFloatOrNull() ?: 0F,
 
-                            fieldGoalMade = plgPlayer.two_m.toFloatOrNull() ?: 0F,
-                            fieldGoalAttempt = plgPlayer.two_a.toFloatOrNull() ?: 0F,
+                            fieldGoalMade = plgPlayer.two_m?.toFloatOrNull() ?: 0F,
+                            fieldGoalAttempt = plgPlayer.two_a?.toFloatOrNull() ?: 0F,
 
-                            twoPointMade = plgPlayer.two_m.toFloatOrNull() ?: 0F,
-                            twoPointAttempt = plgPlayer.two_a.toFloatOrNull() ?: 0F,
+                            twoPointMade = plgPlayer.two_m?.toFloatOrNull() ?: 0F,
+                            twoPointAttempt = plgPlayer.two_a?.toFloatOrNull() ?: 0F,
 
-                            threePointMade = plgPlayer.trey_m.toFloatOrNull() ?: 0F,
-                            threePointAttempt = plgPlayer.trey_a.toFloatOrNull() ?: 0F,
+                            threePointMade = plgPlayer.trey_m?.toFloatOrNull() ?: 0F,
+                            threePointAttempt = plgPlayer.trey_a?.toFloatOrNull() ?: 0F,
 
-                            freeThrowMade = plgPlayer.ft_m.toFloatOrNull() ?: 0F,
-                            freeThrowAttempt = plgPlayer.ft_a.toFloatOrNull() ?: 0F,
+                            freeThrowMade = plgPlayer.ft_m?.toFloatOrNull() ?: 0F,
+                            freeThrowAttempt = plgPlayer.ft_a?.toFloatOrNull() ?: 0F,
 
-                            offensiveRebounds = plgPlayer.reb_o.toFloatOrNull() ?: 0F,
-                            defensiveRebounds = plgPlayer.reb_d.toFloatOrNull() ?: 0F,
-                            steals = plgPlayer.stl.toFloatOrNull() ?: 0F,
-                            blocks = plgPlayer.blk.toFloatOrNull() ?: 0F,
-                            turnovers = plgPlayer.turnover.toFloatOrNull() ?: 0F,
-                            personalFouls = plgPlayer.pfoul.toFloatOrNull() ?: 0F,
+                            offensiveRebounds = plgPlayer.reb_o?.toFloatOrNull() ?: 0F,
+                            defensiveRebounds = plgPlayer.reb_d?.toFloatOrNull() ?: 0F,
+                            steals = plgPlayer.stl?.toFloatOrNull() ?: 0F,
+                            blocks = plgPlayer.blk?.toFloatOrNull() ?: 0F,
+                            turnovers = plgPlayer.turnover?.toFloatOrNull() ?: 0F,
+                            personalFouls = plgPlayer.pfoul?.toFloatOrNull() ?: 0F,
 
-                            effFieldGoalPercentage = plgPlayer.eff.toFloatOrNull() ?: 0F,
+                            effFieldGoalPercentage = plgPlayer.eff?.toFloatOrNull() ?: 0F,
                         )
 //                        stat.field =  stats
 //                        stat.twoPointPercentage = plgPlayer.two_m.toFloatOrNull()?: 0F / plgPlayer.two_a.toFloatOrNull(),
 //                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),
 //                        stat.freeThrowPercentage = plgPlayer.ft_m.toFloatOrNull()?: 0F / plgPlayer.ft_a.toFloatOrNull(),
                         if (plgPlayer in g.data.home) {
-                            gameData.hostPlayerStats[PlayerID(plgPlayer.player_id.toInt())] = stat
+                            gameData.hostPlayerStats[PlayerID(plgPlayer.player_id?.toInt() ?: -1)] = stat
                         } else {
-                            gameData.guestPlayerStats[PlayerID(plgPlayer.player_id.toInt())] = stat
+                            gameData.guestPlayerStats[PlayerID(plgPlayer.player_id?.toInt() ?: -1)] = stat
+
                         }
-//                        getPlayerById(PlayerID(plgPlayer.player_id.toInt()))?.stats?.set(
-//                            gameData.gameId,
-//                            stat
-//                        )
-//                        Log.d(
-//                            "Debug",
-//                            "s: ${plgPlayer.name_alt} ${stat.data["points"]} ${stat.data["rebounds"]} ${stat.data["assists"]}"
-//                        )
                     }
                 }
                 runOnUiThread {
