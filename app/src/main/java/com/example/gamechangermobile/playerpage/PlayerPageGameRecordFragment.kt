@@ -23,26 +23,29 @@ class PlayerPageGameRecordFragment(val player: Player) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_player_page_game_record, container, false)
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         val gameList = player.stats
-//        val headers = listOf("對手","比分","主/客","時間","命中","出手","命中率","進攻","防守","籃板","助攻","失誤","抄截","阻攻","犯規","得分")
+
 
         val playerViewModel: PlayerViewModel by activityViewModels { PlayerViewModelFactory(player.GCID) }
+        val headers = playerViewModel.gameRecordsHeaders
         playerViewModel.getGameRecords().observe(viewLifecycleOwner, {
-            for((key, value) in it.toSortedMap(reverseOrder())) {
-                Log.d("VIEWMODEL", key)
+//            for((key, value) in it.toSortedMap(reverseOrder())) {
+//                Log.d("VIEWMODEL", key)
+//            }
+            if (it.isNotEmpty()) {
+                dynamicTable.renderPlayerGameTable(
+                    headers,
+                    it.toSortedMap(reverseOrder()),
+                    90,
+                    300,
+                    "cell_view_header_longer",
+                    "player_data",
+                    "cell_view_column_game_date",
+                    "column_name",
+                    "cell_view_content_longer",
+                    "player_data"
+                )
             }
         })
-        dynamicTable.renderPlayerGameTable(
-            gameList,
-            90,
-            250,
-            "cell_view_header",
-            "player_data",
-            "cell_view_column_game_date",
-            "column_name",
-            "cell_view_content",
-            "player_data"
-        )
-
         return view
     }
 

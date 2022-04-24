@@ -239,7 +239,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
     }
 
     fun renderPlayerGameTable(
-        games: Map<GameID, PlayerStats>,
+        headers: List<String>,
+        games: Map<String, List<String>>,
         headerHeight: Int,
         columnWidth: Int,
         headerLayoutName: String,
@@ -271,31 +272,22 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         )
         fixedRelativeLayout?.addView(view)
 
+        // header
+        val tableRow = TableRow(context)
+        for (header in headers) {
+            renderCell(header, headerViewId, headerTextId, tableRow)
+        }
+        headerTableLayout?.addView(tableRow)
 
-        // header, column, content
-        var headerSet = false
-        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
-        for ((gameId, playerStats) in games) {
-            if (!headerSet) {
-                val tableRow = TableRow(context)
-                for ((statsName, _) in playerStats.data) {
-                    if (!ignoreFields.contains(statsName)) {
-                        Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }
-                    }
-                }
-                headerTableLayout?.addView(tableRow)
-                headerSet = true
-            }
-
+        // column, content
+        for ((game, stats) in games) {
             val columnTableRow = TableRow(context)
-            renderCell(SimpleDateFormat("yyyy/MM/DD").format(getGameById(gameId)?.date), columnViewId, columnTextId, columnTableRow)
+            renderCell(game, columnViewId, columnTextId, columnTableRow)
             columnTableLayout?.addView(columnTableRow)
 
             val contentTableRow = TableRow(context)
-            for ((statsName, stats) in playerStats.data) {
-                if (!ignoreFields.contains(statsName)) {
-                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
-                }
+            for (stat in stats) {
+                renderCell(stat, contentViewId, contentTextId, contentTableRow)
             }
             contentTableLayout?.addView(contentTableRow)
         }
