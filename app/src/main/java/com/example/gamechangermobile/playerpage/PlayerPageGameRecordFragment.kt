@@ -24,10 +24,6 @@ class PlayerPageGameRecordFragment(val player: Player) : Fragment() {
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         val gameList = player.stats
 //        val headers = listOf("對手","比分","主/客","時間","命中","出手","命中率","進攻","防守","籃板","助攻","失誤","抄截","阻攻","犯規","得分")
-        val model: PlayerViewModel by activityViewModels{ PlayerViewModelFactory(requireActivity().application,
-            0
-        ) }
-        
 
         dynamicTable.renderPlayerGameTable(
             gameList,

@@ -27,9 +27,10 @@ class PlayerActivity : AppCompatActivity() {
         val playerID = intent.getParcelableExtra<PlayerID>("SELECTED_PLAYER")
         val player = playerID?.let { getPlayerById(it) }
 
-        val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(application,
-            0
-        ) }
+        val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(player?.GCID!!) }
+        model.getGameStatus().observe(this, {
+            Log.d("RESPONSE", "HIHIHIHIHIH!!!!!!!!!!!")
+        })
 
 //        val model: PlayerViewModel by viewModels()
         Log.d("DEBUG", "HIHIHIH!!!")
