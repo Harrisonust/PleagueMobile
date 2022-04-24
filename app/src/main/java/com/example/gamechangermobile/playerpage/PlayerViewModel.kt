@@ -62,7 +62,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                 val gameRecordList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
                 if (gameRecordList != null) {
                     for (gameRecord in gameRecordList) {
-                        val gameInfo = "${gameRecord.info.game_name}(${gameRecord.info.game_category.name})\n${gameRecord.info.game_date.substring(0, 10)}"
+                        val gameInfo = "${gameRecord.info.game_date.substring(0, 10)}\n${gameRecord.info.game_name}(${gameRecord.info.game_category.name})"
 
                         // "OPP", "MSCR", "H/A", "MIN", "PTS", "REB", "AST", "FG", "FGM", "FGA", "FG%", "2P", "2PM", "2PA", "2P%", "3P", "3PM", "3PA", "3P%", "FT", "FTM", "FTA", "FT%", "OREB", "DREB", "STL", "BLK", "TOV", "PF", "EFF"
                         val stats = mutableListOf<String>()
