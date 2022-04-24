@@ -12,8 +12,8 @@ import com.example.gamechangermobile.views.DynamicTable
 class PlayerPageCareerFragment(val player: Player) : Fragment() {
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_player_page_career, container, false)
@@ -21,30 +21,31 @@ class PlayerPageCareerFragment(val player: Player) : Fragment() {
         val accDynamicTable: DynamicTable = view.findViewById(R.id.acc_dynamic_table)
 
         avgDynamicTable.renderStatsTable(
-                "Total",
-                player.averageStat.data,
-                90,
-                200,
-                "cell_view_header",
-                "player_data",
-                "cell_view_column_player",
-                "column_name",
-                "cell_view_content",
-                "player_data"
+            "Total",
+            player.averageStat.data,
+            90,
+            200,
+            "cell_view_header",
+            "player_data",
+            "cell_view_column_player",
+            "column_name",
+            "cell_view_content",
+            "player_data"
         )
 
-        accDynamicTable.renderStatsTable(
-                "Total",
-                player.accumulatedStats.data,
-                90,
-                200,
-                "cell_view_header",
-                "player_data",
-                "cell_view_column_player",
-                "column_name",
-                "cell_view_content",
-                "player_data"
-        )
+        //TODO this broke need to be fixed
+//        accDynamicTable.renderStatsTable(
+//                "Total",
+//                player.accumulatedStats.data,
+//                90,
+//                200,
+//                "cell_view_header",
+//                "player_data",
+//                "cell_view_column_player",
+//                "column_name",
+//                "cell_view_content",
+//                "player_data"
+//        )
         return view
     }
 

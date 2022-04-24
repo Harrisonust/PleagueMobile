@@ -9,13 +9,20 @@ data class TeamID(val ID: Int) : Parcelable {
 
 }
 
+val _BRAVES = (1)
+val _KINGS = (6)
+val _PILOTS = (2)
+val _LIONEERS = (3)
+val _DREAMERS = (4)
+val _STEELERS = (5)
+
 enum class TeamName(val id: Int) {
-    BRAVES(19),
-    KINGS(23),
-    PILOTS(20),
-    LIONEERS(22),
-    DREAMERS(21),
-    STEELERS(24)
+    BRAVES(_BRAVES),
+    KINGS(_KINGS),
+    PILOTS(_PILOTS),
+    LIONEERS(_LIONEERS),
+    DREAMERS(_DREAMERS),
+    STEELERS(_STEELERS)
 }
 
 fun getTeamById(id: TeamID?): Team? {
@@ -49,38 +56,38 @@ fun getTeamByName(name: TeamName): Team? =
 
 fun getTeamIdByName(name: TeamName): TeamID =
     when (name) {
-        TeamName.BRAVES -> TeamID(19)
-        TeamName.KINGS -> TeamID(23)
-        TeamName.PILOTS -> TeamID(20)
-        TeamName.LIONEERS -> TeamID(22)
-        TeamName.DREAMERS -> TeamID(21)
-        TeamName.STEELERS -> TeamID(24)
+        TeamName.BRAVES -> TeamID(_BRAVES)
+        TeamName.KINGS -> TeamID(_KINGS)
+        TeamName.PILOTS -> TeamID(_PILOTS)
+        TeamName.LIONEERS -> TeamID(_LIONEERS)
+        TeamName.DREAMERS -> TeamID(_DREAMERS)
+        TeamName.STEELERS -> TeamID(_STEELERS)
         else -> TeamID(-1)
     }
 
 fun getTeamIdByName(name: String): TeamID =
     when (name) {
-        in "台北富邦勇士" -> TeamID(19)
-        in "Taipei Fubon Braves" -> TeamID(19)
-        in "新北國王" -> TeamID(23)
-        in "New Taipei Kings" -> TeamID(23)
-        in "桃園領航猿" -> TeamID(20)
-        in "Taoyuan Pilots" -> TeamID(20)
-        in "新竹街口攻城獅" -> TeamID(22)
-        in "Hsinchu Jko Lioneers" -> TeamID(22)
-        in "福爾摩沙台新夢想家" -> TeamID(21)
-        in "Formosa Taishin Dreamers" -> TeamID(21)
-        in "高雄鋼鐵人" -> TeamID(24)
-        in "Kaohsiung Steelers" -> TeamID(24)
+        in "台北富邦勇士" -> TeamID(_BRAVES)
+        in "Taipei Fubon Braves" -> TeamID(_BRAVES)
+        in "新北國王" -> TeamID(_KINGS)
+        in "New Taipei Kings" -> TeamID(_KINGS)
+        in "桃園領航猿" -> TeamID(_PILOTS)
+        in "Taoyuan Pilots" -> TeamID(_PILOTS)
+        in "新竹街口攻城獅" -> TeamID(_LIONEERS)
+        in "Hsinchu Jko Lioneers" -> TeamID(_LIONEERS)
+        in "福爾摩沙台新夢想家" -> TeamID(_DREAMERS)
+        in "Formosa Taishin Dreamers" -> TeamID(_DREAMERS)
+        in "高雄鋼鐵人" -> TeamID(_STEELERS)
+        in "Kaohsiung Steelers" -> TeamID(_STEELERS)
         else -> TeamID(-1)
     }
 
 fun getAllTeam(): Set<TeamID> =
     setOf<TeamID>(
-        TeamID(19),
-        TeamID(23),
-        TeamID(20),
-        TeamID(22),
-        TeamID(21),
-        TeamID(24)
+        TeamID(_BRAVES),
+        TeamID(_KINGS),
+        TeamID(_PILOTS),
+        TeamID(_LIONEERS),
+        TeamID(_DREAMERS),
+        TeamID(_STEELERS)
     )

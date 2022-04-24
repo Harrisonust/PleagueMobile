@@ -1,28 +1,36 @@
 package com.example.gamechangermobile.playerpage
 
+import android.os.AsyncTask
+import android.os.AsyncTask.execute
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.MainActivity
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.models.PlayerID
-import com.example.gamechangermobile.models.getPlayerById
-import com.example.gamechangermobile.models.getTeamById
+import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.user.addToFavPlayer
 
 import com.google.android.material.tabs.TabLayout
+import org.jsoup.Jsoup
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class PlayerActivity : AppCompatActivity() {
+    lateinit var player: Player
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
         val playerID = intent.getParcelableExtra<PlayerID>("SELECTED_PLAYER")
-        val player = playerID?.let { getPlayerById(it) }
+        player = playerID?.let { getPlayerById(it) }!! //TODO dangerous
 
         player_page_profile_pic.setImageResource(
             player?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
@@ -64,7 +72,7 @@ class PlayerActivity : AppCompatActivity() {
                 player_page_viewpager
             )
         )
-
+        FetchPlayerStatsTask().execute()
     }
 
     inner class VPagerAdapter(f: FragmentManager, bh: Int, val player: Player) :
@@ -80,6 +88,85 @@ class PlayerActivity : AppCompatActivity() {
                 4 -> PlayerPageTeamEffFragment()
                 else -> PlayerPageTeamEffFragment()
             }
+        }
+    }
+
+    inner class FetchPlayerStatsTask : AsyncTask<Unit, Int, Boolean>() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+            val url = "https://pleagueofficial.com/player/${player.playerID.ID}"
+            val doc = Jsoup.connect(url).get()
+            Log.d("Debug", url)
+            doc.select("table.table.fs12.col-md-12.bg-light.table-hover").first().children()
+                .select("tbody").first().children()
+                .select("tr")
+                .forEach {
+                    var gameID = -1
+                    it.children().select("a")
+                        .forEach { it1 ->
+                            val regex = "^<a .*?/game/([0-9]*?)\">(.*?)</a>\$".toRegex()
+                            gameID = regex.find(it1.toString())?.groups?.get(1)?.value?.toInt()!!
+                        }
+                    val regex =
+                        "^([0-9]*-[0-9]*-[0-9]*) (.*?) (.*?) ([0-9]*[W|L]?) - ([0-9]*[W|L]?) ([0-9]*:[0-9]*) ([0-9]*) - ([0-9]*) (.*?) ([0-9]*) - ([0-9]*) (.*?) ([0-9]*) - ([0-9]*) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?)\$".toRegex()
+                    val parsed = regex.find(it.text())
+                    val date = parsed?.groups?.get(1)?.value
+                    val team = parsed?.groups?.get(2)?.value
+                    val opponent = parsed?.groups?.get(3)?.value
+                    val teamScore = parsed?.groups?.get(4)?.value
+                    val opponentScore = parsed?.groups?.get(5)?.value
+                    val onCourtTime = parsed?.groups?.get(6)?.value
+                    val two_point_made = parsed?.groups?.get(7)?.value?.toFloat()
+                    val two_point_attempt = parsed?.groups?.get(8)?.value?.toFloat()
+                    val two_point_percentage = parsed?.groups?.get(9)?.value?.toFloat()
+
+                    val three_point_made = parsed?.groups?.get(10)?.value?.toFloat()
+                    val three_point_attempt = parsed?.groups?.get(11)?.value?.toFloat()
+                    val three_point_percentage = parsed?.groups?.get(12)?.value?.toFloat()
+
+                    val ft_made = parsed?.groups?.get(13)?.value?.toFloat()
+                    val ft_attempt = parsed?.groups?.get(14)?.value?.toFloat()
+                    val ft_percentage = parsed?.groups?.get(15)?.value?.toFloat()
+
+                    val pts = parsed?.groups?.get(16)?.value?.toFloat()
+                    val reb = parsed?.groups?.get(17)?.value?.toFloat()
+                    val ast = parsed?.groups?.get(18)?.value?.toFloat()
+                    val to = parsed?.groups?.get(19)?.value?.toFloat()
+                    val stl = parsed?.groups?.get(20)?.value?.toFloat()
+                    val blk = parsed?.groups?.get(21)?.value?.toFloat()
+                    val pf = parsed?.groups?.get(22)?.value?.toFloat()
+                    Log.d("Debug",
+                        "D: $date ${team} vs ${opponent} score: ${teamScore}-$opponentScore time: $onCourtTime" +
+                                "\ntwo: $two_point_made/$two_point_attempt - $two_point_percentage%" +
+                                "\tthree: $three_point_made/$three_point_attempt - $three_point_percentage%" +
+                                "\tft: $ft_made/$ft_attempt - $ft_percentage%" +
+                                "\npts: $pts  reb: $reb  ast: $ast  to: $to  stl: $stl  blk: $blk  pf: $pf" +
+                                "\n-------------------------------------------"
+                    )
+                    val stat = PlayerStats(
+                        points = pts!!,
+                        rebounds = reb!!,
+                        assists = ast!!,
+                        twoPointMade = two_point_made!!,
+                        twoPointAttempt = two_point_attempt!!,
+                        twoPointPercentage = two_point_percentage!!,
+                        threePointMade = three_point_made!!,
+                        threePointAttempt = three_point_attempt!!,
+                        threePointPercentage = three_point_percentage!!,
+                        freeThrowMade = ft_made!!,
+                        freeThrowAttempt = ft_attempt!!,
+                        freeThrowPercentage = ft_percentage!!,
+                        steals = stl!!,
+                        blocks = blk!!,
+                        turnovers = to!!,
+                        personalFouls = pf!!,
+                    )
+                    player.stats[GameID(gameID)] = stat
+                }
+
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 }

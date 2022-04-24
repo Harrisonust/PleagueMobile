@@ -1,11 +1,15 @@
 package com.example.gamechangermobile
 
+import android.os.AsyncTask
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.gamechangermobile.MainActivity.Companion.players
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
@@ -19,74 +23,26 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_team.*
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
+import org.jsoup.Jsoup
+import java.lang.Exception
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class TeamActivity : AppCompatActivity() {
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-    private var teamID: TeamID? = null
-
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-
-                var data = result?.let { GCStatsParser().parse<GCTeam>(it) }?.get(0)
-                var ranking = "na"
-
-                if (data != null) {
-                    val team = getTeamById(teamID)
-                    team?.totalRecord?.wins = data.info.win_count
-                    team?.totalRecord?.loses = data.info.lose_count
-                    team?.streak = data.info.winning_streak.toString()
-                    team?.ranking = data.ranking.team?.ranking.toString()
-
-                    ranking = data.ranking.team?.ranking.toString()
-                    ranking += if (ranking == "1") "st"
-                    else if (ranking == "2") "nd"
-                    else "th"
-                }
-                runOnUiThread {
-                    if (data != null) {
-                        team_page_record.text =
-                            "${data.info.win_count.toInt()} - ${data.info.lose_count.toInt()}"
-                        team_page_team_ranking.text = ranking
-                    }
-                }
-            }
-        }
-    }
+    lateinit var teamID: TeamID
+    lateinit var teamData: Team
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team)
 
-        teamID = intent.getParcelableExtra<TeamID>("SELECTED_TEAM")
-        val teamData = getTeamById(teamID)
-        if (teamData == null) {
+        //TODO dangerous
+        teamID = intent.getParcelableExtra<TeamID>("SELECTED_TEAM")!!
+        teamData = getTeamById(teamID)!!
 
-        } else {
-            // Network call section starts
-            val myBuilder = CronetEngine.Builder(this)
-            val cronetEngine: CronetEngine = myBuilder.build()
-            val executor: Executor = Executors.newSingleThreadExecutor()
-
-            val requestBuilder =
-                cronetEngine.newUrlRequestBuilder(
-                    Api.url(
-                        "team_season_data", mapOf(
-                            "season_id" to "4",
-                            "part" to "info,ranking",
-                            "team_id" to teamData.teamId.ID.toString()
-                        ), source = "GC"
-                    ),
-                    urlRequestCallback,
-                    executor
-                )
-
-            val request: UrlRequest = requestBuilder.build()
-            request.start()
+        if (teamData != null) {
+            FetchTeamRankingTask().execute()
+            FetchTeamRosterTask().execute()
         }
 
         // start rendering ui
@@ -136,6 +92,89 @@ class TeamActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]
+        }
+    }
+
+    inner class FetchTeamRosterTask : AsyncTask<Unit, Int, Boolean>() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+            val url="https://pleagueofficial.com/team/${teamID.ID}"
+            val doc = Jsoup.connect(url).get()
+            doc.select("div.row.player_list")
+                .first()
+                .children()
+                .select("div.col-md-3.col-6.mb-grid-gutter")
+                .forEach {
+                    var playerID = -1
+                    it.children()
+                        .select("a")
+                        .forEach {
+                            val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
+                            playerID = regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
+                        }
+                    val regex =
+                        "^#([0-9]*?) (.*?) ([a-zA-Z]*?) (.*?) ([0-9]*\\.[0-9]*\\.[0-9]*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
+                    val parsed = regex.find(it.text())
+                    val number = parsed?.groups?.get(1)?.value
+                    val name = parsed?.groups?.get(2)?.value
+                    val position = parsed?.groups?.get(3)?.value
+                    val eng_name = parsed?.groups?.get(4)?.value
+                    val birthday = parsed?.groups?.get(5)?.value
+                    val height = parsed?.groups?.get(7)?.value
+                    val weight = parsed?.groups?.get(9)?.value
+
+                    val player = Player(
+                        playerID = PlayerID(playerID),
+                        firstName = name!!,
+                        teamId = teamData.teamId,
+                        number = number!!,
+                        position = position!!,
+                    )
+                    players.add(player)
+                    teamData.playerList.add(player.playerID)
+                }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    inner class FetchTeamRankingTask : AsyncTask<Unit, Int, Boolean>() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+            val doc =
+                Jsoup.connect("https://pleagueofficial.com/standings/2021-22").get()
+            doc.select("tr.bg-gray.text-light.text-center")
+                .parallelStream()
+                .filter { it != null }
+                .forEach {
+                    println(it.text())
+                    val regex =
+                        "^([0-9]) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
+                    val parsed = regex.find(it.text())
+                    var ranking = parsed?.groups?.get(1)?.value
+                    val teamName = parsed?.groups?.get(2)?.value
+                    val total = parsed?.groups?.get(9)?.value
+                    val win = parsed?.groups?.get(10)?.value
+                    val lose = parsed?.groups?.get(11)?.value
+                    val gb = parsed?.groups?.get(13)?.value
+                    val streakL = parsed?.groups?.get(14)?.value
+                    val streakN = parsed?.groups?.get(15)?.value
+
+                    val teamID = teamName?.let { it1 -> getTeamIdByName(it1) }
+                    val team = getTeamById(teamID)
+
+                    ranking += if (ranking == "1") "st" else if (ranking == "2") "nd" else if (ranking == "3") "rd" else "th"
+                    team?.ranking = ranking!!
+
+                    team?.totalRecord = Record(win!!.toInt(), lose!!.toInt())
+                    team?.streak = streakL!! + streakN!!
+
+                    team?.gamesBack = gb!!
+                }
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 }

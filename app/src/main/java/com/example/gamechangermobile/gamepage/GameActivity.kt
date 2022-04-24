@@ -75,10 +75,10 @@ class GameActivity : AppCompatActivity() {
                         } else {
                             gameData.guestPlayerStats[PlayerID(plgPlayer.player_id.toInt())] = stat
                         }
-                        getPlayerById(PlayerID(plgPlayer.player_id.toInt()))?.stats?.set(
-                            gameData.gameId,
-                            stat
-                        )
+//                        getPlayerById(PlayerID(plgPlayer.player_id.toInt()))?.stats?.set(
+//                            gameData.gameId,
+//                            stat
+//                        )
 //                        Log.d(
 //                            "Debug",
 //                            "s: ${plgPlayer.name_alt} ${stat.data["points"]} ${stat.data["rebounds"]} ${stat.data["assists"]}"
