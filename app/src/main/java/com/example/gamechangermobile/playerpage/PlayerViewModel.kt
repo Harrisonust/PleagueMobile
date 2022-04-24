@@ -61,6 +61,11 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                         val gameInfo = "${gameRecord.info.game_name}(${gameRecord.info.game_category.name}) ${gameRecord.info.game_date.substring(0, 10)}"
 
                         val stats = mutableMapOf<String, String>()
+                        stats["OPP"] = gameRecord.info.opponent_team_name
+                        // match score
+                        stats["MSCR"] = if (gameRecord.info.is_home) "${gameRecord.info.team_pts}:${gameRecord.info.opponent_team_pts}" else "${gameRecord.info.opponent_team_pts}:${gameRecord.info.team_pts}"
+                        // home or away
+                        stats["H/A"] = if (gameRecord.info.is_home) "Home" else "Away"
                         stats["MIN"] = "${gameRecord.box.min/100}:${gameRecord.box.min%100}"
 
                         stats["PTS"] = gameRecord.box.pts.toString()
