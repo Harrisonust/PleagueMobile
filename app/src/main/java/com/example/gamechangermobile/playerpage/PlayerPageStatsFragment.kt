@@ -87,16 +87,16 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
 
     private fun showRadarChart(radarChart: RadarChart, radarData: RadarData) {
         radarChart.setDrawWeb(true)
-        radarChart.setWebLineWidth(1f)
-        radarChart.setWebColor(Color.rgb(0, 0, 0))
-        radarChart.setWebColorInner(Color.rgb(0, 0, 0))
-        radarChart.setWebLineWidthInner(1f)
+        radarChart.webLineWidth = 1f
+        radarChart.webColor = Color.rgb(0, 0, 0)
+        radarChart.webColorInner = Color.rgb(0, 0, 0)
+        radarChart.webLineWidthInner = 1f
 
-        val legend = radarchart.getLegend()
+        val legend = radarchart.legend
 //        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART_INSIDE) // todo
-        legend.setForm(Legend.LegendForm.CIRCLE)
+        legend.form = Legend.LegendForm.CIRCLE
 
-        radarchart.setData(radarData)
+        radarchart.data = radarData
         radarchart.invalidate()         // refresh screen
     }
 }
