@@ -25,6 +25,12 @@ class PlayerPageGameRecordFragment(val player: Player) : Fragment() {
         val gameList = player.stats
 //        val headers = listOf("對手","比分","主/客","時間","命中","出手","命中率","進攻","防守","籃板","助攻","失誤","抄截","阻攻","犯規","得分")
 
+        val playerViewModel: PlayerViewModel by activityViewModels { PlayerViewModelFactory(player.GCID) }
+        playerViewModel.getGameRecords().observe(viewLifecycleOwner, {
+            for((key, value) in it.toSortedMap(reverseOrder())) {
+                Log.d("VIEWMODEL", key)
+            }
+        })
         dynamicTable.renderPlayerGameTable(
             gameList,
             90,

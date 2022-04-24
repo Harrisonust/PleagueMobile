@@ -28,14 +28,6 @@ class PlayerActivity : AppCompatActivity() {
         val player = playerID?.let { getPlayerById(it) }
 
         val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(player?.GCID!!) }
-        model.getGameStatus().observe(this, {
-            Log.d("RESPONSE", "HIHIHIHIHIH!!!!!!!!!!!")
-        })
-
-//        val model: PlayerViewModel by viewModels()
-        Log.d("DEBUG", "HIHIHIH!!!")
-//        Log.d("DEBUG", "HIHIHIH!!! ${model.test()}")
-
 
         player_page_profile_pic.setImageResource(
             player?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
