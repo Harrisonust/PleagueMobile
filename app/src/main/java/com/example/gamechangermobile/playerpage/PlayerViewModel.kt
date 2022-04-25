@@ -2,10 +2,7 @@ package com.example.gamechangermobile.playerpage
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.gamechangermobile.database.Dictionary
-import com.example.gamechangermobile.database.GCPlayerInfoWithBox
-import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.database.Utils
+import com.example.gamechangermobile.database.*
 import com.example.gamechangermobile.network.*
 
 class PlayerViewModel(playerGCID: Int) : ViewModel() {
@@ -29,16 +26,16 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         "FT", "FTM", "FTA", "FT%",
         "OREB", "DREB",
         "STL", "BLK", "TOV", "PF", "EFF")
-//    fun getGameRecords(): LiveData<Map<String, List<String>>> {
-//        return gameRecords
-//    }
-//    private fun callGameRecordsApi() {
-//        OkHttp(GameRecordsOnSuccessResponse()).getRequest(
-//            gameApiPath,
-//            gameRecordQueryParams,
-//            apiSource
-//        )
-//    }
+    fun getGameRecords(): LiveData<Map<String, List<String>>> {
+        return gameRecords
+    }
+    private fun callGameRecordsApi() {
+        OkHttp(GameRecordsOnSuccessResponse()).getRequest(
+            gameApiPath,
+            gameRecordQueryParams,
+            apiSource
+        )
+    }
 
     // stats section
 
@@ -76,7 +73,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
 
     // adv section
     private val advApiPath = "player_season_data"
-    private val advRecordQueryParams = mapOf(
+    private val advQueryParams = mapOf(
         "season_id" to "4",
         "part" to "info,+advancement,+box",
         "player_id" to playerGCID.toString(),
@@ -85,17 +82,18 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     )
     private val adv = MutableLiveData<Map<String, List<String>>>()
     val advHeaders = listOf(
-        "MIN", "PER36", "USG%", "ORTG", "")
-    fun getGameRecords(): LiveData<Map<String, List<String>>> {
-        return gameRecords
+        "MIN", "PER36", "USG%", "ORTG", "TOR")
+    fun getAdv(): LiveData<Map<String, List<String>>> {
+        return adv
     }
-    private fun callGameRecordsApi() {
-        OkHttp(GameRecordsOnSuccessResponse()).getRequest(
-            gameApiPath,
-            gameRecordQueryParams,
+    private fun callAdvApi() {
+        OkHttp(AdvOnSuccessResponse()).getRequest(
+            advApiPath,
+            advQueryParams,
             apiSource
         )
     }
+
 
     // team eff section
 
@@ -103,6 +101,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
         callGameRecordsApi()
         callCareerApi()
+        callAdvApi()
     }
 
 
@@ -300,5 +299,29 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
             }
         }
 
+    }
+
+    private fun AdvOnSuccessResponse(): OkHttp.OnSuccessResponse {
+        return object: OkHttp.OnSuccessResponse {
+            override fun action(result: String?) {
+                val updatedAdv = mutableMapOf<String, List<String>>()
+                val advList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBoxAndAdv>(it) }
+                if (advList != null) {
+                    val columns = listOf("整季", "第一節", "第二節", "第三節", "第四節", "OT")
+                    for (i in advList[0].advancement.indices) {
+                        // "MIN", "PER36", "USG%", "ORTG", "TOR"
+                        val stats = mutableListOf<String>()
+                        stats.add(Utils.getPlayingTimeInMinutesString(advList[0].box[i].avg_min))
+                        stats.add(advList[0].advancement[i].plus_minus_per_36.toString())
+                        stats.add(advList[0].advancement[i].usg.toString())
+                        stats.add(advList[0].advancement[i].ppp.toString())
+                        stats.add(advList[0].advancement[i].to_rate.toString())
+                        updatedAdv[columns[i]] = stats
+                    }
+                    Log.d("VIEWMODEL", "Map size: ${updatedAdv.size}")
+                    adv.postValue(updatedAdv)
+                }
+            }
+        }
     }
 }
