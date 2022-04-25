@@ -3,6 +3,7 @@ package com.example.gamechangermobile.views
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
@@ -11,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.database.Database
+import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.playerpage.PlayerActivity
 import java.text.SimpleDateFormat
@@ -425,9 +427,15 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
     private fun renderCell(player: Player, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
-        textView.text = player.abbrName
+        val playerName = player.fullName.trim()
+        textView.text = playerName
         val imageView: ImageView = view.findViewById(imageId)
-        imageView.setImageResource(player.profilePic)
+        if (Dictionary.playerToImageResource.containsKey(playerName)) {
+            imageView.setImageResource(Dictionary.playerToImageResource[playerName]!!)
+        }
+        else {
+            imageView.setImageResource(player.profilePic)
+        }
         view.setOnClickListener {
             val intent = Intent(view.context, PlayerActivity::class.java).apply {
                 putExtra("SELECTED_PLAYER", player.playerID)
