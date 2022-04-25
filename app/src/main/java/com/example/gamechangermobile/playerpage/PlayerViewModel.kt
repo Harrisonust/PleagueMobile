@@ -1,34 +1,24 @@
 package com.example.gamechangermobile.playerpage
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.database.Dictionary
-import com.example.gamechangermobile.database.GCGame
 import com.example.gamechangermobile.database.GCPlayerInfoWithBox
 import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.database.Utils
 import com.example.gamechangermobile.network.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class PlayerViewModel(playerGCID: Int) : ViewModel() {
-    private val okHttp = OkHttp(OkHttpOnSuccessResponse())
-
     // network call required parameter
     private val apiSource = "GC"
-    private val apiPath = "player_game_data"
+
+    // game records section
+    private val gameApiPath = "player_game_data"
     private val gameRecordQueryParams = mapOf(
         "season_id" to "4",
         "part" to "info,box",
         "player_id" to playerGCID.toString()
     )
-
     private val gameRecords = MutableLiveData<Map<String, List<String>>>()
     val gameRecordsHeaders = listOf(
         "OPP", "MSCR", "H/A", "MIN",
@@ -39,21 +29,61 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         "FT", "FTM", "FTA", "FT%",
         "OREB", "DREB",
         "STL", "BLK", "TOV", "PF", "EFF")
-
-    init {
-        Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
-        okHttp.getRequest(
-            apiPath,
+    fun getGameRecords(): LiveData<Map<String, List<String>>> {
+        return gameRecords
+    }
+    private fun callGameRecordsApi() {
+        OkHttp(GameRecordsOnSuccessResponse()).getRequest(
+            gameApiPath,
             gameRecordQueryParams,
             apiSource
         )
     }
 
-    fun getGameRecords(): LiveData<Map<String, List<String>>> {
-        return gameRecords
+    init {
+        Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
+        callGameRecordsApi()
     }
 
-    private fun OkHttpOnSuccessResponse(): OkHttp.OnSuccessResponse {
+    // stats section
+
+    // career section
+    // adv section
+    private val careerApiPath = "player_season_data"
+    private val careerQueryParams = mapOf(
+        "history" to "true",
+        "part" to "info,box",
+        "player_id" to playerGCID.toString()
+    )
+    private val careerAvg = MutableLiveData<Map<String, List<String>>>()
+    private val careerAcc = MutableLiveData<Map<String, List<String>>>()
+    val careerHeaders = listOf(
+        "MT", "MIN",
+        "PTS", "REB", "AST",
+        "FG", "FGM", "FGA", "FG%",
+        "2P", "2PM", "2PA", "2P%",
+        "3P", "3PM", "3PA", "3P%",
+        "FT", "FTM", "FTA", "FT%",
+        "OREB", "DREB",
+        "STL", "BLK", "TOV", "PF")
+    fun getcareerAvg(): LiveData<Map<String, List<String>>> {
+        return careerAvg
+    }
+    fun getcareerAcc(): LiveData<Map<String, List<String>>> {
+        return careerAcc
+    }
+    fun callCareerApi() {
+        OkHttp(CareerOnSuccessResponse()).getRequest(
+            careerApiPath,
+            careerQueryParams,
+            apiSource
+        )
+    }
+
+
+    // team eff section
+
+    private fun GameRecordsOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object: OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 Log.d("RESPONSE", result!!)
@@ -71,7 +101,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                         stats.add(if (gameRecord.info.is_home) "${gameRecord.info.team_pts}:${gameRecord.info.opponent_team_pts}" else "${gameRecord.info.opponent_team_pts}:${gameRecord.info.team_pts}")
                         // home or away
                         stats.add(if (gameRecord.info.is_home) "Home" else "Away")
-                        stats.add("${gameRecord.box.min/100}:${gameRecord.box.min%100}")
+                        stats.add(Utils.getPlayingTimeInMinutesString(gameRecord.box.min))
 
                         stats.add(gameRecord.box.pts.toString())
                         stats.add(gameRecord.box.reb.toString())
@@ -151,5 +181,100 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                 gameRecords.postValue(updatedGameRecords)
             }
         }
+    }
+
+    private fun CareerOnSuccessResponse(): OkHttp.OnSuccessResponse {
+        return object: OkHttp.OnSuccessResponse {
+            override fun action(result: String?) {
+                val updatedCareerAcc = mutableMapOf<String, List<String>>()
+                val updatedCareerAvg = mutableMapOf<String, List<String>>()
+                val career = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
+                if (career != null) {
+                    for (data in career) {
+
+                        // "MT", "MIN", "PTS", "REB", "AST", "FG", "FGM", "FGA", "FG%", "2P", "2PM", "2PA", "2P%", "3P", "3PM", "3PA", "3P%", "FT", "FTM", "FTA", "FT%", "OREB", "DREB", "STL", "BLK", "TOV", "PF", "EFF"
+                        val stats = mutableListOf<String>()
+                        stats.add(data.info.record_matches.toString())
+                        stats.add(Utils.getPlayingTimeInMinutesString(data.box.min))
+
+                        stats.add(data.box.pts.toString())
+                        stats.add(data.box.reb.toString())
+                        stats.add(data.box.ast.toString())
+
+                        stats.add(data.box.fg_pts.toString())
+                        stats.add(data.box.fg_m.toString())
+                        stats.add(data.box.fg_a.toString())
+                        stats.add(data.box.fg_percent.toString())
+
+                        stats.add(data.box.two_pts.toString())
+                        stats.add(data.box.two_pts_m.toString())
+                        stats.add(data.box.two_pts_a.toString())
+                        stats.add(data.box.two_pts_percent.toString())
+
+                        stats.add(data.box.three_pts.toString())
+                        stats.add(data.box.three_pts_m.toString())
+                        stats.add(data.box.three_pts_a.toString())
+                        stats.add(data.box.three_pts_percent.toString())
+
+                        stats.add(data.box.ft_pts.toString())
+                        stats.add(data.box.ft_m.toString())
+                        stats.add(data.box.ft_a.toString())
+                        stats.add(data.box.ft_percent.toString())
+
+                        stats.add(data.box.off_reb.toString())
+                        stats.add(data.box.def_reb.toString())
+
+                        stats.add(data.box.stl.toString())
+                        stats.add(data.box.blk.toString())
+                        stats.add(data.box.to.toString())
+                        stats.add(data.box.pf.toString())
+
+                        updatedCareerAcc[data.info.season_name]= stats
+
+                        val avgStats = mutableListOf<String>()
+                        avgStats.add(data.info.record_matches.toString())
+                        avgStats.add(Utils.getPlayingTimeInMinutesString(data.box.avg_min))
+
+                        avgStats.add(data.box.avg_pts.toString())
+                        avgStats.add(data.box.avg_reb.toString())
+                        avgStats.add(data.box.avg_ast.toString())
+
+                        avgStats.add(data.box.avg_fg_pts.toString())
+                        avgStats.add(data.box.avg_fg_m.toString())
+                        avgStats.add(data.box.avg_fg_a.toString())
+                        avgStats.add(data.box.avg_fg_percent.toString())
+
+                        avgStats.add(data.box.avg_two_pts.toString())
+                        avgStats.add(data.box.avg_two_pts_m.toString())
+                        avgStats.add(data.box.avg_two_pts_a.toString())
+                        avgStats.add(data.box.avg_two_pts_percent.toString())
+
+                        avgStats.add(data.box.avg_three_pts.toString())
+                        avgStats.add(data.box.avg_three_pts_m.toString())
+                        avgStats.add(data.box.avg_three_pts_a.toString())
+                        avgStats.add(data.box.avg_three_pts_percent.toString())
+
+                        avgStats.add(data.box.avg_ft_pts.toString())
+                        avgStats.add(data.box.avg_ft_m.toString())
+                        avgStats.add(data.box.avg_ft_a.toString())
+                        avgStats.add(data.box.avg_ft_percent.toString())
+
+                        avgStats.add(data.box.avg_off_reb.toString())
+                        avgStats.add(data.box.avg_def_reb.toString())
+
+                        avgStats.add(data.box.avg_stl.toString())
+                        avgStats.add(data.box.avg_blk.toString())
+                        avgStats.add(data.box.avg_to.toString())
+                        avgStats.add(data.box.avg_pf.toString())
+
+                        updatedCareerAvg[data.info.season_name] = avgStats
+
+                    }
+                }
+                careerAcc.postValue(updatedCareerAcc)
+                careerAvg.postValue(updatedCareerAvg)
+            }
+        }
+
     }
 }
