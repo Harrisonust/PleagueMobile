@@ -113,7 +113,7 @@ data class GCPlayerStats(
     val play: Int = 0,
 
 //// avg
-
+    val avg_min: Float = 0F,
     val avg_pts: Float = 0F,
     val avg_ast: Float = 0F,
     val avg_reb: Float = 0F,
