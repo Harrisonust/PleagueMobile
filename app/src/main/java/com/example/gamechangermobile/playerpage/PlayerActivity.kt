@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.gamechangermobile.models.Player
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.models.PlayerID
 import com.example.gamechangermobile.models.getPlayerById
 import com.example.gamechangermobile.models.getTeamById
@@ -29,9 +30,12 @@ class PlayerActivity : AppCompatActivity() {
 
         val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(player?.GCID!!) }
 
-        player_page_profile_pic.setImageResource(
-            player?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
-        )
+        val imageResource = if (Dictionary.playerToImageResource.containsKey(player?.fullName?.trim())) Dictionary.playerToImageResource[player?.fullName?.trim()] else R.drawable.ic_baseline_sports_basketball_24
+        if (imageResource != null) {
+            player_page_profile_pic.setImageResource(
+                imageResource
+            )
+        }
         player_page_player_firstname.text = player?.firstName
         player_page_player_lastname.text = player?.lastName
         player_page_player_team.text = getTeamById(player?.teamId)?.name
