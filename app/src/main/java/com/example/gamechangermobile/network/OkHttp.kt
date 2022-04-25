@@ -5,6 +5,7 @@ import okhttp3.*
 import java.io.IOException
 
 class OkHttp {
+    private val client = OkHttpClient()
     var delegate: OnSuccessResponse? = null
     constructor(onSuccessResponse: OnSuccessResponse) {
         delegate = onSuccessResponse
@@ -13,7 +14,6 @@ class OkHttp {
         fun action(result: String?)
     }
     fun getRequest(path: String, queryParams: Map<String, String>, source: String) {
-        val client = OkHttpClient()
         val request = Request.Builder()
             .url(Api.url(path, queryParams, source))
             .build()
