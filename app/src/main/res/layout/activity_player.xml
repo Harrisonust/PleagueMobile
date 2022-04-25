@@ -192,6 +192,7 @@
         app:layout_constraintTop_toBottomOf="@id/player_page_tab"
         app:layout_constraintBottom_toBottomOf="parent"/>
     <com.google.android.material.tabs.TabLayout
+        android:elevation="10dp"
         android:id="@+id/player_page_tab"
         android:layout_width="match_parent"
         android:layout_height="40dp"
