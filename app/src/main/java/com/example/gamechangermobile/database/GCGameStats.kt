@@ -8,6 +8,12 @@ data class GCPlayerInfoWithBox(
     val box: GCPlayerStats = GCPlayerStats()
 ) {}
 
+data class GCPlayerInfoWithBoxAndAdv(
+    val info: GCPlayerInfo = GCPlayerInfo(),
+    val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>(),
+    val advancement: ArrayList<GCPlayerAdv> = arrayListOf<GCPlayerAdv>()
+)
+
 data class GCPlayerInfoWithFullBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>()
@@ -73,6 +79,44 @@ data class GCPhoto(
     val tag: GCTag? = GCTag(),
     val file_name: String? = ""
 ) {}
+
+data class GCPlayerAdv(
+    val def_reb: Int = 0,
+    val to: Float = 0F,
+    val ppp: Float = 0F,
+    val play: Int = 0,
+    val available_def_reb: Int = 0,
+    val avg_to: Float = 0F,
+    val avg_pass_pts: Float = 0F,
+    val avg_def_reb: Float = 0F,
+    val avg_available_def_reb: Float = 0F,
+    val avg_available_off_reb: Float = 0F,
+    val pts: Int = 0,
+    val off_reb_rate: Float = 0F,
+    val inc_pass_play: Int = 0,
+    val plus_minus: Int = 0,
+    val pass_pts: Int = 0,
+    val available_off_reb: Int = 0,
+    val non_pass_to: Int = 0,
+    val avg_pass_to: Float = 0F,
+    val off_reb: Int = 0,
+    val pass: Int = 0,
+    val avg_play: Float = 0F,
+    val usg: Float = 0F,
+    val inc_pass_ppp: Float = 0F,
+    val plus_minus_per_36: Float = 0F,
+    val potential_ast: Int = 0,
+    val avg_non_pass_to: Float = 0F,
+    val avg_potential_ast: Float = 0F,
+    val to_rate: Float = 0F,
+    val def_reb_rate: Float = 0F,
+    val avg_off_reb: Float = 0F,
+    val inc_pass_pts: Int = 0,
+    val usg_inc_pass: Float = 0F,
+    val avg_pass: Float = 0F,
+    val pass_to: Int = 0,
+    val avg_pts: Float = 0F
+)
 
 data class GCPlayerStats(
     val min: Int = 0,
