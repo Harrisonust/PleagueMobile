@@ -1,14 +1,11 @@
 package com.example.gamechangermobile.playerpage
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.switchMap
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.views.DynamicTable
@@ -30,25 +27,16 @@ class PlayerPageCareerFragment(val player: Player) : Fragment() {
 
         val playerViewModel: PlayerViewModel by activityViewModels { PlayerViewModelFactory(player.GCID) }
         headers = playerViewModel.careerHeaders
-        val careerAcc = playerViewModel.getcareerAcc().value
-        val careerAvg = playerViewModel.getcareerAvg().value
-        if (careerAcc.isNullOrEmpty() && careerAvg.isNullOrEmpty()) {
-            playerViewModel.callCareerApi()
-            playerViewModel.getcareerAcc().observe(viewLifecycleOwner, {
-                if (it.isNotEmpty()) {
-                    renderAccTable(it)
-                }
-            })
-            playerViewModel.getcareerAvg().observe(viewLifecycleOwner, {
-                if (it.isNotEmpty()) {
-                    renderAvgTable(it)
-                }
-            })
-        }
-        else {
-            renderAccTable(careerAcc!!)
-            renderAvgTable(careerAvg!!)
-        }
+        playerViewModel.getCareerAcc().observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                renderAccTable(it)
+            }
+        })
+        playerViewModel.getCareerAvg().observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
+                renderAvgTable(it)
+            }
+        })
 
         return view
     }

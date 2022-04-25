@@ -29,26 +29,20 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         "FT", "FTM", "FTA", "FT%",
         "OREB", "DREB",
         "STL", "BLK", "TOV", "PF", "EFF")
-    fun getGameRecords(): LiveData<Map<String, List<String>>> {
-        return gameRecords
-    }
-    private fun callGameRecordsApi() {
-        OkHttp(GameRecordsOnSuccessResponse()).getRequest(
-            gameApiPath,
-            gameRecordQueryParams,
-            apiSource
-        )
-    }
-
-    init {
-        Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
-        callGameRecordsApi()
-    }
+//    fun getGameRecords(): LiveData<Map<String, List<String>>> {
+//        return gameRecords
+//    }
+//    private fun callGameRecordsApi() {
+//        OkHttp(GameRecordsOnSuccessResponse()).getRequest(
+//            gameApiPath,
+//            gameRecordQueryParams,
+//            apiSource
+//        )
+//    }
 
     // stats section
 
     // career section
-    // adv section
     private val careerApiPath = "player_season_data"
     private val careerQueryParams = mapOf(
         "history" to "true",
@@ -66,13 +60,13 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         "FT", "FTM", "FTA", "FT%",
         "OREB", "DREB",
         "STL", "BLK", "TOV", "PF")
-    fun getcareerAvg(): LiveData<Map<String, List<String>>> {
+    fun getCareerAvg(): LiveData<Map<String, List<String>>> {
         return careerAvg
     }
-    fun getcareerAcc(): LiveData<Map<String, List<String>>> {
+    fun getCareerAcc(): LiveData<Map<String, List<String>>> {
         return careerAcc
     }
-    fun callCareerApi() {
+    private fun callCareerApi() {
         OkHttp(CareerOnSuccessResponse()).getRequest(
             careerApiPath,
             careerQueryParams,
@@ -80,8 +74,38 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         )
     }
 
+    // adv section
+    private val advApiPath = "player_season_data"
+    private val advRecordQueryParams = mapOf(
+        "season_id" to "4",
+        "part" to "info,+advancement,+box",
+        "player_id" to playerGCID.toString(),
+        "show_all_quarters" to "true",
+        "split_type" to "NONE"
+    )
+    private val adv = MutableLiveData<Map<String, List<String>>>()
+    val advHeaders = listOf(
+        "MIN", "PER36", "USG%", "ORTG", "")
+    fun getGameRecords(): LiveData<Map<String, List<String>>> {
+        return gameRecords
+    }
+    private fun callGameRecordsApi() {
+        OkHttp(GameRecordsOnSuccessResponse()).getRequest(
+            gameApiPath,
+            gameRecordQueryParams,
+            apiSource
+        )
+    }
 
     // team eff section
+
+    init {
+        Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
+        callGameRecordsApi()
+        callCareerApi()
+    }
+
+
 
     private fun GameRecordsOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object: OkHttp.OnSuccessResponse {
