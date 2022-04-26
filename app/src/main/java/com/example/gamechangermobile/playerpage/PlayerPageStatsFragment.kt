@@ -44,6 +44,8 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
 
         if (xDatas.isNullOrEmpty() and yDatas1.isNullOrEmpty()) {
             playerViewModel.getChartStats().observe(viewLifecycleOwner, {
+                xDatas.clear()
+                yDatas1.clear()
                 if (it.isNotEmpty()) {
                     xDatas.add("Points")
                     yDatas1.add(RadarEntry(it["PTS"]!!))
@@ -57,15 +59,15 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
                     yDatas1.add(RadarEntry(it["BLK"]!!))
                     xDatas.add("Turnovers")
                     yDatas1.add(RadarEntry(it["TOV"]!!))
+                    showRadarChart(radarchart, radarData!!)
                 }
-
-                radarchart.setTouchEnabled(false)
-                radarchart.extraTopOffset = 10f
-                radarchart.description.isEnabled = false
-                radarData = getRadarData()
-                showRadarChart(radarchart, radarData!!)
             })
         }
+        radarchart.setTouchEnabled(false)
+        radarchart.extraTopOffset = 10f
+        radarchart.description.isEnabled = false
+        radarData = getRadarData()
+        showRadarChart(radarchart, radarData!!)
     }
 
     private fun getRadarData(): RadarData {
