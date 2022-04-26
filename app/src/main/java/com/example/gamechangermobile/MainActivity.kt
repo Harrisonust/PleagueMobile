@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
                         game.status = GameStatus.END
                     else
                         game.status = GameStatus.NOT_YET_START
-                    MainActivity.games.add(game)
+                    games.add(game)
                     getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
                     getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
 
@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity() {
                 .filter { it != null }
                 .forEach {
                     val regex =
-                        "^([0-9]) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
+                        "^([0-9]) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
                     val parsed = regex.find(it.text())
                     var ranking= parsed?.groups?.get(1)?.value
                     val teamName= parsed?.groups?.get(2)?.value
@@ -202,7 +202,6 @@ class MainActivity : AppCompatActivity() {
 
                     val teamID = teamName?.let { it1 -> getTeamIdByName(it1) }
                     val team = getTeamById(teamID)
-
                     ranking += if (ranking == "1") "st" else if (ranking == "2") "nd" else if (ranking == "3") "rd" else "th"
                     team?.ranking = ranking!!
 
