@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class Player(
     var playerID: PlayerID = PlayerID(),
+    var GCID: Int = 0,
     var firstName: String = "",
     val lastName: String = "",
     var profilePic: Int = R.drawable.ic_baseline_sports_basketball_24,

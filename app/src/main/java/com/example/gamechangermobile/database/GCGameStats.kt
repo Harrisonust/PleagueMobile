@@ -8,6 +8,22 @@ data class GCPlayerInfoWithBox(
     val box: GCPlayerStats = GCPlayerStats()
 ) {}
 
+data class GCPlayerInfoWithBoxAndAdv(
+    val info: GCPlayerInfo = GCPlayerInfo(),
+    val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>(),
+    val advancement: ArrayList<GCPlayerAdv> = arrayListOf<GCPlayerAdv>()
+)
+
+data class GCPlayer(
+    val info: GCPlayerInfo = GCPlayerInfo(),
+    val box: ArrayList<GCPlayerStats> = arrayListOf(),
+    val on_off_court: GCPlayerOnOffCourt = GCPlayerOnOffCourt(),
+    val eff: ArrayList<GCPlayerEff> = arrayListOf(),
+    val advancement: ArrayList<GCPlayerAdv> = arrayListOf(),
+    val vs_defense: GCPlayerVsDefense = GCPlayerVsDefense(),
+    val opp_vs_defense: GCPlayerOppVsDefense = GCPlayerOppVsDefense()
+)
+
 data class GCPlayerInfoWithFullBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>()
@@ -32,13 +48,14 @@ data class GCPlayerInfo(
 //    val team_pts: Int = 0,
 
     // game
-//    val game_id: Int = 0,
-//    val game_date: String = "",
-//    val game_name: String = "",
-//    val game_category: GCGameCategory = GCGameCategory(),
-//    val opponent_team_name: String = "",
-//    val opponent_team_pts: Int = 0,
-//    val is_home: Boolean = false,
+    val game_id: Int = 0,
+    val game_date: String = "",
+    val game_name: String = "",
+    val game_category: GCGameCategory = GCGameCategory(),
+    val opponent_team_name: String = "",
+    val opponent_team_pts: Int = 0,
+    val team_pts: Int = 0,
+    val is_home: Boolean = false,
 //    val is_win: Boolean = false,
 //    val is_starter: Boolean = false,
     val matched: Int = 0,
@@ -51,6 +68,35 @@ data class GCPlayerInfo(
 //    val split_info: String = "",
 
 ) {}
+
+data class GCPlayerOnOffCourt(
+    val on_court: ArrayList<GCPlayerAdv> = arrayListOf(),
+    val off_court: ArrayList<GCPlayerAdv> = arrayListOf()
+)
+
+data class GCPlayerEff(
+    val ppp_rounds_100: Float = 0F,
+    val opp_ppp_rounds_100: Float = 0F,
+)
+
+data class GCPlayerVsDefense(
+    val vs_man: ArrayList<VsDefense> = arrayListOf(),
+    val vs_zone: ArrayList<VsDefense> = arrayListOf(),
+    val vs_transition: ArrayList<VsDefense> = arrayListOf(),
+    val vs_second_chance: ArrayList<VsDefense> = arrayListOf(),
+)
+
+data class GCPlayerOppVsDefense(
+    val opp_vs_man: ArrayList<VsDefense> = arrayListOf(),
+    val opp_vs_zone: ArrayList<VsDefense> = arrayListOf(),
+    val opp_vs_transition: ArrayList<VsDefense> = arrayListOf(),
+    val opp_vs_second_chance: ArrayList<VsDefense> = arrayListOf(),
+)
+
+data class VsDefense(
+    val ppp: Float = 0F,
+    val pts_per_36: Float = 0F
+)
 
 data class GCTeam(
     val info: GCTeamInfo = GCTeamInfo(),
@@ -72,6 +118,47 @@ data class GCPhoto(
     val tag: GCTag? = GCTag(),
     val file_name: String? = ""
 ) {}
+
+data class GCPlayerAdv(
+    val def_reb: Int = 0,
+    val to: Float = 0F,
+    val ppp: Float = 0F,
+    val play: Int = 0,
+    val available_def_reb: Int = 0,
+    val avg_to: Float = 0F,
+    val avg_pass_pts: Float = 0F,
+    val avg_def_reb: Float = 0F,
+    val avg_available_def_reb: Float = 0F,
+    val avg_available_off_reb: Float = 0F,
+    val pts: Int = 0,
+    val off_reb_rate: Float = 0F,
+    val inc_pass_play: Int = 0,
+    val plus_minus: Int = 0,
+    val pass_pts: Int = 0,
+    val available_off_reb: Int = 0,
+    val non_pass_to: Int = 0,
+    val avg_pass_to: Float = 0F,
+    val off_reb: Int = 0,
+    val pass: Int = 0,
+    val avg_play: Float = 0F,
+    val usg: Float = 0F,
+    val inc_pass_ppp: Float = 0F,
+    val plus_minus_per_36: Float = 0F,
+    val potential_ast: Int = 0,
+    val avg_non_pass_to: Float = 0F,
+    val avg_potential_ast: Float = 0F,
+    val to_rate: Float = 0F,
+    val def_reb_rate: Float = 0F,
+    val avg_off_reb: Float = 0F,
+    val inc_pass_pts: Int = 0,
+    val usg_inc_pass: Float = 0F,
+    val avg_pass: Float = 0F,
+    val pass_to: Int = 0,
+    val avg_pts: Float = 0F,
+
+    val opp_ppp_rounds_100: Float = 0F,
+    val ppp_rounds_100: Float = 0F,
+)
 
 data class GCPlayerStats(
     val min: Int = 0,
@@ -112,7 +199,7 @@ data class GCPlayerStats(
     val play: Int = 0,
 
 //// avg
-
+    val avg_min: Float = 0F,
     val avg_pts: Float = 0F,
     val avg_ast: Float = 0F,
     val avg_reb: Float = 0F,

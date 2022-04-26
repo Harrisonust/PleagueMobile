@@ -3,6 +3,7 @@ package com.example.gamechangermobile.views
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
@@ -11,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.database.Database
+import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.playerpage.PlayerActivity
 import java.text.SimpleDateFormat
@@ -239,7 +241,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
     }
 
     fun renderPlayerGameTable(
-        games: Map<GameID, PlayerStats>,
+        headers: List<String>,
+        games: Map<String, List<String>>,
         headerHeight: Int,
         columnWidth: Int,
         headerLayoutName: String,
@@ -271,31 +274,22 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         )
         fixedRelativeLayout?.addView(view)
 
+        // header
+        val tableRow = TableRow(context)
+        for (header in headers) {
+            renderCell(header, headerViewId, headerTextId, tableRow)
+        }
+        headerTableLayout?.addView(tableRow)
 
-        // header, column, content
-        var headerSet = false
-        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
-        for ((gameId, playerStats) in games) {
-            if (!headerSet) {
-                val tableRow = TableRow(context)
-                for ((statsName, _) in playerStats.data) {
-                    if (!ignoreFields.contains(statsName)) {
-                        Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }
-                    }
-                }
-                headerTableLayout?.addView(tableRow)
-                headerSet = true
-            }
-
+        // column, content
+        for ((game, stats) in games) {
             val columnTableRow = TableRow(context)
-            renderCell(SimpleDateFormat("yyyy/MM/DD").format(getGameById(gameId)?.date), columnViewId, columnTextId, columnTableRow)
+            renderCell(game, columnViewId, columnTextId, columnTableRow)
             columnTableLayout?.addView(columnTableRow)
 
             val contentTableRow = TableRow(context)
-            for ((statsName, stats) in playerStats.data) {
-                if (!ignoreFields.contains(statsName)) {
-                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
-                }
+            for (stat in stats) {
+                renderCell(stat, contentViewId, contentTextId, contentTableRow)
             }
             contentTableLayout?.addView(contentTableRow)
         }
@@ -433,9 +427,15 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
     private fun renderCell(player: Player, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
-        textView.text = player.abbrName
+        val playerName = player.fullName.trim()
+        textView.text = playerName
         val imageView: ImageView = view.findViewById(imageId)
-        imageView.setImageResource(player.profilePic)
+        if (Dictionary.playerToImageResource.containsKey(playerName)) {
+            imageView.setImageResource(Dictionary.playerToImageResource[playerName]!!)
+        }
+        else {
+            imageView.setImageResource(player.profilePic)
+        }
         view.setOnClickListener {
             val intent = Intent(view.context, PlayerActivity::class.java).apply {
                 putExtra("SELECTED_PLAYER", player.playerID)

@@ -15,6 +15,14 @@ import com.example.gamechangermobile.MainActivity
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.*
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.example.gamechangermobile.models.Player
+import kotlinx.android.synthetic.main.activity_player.*
+import com.example.gamechangermobile.database.Dictionary
+import com.example.gamechangermobile.models.PlayerID
+import com.example.gamechangermobile.models.getPlayerById
+import com.example.gamechangermobile.models.getTeamById
 import com.example.gamechangermobile.user.addToFavPlayer
 
 import com.google.android.material.tabs.TabLayout
@@ -32,9 +40,14 @@ class PlayerActivity : AppCompatActivity() {
         val playerID = intent.getParcelableExtra<PlayerID>("SELECTED_PLAYER")
         player = playerID?.let { getPlayerById(it) }!! //TODO dangerous
 
-        player_page_profile_pic.setImageResource(
-            player?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
-        )
+        val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(player?.GCID!!) }
+
+        val imageResource = if (Dictionary.playerToImageResource.containsKey(player?.fullName?.trim())) Dictionary.playerToImageResource[player?.fullName?.trim()] else R.drawable.ic_baseline_sports_basketball_24
+        if (imageResource != null) {
+            player_page_profile_pic.setImageResource(
+                imageResource
+            )
+        }
         player_page_player_firstname.text = player?.firstName
         player_page_player_lastname.text = player?.lastName
         player_page_player_team.text = getTeamById(player?.teamId)?.name
@@ -85,8 +98,8 @@ class PlayerActivity : AppCompatActivity() {
                 1 -> PlayerPageStatsFragment(player)
                 2 -> PlayerPageCareerFragment(player)
                 3 -> PlayerPageAdvancedStatsFragment(player)
-                4 -> PlayerPageTeamEffFragment()
-                else -> PlayerPageTeamEffFragment()
+                4 -> PlayerPageTeamEffFragment(player)
+                else -> PlayerPageTeamEffFragment(player)
             }
         }
     }
