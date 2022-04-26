@@ -38,6 +38,10 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     }
 
     // stats section
+    private val chartStats = MutableLiveData<Map<String, Float>>()
+    fun getChartStats(): LiveData<Map<String, Float>> {
+        return chartStats
+    }
 
     // career section
     private val careerApiPath = "player_season_data"
@@ -63,8 +67,8 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     fun getCareerAcc(): LiveData<Map<String, List<String>>> {
         return careerAcc
     }
-    private fun callCareerApi() {
-        OkHttp(CareerOnSuccessResponse()).getRequest(
+    private fun callCareerAndStatsApi() {
+        OkHttp(CareerAndStatsOnSuccessResponse()).getRequest(
             careerApiPath,
             careerQueryParams,
             apiSource
@@ -123,7 +127,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     init {
         Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
         callGameRecordsApi()
-        callCareerApi()
+        callCareerAndStatsApi()
         callAdvApi()
         callEffApi()
     }
@@ -230,96 +234,105 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         }
     }
 
-    private fun CareerOnSuccessResponse(): OkHttp.OnSuccessResponse {
+    private fun CareerAndStatsOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object: OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 val updatedCareerAcc = mutableMapOf<String, List<String>>()
                 val updatedCareerAvg = mutableMapOf<String, List<String>>()
+                val updatedChartStats = mutableMapOf<String, Float>()
                 val career = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
-                if (career != null) {
-                    for (data in career) {
+                career?.forEachIndexed { i, data ->
+                    // "MT", "MIN", "PTS", "REB", "AST", "FG", "FGM", "FGA", "FG%", "2P", "2PM", "2PA", "2P%", "3P", "3PM", "3PA", "3P%", "FT", "FTM", "FTA", "FT%", "OREB", "DREB", "STL", "BLK", "TOV", "PF", "EFF"
+                    val stats = mutableListOf<String>()
+                    stats.add(data.info.record_matches.toString())
+                    stats.add(Utils.getPlayingTimeInMinutesString(data.box.min))
 
-                        // "MT", "MIN", "PTS", "REB", "AST", "FG", "FGM", "FGA", "FG%", "2P", "2PM", "2PA", "2P%", "3P", "3PM", "3PA", "3P%", "FT", "FTM", "FTA", "FT%", "OREB", "DREB", "STL", "BLK", "TOV", "PF", "EFF"
-                        val stats = mutableListOf<String>()
-                        stats.add(data.info.record_matches.toString())
-                        stats.add(Utils.getPlayingTimeInMinutesString(data.box.min))
+                    stats.add(data.box.pts.toString())
+                    stats.add(data.box.reb.toString())
+                    stats.add(data.box.ast.toString())
 
-                        stats.add(data.box.pts.toString())
-                        stats.add(data.box.reb.toString())
-                        stats.add(data.box.ast.toString())
+                    stats.add(data.box.fg_pts.toString())
+                    stats.add(data.box.fg_m.toString())
+                    stats.add(data.box.fg_a.toString())
+                    stats.add(data.box.fg_percent.toString())
 
-                        stats.add(data.box.fg_pts.toString())
-                        stats.add(data.box.fg_m.toString())
-                        stats.add(data.box.fg_a.toString())
-                        stats.add(data.box.fg_percent.toString())
+                    stats.add(data.box.two_pts.toString())
+                    stats.add(data.box.two_pts_m.toString())
+                    stats.add(data.box.two_pts_a.toString())
+                    stats.add(data.box.two_pts_percent.toString())
 
-                        stats.add(data.box.two_pts.toString())
-                        stats.add(data.box.two_pts_m.toString())
-                        stats.add(data.box.two_pts_a.toString())
-                        stats.add(data.box.two_pts_percent.toString())
+                    stats.add(data.box.three_pts.toString())
+                    stats.add(data.box.three_pts_m.toString())
+                    stats.add(data.box.three_pts_a.toString())
+                    stats.add(data.box.three_pts_percent.toString())
 
-                        stats.add(data.box.three_pts.toString())
-                        stats.add(data.box.three_pts_m.toString())
-                        stats.add(data.box.three_pts_a.toString())
-                        stats.add(data.box.three_pts_percent.toString())
+                    stats.add(data.box.ft_pts.toString())
+                    stats.add(data.box.ft_m.toString())
+                    stats.add(data.box.ft_a.toString())
+                    stats.add(data.box.ft_percent.toString())
 
-                        stats.add(data.box.ft_pts.toString())
-                        stats.add(data.box.ft_m.toString())
-                        stats.add(data.box.ft_a.toString())
-                        stats.add(data.box.ft_percent.toString())
+                    stats.add(data.box.off_reb.toString())
+                    stats.add(data.box.def_reb.toString())
 
-                        stats.add(data.box.off_reb.toString())
-                        stats.add(data.box.def_reb.toString())
+                    stats.add(data.box.stl.toString())
+                    stats.add(data.box.blk.toString())
+                    stats.add(data.box.to.toString())
+                    stats.add(data.box.pf.toString())
 
-                        stats.add(data.box.stl.toString())
-                        stats.add(data.box.blk.toString())
-                        stats.add(data.box.to.toString())
-                        stats.add(data.box.pf.toString())
+                    updatedCareerAcc[data.info.season_name]= stats
 
-                        updatedCareerAcc[data.info.season_name]= stats
+                    val avgStats = mutableListOf<String>()
+                    avgStats.add(data.info.record_matches.toString())
+                    avgStats.add(Utils.getPlayingTimeInMinutesString(data.box.avg_min))
 
-                        val avgStats = mutableListOf<String>()
-                        avgStats.add(data.info.record_matches.toString())
-                        avgStats.add(Utils.getPlayingTimeInMinutesString(data.box.avg_min))
+                    avgStats.add(data.box.avg_pts.toString())
+                    avgStats.add(data.box.avg_reb.toString())
+                    avgStats.add(data.box.avg_ast.toString())
 
-                        avgStats.add(data.box.avg_pts.toString())
-                        avgStats.add(data.box.avg_reb.toString())
-                        avgStats.add(data.box.avg_ast.toString())
+                    avgStats.add(data.box.avg_fg_pts.toString())
+                    avgStats.add(data.box.avg_fg_m.toString())
+                    avgStats.add(data.box.avg_fg_a.toString())
+                    avgStats.add(data.box.avg_fg_percent.toString())
 
-                        avgStats.add(data.box.avg_fg_pts.toString())
-                        avgStats.add(data.box.avg_fg_m.toString())
-                        avgStats.add(data.box.avg_fg_a.toString())
-                        avgStats.add(data.box.avg_fg_percent.toString())
+                    avgStats.add(data.box.avg_two_pts.toString())
+                    avgStats.add(data.box.avg_two_pts_m.toString())
+                    avgStats.add(data.box.avg_two_pts_a.toString())
+                    avgStats.add(data.box.avg_two_pts_percent.toString())
 
-                        avgStats.add(data.box.avg_two_pts.toString())
-                        avgStats.add(data.box.avg_two_pts_m.toString())
-                        avgStats.add(data.box.avg_two_pts_a.toString())
-                        avgStats.add(data.box.avg_two_pts_percent.toString())
+                    avgStats.add(data.box.avg_three_pts.toString())
+                    avgStats.add(data.box.avg_three_pts_m.toString())
+                    avgStats.add(data.box.avg_three_pts_a.toString())
+                    avgStats.add(data.box.avg_three_pts_percent.toString())
 
-                        avgStats.add(data.box.avg_three_pts.toString())
-                        avgStats.add(data.box.avg_three_pts_m.toString())
-                        avgStats.add(data.box.avg_three_pts_a.toString())
-                        avgStats.add(data.box.avg_three_pts_percent.toString())
+                    avgStats.add(data.box.avg_ft_pts.toString())
+                    avgStats.add(data.box.avg_ft_m.toString())
+                    avgStats.add(data.box.avg_ft_a.toString())
+                    avgStats.add(data.box.avg_ft_percent.toString())
 
-                        avgStats.add(data.box.avg_ft_pts.toString())
-                        avgStats.add(data.box.avg_ft_m.toString())
-                        avgStats.add(data.box.avg_ft_a.toString())
-                        avgStats.add(data.box.avg_ft_percent.toString())
+                    avgStats.add(data.box.avg_off_reb.toString())
+                    avgStats.add(data.box.avg_def_reb.toString())
 
-                        avgStats.add(data.box.avg_off_reb.toString())
-                        avgStats.add(data.box.avg_def_reb.toString())
+                    avgStats.add(data.box.avg_stl.toString())
+                    avgStats.add(data.box.avg_blk.toString())
+                    avgStats.add(data.box.avg_to.toString())
+                    avgStats.add(data.box.avg_pf.toString())
 
-                        avgStats.add(data.box.avg_stl.toString())
-                        avgStats.add(data.box.avg_blk.toString())
-                        avgStats.add(data.box.avg_to.toString())
-                        avgStats.add(data.box.avg_pf.toString())
+                    updatedCareerAvg[data.info.season_name] = avgStats
 
-                        updatedCareerAvg[data.info.season_name] = avgStats
-
+                    // update chart stats for the latest season
+                    if (i == career.size - 1) { // the latest season
+                        updatedChartStats["PTS"] = data.box.avg_pts
+                        updatedChartStats["REB"] = data.box.avg_reb
+                        updatedChartStats["AST"] = data.box.avg_ast
+                        updatedChartStats["STL"] = data.box.avg_stl
+                        updatedChartStats["BLK"] = data.box.avg_blk
+                        updatedChartStats["TOV"] = data.box.avg_to
                     }
+
                 }
                 careerAcc.postValue(updatedCareerAcc)
                 careerAvg.postValue(updatedCareerAvg)
+                chartStats.postValue(updatedChartStats)
             }
         }
 

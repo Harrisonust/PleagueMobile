@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
 import com.github.mikephil.charting.charts.RadarChart
@@ -13,6 +14,7 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.RadarData
 import com.github.mikephil.charting.data.RadarDataSet
 import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
 import kotlinx.android.synthetic.main.fragment_player_page_stats.*
 import java.util.*
@@ -23,6 +25,7 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
     private var radarData: RadarData? = null
     private val xDatas = ArrayList<String>()
     private val yDatas1 = ArrayList<RadarEntry>()
+    private val playerViewModel: PlayerViewModel by activityViewModels { PlayerViewModelFactory(player.GCID) }
 //    private val yDatas2 = ArrayList<RadarEntry>()
 
     override fun onCreateView(
@@ -35,27 +38,34 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val xAxis = radarchart.xAxis
+        val labels = listOf("Points", "Rebounds", "Assists", "Steals", "Blocks", "Turnovers")
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
 
         if (xDatas.isNullOrEmpty() and yDatas1.isNullOrEmpty()) {
-            val avgStats = player.averageStat
-            xDatas.add("Points")
-            yDatas1.add(RadarEntry(avgStats.data["points"]!!))
-            xDatas.add("Rebounds")
-            yDatas1.add(RadarEntry(avgStats.data["rebounds"]!!))
-            xDatas.add("Assists")
-            yDatas1.add(RadarEntry(avgStats.data["assists"]!!))
-            xDatas.add("Steals")
-            yDatas1.add(RadarEntry(avgStats.data["steals"]!!))
-            xDatas.add("Blocks")
-            yDatas1.add(RadarEntry(avgStats.data["blocks"]!!))
-            xDatas.add("Turnovers")
-            yDatas1.add(RadarEntry(avgStats.data["turnovers"]!!))
+            playerViewModel.getChartStats().observe(viewLifecycleOwner, {
+                if (it.isNotEmpty()) {
+                    xDatas.add("Points")
+                    yDatas1.add(RadarEntry(it["PTS"]!!))
+                    xDatas.add("Rebounds")
+                    yDatas1.add(RadarEntry(it["REB"]!!))
+                    xDatas.add("Assists")
+                    yDatas1.add(RadarEntry(it["AST"]!!))
+                    xDatas.add("Steals")
+                    yDatas1.add(RadarEntry(it["STL"]!!))
+                    xDatas.add("Blocks")
+                    yDatas1.add(RadarEntry(it["BLK"]!!))
+                    xDatas.add("Turnovers")
+                    yDatas1.add(RadarEntry(it["TOV"]!!))
+                }
+
+                radarchart.setTouchEnabled(false)
+                radarchart.extraTopOffset = 10f
+                radarchart.description.isEnabled = false
+                radarData = getRadarData()
+                showRadarChart(radarchart, radarData!!)
+            })
         }
-        radarchart.setTouchEnabled(false)
-        radarchart.extraTopOffset = 10f
-        radarchart.description.isEnabled = false
-        radarData = getRadarData()
-        showRadarChart(radarchart, radarData!!)
     }
 
     private fun getRadarData(): RadarData {
@@ -89,6 +99,7 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
         radarChart.setDrawWeb(true)
         radarChart.webLineWidth = 1f
         radarChart.webColor = Color.rgb(0, 0, 0)
+        radarChart.webAlpha = 50
         radarChart.webColorInner = Color.rgb(0, 0, 0)
         radarChart.webLineWidthInner = 1f
 
