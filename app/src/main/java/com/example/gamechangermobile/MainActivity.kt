@@ -140,18 +140,18 @@ class MainActivity : AppCompatActivity() {
                 .filter { it != null }
                 .forEach {
                     val regex =
-                        "^([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (\\S+) (.*?) ([0-9]*?) [0-9]*? G([0-9][0-9]) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (\\S+) (.*?) 數據 售票 (.*? / .*?)\$".toRegex()
+                        "^([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (?:\\S+) (.*?) ([0-9]*?) [0-9]*? G([0-9][0-9]) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (?:\\S+) (.*?) 數據 售票 (?:.*? / .*?)\$".toRegex()
                     val parsed = regex.find(it.text())
                     val month = parsed?.groups?.get(1)?.value
                     val date = parsed?.groups?.get(2)?.value
                     val time = parsed?.groups?.get(3)?.value
-                    val guest = parsed?.groups?.get(5)?.value
-                    val guestScore = parsed?.groups?.get(6)?.value
-                    val id = parsed?.groups?.get(7)?.value
-                    val location = parsed?.groups?.get(8)?.value
-                    val audience = parsed?.groups?.get(9)?.value
-                    val hostScore = parsed?.groups?.get(10)?.value
-                    val host = parsed?.groups?.get(12)?.value
+                    val guest = parsed?.groups?.get(4)?.value
+                    val guestScore = parsed?.groups?.get(5)?.value
+                    val id = parsed?.groups?.get(6)?.value
+                    val location = parsed?.groups?.get(7)?.value
+                    val audience = parsed?.groups?.get(8)?.value
+                    val hostScore = parsed?.groups?.get(9)?.value
+                    val host = parsed?.groups?.get(10)?.value
                     var game = Game(
                         gameId = GameID(id!!.toInt() + 72),
                         date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("2022-$month-${date}T${time}:00Z"),
@@ -189,7 +189,7 @@ class MainActivity : AppCompatActivity() {
                 .filter { it != null }
                 .forEach {
                     val regex =
-                        "^([0-9]) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
+                        "^([0-9]) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (?:.*)\$".toRegex()
                     val parsed = regex.find(it.text())
                     var ranking= parsed?.groups?.get(1)?.value
                     val teamName= parsed?.groups?.get(2)?.value

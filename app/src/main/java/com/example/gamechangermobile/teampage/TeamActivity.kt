@@ -113,15 +113,15 @@ class TeamActivity : AppCompatActivity() {
                             playerID = regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
                         }
                     val regex =
-                        "^#([0-9]*?) (.*?) ([a-zA-Z]*?) (.*?) ([0-9]*\\.[0-9]*\\.[0-9]*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
+                        "^#([0-9]*?) (.*?) ([a-zA-Z]*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
                     val parsed = regex.find(it.text())
                     val number = parsed?.groups?.get(1)?.value
                     val name = parsed?.groups?.get(2)?.value
                     val position = parsed?.groups?.get(3)?.value
                     val eng_name = parsed?.groups?.get(4)?.value
                     val birthday = parsed?.groups?.get(5)?.value
-                    val height = parsed?.groups?.get(7)?.value
-                    val weight = parsed?.groups?.get(9)?.value
+                    val height = parsed?.groups?.get(6)?.value
+                    val weight = parsed?.groups?.get(7)?.value
 
                     val player = Player(
                         playerID = PlayerID(playerID),
