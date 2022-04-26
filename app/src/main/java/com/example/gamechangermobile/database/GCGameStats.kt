@@ -14,6 +14,15 @@ data class GCPlayerInfoWithBoxAndAdv(
     val advancement: ArrayList<GCPlayerAdv> = arrayListOf<GCPlayerAdv>()
 )
 
+data class GCPlayer(
+    val info: GCPlayerInfo = GCPlayerInfo(),
+    val on_off_court: GCPlayerOnOffCourt = GCPlayerOnOffCourt(),
+    val eff: ArrayList<GCPlayerEff> = arrayListOf(),
+    val advancement: ArrayList<GCPlayerAdv> = arrayListOf(),
+    val vs_defense: GCPlayerVsDefense = GCPlayerVsDefense(),
+    val opp_vs_defense: GCPlayerOppVsDefense = GCPlayerOppVsDefense()
+)
+
 data class GCPlayerInfoWithFullBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>()
@@ -58,6 +67,35 @@ data class GCPlayerInfo(
 //    val split_info: String = "",
 
 ) {}
+
+data class GCPlayerOnOffCourt(
+    val on_court: ArrayList<GCPlayerAdv> = arrayListOf(),
+    val off_court: ArrayList<GCPlayerAdv> = arrayListOf()
+)
+
+data class GCPlayerEff(
+    val ppp_rounds_100: Float = 0F,
+    val opp_ppp_rounds_100: Float = 0F,
+)
+
+data class GCPlayerVsDefense(
+    val vs_man: ArrayList<VsDefense> = arrayListOf(),
+    val vs_zone: ArrayList<VsDefense> = arrayListOf(),
+    val vs_transition: ArrayList<VsDefense> = arrayListOf(),
+    val vs_second_chance: ArrayList<VsDefense> = arrayListOf(),
+)
+
+data class GCPlayerOppVsDefense(
+    val opp_vs_man: ArrayList<VsDefense> = arrayListOf(),
+    val opp_vs_zone: ArrayList<VsDefense> = arrayListOf(),
+    val opp_vs_transition: ArrayList<VsDefense> = arrayListOf(),
+    val opp_vs_second_chance: ArrayList<VsDefense> = arrayListOf(),
+)
+
+data class VsDefense(
+    val ppp: Float = 0F,
+    val pts_per_36: Float = 0F
+)
 
 data class GCTeam(
     val info: GCTeamInfo = GCTeamInfo(),
@@ -115,7 +153,10 @@ data class GCPlayerAdv(
     val usg_inc_pass: Float = 0F,
     val avg_pass: Float = 0F,
     val pass_to: Int = 0,
-    val avg_pts: Float = 0F
+    val avg_pts: Float = 0F,
+
+    val opp_ppp_rounds_100: Float = 0F,
+    val ppp_rounds_100: Float = 0F,
 )
 
 data class GCPlayerStats(
