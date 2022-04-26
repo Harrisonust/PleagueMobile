@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.MainActivity.Companion.players
+import com.example.gamechangermobile.database.GCPlayerID
+import com.example.gamechangermobile.database.GCPlayerInfoWithBox
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
+import com.example.gamechangermobile.network.OkHttp
 import com.example.gamechangermobile.network.UrlRequestCallback
 import com.example.gamechangermobile.teampage.TeamPageInfoFragment
 import com.example.gamechangermobile.teampage.TeamPageRosterFragment
@@ -133,9 +136,32 @@ class TeamActivity : AppCompatActivity() {
                     players.add(player)
                     teamData.playerList.add(player.playerID)
                 }
+            OkHttp(PlayerIdOnSuccessResponse()).getRequest(
+                "player_season_data",
+                mapOf(
+                    "season_id" to "4",
+                    "part" to "info",
+                    "team_id" to "19,20,21,22,23,24"
+                ),
+                "GC"
+            )
             true
         } catch (e: Exception) {
             false
+        }
+    }
+
+    private fun PlayerIdOnSuccessResponse(): OkHttp.OnSuccessResponse {
+        return object: OkHttp.OnSuccessResponse {
+            override fun action(result: String?) {
+                Log.d("DEBUG", "HIHIHIHI")
+                val playerList = result?.let { GCStatsParser().parse<GCPlayerID>(it) }
+                if (playerList != null) {
+                    for (player in playerList) {
+                        getPlayerByName(player.info.name)?.GCID = player.info.id
+                    }
+                }
+            }
         }
     }
 
