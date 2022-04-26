@@ -178,45 +178,6 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                         stats.add(gameRecord.box.to.toString())
                         stats.add(gameRecord.box.pf.toString())
                         stats.add(gameRecord.box.eff.toString())
-//                        val stats = mutableMapOf<String, String>()
-//                        stats["OPP"] = gameRecord.info.opponent_team_name
-//                        // match score
-//                        stats["MSCR"] = if (gameRecord.info.is_home) "${gameRecord.info.team_pts}:${gameRecord.info.opponent_team_pts}" else "${gameRecord.info.opponent_team_pts}:${gameRecord.info.team_pts}"
-//                        // home or away
-//                        stats["H/A"] = if (gameRecord.info.is_home) "Home" else "Away"
-//                        stats["MIN"] = "${gameRecord.box.min/100}:${gameRecord.box.min%100}"
-//
-//                        stats["PTS"] = gameRecord.box.pts.toString()
-//                        stats["REB"] = gameRecord.box.reb.toString()
-//                        stats["AST"] = gameRecord.box.ast.toString()
-//
-//                        stats["FG"] = gameRecord.box.fg_pts.toString()
-//                        stats["FGM"] = gameRecord.box.fg_m.toString()
-//                        stats["FGA"] = gameRecord.box.fg_a.toString()
-//                        stats["FG%"] = gameRecord.box.fg_percent.toString()
-//
-//                        stats["2P"] = gameRecord.box.two_pts.toString()
-//                        stats["2PM"] = gameRecord.box.two_pts_m.toString()
-//                        stats["2PA"] = gameRecord.box.two_pts_a.toString()
-//                        stats["2P%"] = gameRecord.box.two_pts_percent.toString()
-//
-//                        stats["3P"] = gameRecord.box.three_pts.toString()
-//                        stats["3PM"] = gameRecord.box.three_pts_m.toString()
-//                        stats["3PA"] = gameRecord.box.three_pts_a.toString()
-//                        stats["3P%"] = gameRecord.box.three_pts_percent.toString()
-//
-//                        stats["FT"] = gameRecord.box.ft_pts.toString()
-//                        stats["FTM"] = gameRecord.box.ft_m.toString()
-//                        stats["FTA"] = gameRecord.box.ft_a.toString()
-//                        stats["FT%"] = gameRecord.box.ft_percent.toString()
-//
-//                        stats["OREB"] = gameRecord.box.off_reb.toString()
-//                        stats["DREB"] = gameRecord.box.def_reb.toString()
-//                        stats["STL"] = gameRecord.box.stl.toString()
-//                        stats["BLK"] = gameRecord.box.blk.toString()
-//                        stats["TOV"] = gameRecord.box.to.toString()
-//                        stats["PF"] = gameRecord.box.pf.toString()
-//                        stats["EFF"] = gameRecord.box.eff.toString()
 
                         updatedGameRecords[gameInfo]= stats
                     }
