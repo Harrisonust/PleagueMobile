@@ -46,6 +46,18 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startActivity(intent)
         }
 
+        guest_game_q1.text = game.guestScorePerQuarter[0]
+        guest_game_q2.text = game.guestScorePerQuarter[1]
+        guest_game_q3.text = game.guestScorePerQuarter[2]
+        guest_game_q4.text = game.guestScorePerQuarter[3]
+        guest_game_tot.text = game.guestScore.toString()
+
+        host_game_q1.text = game.hostScorePerQuarter[0]
+        host_game_q2.text = game.hostScorePerQuarter[1]
+        host_game_q3.text = game.hostScorePerQuarter[2]
+        host_game_q4.text = game.hostScorePerQuarter[3]
+        host_game_tot.text = game.hostScore.toString()
+
         /**
          * guest team leader begin
          */

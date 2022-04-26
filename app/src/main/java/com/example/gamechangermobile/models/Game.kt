@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 @Parcelize
@@ -19,7 +20,9 @@ data class Game(
     val remainingTime: String = "",
     val highlightPhoto: Int = R.drawable.ic_baseline_sports_basketball_24,
     val guestScore: Int = 0,
-    val hostScore: Int = 0
+    val hostScore: Int = 0,
+    var guestScorePerQuarter: MutableList<String> = mutableListOf("0","0","0","0"),
+    var hostScorePerQuarter: MutableList<String> = mutableListOf("0","0","0","0"),
 ) : Parcelable {
 
 

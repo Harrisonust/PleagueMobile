@@ -3,24 +3,15 @@ package com.example.gamechangermobile
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
 import kotlinx.android.synthetic.main.activity_main.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
 import org.jsoup.Jsoup
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
 

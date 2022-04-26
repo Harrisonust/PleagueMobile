@@ -36,6 +36,19 @@ class GameActivity : AppCompatActivity() {
 //                Log.wtf("Debug", "result ${result}")
                 var g = result?.let { GCStatsParser().parsePlg<PlgGame>(it) }
                 if (g != null) {
+                    gameData.guestScorePerQuarter = arrayListOf(
+                        g.data.q1_away,
+                        g.data.q2_away,
+                        g.data.q3_away,
+                        g.data.q4_away,
+                    )
+                    gameData.hostScorePerQuarter = arrayListOf(
+                        g.data.q1_home,
+                        g.data.q2_home,
+                        g.data.q3_home,
+                        g.data.q4_home,
+                    )
+
                     for (plgPlayer in g.data.home + g.data.away) {
                         Log.d(
                             "Debug",
@@ -81,10 +94,12 @@ class GameActivity : AppCompatActivity() {
 //                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),
 //                        stat.freeThrowPercentage = plgPlayer.ft_m.toFloatOrNull()?: 0F / plgPlayer.ft_a.toFloatOrNull(),
                         if (plgPlayer in g.data.home) {
-                            gameData.hostPlayerStats[PlayerID(plgPlayer.player_id?.toInt() ?: -1)] = stat
+                            gameData.hostPlayerStats[PlayerID(plgPlayer.player_id?.toInt() ?: -1)] =
+                                stat
                         } else {
-                            gameData.guestPlayerStats[PlayerID(plgPlayer.player_id?.toInt() ?: -1)] = stat
-
+                            gameData.guestPlayerStats[PlayerID(
+                                plgPlayer.player_id?.toInt() ?: -1
+                            )] = stat
                         }
                     }
                 }
