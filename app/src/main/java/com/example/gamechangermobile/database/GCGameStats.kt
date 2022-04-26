@@ -2,6 +2,9 @@ package com.example.gamechangermobile.database
 
 import kotlin.collections.ArrayList
 
+data class GCPlayerID(
+    val info: GCPlayerInfo = GCPlayerInfo()
+)
 
 data class GCPlayerInfoWithBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
