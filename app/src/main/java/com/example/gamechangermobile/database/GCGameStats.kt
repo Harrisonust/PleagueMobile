@@ -16,6 +16,7 @@ data class GCPlayerInfoWithBoxAndAdv(
 
 data class GCPlayer(
     val info: GCPlayerInfo = GCPlayerInfo(),
+    val box: ArrayList<GCPlayerStats> = arrayListOf(),
     val on_off_court: GCPlayerOnOffCourt = GCPlayerOnOffCourt(),
     val eff: ArrayList<GCPlayerEff> = arrayListOf(),
     val advancement: ArrayList<GCPlayerAdv> = arrayListOf(),

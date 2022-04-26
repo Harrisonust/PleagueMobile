@@ -90,19 +90,12 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     fun getAdv(): LiveData<Map<String, List<String>>> {
         return adv
     }
-    private fun callAdvApi() {
-        OkHttp(AdvOnSuccessResponse()).getRequest(
-            advApiPath,
-            advQueryParams,
-            apiSource
-        )
-    }
 
     // team eff section
     private val effApiPath = "player_season_data"
     private val effQueryParams = mapOf(
         "season_id" to "4",
-        "part" to "info,+on_off_court,+eff,+advancement,+vs_defense,+opp_vs_defense",
+        "part" to "info,+box,+on_off_court,+eff,+advancement,+vs_defense,+opp_vs_defense",
         "player_id" to playerGCID.toString(),
         "show_all_quarters" to "true",
         "split_type" to "NONE"
@@ -116,8 +109,8 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     fun getEff(): LiveData<Map<String, List<String>>> {
         return eff
     }
-    private fun callEffApi() {
-        OkHttp(EffOnSuccessResponse()).getRequest(
+    private fun callAdvAndEffApi() {
+        OkHttp(AdvAndEffOnSuccessResponse()).getRequest(
             effApiPath,
             effQueryParams,
             apiSource
@@ -128,8 +121,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
         callGameRecordsApi()
         callCareerAndStatsApi()
-        callAdvApi()
-        callEffApi()
+        callAdvAndEffApi()
     }
 
 
@@ -242,6 +234,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                 val updatedChartStats = mutableMapOf<String, Float>()
                 val career = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
                 career?.forEachIndexed { i, data ->
+                    // Career Section
                     // "MT", "MIN", "PTS", "REB", "AST", "FG", "FGM", "FGA", "FG%", "2P", "2PM", "2PA", "2P%", "3P", "3PM", "3PA", "3P%", "FT", "FTM", "FTA", "FT%", "OREB", "DREB", "STL", "BLK", "TOV", "PF", "EFF"
                     val stats = mutableListOf<String>()
                     stats.add(data.info.record_matches.toString())
@@ -319,6 +312,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
 
                     updatedCareerAvg[data.info.season_name] = avgStats
 
+                    // Stats Section
                     // update chart stats for the latest season
                     if (i == career.size - 1) { // the latest season
                         updatedChartStats["PTS"] = data.box.avg_pts
@@ -338,70 +332,58 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
 
     }
 
-    private fun AdvOnSuccessResponse(): OkHttp.OnSuccessResponse {
+    private fun AdvAndEffOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object: OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 val updatedAdv = mutableMapOf<String, List<String>>()
-                val advList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBoxAndAdv>(it) }
-                if (advList != null) {
-                    val columns = listOf("整季", "第一節", "第二節", "第三節", "第四節", "OT")
-                    for (i in advList[0].advancement.indices) {
-                        // "MIN", "PER36", "USG%", "ORTG", "TOR"
-                        val stats = mutableListOf<String>()
-                        stats.add(Utils.getPlayingTimeInMinutesString(advList[0].box[i].avg_min))
-                        stats.add(advList[0].advancement[i].plus_minus_per_36.toString())
-                        stats.add(advList[0].advancement[i].usg.toString())
-                        stats.add(advList[0].advancement[i].ppp.toString())
-                        stats.add(advList[0].advancement[i].to_rate.toString())
-                        updatedAdv[columns[i]] = stats
-                    }
-                    adv.postValue(updatedAdv)
-                }
-            }
-        }
-    }
-
-    private fun EffOnSuccessResponse(): OkHttp.OnSuccessResponse {
-        return object: OkHttp.OnSuccessResponse {
-            override fun action(result: String?) {
                 val updatedEff = mutableMapOf<String, List<String>>()
-                val effList = result?.let { GCStatsParser().parse<GCPlayer>(it) }
-                if (effList != null) {
+                val fullStatsList = result?.let { GCStatsParser().parse<GCPlayer>(it) }
+                if (fullStatsList != null) {
+                    val advColumns = listOf("整季", "第一節", "第二節", "第三節", "第四節", "OT")
                     val columns = listOf("整季\n(團隊)", "整季\n(對手)", "第一節\n(團隊)", "第一節\n(對手)", "第二節\n(團隊)", "第二節\n(對手)", "第三節\n(團隊)", "第三節\n(對手)", "第四節\n(團隊)", "第四節\n(對手)", "OT\n(團隊)", "OT\n(對手)")
-                    for (i in effList[0].advancement.indices) {
-//                        "ON (100RD)", "OFF (100RD)", "EFF (100RD)",
-//                        "ORB", "MAN", "ZONE", "TRANS", "2CH",
-//                        "TRANS PTS", "2CH PTS"
-                        val stats = mutableListOf<String>()
-                        stats.add(effList[0].on_off_court.on_court[i].ppp_rounds_100.toString())
-                        stats.add(effList[0].on_off_court.off_court[i].ppp_rounds_100.toString())
-                        stats.add(effList[0].eff[i].ppp_rounds_100.toString())
-                        stats.add(effList[0].advancement[i].off_reb_rate.toString())
-                        stats.add(effList[0].vs_defense.vs_man[i].ppp.toString())
-                        stats.add(effList[0].vs_defense.vs_zone[i].ppp.toString())
-                        stats.add(effList[0].vs_defense.vs_transition[i].ppp.toString())
-                        stats.add(effList[0].vs_defense.vs_second_chance[i].ppp.toString())
-                        stats.add(effList[0].vs_defense.vs_transition[i].pts_per_36.toString())
-                        stats.add(effList[0].vs_defense.vs_second_chance[i].pts_per_36.toString())
+                    for (i in fullStatsList[0].advancement.indices) {
+                        // ADV Section
+                        // "MIN", "PER36", "USG%", "ORTG", "TOR"
+                        val advStats = mutableListOf<String>()
+                        advStats.add(Utils.getPlayingTimeInMinutesString(fullStatsList[0].box[i].avg_min))
+                        advStats.add(fullStatsList[0].advancement[i].plus_minus_per_36.toString())
+                        advStats.add(fullStatsList[0].advancement[i].usg.toString())
+                        advStats.add(fullStatsList[0].advancement[i].ppp.toString())
+                        advStats.add(fullStatsList[0].advancement[i].to_rate.toString())
+                        updatedAdv[advColumns[i]] = advStats
 
+                        // Eff Section
+                        // "ON (100RD)", "OFF (100RD)", "EFF (100RD)",
+                        // "ORB", "MAN", "ZONE", "TRANS", "2CH",
+                        // "TRANS PTS", "2CH PTS"
+                        val stats = mutableListOf<String>()
+                        stats.add(fullStatsList[0].on_off_court.on_court[i].ppp_rounds_100.toString())
+                        stats.add(fullStatsList[0].on_off_court.off_court[i].ppp_rounds_100.toString())
+                        stats.add(fullStatsList[0].eff[i].ppp_rounds_100.toString())
+                        stats.add(fullStatsList[0].advancement[i].off_reb_rate.toString())
+                        stats.add(fullStatsList[0].vs_defense.vs_man[i].ppp.toString())
+                        stats.add(fullStatsList[0].vs_defense.vs_zone[i].ppp.toString())
+                        stats.add(fullStatsList[0].vs_defense.vs_transition[i].ppp.toString())
+                        stats.add(fullStatsList[0].vs_defense.vs_second_chance[i].ppp.toString())
+                        stats.add(fullStatsList[0].vs_defense.vs_transition[i].pts_per_36.toString())
+                        stats.add(fullStatsList[0].vs_defense.vs_second_chance[i].pts_per_36.toString())
                         updatedEff[columns[2 * i]] = stats
 
                         val oppStats = mutableListOf<String>()
-                        oppStats.add(effList[0].on_off_court.on_court[i].opp_ppp_rounds_100.toString())
-                        oppStats.add(effList[0].on_off_court.off_court[i].opp_ppp_rounds_100.toString())
-                        oppStats.add(effList[0].eff[i].opp_ppp_rounds_100.toString())
-                        oppStats.add(effList[0].advancement[i].def_reb_rate.toString())
-                        oppStats.add(effList[0].opp_vs_defense.opp_vs_man[i].ppp.toString())
-                        oppStats.add(effList[0].opp_vs_defense.opp_vs_zone[i].ppp.toString())
-                        oppStats.add(effList[0].opp_vs_defense.opp_vs_transition[i].ppp.toString())
-                        oppStats.add(effList[0].opp_vs_defense.opp_vs_second_chance[i].ppp.toString())
-                        oppStats.add(effList[0].opp_vs_defense.opp_vs_transition[i].pts_per_36.toString())
-                        oppStats.add(effList[0].opp_vs_defense.opp_vs_second_chance[i].pts_per_36.toString())
-
+                        oppStats.add(fullStatsList[0].on_off_court.on_court[i].opp_ppp_rounds_100.toString())
+                        oppStats.add(fullStatsList[0].on_off_court.off_court[i].opp_ppp_rounds_100.toString())
+                        oppStats.add(fullStatsList[0].eff[i].opp_ppp_rounds_100.toString())
+                        oppStats.add(fullStatsList[0].advancement[i].def_reb_rate.toString())
+                        oppStats.add(fullStatsList[0].opp_vs_defense.opp_vs_man[i].ppp.toString())
+                        oppStats.add(fullStatsList[0].opp_vs_defense.opp_vs_zone[i].ppp.toString())
+                        oppStats.add(fullStatsList[0].opp_vs_defense.opp_vs_transition[i].ppp.toString())
+                        oppStats.add(fullStatsList[0].opp_vs_defense.opp_vs_second_chance[i].ppp.toString())
+                        oppStats.add(fullStatsList[0].opp_vs_defense.opp_vs_transition[i].pts_per_36.toString())
+                        oppStats.add(fullStatsList[0].opp_vs_defense.opp_vs_second_chance[i].pts_per_36.toString())
                         updatedEff[columns[2 * i + 1]] = oppStats
                     }
-                    Log.d("VIEWMODEL", "Map size: ${updatedEff.size}")
                     eff.postValue(updatedEff)
+                    adv.postValue(updatedAdv)
                 }
             }
         }
