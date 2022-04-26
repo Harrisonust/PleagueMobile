@@ -86,8 +86,8 @@ class PlayerActivity : AppCompatActivity() {
                 1 -> PlayerPageStatsFragment(player)
                 2 -> PlayerPageCareerFragment(player)
                 3 -> PlayerPageAdvancedStatsFragment(player)
-                4 -> PlayerPageTeamEffFragment()
-                else -> PlayerPageTeamEffFragment()
+                4 -> PlayerPageTeamEffFragment(player)
+                else -> PlayerPageTeamEffFragment(player)
             }
         }
     }
