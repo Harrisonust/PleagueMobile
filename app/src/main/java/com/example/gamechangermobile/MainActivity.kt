@@ -188,18 +188,17 @@ class MainActivity : AppCompatActivity() {
                 .parallelStream()
                 .filter { it != null }
                 .forEach {
-                    println(it.text())
                     val regex =
                         "^([0-9]) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*)\$".toRegex()
                     val parsed = regex.find(it.text())
                     var ranking= parsed?.groups?.get(1)?.value
                     val teamName= parsed?.groups?.get(2)?.value
-                    val total= parsed?.groups?.get(9)?.value
-                    val win= parsed?.groups?.get(10)?.value
-                    val lose= parsed?.groups?.get(11)?.value
-                    val gb= parsed?.groups?.get(13)?.value
-                    val streakL= parsed?.groups?.get(14)?.value
-                    val streakN= parsed?.groups?.get(15)?.value
+                    val total= parsed?.groups?.get(3)?.value
+                    val win= parsed?.groups?.get(4)?.value
+                    val lose= parsed?.groups?.get(5)?.value
+                    val gb= parsed?.groups?.get(7)?.value
+                    val streakL= parsed?.groups?.get(8)?.value
+                    val streakN= parsed?.groups?.get(9)?.value
 
                     val teamID = teamName?.let { it1 -> getTeamIdByName(it1) }
                     val team = getTeamById(teamID)
