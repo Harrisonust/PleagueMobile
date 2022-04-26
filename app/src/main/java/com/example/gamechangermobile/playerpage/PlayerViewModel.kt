@@ -121,8 +121,6 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     private fun GameRecordsOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object: OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
-                Log.d("RESPONSE", result!!)
-
                 val updatedGameRecords = mutableMapOf<String, List<String>>()
                 val gameRecordList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
                 if (gameRecordList != null) {
