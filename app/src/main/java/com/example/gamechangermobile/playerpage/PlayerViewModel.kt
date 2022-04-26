@@ -76,14 +76,6 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     }
 
     // adv section
-    private val advApiPath = "player_season_data"
-    private val advQueryParams = mapOf(
-        "season_id" to "4",
-        "part" to "info,+advancement,+box",
-        "player_id" to playerGCID.toString(),
-        "show_all_quarters" to "true",
-        "split_type" to "NONE"
-    )
     private val adv = MutableLiveData<Map<String, List<String>>>()
     val advHeaders = listOf(
         "MIN", "PER36", "USG%", "ORTG", "TOR")
