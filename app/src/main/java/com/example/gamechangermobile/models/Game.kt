@@ -6,10 +6,10 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 @Parcelize
 data class Game(
     val gameId: GameID,
+    val gamePhase: String,
     var guestTeam: TeamID,
     var hostTeam: TeamID,
     val date: Date = Date(),
@@ -21,8 +21,8 @@ data class Game(
     val highlightPhoto: Int = R.drawable.ic_baseline_sports_basketball_24,
     val guestScore: Int = 0,
     val hostScore: Int = 0,
-    var guestScorePerQuarter: MutableList<String> = mutableListOf("0","0","0","0"),
-    var hostScorePerQuarter: MutableList<String> = mutableListOf("0","0","0","0"),
+    var guestScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0"),
+    var hostScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0"),
 ) : Parcelable {
 
 

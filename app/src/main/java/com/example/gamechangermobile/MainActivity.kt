@@ -125,12 +125,16 @@ class MainActivity : AppCompatActivity() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
             val allGamesURL: ArrayList<String> = arrayListOf(
+                "https://pleagueofficial.com/schedule-pre-season/2021-22",
                 "https://pleagueofficial.com/schedule-regular-season/2021-22",
                 "https://pleagueofficial.com/schedule-playoffs/2021-22",
                 "https://pleagueofficial.com/schedule-finals/2021-22"
             )
 
-            for (url in allGamesURL) {
+            val gamePhase =
+                arrayListOf("Pre Season", "Regular Games", "Playoffs 1st Round", "Playoffs Finals")
+
+            allGamesURL.forEachIndexed { index, url ->
                 val doc =
                     Jsoup.connect(url).get()
                 doc.select("div.col-lg-12.col-12")
@@ -138,11 +142,12 @@ class MainActivity : AppCompatActivity() {
                     .filter { it != null }
                     .forEach {
                         val regex =
-                            "^([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (?:\\S+) (.*?) ([0-9]*?) [0-9]*? ([A-Za-z]*[0-9]*) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (?:\\S+) (.*?) 數據 售票 (?:.*? / .*?)\$".toRegex()
+                            "([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (?:\\S+) (.*?) ([0-9]*?) [0-9]*? (\\S+[0-9]*) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (?:\\S+) (.*?) 數據 售票 (?:.*)".toRegex()
 
                         val parsed = regex.find(it.text())
                         val month = parsed?.groups?.get(1)?.value
                         val date = parsed?.groups?.get(2)?.value
+                        val year = if (month!!.toInt() > 8) "2021" else "2022"
                         val time = parsed?.groups?.get(3)?.value
                         val guest = parsed?.groups?.get(4)?.value
                         val guestScore = parsed?.groups?.get(5)?.value
@@ -153,7 +158,8 @@ class MainActivity : AppCompatActivity() {
                         val host = parsed?.groups?.get(10)?.value
                         var game = Game(
                             gameId = GameID(id!!),
-                            date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("2022-$month-${date}T${time}:00Z"),
+                            gamePhase = gamePhase[index],
+                            date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("$year-$month-${date}T${time}:00Z"),
                             guestTeam = getTeamIdByName(guest!!),
                             hostTeam = getTeamIdByName(host!!),
                             guestScore = guestScore!!.toInt(),

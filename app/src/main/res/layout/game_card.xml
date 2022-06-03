@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/game_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,149 +13,178 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintLeft_toLeftOf="parent">
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/guest_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                card_view:layout_constraintTop_toTopOf="parent"
+                android:src="@mipmap/ic_launcher"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:src="@mipmap/ic_launcher"/>
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/guest_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:layout_constraintTop_toBottomOf="@id/guest_image"
+                android:layout_marginTop="10dp"
+                android:text="Braves"
+                android:textSize="20dp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:text="Braves"/>
+                card_view:layout_constraintTop_toBottomOf="@id/guest_image" />
+
             <TextView
                 android:id="@+id/guest_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:layout_constraintTop_toBottomOf="@id/guest_name"
+                android:layout_marginTop="5dp"
+                android:text="30-15"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="5dp"
-                android:text="30-15"/>
+                card_view:layout_constraintTop_toBottomOf="@id/guest_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintLeft_toLeftOf="parent"
             card_view:layout_constraintRight_toRightOf="parent"
-            card_view:layout_constraintLeft_toLeftOf="parent">
+            card_view:layout_constraintTop_toTopOf="parent">
+
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
                 card_view:layout_constraintBottom_toTopOf="@id/match_score"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent">
+
                 <TextView
                     android:id="@+id/quarter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3rd"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:text="3rd" />
+
                 <TextView
                     android:id="@+id/remaining_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15:27"/>
+                    android:text="15:27" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/match_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="10dp"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="10dp">
+                card_view:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:id="@+id/host_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintRight_toRightOf="parent"
-                    card_view:layout_constraintLeft_toRightOf="@+id/semicolon"
+                    android:text="127"
                     android:textSize="30dp"
-                    android:text="127"/>
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintLeft_toRightOf="@+id/semicolon"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/semicolon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    card_view:layout_constraintBottom_toBottomOf="parent"
-                    card_view:layout_constraintRight_toRightOf="parent"
-                    card_view:layout_constraintLeft_toLeftOf="parent"
                     android:paddingHorizontal="5dp"
+                    android:text=":"
                     android:textSize="30dp"
-                    android:text=":"/>
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintLeft_toLeftOf="parent"
+                    card_view:layout_constraintRight_toRightOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/guest_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    card_view:layout_constraintTop_toTopOf="parent"
+                    android:text="108"
+                    android:textSize="30dp"
                     card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintLeft_toLeftOf="parent"
                     card_view:layout_constraintRight_toLeftOf="@+id/semicolon"
-                    android:textSize="30dp"
-                    android:text="108"/>
+                    card_view:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/match_score">
 
+                <TextView
+                    android:id="@+id/gamephase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="phase" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:layout_constraintTop_toTopOf="parent"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintRight_toRightOf="parent">
+            card_view:layout_constraintRight_toRightOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/host_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                card_view:layout_constraintTop_toTopOf="parent"
+                android:src="@mipmap/ic_launcher"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:src="@mipmap/ic_launcher"/>
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/host_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:layout_constraintTop_toBottomOf="@id/host_image"
+                android:layout_marginTop="10dp"
+                android:text="Kings"
+                android:textSize="20dp"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                android:text="Kings"/>
+                card_view:layout_constraintTop_toBottomOf="@id/host_image" />
+
             <TextView
                 android:id="@+id/host_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:layout_constraintTop_toBottomOf="@id/host_name"
+                android:layout_marginTop="5dp"
+                android:text="30-15"
                 card_view:layout_constraintLeft_toLeftOf="parent"
                 card_view:layout_constraintRight_toRightOf="parent"
-                android:layout_marginTop="5dp"
-                android:text="30-15"/>
+                card_view:layout_constraintTop_toBottomOf="@id/host_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
