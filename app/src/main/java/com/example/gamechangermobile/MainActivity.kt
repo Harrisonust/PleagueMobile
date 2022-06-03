@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                     .filter { it != null }
                     .forEach {
                         val regex =
-                            "^([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (?:\\S+) (.*?) ([0-9]*?) [0-9]*? [A-Za-z]*([0-9]*) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (?:\\S+) (.*?) 數據 售票 (?:.*? / .*?)\$".toRegex()
+                            "^([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (?:\\S+) (.*?) ([0-9]*?) [0-9]*? ([A-Za-z]*[0-9]*) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (?:\\S+) (.*?) 數據 售票 (?:.*? / .*?)\$".toRegex()
 
                         val parsed = regex.find(it.text())
                         val month = parsed?.groups?.get(1)?.value
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
                         val hostScore = parsed?.groups?.get(9)?.value
                         val host = parsed?.groups?.get(10)?.value
                         var game = Game(
-                            gameId = GameID(id!!.toInt() + 72),
+                            gameId = GameID(id!!),
                             date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("2022-$month-${date}T${time}:00Z"),
                             guestTeam = getTeamIdByName(guest!!),
                             hostTeam = getTeamIdByName(host!!),

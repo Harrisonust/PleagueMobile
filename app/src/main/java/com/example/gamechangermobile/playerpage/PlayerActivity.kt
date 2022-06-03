@@ -114,11 +114,11 @@ class PlayerActivity : AppCompatActivity() {
                 .select("tbody").first().children()
                 .select("tr")
                 .forEach {
-                    var gameID = -1
+                    var gameID = ""
                     it.children().select("a")
                         .forEach { it1 ->
                             val regex = "^<a .*?/game/([0-9]*?)\">(.*?)</a>\$".toRegex()
-                            gameID = regex.find(it1.toString())?.groups?.get(1)?.value?.toInt()!!
+                            gameID = regex.find(it1.toString())?.groups?.get(1)?.value!!
                         }
                     val regex =
                         "^([0-9]*-[0-9]*-[0-9]*) (.*?) (.*?) ([0-9]*[W|L]?) - ([0-9]*[W|L]?) ([0-9]*:[0-9]*) ([0-9]*) - ([0-9]*) (.*?) ([0-9]*) - ([0-9]*) (.*?) ([0-9]*) - ([0-9]*) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?) (.*?)\$".toRegex()

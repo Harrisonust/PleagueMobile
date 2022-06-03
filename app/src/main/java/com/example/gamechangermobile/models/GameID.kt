@@ -5,7 +5,7 @@ import com.example.gamechangermobile.MainActivity.Companion.games
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class GameID(val ID: Int) : Parcelable {
+data class GameID(val ID: String) : Parcelable {
 
 }
 
