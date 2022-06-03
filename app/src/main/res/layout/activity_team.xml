@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,78 +8,79 @@
         android:id="@+id/team_page_header"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/bg_color"
+        android:paddingHorizontal="25dp"
         android:paddingVertical="15dp"
-        android:paddingHorizontal="25dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/team_page_profile_pic"
             android:layout_width="140dp"
             android:layout_height="140dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/team_page_profile_pic"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:id="@+id/team_page_team_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:text="placeholder"
-                android:textSize="25dp"
                 android:textColor="@color/bg_font_color"
-                android:textStyle="bold"/>
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/team_page_team_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/team_page_team_location"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:text="placeholder"
-                android:textSize="25dp"
                 android:textColor="@color/bg_font_color"
-                android:textStyle="bold"/>
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team_page_team_location" />
 
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:id="@+id/linear_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/team_page_team_name"
-                app:layout_constraintLeft_toLeftOf="parent">
+                android:layout_marginTop="5dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team_page_team_name">
 
                 <TextView
                     android:id="@+id/team_page_record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="team"
-                    android:textSize="14sp"
-                    android:textColor="@color/bg_font_color"/>
+                    android:textColor="@color/bg_font_color"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" | "
-                    android:textSize="14sp"
-                    android:textColor="@color/bg_font_color"/>
+                    android:textColor="@color/bg_font_color"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/team_page_team_ranking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="number"
-                    android:textSize="14sp"
-                    android:textColor="@color/bg_font_color"/>
+                    android:textColor="@color/bg_font_color"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -88,39 +88,40 @@
                 android:id="@+id/team_page_team_favorite_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/linear_layout"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:drawableLeft="@drawable/ic_baseline_star_outline_24"
-                android:paddingVertical="0dp"
-                android:textStyle="bold"
-                android:text="FAVORITE"
                 android:background="@drawable/button_favorite"
-                app:backgroundTint="@null"/>
+                android:drawableLeft="@drawable/ic_baseline_star_outline_24"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingVertical="0dp"
+                android:text="FAVORITE"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/team_page_header"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-<!--    </LinearLayout>-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/team_page_header"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+    <!--    </LinearLayout>-->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/team_page_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/team_page_tab"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/team_page_tab" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/team_page_tab"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/team_page_header"/>
+        app:layout_constraintTop_toBottomOf="@id/team_page_header" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

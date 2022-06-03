@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_marginVertical="4dp">
@@ -10,19 +9,19 @@
         android:id="@+id/team_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginHorizontal="10dp"
         android:src="@drawable/ic_baseline_sports_basketball_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginHorizontal="10dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="5dp"
-        android:padding="5dp"
         android:orientation="vertical"
+        android:padding="5dp"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintStart_toEndOf="@+id/team_icon"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,9 +48,9 @@
         android:id="@+id/event_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="event"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="10dp"
+        android:text="event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayout"
@@ -61,7 +60,7 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_200"
         android:layout_marginHorizontal="8dp"
+        android:background="@color/gray_200"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

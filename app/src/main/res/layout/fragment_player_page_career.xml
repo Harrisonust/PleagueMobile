@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".playerpage.PlayerPageAdvancedStatsFragment"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".playerpage.PlayerPageAdvancedStatsFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,13 +17,14 @@
             android:paddingHorizontal="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="5dp"
+            android:text="Average"
             android:textSize="25dp"
-            android:textStyle="bold"
-            android:text="Average" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.example.gamechangermobile.views.DynamicTable
                 android:id="@+id/avg_dynamic_table"
                 android:layout_width="match_parent"
@@ -36,7 +37,6 @@
         </LinearLayout>
 
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,13 +44,14 @@
             android:paddingHorizontal="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="5dp"
+            android:text="Accumulative"
             android:textSize="25dp"
-            android:textStyle="bold"
-            android:text="Accumulative" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.example.gamechangermobile.views.DynamicTable
                 android:id="@+id/acc_dynamic_table"
                 android:layout_width="match_parent"

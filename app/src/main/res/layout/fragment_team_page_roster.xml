@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".teampage.TeamPageRosterFragment">
 
-<!--    <com.google.android.material.progressindicator.CircularProgressIndicator-->
-<!--        android:id="@+id/progress_circular"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:indeterminate="true"-->
-<!--        android:indeterminateTint="@color/black_gold"-->
-<!--        android:visibility="visible"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    <com.google.android.material.progressindicator.CircularProgressIndicator-->
+    <!--        android:id="@+id/progress_circular"-->
+    <!--        android:layout_width="50dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:indeterminate="true"-->
+    <!--        android:indeterminateTint="@color/black_gold"-->
+    <!--        android:visibility="visible"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.example.gamechangermobile.views.DynamicTable
         android:id="@+id/dynamic_table"
@@ -30,16 +30,16 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".teampage.TeamPageRosterFragment">-->
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+    <!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--    xmlns:tools="http://schemas.android.com/tools"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    tools:context=".teampage.TeamPageRosterFragment">-->
 
-<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/team_page_roster_recycler"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-<!--</FrameLayout>-->
+    <!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/team_page_roster_recycler"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->
+    <!--</FrameLayout>-->

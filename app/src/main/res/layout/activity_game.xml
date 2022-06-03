@@ -10,98 +10,106 @@
         android:id="@+id/game_page_appbar"
         android:layout_width="match_parent"
         android:layout_height="300dp">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/game_page_collapsing_tool_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <ImageView
                 android:id="@+id/game_page_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"/>
+                app:layout_collapseMode="parallax" />
 
             <Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 app:layout_collapseMode="pin">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/game_page_header"
-                    android:fitsSystemWindows="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="8dp">
+                    android:layout_marginVertical="8dp"
+                    android:fitsSystemWindows="true">
 
                     <ImageView
                         android:id="@+id/game_page_header_guest_icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_baseline_sports_basketball_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/game_page_header_guest_score"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_baseline_sports_basketball_24"/>
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/game_page_header_guest_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="G Scr"
                         android:textColor="@color/bg_font_color"
                         android:textSize="30dp"
-                        android:text="G Scr"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/game_page_header_central_layout"/>
+                        app:layout_constraintRight_toLeftOf="@id/game_page_header_central_layout"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <LinearLayout
                         android:id="@+id/game_page_header_central_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:paddingLeft="30dp"
-                        android:paddingRight="30dp">
+                        app:layout_constraintTop_toTopOf="parent">
+
                         <TextView
                             android:id="@+id/game_page_quarter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/bg_font_color"
+                            android:layout_gravity="center"
                             android:text="3rd"
-                            android:layout_gravity="center"/>
+                            android:textColor="@color/bg_font_color" />
+
                         <TextView
                             android:id="@+id/game_page_header_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:textColor="@color/bg_font_color"
-                            android:text="10:30"/>
+                            android:text="10:30"
+                            android:textColor="@color/bg_font_color" />
 
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/game_page_header_host_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/bg_font_color"
                         android:text="H Scr"
+                        android:textColor="@color/bg_font_color"
                         android:textSize="30dp"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/game_page_header_central_layout"/>
+                        app:layout_constraintLeft_toRightOf="@id/game_page_header_central_layout"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
                         android:id="@+id/game_page_header_host_icon"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_baseline_sports_basketball_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/game_page_header_host_score"
-                        android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_baseline_sports_basketball_24"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </Toolbar>
-
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -111,18 +119,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/game_page_tab"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-              <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/game_page_viewpager"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"/>
+                android:layout_height="wrap_content" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/game_page_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="600dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

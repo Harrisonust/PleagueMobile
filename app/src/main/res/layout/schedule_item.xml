@@ -1,86 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="10dp">
+    android:layout_marginHorizontal="10dp"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="5dp">
+            android:layout_marginHorizontal="5dp"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Wed"/>
+                android:text="Wed" />
+
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="01/12"/>
+                android:text="01/12" />
         </LinearLayout>
+
         <View
-            android:layout_marginHorizontal="5dp"
             android:layout_width="2dp"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="7dp"
-            android:background="@color/gray_200"/>
+            android:background="@color/gray_200" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
+
             <TextView
                 android:id="@+id/vs_or_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="10dp" />
+
             <ImageView
                 android:id="@+id/opponentImage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginHorizontal="10dp"/>
+                android:layout_marginHorizontal="10dp" />
+
             <TextView
                 android:id="@+id/opponent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="braves"/>
+                android:text="braves" />
         </LinearLayout>
 
         <View
-            android:layout_marginHorizontal="5dp"
             android:layout_width="2dp"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="7dp"
-            android:background="@color/gray_200"/>
+            android:background="@color/gray_200" />
+
         <LinearLayout
             android:layout_width="80dp"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/win_lose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="3dp"
-                android:text="L"/>
+                android:text="L" />
+
             <TextView
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="128 - 122"/>
+                android:text="128 - 122" />
         </LinearLayout>
     </LinearLayout>
+
     <View
-        android:layout_marginVertical="3dp"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/gray_200"/>
+        android:layout_marginVertical="3dp"
+        android:background="@color/gray_200" />
 </LinearLayout>
