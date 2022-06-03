@@ -24,6 +24,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         val win_lose: TextView = itemView.findViewById(R.id.win_lose)
         val score: TextView = itemView.findViewById(R.id.score)
         val vs_or_at: TextView = itemView.findViewById(R.id.vs_or_at)
+        val gameType: TextView = itemView.findViewById(R.id.game_type)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -89,6 +90,8 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         holder.opponent_image.setImageResource(
             opponent?.profilePic ?: R.drawable.ic_baseline_sports_basketball_24
         )
+
+        holder.gameType.text = game.gameType
 
         if (game.status == GameStatus.END) {
             holder.win_lose.text = if (game.winner == myteam.teamId) "W" else "L"

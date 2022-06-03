@@ -131,8 +131,8 @@ class MainActivity : AppCompatActivity() {
                 "https://pleagueofficial.com/schedule-finals/2021-22"
             )
 
-            val gamePhase =
-                arrayListOf("Pre Season", "Regular Games", "Playoffs 1st Round", "Playoffs Finals")
+            val gameType =
+                arrayListOf("Pre Season", "Regular Season", "Playoffs 1st Round", "Playoffs Finals")
 
             allGamesURL.forEachIndexed { index, url ->
                 val doc =
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
                         val host = parsed?.groups?.get(10)?.value
                         var game = Game(
                             gameId = GameID(id!!),
-                            gamePhase = gamePhase[index],
+                            gameType = gameType[index],
                             date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("$year-$month-${date}T${time}:00Z"),
                             guestTeam = getTeamIdByName(guest!!),
                             hostTeam = getTeamIdByName(host!!),

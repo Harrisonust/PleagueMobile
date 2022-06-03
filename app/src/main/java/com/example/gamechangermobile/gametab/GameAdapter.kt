@@ -27,7 +27,8 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
         val guestName: TextView = itemView.findViewById(R.id.guest_name)
         val guestRecord: TextView = itemView.findViewById(R.id.guest_record)
 
-        val gamephase: TextView = itemView.findViewById(R.id.gamephase)
+        val gameType: TextView = itemView.findViewById(R.id.game_type)
+        val game_description: TextView = itemView.findViewById(R.id.game_description)
         val remainingTime: TextView = itemView.findViewById(R.id.remaining_time)
         val quarter: TextView = itemView.findViewById(R.id.quarter)
     }
@@ -58,8 +59,8 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
         holder.guestImg.setImageResource(guestTeam.profilePic)
         holder.guestName.text = guestTeam.name
         holder.guestRecord.text = guestTeam.totalRecord.getRecord()
-
-        holder.gamephase.text = game.gamePhase.toString()
+        holder.game_description.text = game.description
+        holder.gameType.text = game.gameType.toString()
         if (game.status == GameStatus.INGAME) {
             holder.remainingTime.text = game.remainingTime
             holder.quarter.text = game.quarter
