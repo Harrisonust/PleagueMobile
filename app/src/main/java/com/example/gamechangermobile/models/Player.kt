@@ -18,7 +18,7 @@ class Player(
     var age: Int = 0,
     var number: String = "",
     var position: String = "",
-    var isForeignPlayer:Boolean = false,
+    var isForeignPlayer: Boolean = false,
 
     ) : Parcelable {
 

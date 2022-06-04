@@ -2,34 +2,25 @@ package com.example.gamechangermobile
 
 import android.os.AsyncTask
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.MainActivity.Companion.players
 import com.example.gamechangermobile.database.GCPlayerID
-import com.example.gamechangermobile.database.GCPlayerInfoWithBox
 import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.database.GCTeam
 import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.OkHttp
-import com.example.gamechangermobile.network.UrlRequestCallback
 import com.example.gamechangermobile.teampage.TeamPageInfoFragment
 import com.example.gamechangermobile.teampage.TeamPageRosterFragment
 import com.example.gamechangermobile.teampage.TeamPageScheduleFragment
 import com.example.gamechangermobile.user.addToFavTeam
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_team.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
 import org.jsoup.Jsoup
-import java.lang.Exception
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class TeamActivity : AppCompatActivity() {
     lateinit var teamID: TeamID
@@ -101,7 +92,7 @@ class TeamActivity : AppCompatActivity() {
     inner class FetchTeamRosterTask : AsyncTask<Unit, Int, Boolean>() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
-            val url="https://pleagueofficial.com/team/${teamID.ID}"
+            val url = "https://pleagueofficial.com/team/${teamID.ID}"
             val doc = Jsoup.connect(url).get()
             doc.select("div.row.player_list")
                 .first()
@@ -127,7 +118,7 @@ class TeamActivity : AppCompatActivity() {
                     val weight = parsed?.groups?.get(7)?.value
 
                     val player = Player(
-                        playerID = PlayerID(playerID),
+                        playerID = PlayerID(PLGID = playerID),
                         firstName = name!!,
                         teamId = teamData.teamId,
                         number = number!!,
@@ -152,7 +143,7 @@ class TeamActivity : AppCompatActivity() {
     }
 
     private fun PlayerIdOnSuccessResponse(): OkHttp.OnSuccessResponse {
-        return object: OkHttp.OnSuccessResponse {
+        return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 Log.d("DEBUG", "HIHIHIHI")
                 val playerList = result?.let { GCStatsParser().parse<GCPlayerID>(it) }

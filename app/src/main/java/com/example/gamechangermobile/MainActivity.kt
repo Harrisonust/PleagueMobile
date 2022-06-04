@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.models.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jsoup.Jsoup
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -117,6 +116,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         val games: MutableSet<Game> = mutableSetOf<Game>()
+
+        var playersID: MutableMap<PlayerID, Player> = mutableMapOf<PlayerID, Player>()
+
+        var teamsID: MutableMap<TeamID, Team> = mutableMapOf<TeamID, Team>()
+
+        var gamesID: MutableMap<GameID, Game> = mutableMapOf<GameID, Game>()
 
     }
 

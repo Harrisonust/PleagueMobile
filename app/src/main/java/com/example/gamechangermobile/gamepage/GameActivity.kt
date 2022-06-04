@@ -1,9 +1,9 @@
 package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -17,8 +17,6 @@ import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
-import kotlinx.android.synthetic.main.fragment_game.*
-import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import org.chromium.net.CronetEngine
 import org.chromium.net.UrlRequest
 import java.util.concurrent.Executor
@@ -56,7 +54,7 @@ class GameActivity : AppCompatActivity() {
                         )
                         plgPlayer.player_id?.let {
                             val player = Player(
-                                playerID = PlayerID(it.toInt()),
+                                playerID = PlayerID(PLGID = it.toInt()),
                             )
                             player.firstName = plgPlayer.name_alt.toString()
                             player.number = plgPlayer.jersey.toString()
@@ -94,11 +92,13 @@ class GameActivity : AppCompatActivity() {
 //                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),
 //                        stat.freeThrowPercentage = plgPlayer.ft_m.toFloatOrNull()?: 0F / plgPlayer.ft_a.toFloatOrNull(),
                         if (plgPlayer in g.data.home) {
-                            gameData.hostPlayerStats[PlayerID(plgPlayer.player_id?.toInt() ?: -1)] =
+                            gameData.hostPlayerStats[PlayerID(
+                                PLGID = plgPlayer.player_id?.toInt() ?: -1
+                            )] =
                                 stat
                         } else {
                             gameData.guestPlayerStats[PlayerID(
-                                plgPlayer.player_id?.toInt() ?: -1
+                                PLGID = plgPlayer.player_id?.toInt() ?: -1
                             )] = stat
                         }
                     }

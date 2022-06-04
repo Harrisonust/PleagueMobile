@@ -6,7 +6,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PlayerID(
-    val ID: Int = 0
+    var Name: String = "",
+    var PLGID: Int = 0,
+    var GCID: Int = 0
 ) : Parcelable {
 
 }

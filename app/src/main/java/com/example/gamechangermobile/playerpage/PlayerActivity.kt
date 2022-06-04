@@ -107,7 +107,7 @@ class PlayerActivity : AppCompatActivity() {
     inner class FetchPlayerStatsTask : AsyncTask<Unit, Int, Boolean>() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
-            val url = "https://pleagueofficial.com/player/${player.playerID.ID}"
+            val url = "https://pleagueofficial.com/player/${player.playerID.PLGID}"
             val doc = Jsoup.connect(url).get()
             Log.d("Debug", url)
             doc.select("table.table.fs12.col-md-12.bg-light.table-hover").first().children()
