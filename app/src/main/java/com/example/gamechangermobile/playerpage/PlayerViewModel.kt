@@ -1,9 +1,20 @@
 package com.example.gamechangermobile.playerpage
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.gamechangermobile.database.*
-import com.example.gamechangermobile.network.*
+import com.example.gamechangermobile.network.OkHttp
+import kotlin.collections.List
+import kotlin.collections.Map
+import kotlin.collections.forEachIndexed
+import kotlin.collections.indices
+import kotlin.collections.listOf
+import kotlin.collections.mapOf
+import kotlin.collections.mutableListOf
+import kotlin.collections.mutableMapOf
+import kotlin.collections.set
 
 class PlayerViewModel(playerGCID: Int) : ViewModel() {
     // network call required parameter
@@ -25,10 +36,13 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         "3P", "3PM", "3PA", "3P%",
         "FT", "FTM", "FTA", "FT%",
         "OREB", "DREB",
-        "STL", "BLK", "TOV", "PF", "EFF")
+        "STL", "BLK", "TOV", "PF", "EFF"
+    )
+
     fun getGameRecords(): LiveData<Map<String, List<String>>> {
         return gameRecords
     }
+
     private fun callGameRecordsApi() {
         OkHttp(GameRecordsOnSuccessResponse()).getRequest(
             gameApiPath,
@@ -60,13 +74,17 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         "3P", "3PM", "3PA", "3P%",
         "FT", "FTM", "FTA", "FT%",
         "OREB", "DREB",
-        "STL", "BLK", "TOV", "PF")
+        "STL", "BLK", "TOV", "PF"
+    )
+
     fun getCareerAvg(): LiveData<Map<String, List<String>>> {
         return careerAvg
     }
+
     fun getCareerAcc(): LiveData<Map<String, List<String>>> {
         return careerAcc
     }
+
     private fun callCareerAndStatsApi() {
         OkHttp(CareerAndStatsOnSuccessResponse()).getRequest(
             careerApiPath,
@@ -78,7 +96,9 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     // adv section
     private val adv = MutableLiveData<Map<String, List<String>>>()
     val advHeaders = listOf(
-        "MIN", "PER36", "USG%", "ORTG", "TOR")
+        "MIN", "PER36", "USG%", "ORTG", "TOR"
+    )
+
     fun getAdv(): LiveData<Map<String, List<String>>> {
         return adv
     }
@@ -98,9 +118,11 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         "ORB", "MAN", "ZONE", "TRANS", "2CH",
         "TRANS PTS", "2CH PTS"
     )
+
     fun getEff(): LiveData<Map<String, List<String>>> {
         return eff
     }
+
     private fun callAdvAndEffApi() {
         OkHttp(AdvAndEffOnSuccessResponse()).getRequest(
             effApiPath,
@@ -116,16 +138,19 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         callAdvAndEffApi()
     }
 
-
-
     private fun GameRecordsOnSuccessResponse(): OkHttp.OnSuccessResponse {
-        return object: OkHttp.OnSuccessResponse {
+        return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 val updatedGameRecords = mutableMapOf<String, List<String>>()
                 val gameRecordList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
                 if (gameRecordList != null) {
                     for (gameRecord in gameRecordList) {
-                        val gameInfo = "${gameRecord.info.game_date.substring(0, 10)}\n${gameRecord.info.game_name}(${gameRecord.info.game_category.name})"
+                        val gameInfo = "${
+                            gameRecord.info.game_date.substring(
+                                0,
+                                10
+                            )
+                        }\n${gameRecord.info.game_name}(${gameRecord.info.game_category.name})"
 
                         // "OPP", "MSCR", "H/A", "MIN", "PTS", "REB", "AST", "FG", "FGM", "FGA", "FG%", "2P", "2PM", "2PA", "2P%", "3P", "3PM", "3PA", "3P%", "FT", "FTM", "FTA", "FT%", "OREB", "DREB", "STL", "BLK", "TOV", "PF", "EFF"
                         val stats = mutableListOf<String>()
@@ -169,7 +194,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                         stats.add(gameRecord.box.pf.toString())
                         stats.add(gameRecord.box.eff.toString())
 
-                        updatedGameRecords[gameInfo]= stats
+                        updatedGameRecords[gameInfo] = stats
                     }
                 }
                 gameRecords.postValue(updatedGameRecords)
@@ -178,7 +203,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     }
 
     private fun CareerAndStatsOnSuccessResponse(): OkHttp.OnSuccessResponse {
-        return object: OkHttp.OnSuccessResponse {
+        return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 val updatedCareerAcc = mutableMapOf<String, List<String>>()
                 val updatedCareerAvg = mutableMapOf<String, List<String>>()
@@ -223,7 +248,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                     stats.add(data.box.to.toString())
                     stats.add(data.box.pf.toString())
 
-                    updatedCareerAcc[data.info.season_name]= stats
+                    updatedCareerAcc[data.info.season_name] = stats
 
                     val avgStats = mutableListOf<String>()
                     avgStats.add(data.info.record_matches.toString())
@@ -284,14 +309,27 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     }
 
     private fun AdvAndEffOnSuccessResponse(): OkHttp.OnSuccessResponse {
-        return object: OkHttp.OnSuccessResponse {
+        return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 val updatedAdv = mutableMapOf<String, List<String>>()
                 val updatedEff = mutableMapOf<String, List<String>>()
                 val fullStatsList = result?.let { GCStatsParser().parse<GCPlayer>(it) }
                 if (fullStatsList != null) {
                     val advColumns = listOf("整季", "第一節", "第二節", "第三節", "第四節", "OT")
-                    val columns = listOf("整季\n(團隊)", "整季\n(對手)", "第一節\n(團隊)", "第一節\n(對手)", "第二節\n(團隊)", "第二節\n(對手)", "第三節\n(團隊)", "第三節\n(對手)", "第四節\n(團隊)", "第四節\n(對手)", "OT\n(團隊)", "OT\n(對手)")
+                    val columns = listOf(
+                        "整季\n(團隊)",
+                        "整季\n(對手)",
+                        "第一節\n(團隊)",
+                        "第一節\n(對手)",
+                        "第二節\n(團隊)",
+                        "第二節\n(對手)",
+                        "第三節\n(團隊)",
+                        "第三節\n(對手)",
+                        "第四節\n(團隊)",
+                        "第四節\n(對手)",
+                        "OT\n(團隊)",
+                        "OT\n(對手)"
+                    )
                     for (i in fullStatsList[0].advancement.indices) {
                         // ADV Section
                         // "MIN", "PER36", "USG%", "ORTG", "TOR"

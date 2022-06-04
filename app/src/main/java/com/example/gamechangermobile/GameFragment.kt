@@ -1,32 +1,21 @@
 package com.example.gamechangermobile
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gamechangermobile.MainActivity.Companion.games
 import com.example.gamechangermobile.gametab.GameAdapter
-import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
+import com.example.gamechangermobile.models.Game
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
-import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.fragment_game.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import org.jsoup.Jsoup
+import java.util.*
 
 class GameFragment() : Fragment() {
     private var selectedDate: Date = Date()
+    lateinit var viewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,15 +23,25 @@ class GameFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        game_recyclerview?.apply { layoutManager = LinearLayoutManager(activity) }
 
         calendarView.setOnDateChangedListener { widget, date, selected ->
-            var selectedGames = ArrayList<Game>()
-            for (game in games) {
+            selectedDate = Date(date.year - 1900, date.month - 1, date.day)
+            updateGameCardView()
+        }
+        calendarView.selectedDate = (CalendarDay.today())
+    }
+
+    fun updateGameCardView() {
+        var selectedGames = ArrayList<Game>()
+        if (viewModel.games.value != null) {
+            for (game in viewModel.games.value!!) {
                 if (game.date.date == selectedDate.date &&
                     game.date.year == selectedDate.year &&
                     game.date.month == selectedDate.month
@@ -50,25 +49,8 @@ class GameFragment() : Fragment() {
                     selectedGames.add(game)
                 }
             }
-            selectedDate = Date(date.year - 1900, date.month - 1, date.day)
-            updateGameCardView()
+            game_recyclerview.adapter = GameAdapter(selectedGames)
+            game_recyclerview.adapter?.notifyDataSetChanged()
         }
-
-        calendarView.selectedDate = (CalendarDay.today())
-        game_recyclerview?.apply { layoutManager = LinearLayoutManager(activity) }
-    }
-
-    fun updateGameCardView() {
-        var selectedGames = ArrayList<Game>()
-        for (game in games) {
-            if (game.date.date == selectedDate.date &&
-                game.date.year == selectedDate.year &&
-                game.date.month == selectedDate.month
-            ) {
-                selectedGames.add(game)
-            }
-        }
-        game_recyclerview.adapter = GameAdapter(selectedGames)
-        game_recyclerview.adapter?.notifyDataSetChanged()
     }
 }
