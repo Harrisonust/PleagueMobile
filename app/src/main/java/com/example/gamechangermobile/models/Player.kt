@@ -85,7 +85,7 @@ fun getAllPlayer(): MutableSet<PlayerID> {
 }
 
 fun getPlayerByName(name: String): Player? {
-    for (player in MainActivity.players) {
+    for (player in MainActivity.playersMap.values) {
         if (player.firstName == name)
             return player
     }

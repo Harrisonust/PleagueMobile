@@ -1,12 +1,14 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.Game
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -15,7 +17,6 @@ import java.util.*
 
 class GameFragment() : Fragment() {
     private var selectedDate: Date = Date()
-    lateinit var viewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +24,6 @@ class GameFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_game, container, false)
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
         return view
     }
 
@@ -40,8 +40,8 @@ class GameFragment() : Fragment() {
 
     fun updateGameCardView() {
         var selectedGames = ArrayList<Game>()
-        if (viewModel.games.value != null) {
-            for (game in viewModel.games.value!!) {
+         if (gamesMap.values != null) {
+            for (game in gamesMap.values) {
                 if (game.date.date == selectedDate.date &&
                     game.date.year == selectedDate.year &&
                     game.date.month == selectedDate.month
@@ -52,5 +52,5 @@ class GameFragment() : Fragment() {
             game_recyclerview.adapter = GameAdapter(selectedGames)
             game_recyclerview.adapter?.notifyDataSetChanged()
         }
-    }
+     }
 }

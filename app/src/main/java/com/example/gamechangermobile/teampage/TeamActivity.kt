@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.MainActivity.Companion.players
+import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.database.GCPlayerID
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
@@ -124,7 +124,7 @@ class TeamActivity : AppCompatActivity() {
                         number = number!!,
                         position = position!!,
                     )
-                    players.add(player)
+                    playersMap[player.playerID] = player
                     teamData.playerList.add(player.playerID)
                 }
             OkHttp(PlayerIdOnSuccessResponse()).getRequest(

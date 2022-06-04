@@ -15,7 +15,7 @@ data class PlayerID(
 
 fun getPlayerById(playerID: PlayerID?): Player? {
     if (playerID == null) return null
-    for (player in MainActivity.players) {
+    for (player in MainActivity.playersMap.values) {
         if (player.playerID == playerID)
             return player
     }
