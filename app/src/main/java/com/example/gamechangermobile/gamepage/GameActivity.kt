@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -15,6 +16,8 @@ import com.example.gamechangermobile.database.PlgGame
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.Api
 import com.example.gamechangermobile.network.UrlRequestCallback
+import com.example.gamechangermobile.playerpage.PlayerViewModel
+import com.example.gamechangermobile.playerpage.PlayerViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.fragment_game.*
@@ -105,6 +108,9 @@ class GameActivity : AppCompatActivity() {
         gameData = getGameById(gameID)!!
         guestTeam = getTeamById(gameData?.guestTeam)!!
         hostTeam = getTeamById(gameData?.hostTeam)!!
+
+        Log.d("ViewModel", "${gameID.ID}")
+        val model: GameViewModel by viewModels{ GameViewModelFactory(gameID.ID) }
 
 
 // rendering UI
