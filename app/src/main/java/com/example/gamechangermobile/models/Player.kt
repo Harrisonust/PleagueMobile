@@ -15,6 +15,7 @@ class Player(
     var stats: MutableMap<GameID, PlayerStats> = mutableMapOf<GameID, PlayerStats>(),
     var averageStat: PlayerStats = PlayerStats(),
     var teamId: TeamID = TeamID(-1),
+    var team: String = "",
     var age: Int = 0,
     var number: String = "",
     var position: String = "",
