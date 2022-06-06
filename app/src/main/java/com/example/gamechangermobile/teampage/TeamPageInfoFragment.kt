@@ -44,6 +44,9 @@ class TeamPageInfoFragment(private val teamID: TeamID) : Fragment() {
             }
 
 //            last10.text = team.last10.getRecord()
+            model.last10.observe(viewLifecycleOwner){
+                last10.text = it
+            }
 
             model.foundingDate.observe(viewLifecycleOwner) {
                 founding_date.text = it

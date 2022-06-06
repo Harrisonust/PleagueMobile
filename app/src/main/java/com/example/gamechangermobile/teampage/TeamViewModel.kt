@@ -25,6 +25,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
     var arena = MutableLiveData<String>()
     var foundingDate = MutableLiveData<String>()
     var bio = MutableLiveData<String>()
+    var last10 = MutableLiveData<String>()
 
     init {
         FetchInfoTask().execute()
@@ -166,7 +167,6 @@ class TeamViewModel(teamID: Int) : ViewModel() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
             var _gameSchedule = arrayListOf<Game>()
-
             // fetch record
             val doc = Jsoup.connect("https://pleagueofficial.com/team/${teamID}").get()
             doc.select("table.table.fs12.col-md-12.bg-light.table-hover")
@@ -190,6 +190,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         if (isHost) TeamID(teamID) else getTeamIdByName(opponent!!)
                     val guestTeam: TeamID =
                         if (isHost) getTeamIdByName(opponent!!) else TeamID(teamID)
+//                    val winner = if(hostscore!!.toInt() > guestscore!!.toInt()) hostTeam else guestTeam
 
                     var gameStatus: GameStatus
                     val today = Date()
@@ -210,7 +211,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("$year-$month-${date}T00:00:00Z"),
                         guestScore = guestscore!!.toInt(),
                         hostScore = hostscore!!.toInt(),
-                        status = gameStatus
+                        status = gameStatus,
                     )
                     _gameSchedule.add(game)
                     Log.d(
@@ -219,6 +220,18 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     )
                 }
             gameSchedule.postValue(_gameSchedule)
+
+            var last10WinCnt = 0
+            var last10LoseCnt = 0
+
+            _gameSchedule.takeLast(10).forEach{
+                if(it.hostTeam.ID == teamID && it.hostScore > it.guestScore) last10WinCnt++
+                else if(it.hostTeam.ID == teamID && it.hostScore < it.guestScore) last10LoseCnt++
+                else if(it.guestTeam.ID == teamID && it.hostScore > it.guestScore) last10LoseCnt++
+                else if(it.guestTeam.ID == teamID && it.hostScore < it.guestScore) last10WinCnt++
+            }
+
+            last10.postValue("${last10WinCnt} - ${last10LoseCnt}")
             true
         } catch (e: Exception) {
             false
