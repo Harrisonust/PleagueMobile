@@ -231,9 +231,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Team Bio"
+                android:text="Team Bio: "
                 android:textSize="15sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/team_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="na"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <View

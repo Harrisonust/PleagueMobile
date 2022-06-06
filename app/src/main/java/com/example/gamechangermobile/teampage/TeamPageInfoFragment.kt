@@ -10,7 +10,6 @@ import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.TeamID
 import com.example.gamechangermobile.models.getTeamById
 import kotlinx.android.synthetic.main.fragment_team_page_info.*
-import java.text.SimpleDateFormat
 
 
 class TeamPageInfoFragment(private val teamID: TeamID) : Fragment() {
@@ -46,8 +45,12 @@ class TeamPageInfoFragment(private val teamID: TeamID) : Fragment() {
 
 //            last10.text = team.last10.getRecord()
 
-            model.foundingDate.observe(viewLifecycleOwner){
+            model.foundingDate.observe(viewLifecycleOwner) {
                 founding_date.text = it
+            }
+
+            model.bio.observe(viewLifecycleOwner) {
+                team_bio.text = it
             }
         }
     }

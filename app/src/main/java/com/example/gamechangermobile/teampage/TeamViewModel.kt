@@ -2,6 +2,7 @@ package com.example.gamechangermobile.teampage
 
 import android.os.AsyncTask
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +24,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
     var streak = MutableLiveData<String>()
     var arena = MutableLiveData<String>()
     var foundingDate = MutableLiveData<String>()
+    var bio = MutableLiveData<String>()
 
     init {
         FetchInfoTask().execute()
@@ -46,6 +48,11 @@ class TeamViewModel(teamID: Int) : ViewModel() {
             val _foundingDate = doc.select("table.table.mt-4.mb-5.team_intro")[0]
                 .children().select("tbody")[0]
                 .children()[3].text()
+
+            val _bio = doc.select("table.table.mt-4.mb-5.team_intro")[0]
+                .children().select("tbody")[0]
+                .children()[0].text().drop(5)
+            bio.postValue(_bio)
 
             val regex = "(?:\\S+) ([0-9]*)\\S+? ([0-9]*)\\S+?".toRegex()
             val parsed = regex.find(_foundingDate)
@@ -159,15 +166,12 @@ class TeamViewModel(teamID: Int) : ViewModel() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
             var _gameSchedule = arrayListOf<Game>()
+
             // fetch record
             val doc = Jsoup.connect("https://pleagueofficial.com/team/${teamID}").get()
             doc.select("table.table.fs12.col-md-12.bg-light.table-hover")
-                .first()
-                .children()
-                .select("tbody")
-                .first()
-                .children()
-                .select("tr")
+                .first().children().select("tbody")
+                .first().children().select("tr")
                 .forEach {
                     val regex =
                         "([0-9]*)-([0-9]*)-([0-9]*) (\\S+) ([0-9]*)(\\S)? - ([0-9]*)(\\S)?".toRegex()
@@ -176,15 +180,18 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     val month = parsed?.groups?.get(2)?.value
                     val date = parsed?.groups?.get(3)?.value
                     val opponent = parsed?.groups?.get(4)?.value
-                    val score1 = parsed?.groups?.get(5)?.value
+                    val guestscore = parsed?.groups?.get(5)?.value
                     val wl1 = parsed?.groups?.get(6)?.value
-                    val score2 = parsed?.groups?.get(7)?.value
+                    val hostscore = parsed?.groups?.get(7)?.value
                     val wl2 = parsed?.groups?.get(8)?.value
 
-                    val hostscore = if (wl1 != null) score1 else score2
-                    val guestscore = if (wl1 == null) score1 else score2
-                    var gameStatus: GameStatus
+                    val isHost = wl2 != null
+                    val hostTeam: TeamID =
+                        if (isHost) TeamID(teamID) else getTeamIdByName(opponent!!)
+                    val guestTeam: TeamID =
+                        if (isHost) getTeamIdByName(opponent!!) else TeamID(teamID)
 
+                    var gameStatus: GameStatus
                     val today = Date()
                     gameStatus = if (today.compareTo(
                             Date(
@@ -198,18 +205,18 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     val game = Game(
                         GameID("0"),
                         gameType = "Regular Game",
-                        guestTeam = getTeamIdByName(opponent!!),
-                        hostTeam = TeamID(teamID),
+                        guestTeam = guestTeam,
+                        hostTeam = hostTeam,
                         date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("$year-$month-${date}T00:00:00Z"),
                         guestScore = guestscore!!.toInt(),
                         hostScore = hostscore!!.toInt(),
                         status = gameStatus
                     )
                     _gameSchedule.add(game)
-//                    Log.d(
-//                        "Debug",
-//                        "$date:\t${getTeamById(TeamID(teamID))?.name}-$hostscore vs $opponent-$guestscore"
-//                    )
+                    Log.d(
+                        "Debug",
+                        "$year/$month/$date:\t${getTeamById(TeamID(teamID))?.name}-$hostscore vs $opponent-$guestscore"
+                    )
                 }
             gameSchedule.postValue(_gameSchedule)
             true
