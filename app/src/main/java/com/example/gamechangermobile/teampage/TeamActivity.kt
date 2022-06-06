@@ -34,7 +34,7 @@ class TeamActivity : AppCompatActivity() {
         model.teamName.observe(this) {
             team_page_team_name.text = it
         }
-        model.record.observe(this) {
+        model.totalRecord.observe(this) {
             team_page_record.text = it.getRecord()
         }
         model.rank.observe(this) {

@@ -28,12 +28,20 @@ class TeamPageInfoFragment(private val teamID: TeamID) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val team = getTeamById(teamID)
         if (team != null) {
-            model.record.observe(viewLifecycleOwner) {
+            model.totalRecord.observe(viewLifecycleOwner) {
                 total_record.text = it.getRecord()
             }
 
-//            home_record.text = team.homeRecord.getRecord()
-//            away_record.text = team.awayRecord.getRecord()
+//            home_record.text = team.homeRecord.getTotalRecord()
+//            away_record.text = team.awayRecord.getTotalRecord()
+
+            model.homeRecord.observe(viewLifecycleOwner){
+                home_record.text = it.getRecord()
+            }
+
+            model.roadRecord.observe(viewLifecycleOwner){
+                away_record.text = it.getRecord()
+            }
 
             model.streak.observe(viewLifecycleOwner) {
                 streak.text = it
@@ -43,7 +51,7 @@ class TeamPageInfoFragment(private val teamID: TeamID) : Fragment() {
                 arena.text = it
             }
 
-//            last10.text = team.last10.getRecord()
+//            last10.text = team.last10.getTotalRecord()
             model.last10.observe(viewLifecycleOwner){
                 last10.text = it
             }

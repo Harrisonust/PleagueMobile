@@ -18,7 +18,9 @@ import java.util.*
 class TeamViewModel(teamID: Int) : ViewModel() {
     private val teamID = teamID
     val gameSchedule = MutableLiveData<ArrayList<Game>>()
-    var record = MutableLiveData<Record>()
+    var totalRecord = MutableLiveData<Record>()
+    var homeRecord = MutableLiveData<Record>()
+    var roadRecord = MutableLiveData<Record>()
     var rank = MutableLiveData<String>()
     var teamName = MutableLiveData<String>()
     var streak = MutableLiveData<String>()
@@ -154,7 +156,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         ranking += if (ranking == "1") "st" else if (ranking == "2") "nd" else if (ranking == "3") "rd" else "th"
                     }
                 }
-            record.postValue(Record(win!!.toInt(), lose!!.toInt()))
+            totalRecord.postValue(Record(win!!.toInt(), lose!!.toInt()))
             rank.postValue(ranking!!)
             streak.postValue(streakL!! + streakN!!)
             true
@@ -167,7 +169,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
             var _gameSchedule = arrayListOf<Game>()
-            // fetch record
+            // fetch totalRecord
             val doc = Jsoup.connect("https://pleagueofficial.com/team/${teamID}").get()
             doc.select("table.table.fs12.col-md-12.bg-light.table-hover")
                 .first().children().select("tbody")
@@ -219,6 +221,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         "$year/$month/$date:\t${getTeamById(TeamID(teamID))?.name}-$hostscore vs $opponent-$guestscore"
                     )
                 }
+            _gameSchedule.sortBy { it.date }
             gameSchedule.postValue(_gameSchedule)
 
             var last10WinCnt = 0
@@ -230,8 +233,22 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                 else if(it.guestTeam.ID == teamID && it.hostScore > it.guestScore) last10LoseCnt++
                 else if(it.guestTeam.ID == teamID && it.hostScore < it.guestScore) last10WinCnt++
             }
-
             last10.postValue("${last10WinCnt} - ${last10LoseCnt}")
+
+
+            var homeWinCnt = 0
+            var homeLostCnt = 0
+            var roadWinCnt = 0
+            var roadLostCnt = 0
+            _gameSchedule.forEach {
+                if(it.hostTeam.ID == teamID && it.hostScore > it.guestScore) homeWinCnt++
+                else if(it.hostTeam.ID == teamID && it.hostScore < it.guestScore) homeLostCnt++
+                else if(it.guestTeam.ID == teamID && it.hostScore > it.guestScore) roadLostCnt++
+                else if(it.guestTeam.ID == teamID && it.hostScore < it.guestScore) roadWinCnt++
+            }
+            homeRecord.postValue(Record(homeWinCnt, homeLostCnt))
+            roadRecord.postValue(Record(roadWinCnt, roadLostCnt))
+
             true
         } catch (e: Exception) {
             false

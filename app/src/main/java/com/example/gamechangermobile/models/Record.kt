@@ -12,7 +12,7 @@ class Record(var wins: Int = 0,
         return "${wins.toInt()} - ${loses.toInt()}"
     }
 
-//    fun setRecord(r: ArrayList<String>) {
+//    fun setTotalRecord(r: ArrayList<String>) {
 //        records = r
 //    }
 
