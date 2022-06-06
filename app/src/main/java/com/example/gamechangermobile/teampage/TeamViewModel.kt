@@ -43,10 +43,8 @@ class TeamViewModel(teamID: Int) : ViewModel() {
 
             val _name =
                 doc.select("h1.h3.mb-0.text-black.fs22.mt-4.text_strong.text_scale")[0].text()
-            teamName.postValue(_name)
 
             val _arena = doc.select("h1.text-black.fs16.text-left.py-1.mt-4").last().text()
-            arena.postValue(_arena)
 
             val _foundingDate = doc.select("table.table.mt-4.mb-5.team_intro")[0]
                 .children().select("tbody")[0]
@@ -55,12 +53,15 @@ class TeamViewModel(teamID: Int) : ViewModel() {
             val _bio = doc.select("table.table.mt-4.mb-5.team_intro")[0]
                 .children().select("tbody")[0]
                 .children()[0].text().drop(5)
-            bio.postValue(_bio)
 
             val regex = "(?:\\S+) ([0-9]*)\\S+? ([0-9]*)\\S+?".toRegex()
             val parsed = regex.find(_foundingDate)
             val year = parsed?.groups?.get(1)?.value
             val month = parsed?.groups?.get(2)?.value
+
+            teamName.postValue(_name)
+            arena.postValue(_arena)
+            bio.postValue(_bio)
             foundingDate.postValue("$year/$month")
 
             true
@@ -156,6 +157,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         ranking += if (ranking == "1") "st" else if (ranking == "2") "nd" else if (ranking == "3") "rd" else "th"
                     }
                 }
+
             totalRecord.postValue(Record(win!!.toInt(), lose!!.toInt()))
             rank.postValue(ranking!!)
             streak.postValue(streakL!! + streakN!!)
@@ -222,32 +224,28 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     )
                 }
             _gameSchedule.sortBy { it.date }
+
+            var last10Record = Record(0, 0)
+            var _homeRecord = Record(0, 0)
+            var _roadRecord = Record(0, 0)
+
+            _gameSchedule.forEachIndexed { index, game ->
+                if (game.hostTeam.ID == teamID && game.hostScore > game.guestScore) _homeRecord.wins++
+                else if (game.hostTeam.ID == teamID && game.hostScore < game.guestScore) _homeRecord.loses++
+                else if (game.guestTeam.ID == teamID && game.hostScore > game.guestScore) _roadRecord.loses++
+                else if (game.guestTeam.ID == teamID && game.hostScore < game.guestScore) _roadRecord.wins++
+                if (index >= _gameSchedule.size - 10) {
+                    if (game.hostTeam.ID == teamID && game.hostScore > game.guestScore) last10Record.wins++
+                    else if (game.hostTeam.ID == teamID && game.hostScore < game.guestScore) last10Record.loses++
+                    else if (game.guestTeam.ID == teamID && game.hostScore > game.guestScore) last10Record.loses++
+                    else if (game.guestTeam.ID == teamID && game.hostScore < game.guestScore) last10Record.wins++
+                }
+            }
+
             gameSchedule.postValue(_gameSchedule)
-
-            var last10WinCnt = 0
-            var last10LoseCnt = 0
-
-            _gameSchedule.takeLast(10).forEach{
-                if(it.hostTeam.ID == teamID && it.hostScore > it.guestScore) last10WinCnt++
-                else if(it.hostTeam.ID == teamID && it.hostScore < it.guestScore) last10LoseCnt++
-                else if(it.guestTeam.ID == teamID && it.hostScore > it.guestScore) last10LoseCnt++
-                else if(it.guestTeam.ID == teamID && it.hostScore < it.guestScore) last10WinCnt++
-            }
-            last10.postValue("${last10WinCnt} - ${last10LoseCnt}")
-
-
-            var homeWinCnt = 0
-            var homeLostCnt = 0
-            var roadWinCnt = 0
-            var roadLostCnt = 0
-            _gameSchedule.forEach {
-                if(it.hostTeam.ID == teamID && it.hostScore > it.guestScore) homeWinCnt++
-                else if(it.hostTeam.ID == teamID && it.hostScore < it.guestScore) homeLostCnt++
-                else if(it.guestTeam.ID == teamID && it.hostScore > it.guestScore) roadLostCnt++
-                else if(it.guestTeam.ID == teamID && it.hostScore < it.guestScore) roadWinCnt++
-            }
-            homeRecord.postValue(Record(homeWinCnt, homeLostCnt))
-            roadRecord.postValue(Record(roadWinCnt, roadLostCnt))
+            homeRecord.postValue(_homeRecord)
+            roadRecord.postValue(_roadRecord)
+            last10.postValue("${last10Record.wins} - ${last10Record.loses}")
 
             true
         } catch (e: Exception) {
