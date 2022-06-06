@@ -2,7 +2,6 @@ package com.example.gamechangermobile.teampage
 
 import android.os.AsyncTask
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +12,7 @@ import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.OkHttp
 import org.jsoup.Jsoup
 import java.text.SimpleDateFormat
+import java.util.*
 
 class TeamViewModel(teamID: Int) : ViewModel() {
     private val teamID = teamID
@@ -183,6 +183,18 @@ class TeamViewModel(teamID: Int) : ViewModel() {
 
                     val hostscore = if (wl1 != null) score1 else score2
                     val guestscore = if (wl1 == null) score1 else score2
+                    var gameStatus: GameStatus
+
+                    val today = Date()
+                    gameStatus = if (today.compareTo(
+                            Date(
+                                year?.toInt()!!,
+                                month?.toInt()!!,
+                                date?.toInt()!!
+                            )
+                        ) < 0
+                    ) GameStatus.END else GameStatus.NOT_YET_START
+
                     val game = Game(
                         GameID("0"),
                         gameType = "Regular Game",
@@ -190,7 +202,8 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         hostTeam = TeamID(teamID),
                         date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("$year-$month-${date}T00:00:00Z"),
                         guestScore = guestscore!!.toInt(),
-                        hostScore = hostscore!!.toInt()
+                        hostScore = hostscore!!.toInt(),
+                        status = gameStatus
                     )
                     _gameSchedule.add(game)
 //                    Log.d(

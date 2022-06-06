@@ -177,8 +177,8 @@ class MainActivity : AppCompatActivity() {
                         else
                             game.status = GameStatus.NOT_YET_START
                         games.add(game)
-                        getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
-                        getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
+//                        getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
+//                        getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
                     }
             }
 ////                Only the original thread that created a view hierarchy can touch its views.

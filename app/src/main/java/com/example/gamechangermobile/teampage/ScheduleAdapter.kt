@@ -79,9 +79,9 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         val game = gameScheduleList[position]
         holder.day.text = SimpleDateFormat("EE").format(game.date)
         holder.date.text = SimpleDateFormat("MM/dd").format(game.date)
-        holder.vs_or_at.text = if (game.location == myteam.location) "vs" else "@"
+        holder.vs_or_at.text = if (game.hostTeam == myteam.teamId) "vs" else "@"
         val opponent =
-            if (getTeamById(game.guestTeam)!!.teamId == myteam.teamId) getTeamById(game.hostTeam)
+            if (game.guestTeam == myteam.teamId) getTeamById(game.hostTeam)
             else getTeamById(game.guestTeam)
 
         opponent?.name?.let {
@@ -92,17 +92,15 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         )
 
         holder.gameType.text = game.gameType
-
+        var result = ""
         if (game.status == GameStatus.END) {
-            holder.win_lose.text = if (game.winner == myteam.teamId) "W" else "L"
-            holder.score.text =
-                if (game.guestStats.data["points"] != null && game.hostStats.data["points"] != null) {
-                    game.guestStats.data["points"]!!.toInt().toString() +
-                            " : " +
-                            game.hostStats.data["points"]!!.toInt().toString()
-                } else {
-                    ""
-                }
+            holder.score.text = "${game.guestScore} - ${game.hostScore}"
+            if (getTeamById(game.hostTeam)?.teamId == myteam.teamId) {
+                result = if (game.hostScore > game.guestScore) "W" else "L"
+            } else {
+                result = if (game.hostScore > game.guestScore) "L" else "W"
+            }
+            holder.win_lose.text = result
         } else {
 //            holder.win_lose.text = SimpleDateFormat("MM/DD HH:mm").format(game.date)
         }
