@@ -4,6 +4,41 @@ import com.example.gamechangermobile.R
 
 class Dictionary {
     companion object {
+//        "OPP", "MSCR", "H/A", "MIN",
+//        "PTS", "REB", "AST",
+//        "FG", "FGM", "FGA", "FG%",
+//        "2P", "2PM", "2PA", "2P%",
+//        "3P", "3PM", "3PA", "3P%",
+//        "FT", "FTM", "FTA", "FT%",
+//        "OREB", "DREB",
+//        "STL", "BLK", "TOV", "PF", "EFF"
+        val statsName = mapOf(
+            "PTS" to "points",
+            "REB" to "rebounds",
+            "AST" to "assists",
+
+            "FGM" to "fieldGoalMade",
+            "FGA" to "fieldGoalAttempt",
+
+            "2PM" to "twoPointMade",
+            "2PA" to "twoPointAttempt",
+
+            "3PM" to "threePointMade",
+            "3PA" to "threePointAttempt",
+
+            "FTM" to "freeThrowMade",
+            "FTA" to "freeThrowAttempt",
+
+            "OREB" to "offensiveRebounds",
+            "DREB" to "defensiveRebounds",
+            "STL" to "steals",
+            "BLK" to "blocks",
+            "TOV" to "turnovers",
+            "PF" to "personalFouls",
+
+            "EFF" to "effFieldGoalPercentage",
+        )
+
         val teams = mapOf(
             "台北富邦勇士" to "Braves",
             "新北國王" to "Kings",

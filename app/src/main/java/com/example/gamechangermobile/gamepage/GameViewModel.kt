@@ -1,83 +1,89 @@
 package com.example.gamechangermobile.gamepage
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.database.PlgGame
-import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.models.PlayerID
-import com.example.gamechangermobile.models.PlayerStats
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
+import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.network.OkHttp
 
-class GameViewModel : ViewModel() {
-    init{
-        // Network call section starts
-        val myBuilder = CronetEngine.Builder(this)
-        val cronetEngine: CronetEngine = myBuilder.build()
-        val executor: Executor = Executors.newSingleThreadExecutor()
 
-//        https://pleagueofficial.com/api/boxscore.php?id=140&away_tab=total&home_tab=total
-        val api = Api.url(
-            "boxscore.php", mapOf(
-                "id" to gameData.gameId.ID.toString(),
+class GameViewModel(gameID: Int) : ViewModel() {
+    private val gameID = gameID
+    private val apiSource = "PLG"
+    private val game = MutableLiveData<Game>()
+    val boxScoreHeaders = listOf(
+        "PTS", "REB", "AST",
+        "FGM", "FGA",
+        "2PM", "2PA",
+        "3PM", "3PA",
+        "FTM", "FTA",
+        "OREB", "DREB",
+        "STL", "BLK", "TOV", "PF", "EFF"
+    )
+    private val guestBoxScore = MutableLiveData<Map<Player, PlayerStats>>()
+    fun getGuestBoxScore(): MutableLiveData<Map<Player, PlayerStats>> {
+        return guestBoxScore
+    }
+    private val hostBoxScore = MutableLiveData<Map<Player, PlayerStats>>()
+    fun getHostBoxScore(): MutableLiveData<Map<Player, PlayerStats>> {
+        return hostBoxScore
+    }
+    init {
+        callBoxScoreAPI()
+    }
+    private fun callBoxScoreAPI() {
+        OkHttp(boxScoreOnSuccessResponse()).getRequest(
+            path = "boxscore.php",
+            queryParams = mapOf(
+                "id" to gameID.toString(),
                 "away_tab" to "total",
                 "home_tab" to "total",
             ),
-            source = "PLG"
+            source = apiSource
         )
-//        Log.wtf("Debug", "s: $api")
-        val requestBuilder =
-            cronetEngine.newUrlRequestBuilder(
-                api,
-                urlRequestCallback,
-                executor
-            )
-        val request: UrlRequest = requestBuilder.build()
-        request.start()
     }
 
-    private val networkRequestCallback: UrlRequestCallback.OnFinishRequest =
-        networkRequestCallbackFunc()
-    private val urlRequestCallback = UrlRequestCallback(networkRequestCallback)
-
-    private fun networkRequestCallbackFunc(): UrlRequestCallback.OnFinishRequest {
-        return object : UrlRequestCallback.OnFinishRequest {
-            override fun onFinishRequest(result: String?) {
-//                Log.wtf("Debug", "result ${result}")
+    private fun boxScoreOnSuccessResponse(): OkHttp.OnSuccessResponse {
+        return object: OkHttp.OnSuccessResponse {
+            override fun action(result: String?) {
                 var g = result?.let { GCStatsParser().parsePlg<PlgGame>(it) }
                 if (g != null) {
-                    gameData.guestScorePerQuarter = arrayListOf(
-                        g.data.q1_away,
-                        g.data.q2_away,
-                        g.data.q3_away,
-                        g.data.q4_away,
-                    )
-                    gameData.hostScorePerQuarter = arrayListOf(
-                        g.data.q1_home,
-                        g.data.q2_home,
-                        g.data.q3_home,
-                        g.data.q4_home,
-                    )
+//                    lateinit var gameData: Game
+//                    gameData.guestScorePerQuarter = arrayListOf(
+//                        g.data.q1_away,
+//                        g.data.q2_away,
+//                        g.data.q3_away,
+//                        g.data.q4_away,
+//                    )
+//                    gameData.hostScorePerQuarter = arrayListOf(
+//                        g.data.q1_home,
+//                        g.data.q2_home,
+//                        g.data.q3_home,
+//                        g.data.q4_home,
+//                    )
 
+                    val gbs = mutableMapOf<Player, PlayerStats>()
+                    val hbs = mutableMapOf<Player, PlayerStats>()
                     for (plgPlayer in g.data.home + g.data.away) {
+                        val player = Player()
                         Log.d(
                             "Debug",
                             "#${plgPlayer.player_id} ${plgPlayer.name_alt} "
                         )
                         plgPlayer.player_id?.let {
-                            val player = Player(
-                                playerID = PlayerID(PLGID = it.toInt()),
-                            )
+//                            player = Player(
+//                                playerID = PlayerID(PLGID = it.toInt()),
+//                            )
+                            player.playerID = PlayerID(PLGID = it.toInt())
                             player.firstName = plgPlayer.name_alt.toString()
-                            player.number = plgPlayer.jersey.toString()
-                            player.position = plgPlayer.position.toString()
-                            playersMap[player.playerID] = player
+                            player.GCID = 378 // TODO soft code
+//                            player.number = plgPlayer.jersey.toString()
+//                            player.position = plgPlayer.position.toString()
+//                            playersMap[player.playerID] = player
                         }
                         var stat = PlayerStats(
                             points = plgPlayer.points?.toFloatOrNull() ?: 0F,
@@ -110,18 +116,23 @@ class GameViewModel : ViewModel() {
 //                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),
 //                        stat.freeThrowPercentage = plgPlayer.ft_m.toFloatOrNull()?: 0F / plgPlayer.ft_a.toFloatOrNull(),
                         if (plgPlayer in g.data.home) {
-                            gameData.hostPlayerStats[PlayerID(
-                                PLGID = plgPlayer.player_id?.toInt() ?: -1
-                            )] =
-                                stat
+                            hbs[player] = stat
+//                            gameData.hostPlayerStats[PlayerID(
+//                                PLGID = plgPlayer.player_id?.toInt() ?: -1
+//                            )] =
+//                                stat
                         } else {
-                            gameData.guestPlayerStats[PlayerID(
-                                PLGID = plgPlayer.player_id?.toInt() ?: -1
-                            )] = stat
+                            gbs[player] = stat
+//                            gameData.guestPlayerStats[PlayerID(
+//                                PLGID = plgPlayer.player_id?.toInt() ?: -1
+//                            )] = stat
                         }
                     }
+                    guestBoxScore.postValue(gbs)
+                    hostBoxScore.postValue(hbs)
                 }
             }
         }
+
     }
 }

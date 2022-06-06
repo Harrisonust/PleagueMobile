@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.database.PlgGame
@@ -28,26 +29,46 @@ class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
         val view =
             inflater.inflate(R.layout.fragment_game_page_box_score_guest_tab, container, false)
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
-        val players: MutableMap<Player, PlayerStats> = mutableMapOf()
 
-        for (playerID in getTeamById(game.guestTeam)!!.playerList) {
-            val player: Player? = getPlayerById(playerID)
-            if (player != null)
-                players[player] = game.getPlayerStats(playerID) ?: PlayerStats()
-        }
+        val model: GameViewModel by activityViewModels { GameViewModelFactory(175) }
+        model.getGuestBoxScore().observe(viewLifecycleOwner, {
+            Log.d("VIEWMODEL", "GamePAGEBOXSCORE")
 
-        dynamicTable.renderTable(
-            players,
-            90,
-            280,
-            "cell_view_header",
-            "player_data",
-            "cell_view_column",
-            "player_name",
-            "player_image",
-            "cell_view_content",
-            "player_data"
-        )
+            dynamicTable.renderBoxScoreTable(
+                it,
+                model.boxScoreHeaders,
+                90,
+                280,
+                "cell_view_header",
+                "player_data",
+                "cell_view_column",
+                "player_name",
+                "player_image",
+                "cell_view_content",
+                "player_data"
+            )
+        })
+
+//        val players: MutableMap<Player, PlayerStats> = mutableMapOf()
+//
+//        for (playerID in getTeamById(game.guestTeam)!!.playerList) {
+//            val player: Player? = getPlayerById(playerID)
+//            if (player != null)
+//                players[player] = game.getPlayerStats(playerID) ?: PlayerStats()
+//        }
+//
+//        dynamicTable.renderTable(
+//            players,
+//            90,
+//            280,
+//            "cell_view_header",
+//            "player_data",
+//            "cell_view_column",
+//            "player_name",
+//            "player_image",
+//            "cell_view_content",
+//            "player_data"
+//        )
         return view
     }
 

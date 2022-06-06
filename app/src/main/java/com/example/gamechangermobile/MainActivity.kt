@@ -207,8 +207,8 @@ class MainActivity : AppCompatActivity() {
         @RequiresApi(Build.VERSION_CODES.N)
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
             val allGamesURL: java.util.ArrayList<String> = arrayListOf(
-//                "https://pleagueofficial.com/schedule-pre-season/2021-22",
-//                "https://pleagueofficial.com/schedule-regular-season/2021-22",
+                "https://pleagueofficial.com/schedule-pre-season/2021-22",
+                "https://pleagueofficial.com/schedule-regular-season/2021-22",
                 "https://pleagueofficial.com/schedule-playoffs/2021-22",
                 "https://pleagueofficial.com/schedule-finals/2021-22"
             )

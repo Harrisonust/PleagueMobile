@@ -3,6 +3,7 @@ package com.example.gamechangermobile.gamepage
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -35,6 +36,8 @@ class GameActivity : AppCompatActivity() {
         gameData = getGameById(gameID)!!
         guestTeam = getTeamById(gameData?.guestTeam)!!
         hostTeam = getTeamById(gameData?.hostTeam)!!
+
+        val model: GameViewModel by viewModels { GameViewModelFactory(gameID.ID.toInt()) }
 
 
 // rendering UI
