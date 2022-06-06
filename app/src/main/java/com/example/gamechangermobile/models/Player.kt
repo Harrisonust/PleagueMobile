@@ -11,7 +11,7 @@ class Player(
     var GCID: Int = 0,
     var firstName: String = "",
     val lastName: String = "",
-    var profilePic: Int = R.drawable.ic_baseline_sports_basketball_24,
+    var profilePic: Int = R.drawable.ic_user_foreground,
     var stats: MutableMap<GameID, PlayerStats> = mutableMapOf<GameID, PlayerStats>(),
     var averageStat: PlayerStats = PlayerStats(),
     var teamId: TeamID = TeamID(-1),

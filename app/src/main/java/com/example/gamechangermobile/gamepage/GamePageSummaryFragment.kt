@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.R
 import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import com.example.gamechangermobile.TeamActivity
+import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.playerpage.PlayerActivity
+import java.util.*
 
 
 class GamePageSummaryFragment(val game: Game) : Fragment() {
@@ -40,11 +43,131 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startActivity(intent)
         }
 
+        fun startPlayerActivity(player: Player) {
+            val intent = Intent(view.context, PlayerActivity::class.java)
+            intent.putExtra("SELECTED_PLAYER", player.playerID)
+            startActivity(intent)
+        }
+
         fun startTeamActivity(team: Team) {
             val intent = Intent(view.context, TeamActivity::class.java)
             intent.putExtra("SELECTED_TEAM", team.teamId)
             startActivity(intent)
         }
+
+        val model: GameViewModel by activityViewModels { GameViewModelFactory(175) } // TODO change gameID with plgID
+        model.getHostLeaders().observe(viewLifecycleOwner, {  leaders ->
+            host_point_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["points"]!!)
+            }
+            host_rebounds_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["rebounds"]!!)
+            }
+            host_assist_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["assists"]!!)
+            }
+            host_steal_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["steals"]!!)
+            }
+            host_block_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["blocks"]!!)
+            }
+
+            // host point leader
+            host_point_leader_image.setImageResource(leaders["points"]!!.profilePic)
+            host_point_leader_name.text = leaders["points"]!!.fullName
+
+            // host rebound leader
+            host_rebounds_leader_image.setImageResource(leaders["rebounds"]!!.profilePic)
+            host_rebounds_leader_name.text = leaders["rebounds"]!!.fullName
+
+            // host assist leader
+            host_assist_leader_image.setImageResource(leaders["assists"]!!.profilePic)
+            host_assist_leader_name.text = leaders["assists"]!!.fullName
+
+            // host steal leader
+            host_steal_leader_image.setImageResource(leaders["steals"]!!.profilePic)
+            host_steal_leader_name.text = leaders["steals"]!!.fullName
+
+
+            // host block leader
+            host_block_leader_image.setImageResource(leaders["blocks"]!!.profilePic)
+            host_block_leader_name.text = leaders["blocks"]!!.fullName
+        })
+
+        model.getGuestLeaders().observe(viewLifecycleOwner, {  leaders ->
+            guest_point_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["points"]!!)
+            }
+            guest_rebounds_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["rebounds"]!!)
+            }
+            guest_assist_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["assists"]!!)
+            }
+            guest_steal_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["steals"]!!)
+            }
+            guest_block_leader_image.setOnClickListener {
+                startPlayerActivity(leaders["blocks"]!!)
+            }
+
+            // guest point leader
+            guest_point_leader_image.setImageResource(leaders["points"]!!.profilePic)
+            guest_point_leader_name.text = leaders["points"]!!.fullName
+
+            // guest rebound leader
+            guest_rebounds_leader_image.setImageResource(leaders["rebounds"]!!.profilePic)
+            guest_rebounds_leader_name.text = leaders["rebounds"]!!.fullName
+
+            // guest assist leader
+            guest_assist_leader_image.setImageResource(leaders["assists"]!!.profilePic)
+            guest_assist_leader_name.text = leaders["assists"]!!.fullName
+
+            // guest steal leader
+            guest_steal_leader_image.setImageResource(leaders["steals"]!!.profilePic)
+            guest_steal_leader_name.text = leaders["steals"]!!.fullName
+
+
+            // guest block leader
+            guest_block_leader_image.setImageResource(leaders["blocks"]!!.profilePic)
+            guest_block_leader_name.text = leaders["blocks"]!!.fullName
+        })
+
+        model.getHostLeadersPoints().observe(viewLifecycleOwner, {
+            host_point_leader_point.text = it["points"]?.toInt().toString()
+            host_point_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+
+            host_rebounds_leader_point.text = it["rebounds"]?.toInt().toString()
+            host_rebounds_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+
+            host_assist_leader_point.text = it["assists"]?.toInt().toString()
+            host_assist_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+
+            host_steal_leader_point.text = it["steals"]?.toInt().toString()
+            host_steal_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+
+            host_block_leader_point.text = it["blocks"]?.toInt().toString()
+            host_block_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+        })
+
+        model.getGuestLeadersPoints().observe(viewLifecycleOwner, {
+            guest_point_leader_point.text = it["points"]?.toInt().toString()
+            guest_point_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+
+            guest_rebounds_leader_point.text = it["rebounds"]?.toInt().toString()
+            guest_rebounds_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+
+            guest_assist_leader_point.text = it["assists"]?.toInt().toString()
+            guest_assist_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+
+            guest_steal_leader_point.text = it["steals"]?.toInt().toString()
+            guest_steal_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+
+            guest_block_leader_point.text = it["blocks"]?.toInt().toString()
+            guest_block_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+        })
+
 
         guest_game_q1.text = game.guestScorePerQuarter[0]
         guest_game_q2.text = game.guestScorePerQuarter[1]
@@ -65,103 +188,103 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             guestTeam?.profilePic ?: R.drawable.ic_user_foreground
         )
 
-        // guest's listener
-        guest_point_leader_image.setOnClickListener {
-            game.guestPointLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        guest_rebounds_leader_image.setOnClickListener {
-            game.guestReboundLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        guest_assist_leader_image.setOnClickListener {
-            game.guestAssistLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        guest_steal_leader_image.setOnClickListener {
-            game.guestStealLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        guest_block_leader_image.setOnClickListener {
-            game.guestBlockLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
+//        // guest's listener
+//        guest_point_leader_image.setOnClickListener {
+//            game.guestPointLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        guest_rebounds_leader_image.setOnClickListener {
+//            game.guestReboundLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        guest_assist_leader_image.setOnClickListener {
+//            game.guestAssistLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        guest_steal_leader_image.setOnClickListener {
+//            game.guestStealLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        guest_block_leader_image.setOnClickListener {
+//            game.guestBlockLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
         guest_icon.setOnClickListener {
             guestTeam?.let { it1 -> startTeamActivity(it1) }
         }
 
-        // guest point leader
-        guest_point_leader_image.setImageResource(
-            getPlayerById(game.guestPointLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.guestPointLeader)?.fullName?.let {
-            guest_point_leader_name.text = it
-        }
-        game.guestPointLeader?.let {
-            game.getPlayerStats(it)?.data?.get("points")?.let { points ->
-                guest_point_leader_point.text = points.toInt().toString()
-            }
-        }
-        guest_point_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
-
-        // guest rebounds leader
-        guest_rebounds_leader_image.setImageResource(
-            getPlayerById(game.guestReboundLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.guestReboundLeader)?.fullName?.let {
-            guest_rebounds_leader_name.text = it
-        }
-        game.guestReboundLeader?.let {
-            game.getPlayerStats(it)?.data?.get("rebounds")?.let { rebounds ->
-                guest_rebounds_leader_point.text = rebounds.toInt().toString()
-            }
-        }
-        guest_rebounds_leader_point.setTextColor(
-            resources.getColor(
-                guestTeam?.color ?: R.color.black
-            )
-        )
-
-        // guest assist leader
-        guest_assist_leader_image.setImageResource(
-            getPlayerById(game.guestAssistLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.guestAssistLeader)?.fullName?.let {
-            guest_assist_leader_name.text = it
-        }
-        game.guestAssistLeader?.let {
-            game.getPlayerStats(it)?.data?.get("assists")?.let { assists ->
-                guest_assist_leader_point.text = assists.toInt().toString()
-            }
-        }
-        guest_assist_leader_point.setTextColor(
-            resources.getColor(
-                guestTeam?.color ?: R.color.black
-            )
-        )
-
-        // guest steal leader
-        guest_steal_leader_image.setImageResource(
-            getPlayerById(game.guestStealLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.guestStealLeader)?.fullName?.let {
-            guest_steal_leader_name.text = it
-        }
-        game.guestStealLeader?.let {
-            game.getPlayerStats(it)?.data?.get("steals")?.let { steals ->
-                guest_steal_leader_point.text = steals.toInt().toString()
-            }
-        }
-        guest_steal_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
-
-        // guest block leader
-        guest_block_leader_image.setImageResource(
-            getPlayerById(game.guestBlockLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.guestBlockLeader)?.fullName?.let {
-            guest_block_leader_name.text = it
-        }
-        game.guestBlockLeader?.let {
-            game.getPlayerStats(it)?.data?.get("blocks")?.let { blocks ->
-                guest_block_leader_point.text = blocks.toInt().toString()
-            }
-        }
-        guest_block_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+//        // guest point leader
+//        guest_point_leader_image.setImageResource(
+//            getPlayerById(game.guestPointLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.guestPointLeader)?.fullName?.let {
+//            guest_point_leader_name.text = it
+//        }
+//        game.guestPointLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("points")?.let { points ->
+//                guest_point_leader_point.text = points.toInt().toString()
+//            }
+//        }
+//        guest_point_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+//
+//        // guest rebounds leader
+//        guest_rebounds_leader_image.setImageResource(
+//            getPlayerById(game.guestReboundLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.guestReboundLeader)?.fullName?.let {
+//            guest_rebounds_leader_name.text = it
+//        }
+//        game.guestReboundLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("rebounds")?.let { rebounds ->
+//                guest_rebounds_leader_point.text = rebounds.toInt().toString()
+//            }
+//        }
+//        guest_rebounds_leader_point.setTextColor(
+//            resources.getColor(
+//                guestTeam?.color ?: R.color.black
+//            )
+//        )
+//
+//        // guest assist leader
+//        guest_assist_leader_image.setImageResource(
+//            getPlayerById(game.guestAssistLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.guestAssistLeader)?.fullName?.let {
+//            guest_assist_leader_name.text = it
+//        }
+//        game.guestAssistLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("assists")?.let { assists ->
+//                guest_assist_leader_point.text = assists.toInt().toString()
+//            }
+//        }
+//        guest_assist_leader_point.setTextColor(
+//            resources.getColor(
+//                guestTeam?.color ?: R.color.black
+//            )
+//        )
+//
+//        // guest steal leader
+//        guest_steal_leader_image.setImageResource(
+//            getPlayerById(game.guestStealLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.guestStealLeader)?.fullName?.let {
+//            guest_steal_leader_name.text = it
+//        }
+//        game.guestStealLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("steals")?.let { steals ->
+//                guest_steal_leader_point.text = steals.toInt().toString()
+//            }
+//        }
+//        guest_steal_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+//
+//        // guest block leader
+//        guest_block_leader_image.setImageResource(
+//            getPlayerById(game.guestBlockLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.guestBlockLeader)?.fullName?.let {
+//            guest_block_leader_name.text = it
+//        }
+//        game.guestBlockLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("blocks")?.let { blocks ->
+//                guest_block_leader_point.text = blocks.toInt().toString()
+//            }
+//        }
+//        guest_block_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
 
 
         /**
@@ -171,99 +294,99 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             hostTeam?.profilePic ?: R.drawable.ic_user_foreground
         )
 
-        host_point_leader_image.setOnClickListener {
-            game.hostPointLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        host_rebounds_leader_image.setOnClickListener {
-            game.hostReboundLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        host_assist_leader_image.setOnClickListener {
-            game.hostAssistLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        host_steal_leader_image.setOnClickListener {
-            game.hostStealLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
-        host_block_leader_image.setOnClickListener {
-            game.hostBlockLeader?.let { it1 -> startPlayerActivity(it1) }
-        }
+//        host_point_leader_image.setOnClickListener {
+//            game.hostPointLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        host_rebounds_leader_image.setOnClickListener {
+//            game.hostReboundLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        host_assist_leader_image.setOnClickListener {
+//            game.hostAssistLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        host_steal_leader_image.setOnClickListener {
+//            game.hostStealLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
+//        host_block_leader_image.setOnClickListener {
+//            game.hostBlockLeader?.let { it1 -> startPlayerActivity(it1) }
+//        }
         host_icon.setOnClickListener {
             if (hostTeam != null)
                 startTeamActivity(hostTeam)
         }
 
-        // host point leader
-        host_point_leader_image.setImageResource(
-            getPlayerById(game.hostPointLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.hostPointLeader)?.fullName?.let {
-            host_point_leader_name.text = it
-        }
-        game.hostPointLeader?.let {
-            game.getPlayerStats(it)?.data?.get("points")?.let {
-                host_point_leader_point.text = it.toInt().toString()
-            }
-        }
-        host_point_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
-
-        // host rebound leader
-        host_rebounds_leader_image.setImageResource(
-            getPlayerById(game.hostReboundLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.hostReboundLeader)?.fullName?.let {
-            host_rebounds_leader_name.text = it
-        }
-        game.hostReboundLeader?.let {
-            game.getPlayerStats(it)?.data?.get("rebounds")?.let {
-                host_rebounds_leader_point.text = it.toInt().toString()
-            }
-        }
-        host_rebounds_leader_point.setTextColor(
-            resources.getColor(
-                hostTeam?.color ?: R.color.black
-            )
-        )
-
-        // host assist leader
-        host_assist_leader_image.setImageResource(
-            getPlayerById(game.hostAssistLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.hostAssistLeader)?.fullName?.let {
-            host_assist_leader_name.text = it
-        }
-        game.hostAssistLeader?.let {
-            game.getPlayerStats(it)?.data?.get("assists")?.let {
-                host_assist_leader_point.text = it.toInt().toString()
-            }
-        }
-        host_assist_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
-
-        // host steal leader
-        host_steal_leader_image.setImageResource(
-            getPlayerById(game.hostStealLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.hostStealLeader)?.fullName?.let {
-            host_steal_leader_name.text = it
-        }
-        game.hostStealLeader?.let {
-            game.getPlayerStats(it)?.data?.get("steals")?.let {
-                host_steal_leader_point.text = it.toInt().toString()
-            }
-        }
-        host_steal_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
-
-        // host block leader
-        host_block_leader_image.setImageResource(
-            getPlayerById(game.hostBlockLeader)?.profilePic ?: R.drawable.ic_user_foreground
-        )
-        getPlayerById(game.hostBlockLeader)?.fullName?.let {
-            host_block_leader_name.text = it
-        }
-        game.hostBlockLeader?.let { it ->
-            game.getPlayerStats(it)?.data?.get("blocks")?.let { it1 ->
-                host_block_leader_point.text = it1.toInt().toString()
-            }
-        }
-        host_block_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+//        // host point leader
+//        host_point_leader_image.setImageResource(
+//            getPlayerById(game.hostPointLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.hostPointLeader)?.fullName?.let {
+//            host_point_leader_name.text = it
+//        }
+//        game.hostPointLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("points")?.let {
+//                host_point_leader_point.text = it.toInt().toString()
+//            }
+//        }
+//        host_point_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+//
+//        // host rebound leader
+//        host_rebounds_leader_image.setImageResource(
+//            getPlayerById(game.hostReboundLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.hostReboundLeader)?.fullName?.let {
+//            host_rebounds_leader_name.text = it
+//        }
+//        game.hostReboundLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("rebounds")?.let {
+//                host_rebounds_leader_point.text = it.toInt().toString()
+//            }
+//        }
+//        host_rebounds_leader_point.setTextColor(
+//            resources.getColor(
+//                hostTeam?.color ?: R.color.black
+//            )
+//        )
+//
+//        // host assist leader
+//        host_assist_leader_image.setImageResource(
+//            getPlayerById(game.hostAssistLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.hostAssistLeader)?.fullName?.let {
+//            host_assist_leader_name.text = it
+//        }
+//        game.hostAssistLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("assists")?.let {
+//                host_assist_leader_point.text = it.toInt().toString()
+//            }
+//        }
+//        host_assist_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+//
+//        // host steal leader
+//        host_steal_leader_image.setImageResource(
+//            getPlayerById(game.hostStealLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.hostStealLeader)?.fullName?.let {
+//            host_steal_leader_name.text = it
+//        }
+//        game.hostStealLeader?.let {
+//            game.getPlayerStats(it)?.data?.get("steals")?.let {
+//                host_steal_leader_point.text = it.toInt().toString()
+//            }
+//        }
+//        host_steal_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+//
+//        // host block leader
+//        host_block_leader_image.setImageResource(
+//            getPlayerById(game.hostBlockLeader)?.profilePic ?: R.drawable.ic_user_foreground
+//        )
+//        getPlayerById(game.hostBlockLeader)?.fullName?.let {
+//            host_block_leader_name.text = it
+//        }
+//        game.hostBlockLeader?.let { it ->
+//            game.getPlayerStats(it)?.data?.get("blocks")?.let { it1 ->
+//                host_block_leader_point.text = it1.toInt().toString()
+//            }
+//        }
+//        host_block_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
 
 
         /**
