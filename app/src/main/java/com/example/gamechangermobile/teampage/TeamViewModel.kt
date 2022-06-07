@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gamechangermobile.MainActivity.Companion.players
 import com.example.gamechangermobile.database.GCPlayerID
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
@@ -18,6 +17,7 @@ import java.util.*
 class TeamViewModel(teamID: Int) : ViewModel() {
     private val teamID = teamID
     val gameSchedule = MutableLiveData<ArrayList<Game>>()
+    val players = MutableLiveData<ArrayList<Player>>()
     var totalRecord = MutableLiveData<Record>()
     var homeRecord = MutableLiveData<Record>()
     var roadRecord = MutableLiveData<Record>()
@@ -75,6 +75,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
         override fun doInBackground(vararg p0: Unit?): Boolean = try {
             val url = "https://pleagueofficial.com/team/${teamID}"
             val doc = Jsoup.connect(url).get()
+            var _players = arrayListOf<Player>()
             doc.select("div.row.player_list")
                 .first()
                 .children()
@@ -105,8 +106,10 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         number = number!!,
                         position = position!!,
                     )
-                    players.add(player)
+                    _players.add(player)
                 }
+            players.postValue(_players)
+
             OkHttp(PlayerIdOnSuccessResponse()).getRequest(
                 "player_season_data",
                 mapOf(
@@ -184,9 +187,9 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     val month = parsed?.groups?.get(2)?.value
                     val date = parsed?.groups?.get(3)?.value
                     val opponent = parsed?.groups?.get(4)?.value
-                    val guestscore = parsed?.groups?.get(5)?.value
+                    val guestScore = parsed?.groups?.get(5)?.value
                     val wl1 = parsed?.groups?.get(6)?.value
-                    val hostscore = parsed?.groups?.get(7)?.value
+                    val hostScore = parsed?.groups?.get(7)?.value
                     val wl2 = parsed?.groups?.get(8)?.value
 
                     val isHost = wl2 != null
@@ -198,13 +201,11 @@ class TeamViewModel(teamID: Int) : ViewModel() {
 
                     var gameStatus: GameStatus
                     val today = Date()
-                    gameStatus = if (today.compareTo(
-                            Date(
-                                year?.toInt()!!,
-                                month?.toInt()!!,
-                                date?.toInt()!!
-                            )
-                        ) < 0
+                    gameStatus = if (today < Date(
+                        year?.toInt()!!,
+                        month?.toInt()!!,
+                        date?.toInt()!!
+                    )
                     ) GameStatus.END else GameStatus.NOT_YET_START
 
                     val game = Game(
@@ -213,14 +214,14 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                         guestTeam = guestTeam,
                         hostTeam = hostTeam,
                         date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("$year-$month-${date}T00:00:00Z"),
-                        guestScore = guestscore!!.toInt(),
-                        hostScore = hostscore!!.toInt(),
+                        guestScore = guestScore!!.toInt(),
+                        hostScore = hostScore!!.toInt(),
                         status = gameStatus,
                     )
                     _gameSchedule.add(game)
                     Log.d(
                         "Debug",
-                        "$year/$month/$date:\t${getTeamById(TeamID(teamID))?.name}-$hostscore vs $opponent-$guestscore"
+                        "$year/$month/$date:\t${getTeamById(TeamID(teamID))?.name}-$hostScore vs $opponent-$guestScore"
                     )
                 }
             _gameSchedule.sortBy { it.date }

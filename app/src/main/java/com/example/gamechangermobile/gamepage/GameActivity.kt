@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.MainActivity.Companion.players
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.database.GCStatsParser
@@ -59,7 +58,7 @@ class GameActivity : AppCompatActivity() {
                             player.firstName = plgPlayer.name_alt.toString()
                             player.number = plgPlayer.jersey.toString()
                             player.position = plgPlayer.position.toString()
-                            players.add(player)
+//                            players.add(player)
                         }
                         var stat = PlayerStats(
                             points = plgPlayer.points?.toFloatOrNull() ?: 0F,
