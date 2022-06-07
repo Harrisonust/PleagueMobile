@@ -41,10 +41,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        FetchAllPlayersTask().execute()
-        FetchAllTeamsTask().execute()
+//        FetchAllPlayersTask().execute()
+//        FetchAllTeamsTask().execute()
         FetchGamesTask().execute()
         FetchTeamRankTask().execute()
+        FetchPlayerTask().execute()
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -122,84 +123,89 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inner class FetchAllPlayersTask : AsyncTask<Unit, Int, Boolean>() {
-        @RequiresApi(Build.VERSION_CODES.N)
-        override fun doInBackground(vararg p0: Unit?): Boolean = try {
-            val fetchList = arrayListOf<String>(
-                "https://pleagueofficial.com/team/1",
-                "https://pleagueofficial.com/team/2",
-                "https://pleagueofficial.com/team/3",
-                "https://pleagueofficial.com/team/4",
-                "https://pleagueofficial.com/team/5",
-                "https://pleagueofficial.com/team/6"
-            )
-
-            fetchList.forEachIndexed { index, url ->
-                val doc = Jsoup.connect(url).get()
-                doc.select("div.row.player_list")
-                    .first()
-                    .children()
-                    .select("div.col-md-3.col-6.mb-grid-gutter")
-                    .forEach {
-                        var playerID = -1
-                        it.children()
-                            .select("a")
-                            .forEach {
-                                val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
-                                playerID =
-                                    regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
-                            }
-                        val regex =
-                            "^#([0-9]*?) (.*?) (\\S*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
-                        val parsed = regex.find(it.text())
-                        val number = parsed?.groups?.get(1)?.value
-                        val name = parsed?.groups?.get(2)?.value
-                        val position = parsed?.groups?.get(3)?.value
-                        val eng_name = parsed?.groups?.get(4)?.value
-                        val birthday = parsed?.groups?.get(5)?.value
-                        val height = parsed?.groups?.get(6)?.value
-                        val weight = parsed?.groups?.get(7)?.value
-
-                        val player = Player(
-                            playerID = PlayerID(PLGID = playerID),
-                            firstName = name!!,
-                            number = number!!,
-                            position = position!!,
-                        )
-//                        Log.d(
-//                            "Debug",
-//                            "@@#${player.number}\t${player.firstName}\t\tPos: ${player.position}"
+//    inner class FetchAllPlayersTask : AsyncTask<Unit, Int, Boolean>() {
+//        @RequiresApi(Build.VERSION_CODES.N)
+//        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+//            val fetchList = arrayListOf<String>(
+//                "https://pleagueofficial.com/team/1",
+//                "https://pleagueofficial.com/team/2",
+//                "https://pleagueofficial.com/team/3",
+//                "https://pleagueofficial.com/team/4",
+//                "https://pleagueofficial.com/team/5",
+//                "https://pleagueofficial.com/team/6"
+//            )
+//
+//            fetchList.forEachIndexed { index, url ->
+//                val doc = Jsoup.connect(url).get()
+//                doc.select("div.row.player_list")
+//                    .first()
+//                    .children()
+//                    .select("div.col-md-3.col-6.mb-grid-gutter")
+//                    .forEach {
+//                        var playerID = -1
+//                        it.children()
+//                            .select("a")
+//                            .forEach {
+//                                val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
+//                                playerID =
+//                                    regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
+//                            }
+//                        val regex =
+//                            "^#([0-9]*?) (.*?) (\\S*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
+//                        val parsed = regex.find(it.text())
+//                        val number = parsed?.groups?.get(1)?.value
+//                        val name = parsed?.groups?.get(2)?.value
+//                        val position = parsed?.groups?.get(3)?.value
+//                        val eng_name = parsed?.groups?.get(4)?.value
+//                        val birthday = parsed?.groups?.get(5)?.value
+//                        val height = parsed?.groups?.get(6)?.value
+//                        val weight = parsed?.groups?.get(7)?.value
+//
+//                        val player = Player(
+//                            playerID = PlayerID(PLGID = playerID),
+//                            firstName = name!!,
+//                            number = number!!,
+//                            position = position!!,
 //                        )
-                        playersMap[PlayerID(PLGID = playerID)] = player
-                    }
-            }
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
-
-    inner class FetchAllTeamsTask : AsyncTask<Unit, Int, Boolean>() {
-        @RequiresApi(Build.VERSION_CODES.N)
-        override fun doInBackground(vararg p0: Unit?): Boolean = try {
-            val fetchList = arrayListOf<String>(
-                "https://pleagueofficial.com/team/1",
-                "https://pleagueofficial.com/team/2",
-                "https://pleagueofficial.com/team/3",
-                "https://pleagueofficial.com/team/4",
-                "https://pleagueofficial.com/team/5",
-                "https://pleagueofficial.com/team/6"
-            )
-            fetchList.forEachIndexed { index, url ->
-                val doc = Jsoup.connect(url).get()
-                doc.select("h1.h3.mb-0.text-black.fs22.mt-4.text_strong.text_scale")
-                    .forEach {
-                        teamsMap[TeamID(index)] = Team(teamId = TeamID(index), name = it.text())
-                    }
-            }
-            true
-        } catch (e: Exception) {
-            false
+////                        Log.d(
+////                            "Debug",
+////                            "@@#${player.number}\t${player.firstName}\t\tPos: ${player.position}"
+////                        )
+//                        playersMap[PlayerID(PLGID = playerID)] = player
+//                    }
+//            }
+//            true
+//        } catch (e: Exception) {
+//            false
+//        }
+//    }
+//
+//    inner class FetchAllTeamsTask : AsyncTask<Unit, Int, Boolean>() {
+//        @RequiresApi(Build.VERSION_CODES.N)
+//        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+//            val fetchList = arrayListOf<String>(
+//                "https://pleagueofficial.com/team/1",
+//                "https://pleagueofficial.com/team/2",
+//                "https://pleagueofficial.com/team/3",
+//                "https://pleagueofficial.com/team/4",
+//                "https://pleagueofficial.com/team/5",
+//                "https://pleagueofficial.com/team/6"
+//            )
+//            fetchList.forEachIndexed { index, url ->
+//                val doc = Jsoup.connect(url).get()
+//                doc.select("h1.h3.mb-0.text-black.fs22.mt-4.text_strong.text_scale")
+//                    .forEach {
+//                        teamsMap[TeamID(index)] = Team(teamId = TeamID(index), name = it.text())
+//                    }
+//            }
+//            true
+//        } catch (e: Exception) {
+//            false
+//        }
+//    }
+    init {
+        teams.forEach {
+            teamsMap[it.teamId] = it
         }
     }
 
@@ -252,8 +258,7 @@ class MainActivity : AppCompatActivity() {
                             game.status = GameStatus.END
                         else
                             game.status = GameStatus.NOT_YET_START
-                        gamesMap[GameID(id)] = game
-                        println(game.gameId)
+                        gamesMap[game.gameId] = game
                     }
             }
 ////                Only the original thread that created a view hierarchy can touch its views.
@@ -300,7 +305,62 @@ class MainActivity : AppCompatActivity() {
             false
         }
     }
+
+    inner class FetchPlayerTask : AsyncTask<Unit, Int, Boolean>() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+            val fetchList = listOf<String>(
+                "https://pleagueofficial.com/team/1",
+                "https://pleagueofficial.com/team/2",
+                "https://pleagueofficial.com/team/3",
+                "https://pleagueofficial.com/team/4",
+                "https://pleagueofficial.com/team/5",
+                "https://pleagueofficial.com/team/6",
+            )
+            fetchList.forEachIndexed { index, url ->
+                var playerID = -1
+                var player = Player()
+                val doc = Jsoup.connect(url).get()
+                doc.select("div.row.player_list")
+                    .first()
+                    .children()
+                    .select("div.col-md-3.col-6.mb-grid-gutter")
+                    .forEach {
+                        it.children()
+                            .select("a")
+                            .forEach {
+                                val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
+                                playerID =
+                                    regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
+                            }
+                        val regex =
+                            "^#([0-9]*?) (.*?) ([a-zA-Z]*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
+                        val parsed = regex.find(it.text())
+                        val number = parsed?.groups?.get(1)?.value
+                        val name = parsed?.groups?.get(2)?.value
+                        val position = parsed?.groups?.get(3)?.value
+                        val eng_name = parsed?.groups?.get(4)?.value
+                        val birthday = parsed?.groups?.get(5)?.value
+                        val height = parsed?.groups?.get(6)?.value
+                        val weight = parsed?.groups?.get(7)?.value
+
+                        player = Player(
+                            playerID = PlayerID(PLGID = playerID),
+                            firstName = name!!,
+                            teamId = TeamID(index),
+                            number = number!!,
+                            position = position!!,
+                        )
+                    }
+                playersMap[PlayerID(PLGID = playerID)] = player
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
 }
+
 
 
 

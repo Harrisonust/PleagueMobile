@@ -10,7 +10,6 @@ data class GameID(val ID: String) : Parcelable {
 }
 
 fun getGameById(id: GameID): Game? {
-
     for (game in gamesMap.values) {
         if (game.gameId == id)
             return game

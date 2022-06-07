@@ -2,6 +2,7 @@ package com.example.gamechangermobile.models
 
 import android.os.Parcelable
 import com.example.gamechangermobile.MainActivity
+import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
 
@@ -15,6 +16,7 @@ class Player(
     var stats: MutableMap<GameID, PlayerStats> = mutableMapOf<GameID, PlayerStats>(),
     var averageStat: PlayerStats = PlayerStats(),
     var teamId: TeamID = TeamID(-1),
+    var team: String = "",
     var age: Int = 0,
     var number: String = "",
     var position: String = "",
@@ -85,7 +87,7 @@ fun getAllPlayer(): MutableSet<PlayerID> {
 }
 
 fun getPlayerByName(name: String): Player? {
-    for (player in MainActivity.playersMap.values) {
+    for (player in playersMap.values) {
         if (player.firstName == name)
             return player
     }

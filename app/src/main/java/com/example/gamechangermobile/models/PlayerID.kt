@@ -2,6 +2,7 @@ package com.example.gamechangermobile.models
 
 import android.os.Parcelable
 import com.example.gamechangermobile.MainActivity
+import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -15,7 +16,7 @@ data class PlayerID(
 
 fun getPlayerById(playerID: PlayerID?): Player? {
     if (playerID == null) return null
-    for (player in MainActivity.playersMap.values) {
+    for (player in playersMap.values) {
         if (player.playerID == playerID)
             return player
     }

@@ -20,14 +20,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Wed" />
+                android:text="na" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="01/12" />
+                android:text="na/na" />
         </LinearLayout>
 
         <View
@@ -46,7 +46,7 @@
                 android:id="@+id/vs_or_at"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
             <ImageView
                 android:id="@+id/opponentImage"
@@ -72,8 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="10dp"
-                android:text="Game Type" />
+                android:text="Game Type"
+                android:textSize="10dp" />
         </LinearLayout>
 
         <View
@@ -93,14 +93,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="3dp"
-                android:text="L" />
+                android:text="N" />
 
             <TextView
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="128 - 122" />
+                android:text="na - na"
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 

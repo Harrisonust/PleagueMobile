@@ -68,6 +68,7 @@ fun getTeamIdByName(name: TeamName): TeamID =
 fun getTeamIdByName(name: String): TeamID =
     when (name) {
         in "台北富邦勇士" -> TeamID(_BRAVES)
+        in "臺北富邦勇士" -> TeamID(_BRAVES)
         in "Taipei Fubon Braves" -> TeamID(_BRAVES)
         in "新北國王" -> TeamID(_KINGS)
         in "New Taipei Kings" -> TeamID(_KINGS)

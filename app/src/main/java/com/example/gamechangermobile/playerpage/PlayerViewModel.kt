@@ -15,10 +15,29 @@ import kotlin.collections.mapOf
 import kotlin.collections.mutableListOf
 import kotlin.collections.mutableMapOf
 import kotlin.collections.set
+import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.network.*
 
 class PlayerViewModel(playerGCID: Int) : ViewModel() {
     // network call required parameter
     private val apiSource = "GC"
+
+    private val player = MutableLiveData<Player>()
+    fun getPlayerBasicInfo(): LiveData<Player> {
+        return player
+    }
+    private val playerParams = mapOf(
+        "season_id" to "4",
+        "part" to "info,box",
+        "player_id" to playerGCID.toString()
+    )
+    private fun callPlayerBasicInfoApi() {
+        OkHttp(PlayerBasicInfoOnSuccessResponse()).getRequest(
+            "player_season_data",
+            playerParams,
+            apiSource
+        )
+    }
 
     // game records section
     private val gameApiPath = "player_game_data"
@@ -133,9 +152,29 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
 
     init {
         Log.d("VIEWMODEL", "Player ID $playerGCID viewModel is created.")
+        callPlayerBasicInfoApi()
         callGameRecordsApi()
         callCareerAndStatsApi()
         callAdvAndEffApi()
+    }
+
+    private fun PlayerBasicInfoOnSuccessResponse(): OkHttp.OnSuccessResponse {
+        return object : OkHttp.OnSuccessResponse {
+            override fun action(result:String?) {
+                val playerInfoList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
+                if (playerInfoList != null) {
+                    // update player data
+                    val p = Player()
+                    p.averageStat.data["points"] = playerInfoList[0].box.avg_pts
+                    p.averageStat.data["rebounds"] = playerInfoList[0].box.avg_reb
+                    p.averageStat.data["assists"] = playerInfoList[0].box.avg_ast
+                    p.firstName = playerInfoList[0].info.name
+                    p.number = playerInfoList[0].info.player_jersey_number.toString()
+                    p.team = Dictionary.teams[playerInfoList[0].info.team_name].toString()
+                    player.postValue(p)
+                }
+            }
+        }
     }
 
     private fun GameRecordsOnSuccessResponse(): OkHttp.OnSuccessResponse {

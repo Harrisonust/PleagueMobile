@@ -1,7 +1,6 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.gametab.GameAdapter
-import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import kotlinx.android.synthetic.main.fragment_game.*
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.fragment_game.*
 
 class GameFragment() : Fragment() {
     private var selectedDate: Date = Date()
@@ -32,6 +32,15 @@ class GameFragment() : Fragment() {
         game_recyclerview?.apply { layoutManager = LinearLayoutManager(activity) }
 
         calendarView.setOnDateChangedListener { widget, date, selected ->
+            var selectedGames = ArrayList<Game>()
+            for (game in gamesMap.values) {
+                if (game.date.date == selectedDate.date &&
+                    game.date.year == selectedDate.year &&
+                    game.date.month == selectedDate.month
+                ) {
+                    selectedGames.add(game)
+                }
+            }
             selectedDate = Date(date.year - 1900, date.month - 1, date.day)
             updateGameCardView()
         }
@@ -40,14 +49,12 @@ class GameFragment() : Fragment() {
 
     fun updateGameCardView() {
         var selectedGames = ArrayList<Game>()
-         if (gamesMap.values != null) {
-            for (game in gamesMap.values) {
-                if (game.date.date == selectedDate.date &&
-                    game.date.year == selectedDate.year &&
-                    game.date.month == selectedDate.month
-                ) {
-                    selectedGames.add(game)
-                }
+        for (game in gamesMap.values) {
+            if (game.date.date == selectedDate.date &&
+                game.date.year == selectedDate.year &&
+                game.date.month == selectedDate.month
+            ) {
+                selectedGames.add(game)
             }
             game_recyclerview.adapter = GameAdapter(selectedGames)
             game_recyclerview.adapter?.notifyDataSetChanged()
