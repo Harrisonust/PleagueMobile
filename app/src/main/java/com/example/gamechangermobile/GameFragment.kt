@@ -1,29 +1,18 @@
 package com.example.gamechangermobile
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gamechangermobile.MainActivity.Companion.games
+import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.fragment_game.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import org.jsoup.Jsoup
 
 class GameFragment() : Fragment() {
     private var selectedDate: Date = Date()
@@ -42,7 +31,7 @@ class GameFragment() : Fragment() {
 
         calendarView.setOnDateChangedListener { widget, date, selected ->
             var selectedGames = ArrayList<Game>()
-            for (game in games) {
+            for (game in gamesMap.values) {
                 if (game.date.date == selectedDate.date &&
                     game.date.year == selectedDate.year &&
                     game.date.month == selectedDate.month
@@ -60,7 +49,7 @@ class GameFragment() : Fragment() {
 
     fun updateGameCardView() {
         var selectedGames = ArrayList<Game>()
-        for (game in games) {
+        for (game in gamesMap.values) {
             if (game.date.date == selectedDate.date &&
                 game.date.year == selectedDate.year &&
                 game.date.month == selectedDate.month

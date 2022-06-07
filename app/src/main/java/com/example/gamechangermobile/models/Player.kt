@@ -2,6 +2,7 @@ package com.example.gamechangermobile.models
 
 import android.os.Parcelable
 import com.example.gamechangermobile.MainActivity
+import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
 
@@ -86,7 +87,7 @@ fun getAllPlayer(): MutableSet<PlayerID> {
 }
 
 fun getPlayerByName(name: String): Player? {
-    for (player in MainActivity.players) {
+    for (player in playersMap.values) {
         if (player.firstName == name)
             return player
     }

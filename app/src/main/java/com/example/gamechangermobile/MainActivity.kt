@@ -56,8 +56,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var currentUser = User()
 
-        var players: MutableSet<Player> = mutableSetOf<Player>()
-
         var teams: MutableSet<Team> = mutableSetOf<Team>(
             Team(
                 teamId = getTeamIdByName(TeamName.BRAVES),
@@ -115,16 +113,19 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val games: MutableSet<Game> = mutableSetOf<Game>()
+        var playersMap: MutableMap<PlayerID, Player> = mutableMapOf<PlayerID, Player>()
 
-        var playersID: MutableMap<PlayerID, Player> = mutableMapOf<PlayerID, Player>()
+        var teamsMap: MutableMap<TeamID, Team> = mutableMapOf<TeamID, Team>()
 
-        var teamsID: MutableMap<TeamID, Team> = mutableMapOf<TeamID, Team>()
-
-        var gamesID: MutableMap<GameID, Game> = mutableMapOf<GameID, Game>()
+        var gamesMap: MutableMap<GameID, Game> = mutableMapOf<GameID, Game>()
 
     }
 
+    init {
+        teams.forEach {
+            teamsMap[it.teamId] = it
+        }
+    }
 
     inner class FetchGamesTask : AsyncTask<Unit, Int, Boolean>() {
         @RequiresApi(Build.VERSION_CODES.N)
@@ -176,9 +177,7 @@ class MainActivity : AppCompatActivity() {
                             game.status = GameStatus.END
                         else
                             game.status = GameStatus.NOT_YET_START
-                        games.add(game)
-//                        getTeamById(game.hostTeam)?.gamesIdList?.add(game.gameId)
-//                        getTeamById(game.guestTeam)?.gamesIdList?.add(game.gameId)
+                        gamesMap[game.gameId] = game
                     }
             }
 ////                Only the original thread that created a view hierarchy can touch its views.
@@ -220,6 +219,60 @@ class MainActivity : AppCompatActivity() {
 
                     team?.gamesBack = gb!!
                 }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    inner class FetchPlayerTask : AsyncTask<Unit, Int, Boolean>() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+            val fetchList = listOf<String>(
+                "https://pleagueofficial.com/team/1",
+                "https://pleagueofficial.com/team/2",
+                "https://pleagueofficial.com/team/3",
+                "https://pleagueofficial.com/team/4",
+                "https://pleagueofficial.com/team/5",
+                "https://pleagueofficial.com/team/6",
+            )
+            fetchList.forEachIndexed { index, url ->
+                var playerID = -1
+                var player = Player()
+                val doc = Jsoup.connect(url).get()
+                doc.select("div.row.player_list")
+                    .first()
+                    .children()
+                    .select("div.col-md-3.col-6.mb-grid-gutter")
+                    .forEach {
+                        it.children()
+                            .select("a")
+                            .forEach {
+                                val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
+                                playerID =
+                                    regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
+                            }
+                        val regex =
+                            "^#([0-9]*?) (.*?) ([a-zA-Z]*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
+                        val parsed = regex.find(it.text())
+                        val number = parsed?.groups?.get(1)?.value
+                        val name = parsed?.groups?.get(2)?.value
+                        val position = parsed?.groups?.get(3)?.value
+                        val eng_name = parsed?.groups?.get(4)?.value
+                        val birthday = parsed?.groups?.get(5)?.value
+                        val height = parsed?.groups?.get(6)?.value
+                        val weight = parsed?.groups?.get(7)?.value
+
+                        player = Player(
+                            playerID = PlayerID(PLGID = playerID),
+                            firstName = name!!,
+                            teamId = TeamID(index),
+                            number = number!!,
+                            position = position!!,
+                        )
+                    }
+                playersMap[PlayerID(PLGID = playerID)] = player
+            }
             true
         } catch (e: Exception) {
             false
