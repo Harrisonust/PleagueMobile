@@ -6,14 +6,16 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-data class Game(
-    val gameId: GameID,
-    val gameType: String,
-    var guestTeam: TeamID,
-    var hostTeam: TeamID,
+class Game(
+    val gameId: GameID = GameID("0"),
+    val gameType: String = "",
+    var guestTeam: TeamID = TeamID(0),
+    var hostTeam: TeamID = TeamID(0),
     val date: Date = Date(),
     val guestPlayerStats: MutableMap<PlayerID, PlayerStats> = mutableMapOf(),
     val hostPlayerStats: MutableMap<PlayerID, PlayerStats> = mutableMapOf(),
+    val guestBoxScore: MutableMap<Player, PlayerStats> = mutableMapOf(),
+    val hostBoxScore: MutableMap<Player, PlayerStats> = mutableMapOf(),
     var status: GameStatus = GameStatus.NO_STATUS,
     val quarter: String = "",
     val remainingTime: String = "",
@@ -117,7 +119,7 @@ data class Game(
             return guestPlayerStats.maxByOrNull { it.value.data["blocks"]!! }?.key
         }
 
-    var location: String = getTeamById(TeamID(hostTeam.ID))!!.location
+    var location: String = getTeamById(TeamID(hostTeam.ID))?.location.toString()
 
     fun getPlayerStats(playerID: PlayerID): PlayerStats? {
         return guestPlayerStats[playerID] ?: hostPlayerStats[playerID]

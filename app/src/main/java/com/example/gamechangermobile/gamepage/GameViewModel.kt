@@ -65,6 +65,27 @@ class GameViewModel(gameID: Int) : ViewModel() {
     fun getGuestLeadersPoints(): LiveData<Map<String, Float>> {
         return guestLeadersPoints
     }
+    private val hostTotalStats = MutableLiveData<PlayerStats>()
+    fun getHostTotalStats(): LiveData<PlayerStats> {
+        return hostTotalStats
+    }
+    private val guestTotalStats = MutableLiveData<PlayerStats>()
+    fun getGuestTotalStats(): LiveData<PlayerStats> {
+        return guestTotalStats
+    }
+    private val totalStatsNameList = listOf(
+        "fieldGoalMade", "fieldGoalAttempt",
+        "threePointMade", "threePointAttempt",
+        "freeThrowMade", "freeThrowAttempt",
+        "assists",
+        "rebounds",
+        "offensiveRebounds",
+        "defensiveRebounds",
+        "steals",
+        "blocks",
+        "turnovers",
+        "personalFouls"
+    )
 
     private fun boxScoreOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object: OkHttp.OnSuccessResponse {
@@ -117,6 +138,8 @@ class GameViewModel(gameID: Int) : ViewModel() {
                         "steals" to -1F,
                         "blocks" to -1F
                     )
+                    val hts = PlayerStats()
+                    val gts = PlayerStats()
                     for (plgPlayer in g.data.home + g.data.away) {
                         val player = Player()
                         Log.d(
@@ -172,6 +195,9 @@ class GameViewModel(gameID: Int) : ViewModel() {
                                     hlStats[statName] = stat.data[statName]!!
                                 }
                             }
+                            for (statName in totalStatsNameList) {
+                                hts.data[statName] = hts.data[statName]!! + stat.data[statName]!!
+                            }
 //                            gameData.hostPlayerStats[PlayerID(
 //                                PLGID = plgPlayer.player_id?.toInt() ?: -1
 //                            )] =
@@ -184,6 +210,9 @@ class GameViewModel(gameID: Int) : ViewModel() {
                                     glStats[statName] = stat.data[statName]!!
                                 }
                             }
+                            for (statName in totalStatsNameList) {
+                                gts.data[statName] = gts.data[statName]!! + stat.data[statName]!!
+                            }
 //                            gameData.guestPlayerStats[PlayerID(
 //                                PLGID = plgPlayer.player_id?.toInt() ?: -1
 //                            )] = stat
@@ -195,16 +224,11 @@ class GameViewModel(gameID: Int) : ViewModel() {
                     hostLeadersPoints.postValue(hlStats)
                     guestLeaders.postValue(gl)
                     guestLeadersPoints.postValue(glStats)
+                    hostTotalStats.postValue(hts)
+                    guestTotalStats.postValue(gts)
                 }
             }
         }
 
-    }
-
-    inner class Game() {
-        var guestTeam = 0
-        var hostTeam = 0
-        var guestScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0")
-        var hostScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0")
     }
 }

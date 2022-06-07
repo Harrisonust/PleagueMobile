@@ -80,7 +80,7 @@ open class PlayerStats(
         this.data["threePointAttempt"] = threePointAttempt
         this.data["threePointPercentage"] = threePointPercentage
 
-        this.data["freeThrow"] = freeThrowMade
+        this.data["freeThrowMade"] = freeThrowMade
         this.data["freeThrowAttempt"] = freeThrowAttempt
         this.data["freeThrowPercentage"] = freeThrowPercentage
 
