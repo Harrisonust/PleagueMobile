@@ -14,7 +14,6 @@ import com.example.gamechangermobile.network.OkHttp
 class GameViewModel(gameID: Int) : ViewModel() {
     private val gameID = gameID
     private val apiSource = "PLG"
-    private val game = MutableLiveData<Game>()
     val boxScoreHeaders = listOf(
         "PTS", "REB", "AST",
         "FGM", "FGA",
@@ -46,6 +45,10 @@ class GameViewModel(gameID: Int) : ViewModel() {
             source = apiSource
         )
     }
+    private val game = MutableLiveData<Game>()
+    fun getGame(): LiveData<Game> {
+        return game
+    }
     private val hostLeaders = MutableLiveData<Map<String, Player>>()
     fun getHostLeaders(): LiveData<Map<String, Player>> {
         return hostLeaders
@@ -68,19 +71,20 @@ class GameViewModel(gameID: Int) : ViewModel() {
             override fun action(result: String?) {
                 var g = result?.let { GCStatsParser().parsePlg<PlgGame>(it) }
                 if (g != null) {
-//                    lateinit var gameData: Game
-//                    gameData.guestScorePerQuarter = arrayListOf(
-//                        g.data.q1_away,
-//                        g.data.q2_away,
-//                        g.data.q3_away,
-//                        g.data.q4_away,
-//                    )
-//                    gameData.hostScorePerQuarter = arrayListOf(
-//                        g.data.q1_home,
-//                        g.data.q2_home,
-//                        g.data.q3_home,
-//                        g.data.q4_home,
-//                    )
+                    val gameData = Game()
+                    gameData.guestScorePerQuarter = arrayListOf(
+                        g.data.q1_away,
+                        g.data.q2_away,
+                        g.data.q3_away,
+                        g.data.q4_away,
+                    )
+                    gameData.hostScorePerQuarter = arrayListOf(
+                        g.data.q1_home,
+                        g.data.q2_home,
+                        g.data.q3_home,
+                        g.data.q4_home,
+                    )
+                    game.postValue(gameData)
 
                     val gbs = mutableMapOf<Player, PlayerStats>()
                     val hbs = mutableMapOf<Player, PlayerStats>()
@@ -195,5 +199,12 @@ class GameViewModel(gameID: Int) : ViewModel() {
             }
         }
 
+    }
+
+    inner class Game() {
+        var guestTeam = 0
+        var hostTeam = 0
+        var guestScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0")
+        var hostScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0")
     }
 }

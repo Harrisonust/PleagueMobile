@@ -56,6 +56,21 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         }
 
         val model: GameViewModel by activityViewModels { GameViewModelFactory(175) } // TODO change gameID with plgID
+        model.getGame().observe(viewLifecycleOwner, {
+            guest_game_q1.text = it.guestScorePerQuarter[0]
+            guest_game_q2.text = it.guestScorePerQuarter[1]
+            guest_game_q3.text = it.guestScorePerQuarter[2]
+            guest_game_q4.text = it.guestScorePerQuarter[3]
+            guest_game_tot.text = it.guestScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
+
+            host_game_q1.text = it.hostScorePerQuarter[0]
+            host_game_q2.text = it.hostScorePerQuarter[1]
+            host_game_q3.text = it.hostScorePerQuarter[2]
+            host_game_q4.text = it.hostScorePerQuarter[3]
+            host_game_tot.text = it.hostScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
+
+        })
+
         model.getHostLeaders().observe(viewLifecycleOwner, {  leaders ->
             host_point_leader_image.setOnClickListener {
                 startPlayerActivity(leaders["points"]!!)
@@ -169,17 +184,17 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         })
 
 
-        guest_game_q1.text = game.guestScorePerQuarter[0]
-        guest_game_q2.text = game.guestScorePerQuarter[1]
-        guest_game_q3.text = game.guestScorePerQuarter[2]
-        guest_game_q4.text = game.guestScorePerQuarter[3]
-        guest_game_tot.text = game.guestScore.toString()
+//        guest_game_q1.text = game.guestScorePerQuarter[0]
+//        guest_game_q2.text = game.guestScorePerQuarter[1]
+//        guest_game_q3.text = game.guestScorePerQuarter[2]
+//        guest_game_q4.text = game.guestScorePerQuarter[3]
+//        guest_game_tot.text = game.guestScore.toString()
 
-        host_game_q1.text = game.hostScorePerQuarter[0]
-        host_game_q2.text = game.hostScorePerQuarter[1]
-        host_game_q3.text = game.hostScorePerQuarter[2]
-        host_game_q4.text = game.hostScorePerQuarter[3]
-        host_game_tot.text = game.hostScore.toString()
+//        host_game_q1.text = game.hostScorePerQuarter[0]
+//        host_game_q2.text = game.hostScorePerQuarter[1]
+//        host_game_q3.text = game.hostScorePerQuarter[2]
+//        host_game_q4.text = game.hostScorePerQuarter[3]
+//        host_game_tot.text = game.hostScore.toString()
 
         /**
          * guest team leader begin
