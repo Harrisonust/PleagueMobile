@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_game.*
 
 class GameActivity : AppCompatActivity() {
     private lateinit var gameData: Game
-
     private lateinit var guestTeam: Team
     private lateinit var hostTeam: Team
 

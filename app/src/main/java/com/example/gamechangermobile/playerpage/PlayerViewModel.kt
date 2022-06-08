@@ -16,6 +16,7 @@ import kotlin.collections.mutableListOf
 import kotlin.collections.mutableMapOf
 import kotlin.collections.set
 import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.network.*
 
 class PlayerViewModel(playerGCID: Int) : ViewModel() {
     // network call required parameter
