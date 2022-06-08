@@ -4,7 +4,7 @@ import com.example.gamechangermobile.R
 
 class Dictionary {
     companion object {
-//        "OPP", "MSCR", "H/A", "MIN",
+        //        "OPP", "MSCR", "H/A", "MIN",
 //        "PTS", "REB", "AST",
 //        "FG", "FGM", "FGA", "FG%",
 //        "2P", "2PM", "2PA", "2P%",

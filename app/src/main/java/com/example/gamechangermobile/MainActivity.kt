@@ -6,7 +6,10 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.gamechangermobile.database.GCPlayerID
+import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.network.OkHttp
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jsoup.Jsoup
 import java.text.SimpleDateFormat
@@ -41,8 +44,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-//        FetchAllPlayersTask().execute()
-//        FetchAllTeamsTask().execute()
+
         FetchGamesTask().execute()
         FetchTeamRankTask().execute()
         FetchPlayerTask().execute()
@@ -114,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                 color = R.color.steelers_color,
             )
         )
-//
+
         var playersMap: MutableMap<PlayerID, Player> = mutableMapOf<PlayerID, Player>()
 
         var teamsMap: MutableMap<TeamID, Team> = mutableMapOf<TeamID, Team>()
@@ -123,86 +125,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    inner class FetchAllPlayersTask : AsyncTask<Unit, Int, Boolean>() {
-//        @RequiresApi(Build.VERSION_CODES.N)
-//        override fun doInBackground(vararg p0: Unit?): Boolean = try {
-//            val fetchList = arrayListOf<String>(
-//                "https://pleagueofficial.com/team/1",
-//                "https://pleagueofficial.com/team/2",
-//                "https://pleagueofficial.com/team/3",
-//                "https://pleagueofficial.com/team/4",
-//                "https://pleagueofficial.com/team/5",
-//                "https://pleagueofficial.com/team/6"
-//            )
-//
-//            fetchList.forEachIndexed { index, url ->
-//                val doc = Jsoup.connect(url).get()
-//                doc.select("div.row.player_list")
-//                    .first()
-//                    .children()
-//                    .select("div.col-md-3.col-6.mb-grid-gutter")
-//                    .forEach {
-//                        var playerID = -1
-//                        it.children()
-//                            .select("a")
-//                            .forEach {
-//                                val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
-//                                playerID =
-//                                    regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
-//                            }
-//                        val regex =
-//                            "^#([0-9]*?) (.*?) (\\S*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
-//                        val parsed = regex.find(it.text())
-//                        val number = parsed?.groups?.get(1)?.value
-//                        val name = parsed?.groups?.get(2)?.value
-//                        val position = parsed?.groups?.get(3)?.value
-//                        val eng_name = parsed?.groups?.get(4)?.value
-//                        val birthday = parsed?.groups?.get(5)?.value
-//                        val height = parsed?.groups?.get(6)?.value
-//                        val weight = parsed?.groups?.get(7)?.value
-//
-//                        val player = Player(
-//                            playerID = PlayerID(PLGID = playerID),
-//                            firstName = name!!,
-//                            number = number!!,
-//                            position = position!!,
-//                        )
-////                        Log.d(
-////                            "Debug",
-////                            "@@#${player.number}\t${player.firstName}\t\tPos: ${player.position}"
-////                        )
-//                        playersMap[PlayerID(PLGID = playerID)] = player
-//                    }
-//            }
-//            true
-//        } catch (e: Exception) {
-//            false
-//        }
-//    }
-//
-//    inner class FetchAllTeamsTask : AsyncTask<Unit, Int, Boolean>() {
-//        @RequiresApi(Build.VERSION_CODES.N)
-//        override fun doInBackground(vararg p0: Unit?): Boolean = try {
-//            val fetchList = arrayListOf<String>(
-//                "https://pleagueofficial.com/team/1",
-//                "https://pleagueofficial.com/team/2",
-//                "https://pleagueofficial.com/team/3",
-//                "https://pleagueofficial.com/team/4",
-//                "https://pleagueofficial.com/team/5",
-//                "https://pleagueofficial.com/team/6"
-//            )
-//            fetchList.forEachIndexed { index, url ->
-//                val doc = Jsoup.connect(url).get()
-//                doc.select("h1.h3.mb-0.text-black.fs22.mt-4.text_strong.text_scale")
-//                    .forEach {
-//                        teamsMap[TeamID(index)] = Team(teamId = TeamID(index), name = it.text())
-//                    }
-//            }
-//            true
-//        } catch (e: Exception) {
-//            false
-//        }
-//    }
     init {
         teams.forEach {
             teamsMap[it.teamId] = it
@@ -254,7 +176,7 @@ class MainActivity : AppCompatActivity() {
                         )
 
                         val today = Date()
-                        if (today.compareTo(game.date) > 0)
+                        if (today > game.date)
                             game.status = GameStatus.END
                         else
                             game.status = GameStatus.NOT_YET_START
@@ -315,19 +237,16 @@ class MainActivity : AppCompatActivity() {
                 "https://pleagueofficial.com/team/3",
                 "https://pleagueofficial.com/team/4",
                 "https://pleagueofficial.com/team/5",
-                "https://pleagueofficial.com/team/6",
+                "https://pleagueofficial.com/team/6"
             )
             fetchList.forEachIndexed { index, url ->
                 var playerID = -1
                 var player = Player()
                 val doc = Jsoup.connect(url).get()
-                doc.select("div.row.player_list")
-                    .first()
-                    .children()
+                doc.select("div.row.player_list").first().children()
                     .select("div.col-md-3.col-6.mb-grid-gutter")
                     .forEach {
-                        it.children()
-                            .select("a")
+                        it.children().select("a")
                             .forEach {
                                 val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
                                 playerID =
@@ -339,7 +258,7 @@ class MainActivity : AppCompatActivity() {
                         val number = parsed?.groups?.get(1)?.value
                         val name = parsed?.groups?.get(2)?.value
                         val position = parsed?.groups?.get(3)?.value
-                        val eng_name = parsed?.groups?.get(4)?.value
+                        val engName = parsed?.groups?.get(4)?.value
                         val birthday = parsed?.groups?.get(5)?.value
                         val height = parsed?.groups?.get(6)?.value
                         val weight = parsed?.groups?.get(7)?.value
@@ -351,12 +270,38 @@ class MainActivity : AppCompatActivity() {
                             number = number!!,
                             position = position!!,
                         )
+                        playersMap[PlayerID(Name = name, PLGID = playerID)] = player
                     }
-                playersMap[PlayerID(PLGID = playerID)] = player
             }
+
+//            val api = "https://api.gamechanger.tw/api/player_season_data/?season_id=4&part=info"
+
+            OkHttp(boxScoreOnSuccessResponse()).getRequest(
+                path = "player_season_data",
+                queryParams = mapOf(
+                    "season_id" to "4",
+                    "part" to "info",
+                ),
+                source = "GC"
+            )
             true
         } catch (e: Exception) {
             false
+        }
+    }
+
+    private fun boxScoreOnSuccessResponse(): OkHttp.OnSuccessResponse {
+        return object : OkHttp.OnSuccessResponse {
+            override fun action(result: String?) {
+                if (result != null) {
+                    val playerList = GCStatsParser().parse<GCPlayerID>(result)
+                    playerList.forEach { player ->
+                        playersMap.forEach {
+                            if (it.key.Name == player.info.name) it.key.GCID = player.info.id
+                        }
+                    }
+                }
+            }
         }
     }
 }

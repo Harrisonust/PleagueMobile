@@ -1,7 +1,5 @@
 package com.example.gamechangermobile.database
 
-import kotlin.collections.ArrayList
-
 data class GCPlayerID(
     val info: GCPlayerInfo = GCPlayerInfo()
 )
@@ -31,6 +29,15 @@ data class GCPlayerInfoWithFullBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>()
 ) {}
+
+//data class GCPlayerBasicInfo(
+//    val id: Int = 0,
+//    val name: String = "",
+//) {}
+//
+//data class GCPlayerID(
+//    val info: GCPlayerBasicInfo = GCPlayerBasicInfo()
+//) {}
 
 data class GCPlayerInfo(
     val id: Int = 0,
@@ -283,42 +290,42 @@ data class GCTeamInfo(
 data class GCRankings(
     val team: GCRanking? = GCRanking(),
 
-   val avg_pts: GCRanking? = GCRanking(),
-   val avg_fg_m: GCRanking? = GCRanking(),
-   val avg_fg_a: GCRanking? = GCRanking(),
-   val avg_fg_pts: GCRanking? = GCRanking(),
-   val fg_percent: GCRanking? = GCRanking(),
+    val avg_pts: GCRanking? = GCRanking(),
+    val avg_fg_m: GCRanking? = GCRanking(),
+    val avg_fg_a: GCRanking? = GCRanking(),
+    val avg_fg_pts: GCRanking? = GCRanking(),
+    val fg_percent: GCRanking? = GCRanking(),
 
-   val avg_two_pts: GCRanking? = GCRanking(),
-   val avg_two_fg_m: GCRanking? = GCRanking(),
-   val avg_two_fg_a: GCRanking? = GCRanking(),
-   val avg_two_fg_pts: GCRanking? = GCRanking(),
-   val two_pts_percent: GCRanking? = GCRanking(),
+    val avg_two_pts: GCRanking? = GCRanking(),
+    val avg_two_fg_m: GCRanking? = GCRanking(),
+    val avg_two_fg_a: GCRanking? = GCRanking(),
+    val avg_two_fg_pts: GCRanking? = GCRanking(),
+    val two_pts_percent: GCRanking? = GCRanking(),
 
-   val avg_three_pts: GCRanking? = GCRanking(),
-   val avg_three_fg_m: GCRanking? = GCRanking(),
-   val avg_three_fg_a: GCRanking? = GCRanking(),
-   val avg_three_fg_pts: GCRanking? = GCRanking(),
-   val three_pts_percent: GCRanking? = GCRanking(),
+    val avg_three_pts: GCRanking? = GCRanking(),
+    val avg_three_fg_m: GCRanking? = GCRanking(),
+    val avg_three_fg_a: GCRanking? = GCRanking(),
+    val avg_three_fg_pts: GCRanking? = GCRanking(),
+    val three_pts_percent: GCRanking? = GCRanking(),
 
-   val avg_ft_pts: GCRanking? = GCRanking(),
-   val avg_ft_fg_m: GCRanking? = GCRanking(),
-   val avg_ft_fg_a: GCRanking? = GCRanking(),
-   val avg_ft_fg_pts: GCRanking? = GCRanking(),
-   val ft_percent: GCRanking? = GCRanking(),
+    val avg_ft_pts: GCRanking? = GCRanking(),
+    val avg_ft_fg_m: GCRanking? = GCRanking(),
+    val avg_ft_fg_a: GCRanking? = GCRanking(),
+    val avg_ft_fg_pts: GCRanking? = GCRanking(),
+    val ft_percent: GCRanking? = GCRanking(),
 
-   val avg_reb: GCRanking? = GCRanking(),
-   val avg_ast: GCRanking? = GCRanking(),
-   val avg_stl: GCRanking? = GCRanking(),
-   val avg_blk: GCRanking? = GCRanking(),
-   val avg_to: GCRanking? = GCRanking(),
+    val avg_reb: GCRanking? = GCRanking(),
+    val avg_ast: GCRanking? = GCRanking(),
+    val avg_stl: GCRanking? = GCRanking(),
+    val avg_blk: GCRanking? = GCRanking(),
+    val avg_to: GCRanking? = GCRanking(),
 
-   val ppp: GCRanking? = GCRanking(),
-   val opp_ppp: GCRanking? = GCRanking(),
-   val to_rate: GCRanking? = GCRanking(),
-   val opp_to_rate: GCRanking? = GCRanking(),
-   val off_reb_rate: GCRanking? = GCRanking(),
-   val def_reb_rate: GCRanking? = GCRanking(),
+    val ppp: GCRanking? = GCRanking(),
+    val opp_ppp: GCRanking? = GCRanking(),
+    val to_rate: GCRanking? = GCRanking(),
+    val opp_to_rate: GCRanking? = GCRanking(),
+    val off_reb_rate: GCRanking? = GCRanking(),
+    val def_reb_rate: GCRanking? = GCRanking(),
 ) {}
 
 data class PlgTeamBox(
@@ -352,7 +359,7 @@ data class PlgTeamBox(
     val seconds: String = "",
 
 
-) {}
+    ) {}
 
 data class PlgPlayerBox(
     val name_alt: String? = "",

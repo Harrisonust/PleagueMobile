@@ -32,6 +32,4 @@ class OkHttp {
             }
         })
     }
-
-
 }
