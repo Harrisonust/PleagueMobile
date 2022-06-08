@@ -124,7 +124,7 @@ class Dictionary {
             "大勝" to R.drawable.lioneers_branden_dawson,
             "法獅" to R.drawable.lioneers_nicholas_faust,
             "辛巴" to R.drawable.lioneers_simbhullar,
-            "布魯斯巫獅" to R.drawable.ic_baseline_sports_basketball_24, // TODO
+            "布魯斯巫獅" to R.drawable.lioneers_mike_bruesewitz,
 
             // dreamers
             "吳永盛" to R.drawable.dreamers_yung_cheng_wu,
@@ -143,7 +143,7 @@ class Dictionary {
             "布依德" to R.drawable.dreamers_julian_boyd,
             "利多" to R.drawable.ic_baseline_sports_basketball_24, // TODO
             "希克斯" to R.drawable.ic_baseline_sports_basketball_24, // TODO
-            "揚科維奇" to R.drawable.ic_baseline_sports_basketball_24, // TODO
+            "揚科維奇" to R.drawable.dreamers_jankovic,
 
             // steelers
             "陳又瑋" to R.drawable.steelers_yu_wei_chen,
@@ -160,10 +160,10 @@ class Dictionary {
             "戴瑞騰" to R.drawable.steelers_austin_derrick,
             "塔克" to R.drawable.steelers_tucker,
             "班森" to R.drawable.steelers_keith_benson,
-            "布朗" to R.drawable.ic_baseline_sports_basketball_24, // TODO
-            "班尼特" to R.drawable.ic_baseline_sports_basketball_24, // TODO
+            "布朗" to R.drawable.steelers_taylor_michael_braun,
+            "班尼特" to R.drawable.steelers_anthony_bennett,
             "哈里斯" to R.drawable.ic_baseline_sports_basketball_24, // TODO
-            "周儀翔" to R.drawable.ic_baseline_sports_basketball_24, // TODO
+            "周儀翔" to R.drawable.steelers_chou_yi_hsiang,
 
         )
     }
