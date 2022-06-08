@@ -156,10 +156,6 @@ class GameViewModel(gameID: Int) : ViewModel() {
                     val gts = PlayerStats()
                     for (plgPlayer in g.data.home + g.data.away) {
                         var player = Player()
-                        Log.d(
-                            "Debug",
-                            "#${plgPlayer.player_id} ${plgPlayer.name_alt} "
-                        )
                         plgPlayer.player_id?.let {
                             player = playersMap[it.toInt()]!!
 //                            player = Player(

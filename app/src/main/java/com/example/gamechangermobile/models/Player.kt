@@ -73,16 +73,7 @@ class Player(
 }
 
 fun getAllPlayer(): MutableSet<PlayerID> {
-    val playerList = mutableSetOf<PlayerID>()
-    val allTeamIDList = getAllTeam()
-    for (teamId in allTeamIDList) {
-        val team = getTeamById(teamId)
-        if (team != null) {
-            for (player in team.playerList)
-                playerList.add(player)
-        }
-    }
-    return playerList
+    return playersMap.toList().map { it.second.playerID }.toMutableSet()
 }
 
 fun getPlayerByName(name: String): Player? {
