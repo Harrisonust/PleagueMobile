@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_player.*
 import com.example.gamechangermobile.R
 import androidx.activity.viewModels
+import com.example.gamechangermobile.MainActivity.Companion.playersMap
+import com.example.gamechangermobile.MainActivity.Companion.teamsMap
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.models.PlayerID
@@ -24,25 +26,20 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
         val playerID = intent.getParcelableExtra<PlayerID>("SELECTED_PLAYER")
-        player = playerID?.let { getPlayerById(it) }!! //TODO dangerous
+        player = playersMap[playerID?.PLGID]!!
+
+        player_page_profile_pic.setImageResource(player.profilePic)
+        player_page_player_firstname.text = player?.firstName
+        player_page_player_lastname.text = player?.lastName
+        player_page_player_team.text = teamsMap[player.teamId]?.name
+        player_page_player_number.text = "#" + player?.number.toString()
+        player_page_player_position.text = player?.position
 
         val model: PlayerViewModel by viewModels{ PlayerViewModelFactory(player?.GCID!!) }
         model.getPlayerBasicInfo().observe(this, { player ->
-            val imageResource = if (Dictionary.playerToImageResource.containsKey(player?.fullName?.trim())) Dictionary.playerToImageResource[player?.fullName?.trim()] else R.drawable.ic_baseline_sports_basketball_24
-            if (imageResource != null) {
-                player_page_profile_pic.setImageResource(
-                    imageResource
-                )
-            }
-            player_page_player_firstname.text = player?.firstName
-            player_page_player_lastname.text = player?.lastName
-            player_page_player_team.text = player.team
-            player_page_player_number.text = "#" + player?.number.toString()
-            player_page_player_position.text = player?.position
             player_page_player_pts.text = player.averageStat.data["points"].toString()
             player_page_player_reb.text = player.averageStat.data["rebounds"].toString()
             player_page_player_ast.text = player.averageStat.data["assists"].toString()
-            Log.d("PLG", "${player.fullName} hihihi")
 
         })
 

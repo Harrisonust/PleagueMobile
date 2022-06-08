@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
@@ -33,7 +34,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         val gameID = intent.getParcelableExtra<GameID>("SELECTED_GAME")!!
-        gameData = getGameById(gameID)!!
+        gameData = gamesMap[gameID]!!
         guestTeam = getTeamById(gameData?.guestTeam)!!
         hostTeam = getTeamById(gameData?.hostTeam)!!
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.database.GCPlayerID
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
@@ -117,7 +118,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        var playersMap: MutableMap<PlayerID, Player> = mutableMapOf<PlayerID, Player>()
+        var playersMap: MutableMap<Int, Player> = mutableMapOf<Int, Player>()
 
         var teamsMap: MutableMap<TeamID, Team> = mutableMapOf<TeamID, Team>()
 
@@ -266,11 +267,12 @@ class MainActivity : AppCompatActivity() {
                         player = Player(
                             playerID = PlayerID(PLGID = playerID),
                             firstName = name!!,
-                            teamId = TeamID(index),
+                            teamId = TeamID(index+1),
                             number = number!!,
                             position = position!!,
+                            profilePic = (if (Dictionary.playerToImageResource.containsKey(name)) Dictionary.playerToImageResource[name] else R.drawable.ic_user_foreground)!!
                         )
-                        playersMap[PlayerID(Name = name, PLGID = playerID)] = player
+                        playersMap[playerID] = player
                     }
             }
 
@@ -297,7 +299,7 @@ class MainActivity : AppCompatActivity() {
                     val playerList = GCStatsParser().parse<GCPlayerID>(result)
                     playerList.forEach { player ->
                         playersMap.forEach {
-                            if (it.key.Name == player.info.name) it.key.GCID = player.info.id
+                            if (it.value.firstName == player.info.name) it.value.GCID = player.info.id
                         }
                     }
                 }

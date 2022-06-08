@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.database.PlgGame
 import com.example.gamechangermobile.models.Game
@@ -155,18 +156,19 @@ class GameViewModel(gameID: Int) : ViewModel() {
                     val hts = PlayerStats()
                     val gts = PlayerStats()
                     for (plgPlayer in g.data.home + g.data.away) {
-                        val player = Player()
+                        var player = Player()
                         Log.d(
                             "Debug",
                             "#${plgPlayer.player_id} ${plgPlayer.name_alt} "
                         )
                         plgPlayer.player_id?.let {
+                            player = playersMap[it.toInt()]!!
 //                            player = Player(
 //                                playerID = PlayerID(PLGID = it.toInt()),
 //                            )
-                            player.playerID = PlayerID(PLGID = it.toInt())
-                            player.firstName = plgPlayer.name_alt.toString()
-                            player.GCID = 378 // TODO soft code
+//                            player.playerID = PlayerID(PLGID = it.toInt())
+//                            player.firstName = plgPlayer.name_alt.toString()
+//                            player.GCID = 378 // TODO soft code
 //                            player.number = plgPlayer.jersey.toString()
 //                            player.position = plgPlayer.position.toString()
 //                            playersMap[player.playerID] = player
