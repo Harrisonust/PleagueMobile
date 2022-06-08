@@ -1,7 +1,6 @@
 package com.example.gamechangermobile.gamepage
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,20 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.database.PlgGame
 import com.example.gamechangermobile.models.Game
-import com.example.gamechangermobile.models.PlayerID
-import com.example.gamechangermobile.models.PlayerStats
 import com.example.gamechangermobile.models.getTeamById
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_game_page_box_score.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class GamePageBoxScoreFragment(val game: Game) : Fragment() {
 

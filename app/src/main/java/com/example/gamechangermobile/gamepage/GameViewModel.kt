@@ -5,11 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gamechangermobile.MainActivity.Companion.playersMap
-import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.database.PlgGame
+import com.example.gamechangermobile.database.StatsParser
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.models.PlayerID
 import com.example.gamechangermobile.models.PlayerStats
 import com.example.gamechangermobile.network.OkHttp
 
@@ -104,7 +103,7 @@ class GameViewModel(gameID: Int) : ViewModel() {
     private fun boxScoreOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
-                var g = result?.let { GCStatsParser().parsePlg<PlgGame>(it) }
+                var g = result?.let { StatsParser().parsePlg<PlgGame>(it) }
                 if (g != null) {
                     val gameData = Game()
                     gameData.guestScorePerQuarter = arrayListOf(
@@ -173,22 +172,51 @@ class GameViewModel(gameID: Int) : ViewModel() {
 //                            player.position = plgPlayer.position.toString()
 //                            playersMap[player.playerID] = player
                         }
+                        val regex = "([0-9]*)-([0-9]*)".toRegex()
+
+                        var two_m = 0F
+                        var two_a = 0F
+                        var three_m = 0F
+                        var three_a = 0F
+                        var ft_m = 0F
+                        var ft_a = 0F
+                        var f_m = 0F
+                        var f_a = 0F
+
+                        plgPlayer.two_m_two?.let {
+                            val group = regex.find(it)
+                            two_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
+                            two_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
+                        }
+
+                        plgPlayer.trey_m_trey?.let {
+                            val group = regex.find(it)
+                            three_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
+                            three_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
+                        }
+
+                        plgPlayer.ft_m_ft?.let {
+                            val group = regex.find(it)
+                            ft_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
+                            ft_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
+                        }
+
+                        f_m = two_m + three_m
+                        f_a = two_a + three_a
+
                         var stat = PlayerStats(
                             points = plgPlayer.points?.toFloatOrNull() ?: 0F,
                             rebounds = plgPlayer.reb?.toFloatOrNull() ?: 0F,
                             assists = plgPlayer.ast?.toFloatOrNull() ?: 0F,
 
-                            fieldGoalMade = plgPlayer.two_m?.toFloatOrNull() ?: 0F,
-                            fieldGoalAttempt = plgPlayer.two_a?.toFloatOrNull() ?: 0F,
-
-                            twoPointMade = plgPlayer.two_m?.toFloatOrNull() ?: 0F,
-                            twoPointAttempt = plgPlayer.two_a?.toFloatOrNull() ?: 0F,
-
-                            threePointMade = plgPlayer.trey_m?.toFloatOrNull() ?: 0F,
-                            threePointAttempt = plgPlayer.trey_a?.toFloatOrNull() ?: 0F,
-
-                            freeThrowMade = plgPlayer.ft_m?.toFloatOrNull() ?: 0F,
-                            freeThrowAttempt = plgPlayer.ft_a?.toFloatOrNull() ?: 0F,
+                            fieldGoalMade = f_m,
+                            fieldGoalAttempt = f_a,
+                            twoPointMade = two_m,
+                            twoPointAttempt = two_a,
+                            threePointMade = three_m,
+                            threePointAttempt = three_a,
+                            freeThrowMade = ft_m,
+                            freeThrowAttempt = ft_a,
 
                             offensiveRebounds = plgPlayer.reb_o?.toFloatOrNull() ?: 0F,
                             defensiveRebounds = plgPlayer.reb_d?.toFloatOrNull() ?: 0F,
@@ -199,6 +227,7 @@ class GameViewModel(gameID: Int) : ViewModel() {
 
                             effFieldGoalPercentage = plgPlayer.eff?.toFloatOrNull() ?: 0F,
                         )
+                        println("$plgPlayer + $stat")
 //                        stat.field =  stats
 //                        stat.twoPointPercentage = plgPlayer.two_m.toFloatOrNull()?: 0F / plgPlayer.two_a.toFloatOrNull(),
 //                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),

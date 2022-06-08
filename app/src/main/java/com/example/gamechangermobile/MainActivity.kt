@@ -3,13 +3,12 @@ package com.example.gamechangermobile
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.database.GCPlayerID
-import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.StatsParser
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.OkHttp
 import kotlinx.android.synthetic.main.activity_main.*
@@ -299,7 +298,7 @@ class MainActivity : AppCompatActivity() {
         return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 if (result != null) {
-                    val playerList = GCStatsParser().parse<GCPlayerID>(result)
+                    val playerList = StatsParser().parse<GCPlayerID>(result)
                     playerList.forEach { player ->
                         playersMap.forEach {
                             if (it.value.firstName == player.info.name) it.value.GCID = player.info.id

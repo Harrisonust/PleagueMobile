@@ -1,23 +1,14 @@
 package com.example.gamechangermobile.gamepage
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.database.GCPlayerInfoWithFullBox
-import com.example.gamechangermobile.database.GCStatsParser
 import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
 import com.example.gamechangermobile.views.DynamicTable
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 
 class GamePageBoxScoreFragmentHostTab(val game: Game) : Fragment() {

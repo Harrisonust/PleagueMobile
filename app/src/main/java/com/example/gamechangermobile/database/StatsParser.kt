@@ -4,7 +4,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class GCStatsParser() {
+class StatsParser() {
 
     inline fun <reified T> parse(data: String): List<T> {
         val gson = Gson()

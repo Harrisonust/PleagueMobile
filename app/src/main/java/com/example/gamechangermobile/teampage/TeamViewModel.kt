@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gamechangermobile.database.GCPlayerID
-import com.example.gamechangermobile.database.GCStatsParser
+import com.example.gamechangermobile.database.StatsParser
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.OkHttp
 import org.jsoup.Jsoup
@@ -257,7 +257,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
     private fun PlayerIdOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
-                val playerList = result?.let { GCStatsParser().parse<GCPlayerID>(it) }
+                val playerList = result?.let { StatsParser().parse<GCPlayerID>(it) }
                 if (playerList != null) {
                     for (player in playerList) {
                         getPlayerByName(player.info.name)?.GCID = player.info.id

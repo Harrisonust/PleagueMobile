@@ -6,11 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.MainActivity.Companion.playersMap
-import com.example.gamechangermobile.database.GCPlayerID
-import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.OkHttp
 import com.example.gamechangermobile.teampage.TeamPageInfoFragment
 import com.example.gamechangermobile.teampage.TeamPageRosterFragment
 import com.example.gamechangermobile.teampage.TeamPageScheduleFragment

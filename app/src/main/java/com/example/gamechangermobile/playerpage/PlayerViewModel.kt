@@ -16,7 +16,6 @@ import kotlin.collections.mutableListOf
 import kotlin.collections.mutableMapOf
 import kotlin.collections.set
 import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.network.*
 
 class PlayerViewModel(playerGCID: Int) : ViewModel() {
     // network call required parameter
@@ -161,7 +160,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     private fun PlayerBasicInfoOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object : OkHttp.OnSuccessResponse {
             override fun action(result:String?) {
-                val playerInfoList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
+                val playerInfoList = result?.let { StatsParser().parse<GCPlayerInfoWithBox>(it) }
                 if (playerInfoList != null) {
                     // update player data
                     val p = Player()
@@ -181,7 +180,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
         return object : OkHttp.OnSuccessResponse {
             override fun action(result: String?) {
                 val updatedGameRecords = mutableMapOf<String, List<String>>()
-                val gameRecordList = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
+                val gameRecordList = result?.let { StatsParser().parse<GCPlayerInfoWithBox>(it) }
                 if (gameRecordList != null) {
                     for (gameRecord in gameRecordList) {
                         val gameInfo = "${
@@ -247,7 +246,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
                 val updatedCareerAcc = mutableMapOf<String, List<String>>()
                 val updatedCareerAvg = mutableMapOf<String, List<String>>()
                 val updatedChartStats = mutableMapOf<String, Float>()
-                val career = result?.let { GCStatsParser().parse<GCPlayerInfoWithBox>(it) }
+                val career = result?.let { StatsParser().parse<GCPlayerInfoWithBox>(it) }
                 career?.forEachIndexed { i, data ->
                     // Career Section
                     // "MT", "MIN", "PTS", "REB", "AST", "FG", "FGM", "FGA", "FG%", "2P", "2PM", "2PA", "2P%", "3P", "3PM", "3PA", "3P%", "FT", "FTM", "FTA", "FT%", "OREB", "DREB", "STL", "BLK", "TOV", "PF", "EFF"
@@ -352,7 +351,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
             override fun action(result: String?) {
                 val updatedAdv = mutableMapOf<String, List<String>>()
                 val updatedEff = mutableMapOf<String, List<String>>()
-                val fullStatsList = result?.let { GCStatsParser().parse<GCPlayer>(it) }
+                val fullStatsList = result?.let { StatsParser().parse<GCPlayer>(it) }
                 if (fullStatsList != null) {
                     val advColumns = listOf("整季", "第一節", "第二節", "第三節", "第四節", "OT")
                     val columns = listOf(

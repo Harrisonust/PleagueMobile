@@ -2,27 +2,17 @@ package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
-import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
-import com.example.gamechangermobile.database.GCStatsParser
-import com.example.gamechangermobile.database.PlgGame
 import com.example.gamechangermobile.models.*
-import com.example.gamechangermobile.network.Api
-import com.example.gamechangermobile.network.UrlRequestCallback
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
-import org.chromium.net.CronetEngine
-import org.chromium.net.UrlRequest
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 class GameActivity : AppCompatActivity() {
     private lateinit var gameData: Game
