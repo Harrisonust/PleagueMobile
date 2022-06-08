@@ -4,16 +4,16 @@
         android:id="@+id/games_page"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_sports_basketball_24"
-        android:title="Games"/>
+        android:title="Games" />
     <item
         android:id="@+id/stats_page"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_bar_chart_24"
-        android:title="Stats"/>
+        android:title="Stats" />
 
     <item
         android:id="@+id/user_page"
         android:enabled="true"
         android:icon="@drawable/ic_user_foreground"
-        android:title="User"/>
+        android:title="User" />
 </menu>

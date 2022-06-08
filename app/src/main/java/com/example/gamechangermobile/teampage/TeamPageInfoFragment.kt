@@ -35,11 +35,11 @@ class TeamPageInfoFragment(private val teamID: TeamID) : Fragment() {
 //            home_record.text = team.homeRecord.getTotalRecord()
 //            away_record.text = team.awayRecord.getTotalRecord()
 
-            model.homeRecord.observe(viewLifecycleOwner){
+            model.homeRecord.observe(viewLifecycleOwner) {
                 home_record.text = it.getRecord()
             }
 
-            model.roadRecord.observe(viewLifecycleOwner){
+            model.roadRecord.observe(viewLifecycleOwner) {
                 away_record.text = it.getRecord()
             }
 
@@ -52,7 +52,7 @@ class TeamPageInfoFragment(private val teamID: TeamID) : Fragment() {
             }
 
 //            last10.text = team.last10.getTotalRecord()
-            model.last10.observe(viewLifecycleOwner){
+            model.last10.observe(viewLifecycleOwner) {
                 last10.text = it
             }
 

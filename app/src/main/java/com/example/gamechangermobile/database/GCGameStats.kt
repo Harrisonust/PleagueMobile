@@ -7,7 +7,7 @@ data class GCPlayerID(
 data class GCPlayerInfoWithBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: GCPlayerStats = GCPlayerStats()
-) {}
+)
 
 data class GCPlayerInfoWithBoxAndAdv(
     val info: GCPlayerInfo = GCPlayerInfo(),
@@ -28,7 +28,7 @@ data class GCPlayer(
 data class GCPlayerInfoWithFullBox(
     val info: GCPlayerInfo = GCPlayerInfo(),
     val box: ArrayList<GCPlayerStats> = arrayListOf<GCPlayerStats>()
-) {}
+)
 
 //data class GCPlayerBasicInfo(
 //    val id: Int = 0,
@@ -77,7 +77,7 @@ data class GCPlayerInfo(
 //    val split: String? = "",
 //    val split_info: String = "",
 
-) {}
+)
 
 data class GCPlayerOnOffCourt(
     val on_court: ArrayList<GCPlayerAdv> = arrayListOf(),
@@ -111,23 +111,23 @@ data class VsDefense(
 data class GCTeam(
     val info: GCTeamInfo = GCTeamInfo(),
     val ranking: GCRankings = GCRankings(),
-) {}
+)
 
 data class GCRanking(
     val ranking: Int? = 0,
     val value: Float? = 0F,
     val avg: Float? = 0F
-) {}
+)
 
 data class GCTag(
     val name: String = ""
-) {}
+)
 
 data class GCPhoto(
     val image: String? = "",
     val tag: GCTag? = GCTag(),
     val file_name: String? = ""
-) {}
+)
 
 data class GCPlayerAdv(
     val def_reb: Int = 0,
@@ -242,7 +242,7 @@ data class GCPlayerStats(
     val avg_ft_percent: Float = 0.0F,
 
     val avg_play: Float = 0F,
-) {}
+)
 
 data class GCGameCategory(
     val id: Int? = 0,
@@ -250,7 +250,7 @@ data class GCGameCategory(
     val description: String? = "",
     val start_date: String? = "",
     val end_date: String? = ""
-) {}
+)
 
 data class GCGame(
     val id: Int = 0,
@@ -267,7 +267,7 @@ data class GCGame(
     val away_team_name: String = "",
     val away_team_logo: GCPhoto = GCPhoto(),
     val away_team_score: Int = 0,
-) {}
+)
 
 data class GCTeamInfo(
     val id: Int = 0,
@@ -285,7 +285,7 @@ data class GCTeamInfo(
     val winning_streak: Int = 0,
     val game_behind: Float = 0F,
     val season_name: String = ""
-) {}
+)
 
 data class GCRankings(
     val team: GCRanking? = GCRanking(),
@@ -326,7 +326,7 @@ data class GCRankings(
     val opp_to_rate: GCRanking? = GCRanking(),
     val off_reb_rate: GCRanking? = GCRanking(),
     val def_reb_rate: GCRanking? = GCRanking(),
-) {}
+)
 
 data class PlgTeamBox(
     val mins: String = "",
@@ -358,7 +358,7 @@ data class PlgTeamBox(
     val positive: String = "",
     val seconds: String = "",
 
-    ) {}
+    )
 
 data class PlgPlayerBox(
     val name_alt: String? = "",
@@ -400,7 +400,7 @@ data class PlgPlayerBox(
     val ft: String? = "",
     val ft_m_ft: String? = "",
     val ftp: String? = ""
-) {}
+)
 
 data class PlgData(
     val q1_home: String = "",
@@ -417,10 +417,10 @@ data class PlgData(
     val home_total: PlgTeamBox = PlgTeamBox(),
     val away: List<PlgPlayerBox> = arrayListOf<PlgPlayerBox>(),
     val away_total: PlgTeamBox = PlgTeamBox(),
-) {}
+)
 
 data class PlgGame(
     val error: String = "",
     val data: PlgData = PlgData(),
-) {}
+)
 

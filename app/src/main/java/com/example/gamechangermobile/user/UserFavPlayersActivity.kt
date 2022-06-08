@@ -1,13 +1,14 @@
 package com.example.gamechangermobile.user
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.currentUser
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.models.PlayerID
+import com.example.gamechangermobile.models.getAllPlayer
+import com.example.gamechangermobile.models.getPlayerById
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_user_fav_players.*
 
@@ -25,7 +26,11 @@ class UserFavPlayersActivity : AppCompatActivity() {
                     FavPlayersAdapter(favPlayer.toList(), true, onItemClickCallback)
                 fav_players_recycler_view.adapter?.notifyDataSetChanged()
                 other_players_recycler_view.adapter =
-                    FavPlayersAdapter(getAllPlayer().minus(favPlayer).toList(), false, onItemClickCallback)
+                    FavPlayersAdapter(
+                        getAllPlayer().minus(favPlayer).toList(),
+                        false,
+                        onItemClickCallback
+                    )
                 other_players_recycler_view.adapter?.notifyDataSetChanged()
             }
         }

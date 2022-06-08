@@ -5,9 +5,7 @@ import com.example.gamechangermobile.MainActivity
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class TeamID(val ID: Int) : Parcelable {
-
-}
+data class TeamID(val ID: Int) : Parcelable
 
 val _BRAVES = (1)
 val _KINGS = (6)

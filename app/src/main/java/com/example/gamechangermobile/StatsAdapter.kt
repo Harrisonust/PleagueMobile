@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.models.Player
 
 class StatsAdapter(val PlayerList: List<Player>) : RecyclerView.Adapter<StatsAdapter.ViewHolder>() {
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-    }
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         TODO("Not yet implemented")

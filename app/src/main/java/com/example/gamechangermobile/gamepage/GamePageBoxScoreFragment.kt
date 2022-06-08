@@ -1,10 +1,10 @@
 package com.example.gamechangermobile.gamepage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.R
@@ -45,7 +45,7 @@ class GamePageBoxScoreFragment(val game: Game) : Fragment() {
             )
         )
         game_page_score_tab_view_pager.adapter = PagerAdapter(childFragmentManager, 2, game)
-        game_page_score_tab_view_pager.setCurrentItem(0)
+        game_page_score_tab_view_pager.currentItem = 0
         game_page_score_tab_team_tab.addOnTabSelectedListener(
             TabLayout.ViewPagerOnTabSelectedListener(
                 game_page_score_tab_view_pager

@@ -1,10 +1,10 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -28,7 +28,7 @@ class StatsFragment : Fragment() {
 
         view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
         view_pager.adapter = PagerAdapter(childFragmentManager)
-        view_pager.setCurrentItem(0)
+        view_pager.currentItem = 0
         tab_layout.addOnTabSelectedListener(TabLayout.ViewPagerOnTabSelectedListener(view_pager))
     }
 

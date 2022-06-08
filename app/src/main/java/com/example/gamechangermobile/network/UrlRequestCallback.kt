@@ -8,8 +8,7 @@ import java.nio.ByteBuffer
 import java.nio.charset.Charset
 
 
-
-class UrlRequestCallback(): UrlRequest.Callback() {
+class UrlRequestCallback() : UrlRequest.Callback() {
     private val TAG = "Network Debug"
     private val buffer = ByteBuffer.allocateDirect(102400)
     private var response = ""
@@ -19,7 +18,7 @@ class UrlRequestCallback(): UrlRequest.Callback() {
         fun onFinishRequest(result: String?)
     }
 
-    constructor (onFinishRequest: OnFinishRequest?): this() {
+    constructor (onFinishRequest: OnFinishRequest?) : this() {
         //You should create a MyUrlRequestCallback.OnFinishRequest() and
         //override onFinishRequest.
         //We will send JSON String response to this interface and you can then
@@ -57,9 +56,9 @@ class UrlRequestCallback(): UrlRequest.Callback() {
     ) {
         Log.i(TAG, "onReadCompleted method called.")
 
-        buffer?.flip()
+        buffer.flip()
         // Convert the byte buffer to a string
-        buffer?.let {
+        buffer.let {
             val byteArray = ByteArray(it.remaining())
             it.get(byteArray)
             String(byteArray, Charset.forName("UTF-8"))
@@ -69,7 +68,7 @@ class UrlRequestCallback(): UrlRequest.Callback() {
         }
 
         // Clear the buffer
-        buffer?.clear()
+        buffer.clear()
         request?.read(buffer)
     }
 

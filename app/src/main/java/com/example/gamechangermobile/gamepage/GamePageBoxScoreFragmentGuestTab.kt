@@ -2,13 +2,13 @@ package com.example.gamechangermobile.gamepage
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.views.DynamicTable
 
 class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
@@ -23,7 +23,7 @@ class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
 
         val model: GameViewModel by activityViewModels { GameViewModelFactory(game.gameId.ID.toInt()) }
-        model.getGuestBoxScore().observe(viewLifecycleOwner, {
+        model.getGuestBoxScore().observe(viewLifecycleOwner) {
             Log.d("VIEWMODEL", "GamePAGEBOXSCORE")
 
             dynamicTable.renderBoxScoreTable(
@@ -39,7 +39,7 @@ class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
                 "cell_view_content",
                 "player_data"
             )
-        })
+        }
 
 //        val players: MutableMap<Player, PlayerStats> = mutableMapOf()
 //

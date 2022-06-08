@@ -11,15 +11,14 @@ class VerticalScroll : ScrollView {
         fun onScrollChanged(scrollView: VerticalScroll?, x: Int, y: Int, oldx: Int, oldy: Int)
     }
 
-    constructor(context: Context?) : super(context) {}
+    constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
         context,
         attrs,
         defStyle
-    ) {
-    }
+    )
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
 
     fun setScrollViewListener(scrollViewListener: ScrollViewListener?) {
         this.scrollViewListener = scrollViewListener

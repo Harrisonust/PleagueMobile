@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.GameStatus
 import com.example.gamechangermobile.models.getTeamById

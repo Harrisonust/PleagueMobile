@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gamechangermobile.playerpage.PlayerActivity
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.playerpage.PlayerActivity
 
 class RosterAdapter(val playerList: List<Player>) :
-        RecyclerView.Adapter<RosterAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RosterAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val roster_item_image = itemView.findViewById<ImageView>(R.id.roster_item_image)
@@ -23,8 +23,8 @@ class RosterAdapter(val playerList: List<Player>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-                LayoutInflater.from(parent.context)
-                        .inflate(R.layout.team_page_roster_item, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.team_page_roster_item, parent, false)
         val viewHolder = ViewHolder(view)
 
         viewHolder.itemView.setOnClickListener {
@@ -43,7 +43,7 @@ class RosterAdapter(val playerList: List<Player>) :
         val player = playerList[position]
         holder.roster_item_image.setImageResource(player.profilePic)
         holder.roster_item_name.text =
-                player.firstName + " " + player.lastName
+            player.firstName + " " + player.lastName
         holder.roster_item_number.text = "#" + player.number
         holder.roster_item_position.text = player.position
     }

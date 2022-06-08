@@ -1,16 +1,12 @@
 package com.example.gamechangermobile.user
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.AttributeSet
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gamechangermobile.MainActivity.Companion.currentUser
 import com.example.gamechangermobile.R
 import kotlinx.android.synthetic.main.activity_user_data.*
-import kotlinx.android.synthetic.main.fragment_user_info.*
 
 class UserInformationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

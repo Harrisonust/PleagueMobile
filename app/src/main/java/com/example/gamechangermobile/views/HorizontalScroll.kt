@@ -11,14 +11,13 @@ class HorizontalScroll : HorizontalScrollView {
         fun onScrollChanged(scrollView: HorizontalScroll?, x: Int, y: Int, oldx: Int, oldy: Int)
     }
 
-    constructor(context: Context?) : super(context) {}
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
-    ) {
-    }
+    )
 
     fun setScrollViewListener(scrollViewListener: ScrollViewListener?) {
         this.scrollViewListener = scrollViewListener

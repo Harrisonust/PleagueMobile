@@ -202,10 +202,10 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     var gameStatus: GameStatus
                     val today = Date()
                     gameStatus = if (today < Date(
-                        year?.toInt()!!,
-                        month?.toInt()!!,
-                        date?.toInt()!!
-                    )
+                            year?.toInt()!!,
+                            month?.toInt()!!,
+                            date?.toInt()!!
+                        )
                     ) GameStatus.END else GameStatus.NOT_YET_START
 
                     val game = Game(

@@ -5,35 +5,35 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 open class PlayerStats(
-        val data: MutableMap<String, Float> = mutableMapOf<String, Float>(
-                "points" to 0F,
-                "rebounds" to 0F,
-                "assists" to 0F,
+    val data: MutableMap<String, Float> = mutableMapOf<String, Float>(
+        "points" to 0F,
+        "rebounds" to 0F,
+        "assists" to 0F,
 
-                "fieldGoalMade" to 0F,
-                "fieldGoalAttempt" to 0F,
-                "fieldGoalPercentage" to 0F,
+        "fieldGoalMade" to 0F,
+        "fieldGoalAttempt" to 0F,
+        "fieldGoalPercentage" to 0F,
 
-                "twoPointMade" to 0F,
-                "twoPointAttempt" to 0F,
-                "twoPointPercentage" to 0F,
+        "twoPointMade" to 0F,
+        "twoPointAttempt" to 0F,
+        "twoPointPercentage" to 0F,
 
-                "threePointMade" to 0F,
-                "threePointAttempt" to 0F,
-                "threePointPercentage" to 0F,
+        "threePointMade" to 0F,
+        "threePointAttempt" to 0F,
+        "threePointPercentage" to 0F,
 
-                "freeThrowMade" to 0F,
-                "freeThrowAttempt" to 0F,
-                "freeThrowPercentage" to 0F,
+        "freeThrowMade" to 0F,
+        "freeThrowAttempt" to 0F,
+        "freeThrowPercentage" to 0F,
 
-                "offensiveRebounds" to 0F,
-                "defensiveRebounds" to 0F,
-                "steals" to 0F,
-                "blocks" to 0F,
-                "turnovers" to 0F,
-                "personalFouls" to 0F,
-                "effFieldGoalPercentage" to 0F,
-        )
+        "offensiveRebounds" to 0F,
+        "defensiveRebounds" to 0F,
+        "steals" to 0F,
+        "blocks" to 0F,
+        "turnovers" to 0F,
+        "personalFouls" to 0F,
+        "effFieldGoalPercentage" to 0F,
+    )
 ) : Parcelable {
     constructor(
         points: Float = 0F,

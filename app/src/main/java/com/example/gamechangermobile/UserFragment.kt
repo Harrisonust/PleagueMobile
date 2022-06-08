@@ -2,16 +2,16 @@ package com.example.gamechangermobile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.MainActivity.Companion.currentUser
 import com.example.gamechangermobile.user.*
 import kotlinx.android.synthetic.main.fragment_user.*
 
-class UserFragment() : Fragment() {
+class UserFragment : Fragment() {
     val userInfoFragment = UserInfoFragment()
     val userLoginFragment = UserLoginFragment()
     val isLogin: Boolean = false

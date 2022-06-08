@@ -5,18 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.gamechangermobile.database.*
-import com.example.gamechangermobile.network.OkHttp
-import kotlin.collections.List
-import kotlin.collections.Map
-import kotlin.collections.forEachIndexed
-import kotlin.collections.indices
-import kotlin.collections.listOf
-import kotlin.collections.mapOf
-import kotlin.collections.mutableListOf
-import kotlin.collections.mutableMapOf
-import kotlin.collections.set
 import com.example.gamechangermobile.models.Player
-import com.example.gamechangermobile.network.*
+import com.example.gamechangermobile.network.OkHttp
+import kotlin.collections.set
 
 class PlayerViewModel(playerGCID: Int) : ViewModel() {
     // network call required parameter
@@ -26,11 +17,13 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
     fun getPlayerBasicInfo(): LiveData<Player> {
         return player
     }
+
     private val playerParams = mapOf(
         "season_id" to "4",
         "part" to "info,box",
         "player_id" to playerGCID.toString()
     )
+
     private fun callPlayerBasicInfoApi() {
         OkHttp(PlayerBasicInfoOnSuccessResponse()).getRequest(
             "player_season_data",
@@ -160,7 +153,7 @@ class PlayerViewModel(playerGCID: Int) : ViewModel() {
 
     private fun PlayerBasicInfoOnSuccessResponse(): OkHttp.OnSuccessResponse {
         return object : OkHttp.OnSuccessResponse {
-            override fun action(result:String?) {
+            override fun action(result: String?) {
                 val playerInfoList = result?.let { StatsParser().parse<GCPlayerInfoWithBox>(it) }
                 if (playerInfoList != null) {
                     // update player data

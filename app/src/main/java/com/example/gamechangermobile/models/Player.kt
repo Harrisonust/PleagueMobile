@@ -1,7 +1,6 @@
 package com.example.gamechangermobile.models
 
 import android.os.Parcelable
-import com.example.gamechangermobile.MainActivity
 import com.example.gamechangermobile.MainActivity.Companion.playersMap
 import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize

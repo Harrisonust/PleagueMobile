@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class TeamStats() : PlayerStats(), Parcelable {
+class TeamStats : PlayerStats(), Parcelable {
     init {
         data["pointsOffTurnovers"] = 0F
         data["timeoutRemaining"] = 0F

@@ -10,7 +10,10 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
-import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.GameID
+import com.example.gamechangermobile.models.Team
+import com.example.gamechangermobile.models.getTeamById
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
 
@@ -24,8 +27,8 @@ class GameActivity : AppCompatActivity() {
         setContentView(R.layout.activity_game)
         val gameID = intent.getParcelableExtra<GameID>("SELECTED_GAME")!!
         gameData = gamesMap[gameID]!!
-        guestTeam = getTeamById(gameData?.guestTeam)!!
-        hostTeam = getTeamById(gameData?.hostTeam)!!
+        guestTeam = getTeamById(gameData.guestTeam)!!
+        hostTeam = getTeamById(gameData.hostTeam)!!
 
         val model: GameViewModel by viewModels { GameViewModelFactory(gameID.ID.toInt()) }
 
@@ -33,25 +36,25 @@ class GameActivity : AppCompatActivity() {
 // rendering UI
 
         game_page_header_guest_icon.setImageResource(
-            guestTeam?.profilePic
+            guestTeam.profilePic
         )
         game_page_header_host_icon.setImageResource(
-            hostTeam?.profilePic
+            hostTeam.profilePic
         )
 
-        gameData?.guestStats?.data?.get("points")?.let {
+        gameData.guestStats.data.get("points")?.let {
             game_page_header_guest_score.text = it.toInt().toString()
         }
 
-        gameData?.hostStats?.data?.get("points")?.let {
+        gameData.hostStats.data.get("points")?.let {
             game_page_header_host_score.text = it.toInt().toString()
         }
 
-        gameData?.remainingTime?.let {
+        gameData.remainingTime.let {
             game_page_header_time.text = it
         }
 
-        gameData?.highlightPhoto?.let {
+        gameData.highlightPhoto.let {
             game_page_image_view.setImageResource(it)
         }
 
@@ -65,8 +68,8 @@ class GameActivity : AppCompatActivity() {
                 game_page_tab
             )
         )
-        game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 4, gameData!!)
-        game_page_viewpager.setCurrentItem(0)
+        game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 4, gameData)
+        game_page_viewpager.currentItem = 0
         game_page_tab.addOnTabSelectedListener(
             TabLayout.ViewPagerOnTabSelectedListener(
                 game_page_viewpager

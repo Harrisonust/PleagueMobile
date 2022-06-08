@@ -1,10 +1,10 @@
 package com.example.gamechangermobile.playerpage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
@@ -27,19 +27,20 @@ class PlayerPageCareerFragment(val player: Player) : Fragment() {
 
         val playerViewModel: PlayerViewModel by activityViewModels { PlayerViewModelFactory(player.GCID) }
         headers = playerViewModel.careerHeaders
-        playerViewModel.getCareerAcc().observe(viewLifecycleOwner, {
+        playerViewModel.getCareerAcc().observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 renderAccTable(it)
             }
-        })
-        playerViewModel.getCareerAvg().observe(viewLifecycleOwner, {
+        }
+        playerViewModel.getCareerAvg().observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 renderAvgTable(it)
             }
-        })
+        }
 
         return view
     }
+
     private fun renderAccTable(map: Map<String, List<String>>) {
         val layoutParams = accDynamicTable?.layoutParams
         layoutParams?.height = 90 + 120 * map.size
@@ -57,6 +58,7 @@ class PlayerPageCareerFragment(val player: Player) : Fragment() {
             "player_data"
         )
     }
+
     private fun renderAvgTable(map: Map<String, List<String>>) {
         val layoutParams = avgDynamicTable?.layoutParams
         layoutParams?.height = 90 + 120 * map.size

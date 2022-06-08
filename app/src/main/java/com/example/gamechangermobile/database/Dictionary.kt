@@ -165,6 +165,6 @@ class Dictionary {
             "哈里斯" to R.drawable.ic_baseline_sports_basketball_24, // TODO
             "周儀翔" to R.drawable.steelers_chou_yi_hsiang,
 
-        )
+            )
     }
 }

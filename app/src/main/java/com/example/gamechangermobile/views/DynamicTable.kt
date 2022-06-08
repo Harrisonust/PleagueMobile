@@ -3,7 +3,6 @@ package com.example.gamechangermobile.views
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.*
@@ -13,11 +12,13 @@ import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.database.Database
 import com.example.gamechangermobile.database.Dictionary
-import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.models.Player
+import com.example.gamechangermobile.models.PlayerStats
+import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.playerpage.PlayerActivity
-import java.text.SimpleDateFormat
 
-class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs), HorizontalScroll.ScrollViewListener, VerticalScroll.ScrollViewListener {
+class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs),
+    HorizontalScroll.ScrollViewListener, VerticalScroll.ScrollViewListener {
     private var fixedRelativeLayout: RelativeLayout? = null
     private var headerRelativeLayout: RelativeLayout? = null
     private var columnRelativeLayout: RelativeLayout? = null
@@ -40,7 +41,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.DynamicTable,
-            0, 0)?.apply {
+            0, 0
+        ).apply {
             try {
                 val shadow = getInteger(R.styleable.DynamicTable_shadow, 0)
                 val headerCardView: CardView = findViewById(R.id.header_card_view)
@@ -80,7 +82,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val tableRow = TableRow(context)
         for (i in headers.indices) {
             if (i == 0) {
-                val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
+                val view =
+                    LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
                 val textView: TextView = view.findViewById(headerTextId)
                 textView.text = headers[i]
                 view.layoutParams = ViewGroup.LayoutParams(
@@ -89,8 +92,7 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
                 )
                 fixedRelativeLayout?.addView(view)
 
-            }
-            else {
+            } else {
                 renderCell(headers[i], headerViewId, headerTextId, tableRow)
             }
         }
@@ -100,12 +102,20 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
         val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
         val columnImageId = resources.getIdentifier(columnImageViewName, "id", context.packageName)
-        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentViewId =
+            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
         val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
 
         for (content in contents) {
             val columnTableRow = TableRow(context)
-            renderCell(content[1], content[0], columnViewId, columnTextId, columnImageId, columnTableRow)
+            renderCell(
+                content[1],
+                content[0],
+                columnViewId,
+                columnTextId,
+                columnImageId,
+                columnTableRow
+            )
             columnTableLayout?.addView(columnTableRow)
 
             val contentTableRow = TableRow(context)
@@ -139,7 +149,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
         val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
         val columnImageId = resources.getIdentifier(columnImageViewName, "id", context.packageName)
-        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentViewId =
+            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
         val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
 
         // fixed layout text
@@ -147,21 +158,33 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val textView: TextView = view.findViewById(headerTextId)
         textView.text = "Player"
         view.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
         fixedRelativeLayout?.addView(view)
 
 
         // header, column, content
         var headerSet = false
-        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
+        val ignoreFields = listOf(
+            "twoPointMade",
+            "twoPointAttempt",
+            "twoPointPercentage",
+            "effFieldGoalPercentage"
+        )
         for ((player, playerStats) in players) {
             if (!headerSet) {
                 val tableRow = TableRow(context)
                 for ((statsName, _) in playerStats.data) {
                     if (!ignoreFields.contains(statsName)) {
-                        Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }
+                        Database().statsDictionary[statsName]?.let {
+                            renderCell(
+                                it,
+                                headerViewId,
+                                headerTextId,
+                                tableRow
+                            )
+                        }
                     }
                 }
                 headerTableLayout?.addView(tableRow)
@@ -205,7 +228,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
         val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
         val columnImageId = resources.getIdentifier(columnImageViewName, "id", context.packageName)
-        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentViewId =
+            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
         val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
 
         // fixed layout text
@@ -235,20 +259,37 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
             val contentTableRow = TableRow(context)
             for (header in headers) {
                 if (Dictionary.statsName.containsKey(header)) {
-                    renderCell(stats.data[Dictionary.statsName[header]].toString(), contentViewId, contentTextId, contentTableRow)
+                    renderCell(
+                        stats.data[Dictionary.statsName[header]].toString(),
+                        contentViewId,
+                        contentTextId,
+                        contentTableRow
+                    )
                 }
             }
             contentTableLayout?.addView(contentTableRow)
         }
         // header, column, content
         var headerSet = false
-        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
+        val ignoreFields = listOf(
+            "twoPointMade",
+            "twoPointAttempt",
+            "twoPointPercentage",
+            "effFieldGoalPercentage"
+        )
         for ((player, playerStats) in players) {
             if (!headerSet) {
                 val tableRow = TableRow(context)
                 for ((statsName, _) in playerStats.data) {
                     if (!ignoreFields.contains(statsName)) {
-                        Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }
+                        Database().statsDictionary[statsName]?.let {
+                            renderCell(
+                                it,
+                                headerViewId,
+                                headerTextId,
+                                tableRow
+                            )
+                        }
                     }
                 }
                 headerTableLayout?.addView(tableRow)
@@ -292,7 +333,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
         val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
         val columnImageId = resources.getIdentifier(columnImageViewName, "id", context.packageName)
-        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentViewId =
+            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
         val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
 
         // fixed layout text
@@ -348,7 +390,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
         val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
         val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
-        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentViewId =
+            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
         val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
 
         // fixed layout text
@@ -404,7 +447,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
         val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
         val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
-        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentViewId =
+            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
         val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
 
         // fixed layout text
@@ -440,16 +484,16 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
     }
 
     fun renderStatsTable(
-            statsColumnName: String,
-            playerStats: Map<String, Float>,
-            headerHeight: Int,
-            columnWidth: Int,
-            headerLayoutName: String,
-            headerTextViewName: String,
-            columnLayoutName: String,
-            columnTextViewName: String,
-            contentLayoutName: String,
-            contentTextViewName: String
+        statsColumnName: String,
+        playerStats: Map<String, Float>,
+        headerHeight: Int,
+        columnWidth: Int,
+        headerLayoutName: String,
+        headerTextViewName: String,
+        columnLayoutName: String,
+        columnTextViewName: String,
+        contentLayoutName: String,
+        contentTextViewName: String
     ) {
         fixedRelativeLayout?.let { it.layoutParams.height = headerHeight }
         fixedRelativeLayout?.let { it.layoutParams.width = columnWidth }
@@ -460,7 +504,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
         val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
         val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
-        val contentViewId = resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+        val contentViewId =
+            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
         val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
 
         // fixed layout text
@@ -468,8 +513,8 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val textView: TextView = view.findViewById(headerTextId)
         textView.text = ""
         view.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
         fixedRelativeLayout?.addView(view)
 
@@ -482,10 +527,22 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         // header, column, content
         val tableRow = TableRow(context)
         val contentTableRow = TableRow(context)
-        val ignoreFields = listOf("twoPointMade", "twoPointAttempt", "twoPointPercentage", "effFieldGoalPercentage")
+        val ignoreFields = listOf(
+            "twoPointMade",
+            "twoPointAttempt",
+            "twoPointPercentage",
+            "effFieldGoalPercentage"
+        )
         for ((statsName, stats) in playerStats) {
             if (!ignoreFields.contains(statsName)) {
-                Database().statsDictionary[statsName]?.let { renderCell(it, headerViewId, headerTextId, tableRow) }
+                Database().statsDictionary[statsName]?.let {
+                    renderCell(
+                        it,
+                        headerViewId,
+                        headerTextId,
+                        tableRow
+                    )
+                }
                 renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
             }
         }
@@ -501,7 +558,14 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         tableRow.addView(view)
     }
 
-    private fun renderCell(text: String, image: String, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
+    private fun renderCell(
+        text: String,
+        image: String,
+        viewId: Int,
+        textId: Int,
+        imageId: Int,
+        tableRow: TableRow
+    ) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
         textView.text = text
@@ -511,7 +575,13 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         tableRow.addView(view)
     }
 
-    private fun renderCell(player: Player, viewId: Int, textId: Int, imageId: Int, tableRow: TableRow) {
+    private fun renderCell(
+        player: Player,
+        viewId: Int,
+        textId: Int,
+        imageId: Int,
+        tableRow: TableRow
+    ) {
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
         val playerName = player.fullName.trim()
@@ -519,8 +589,7 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val imageView: ImageView = view.findViewById(imageId)
         if (Dictionary.playerToImageResource.containsKey(playerName)) {
             imageView.setImageResource(Dictionary.playerToImageResource[playerName]!!)
-        }
-        else {
+        } else {
             imageView.setImageResource(player.profilePic)
         }
         view.setOnClickListener {
@@ -589,11 +658,10 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         oldx: Int,
         oldy: Int
     ) {
-        if(scrollView == headerHorizontalScrollView){
-            contentHorizontalScrollView?.scrollTo(x,y);
-        }
-        else if(scrollView == contentHorizontalScrollView){
-            headerHorizontalScrollView?.scrollTo(x, y);
+        if (scrollView == headerHorizontalScrollView) {
+            contentHorizontalScrollView?.scrollTo(x, y)
+        } else if (scrollView == contentHorizontalScrollView) {
+            headerHorizontalScrollView?.scrollTo(x, y)
         }
     }
 

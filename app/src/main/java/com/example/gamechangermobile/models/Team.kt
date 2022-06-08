@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.example.gamechangermobile.R
 import kotlinx.android.parcel.Parcelize
 import java.util.*
-import kotlin.collections.ArrayList
 
 @Parcelize
 data class Team(
@@ -25,7 +24,7 @@ data class Team(
     var streak: String = "",
     var gamesBack: String = "",
 
-) : Parcelable {
+    ) : Parcelable {
 
     fun getGameList(): ArrayList<Game> {
         val games = ArrayList<Game>()

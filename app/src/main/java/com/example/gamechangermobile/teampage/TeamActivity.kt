@@ -6,9 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.gamechangermobile.teampage.TeamPageInfoFragment
-import com.example.gamechangermobile.teampage.TeamPageRosterFragment
-import com.example.gamechangermobile.teampage.TeamPageScheduleFragment
 import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.models.TeamID
 import com.example.gamechangermobile.models.getTeamById
@@ -45,7 +42,7 @@ class TeamActivity : AppCompatActivity() {
         }
 
         team_page_team_favorite_btn.setOnClickListener { view ->
-            teamData?.let { addToFavTeam(view, it.teamId) }
+            teamData.let { addToFavTeam(view, it.teamId) }
         }
 
         team_page_tab.addTab(team_page_tab.newTab().setText("INFO"))
@@ -60,7 +57,7 @@ class TeamActivity : AppCompatActivity() {
         if (teamData != null)
             team_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 3, teamData)
 
-        team_page_viewpager.setCurrentItem(0)
+        team_page_viewpager.currentItem = 0
         team_page_tab.addOnTabSelectedListener(
             TabLayout.ViewPagerOnTabSelectedListener(
                 team_page_viewpager

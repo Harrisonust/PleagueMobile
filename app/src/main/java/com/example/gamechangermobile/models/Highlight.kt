@@ -1,4 +1,3 @@
 package com.example.gamechangermobile.models
 
-class Highlight(val uri: String) {
-}
+class Highlight(val uri: String)

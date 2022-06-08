@@ -3,23 +3,18 @@ package com.example.gamechangermobile.user
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.MainActivity.Companion.currentUser
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.User
 import kotlinx.android.synthetic.main.fragment_user_info.*
-import kotlinx.android.synthetic.main.fragment_user_info.sign_in_button
 
 const val SIGN_IN_REQUEST_CODE = 1
-class UserInfoFragment() : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+class UserInfoFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -5,17 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.gametab.GameAdapter
-import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.models.Game
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import java.util.*
-import kotlin.collections.ArrayList
 import kotlinx.android.synthetic.main.fragment_game.*
+import java.util.*
 
-class GameFragment() : Fragment() {
+class GameFragment : Fragment() {
     private var selectedDate: Date = Date()
 
     override fun onCreateView(
@@ -59,5 +57,5 @@ class GameFragment() : Fragment() {
             game_recyclerview.adapter = GameAdapter(selectedGames)
             game_recyclerview.adapter?.notifyDataSetChanged()
         }
-     }
+    }
 }

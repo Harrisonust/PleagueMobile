@@ -12,7 +12,11 @@ import com.example.gamechangermobile.models.PlayerID
 import com.example.gamechangermobile.models.getPlayerById
 import com.example.gamechangermobile.models.getTeamById
 
-class FavPlayersAdapter(private val playerList: List<PlayerID>, val isFavList: Boolean, val itemClickListener: ItemClickListener) :
+class FavPlayersAdapter(
+    private val playerList: List<PlayerID>,
+    val isFavList: Boolean,
+    val itemClickListener: ItemClickListener
+) :
     RecyclerView.Adapter<FavPlayersAdapter.ViewHolder>() {
     private var delegate: ItemClickListener? = null
 
@@ -20,7 +24,7 @@ class FavPlayersAdapter(private val playerList: List<PlayerID>, val isFavList: B
         delegate = itemClickListener
     }
 
-    interface ItemClickListener{
+    interface ItemClickListener {
         fun onItemClickListener()
     }
 
@@ -41,9 +45,9 @@ class FavPlayersAdapter(private val playerList: List<PlayerID>, val isFavList: B
         viewHolder.itemView.setOnClickListener {
             val pos: Int = viewHolder.adapterPosition
             if (isFavList) {
-                playerList[pos]?.let { it1 -> removeFromFavPlayer(view, it1) }
+                playerList[pos].let { it1 -> removeFromFavPlayer(view, it1) }
             } else {
-                playerList[pos]?.let { it1 -> addToFavPlayer(view, it1) }
+                playerList[pos].let { it1 -> addToFavPlayer(view, it1) }
             }
             delegate?.onItemClickListener()
         }
@@ -52,11 +56,11 @@ class FavPlayersAdapter(private val playerList: List<PlayerID>, val isFavList: B
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val player: Player? = getPlayerById(playerList[position])
-        holder.playerImageView.setImageResource(player?.profilePic?:R.drawable.ic_user_foreground)
-        holder.playerNameView.text = player?.fullName?:"name"
+        holder.playerImageView.setImageResource(player?.profilePic ?: R.drawable.ic_user_foreground)
+        holder.playerNameView.text = player?.fullName ?: "name"
         holder.playerNumberView.text = "#" + player?.number
-        holder.playerTeamView.text = getTeamById(player?.teamId)?.name?:"-1"
-        holder.playerPosition.text = player?.position?:"-1"
+        holder.playerTeamView.text = getTeamById(player?.teamId)?.name ?: "-1"
+        holder.playerPosition.text = player?.position ?: "-1"
     }
 
     override fun getItemCount() = playerList.size

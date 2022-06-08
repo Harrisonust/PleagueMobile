@@ -1,13 +1,16 @@
 package com.example.gamechangermobile.gamepage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.models.*
+import com.example.gamechangermobile.models.Game
+import com.example.gamechangermobile.models.Play
+import com.example.gamechangermobile.models.TeamName
+import com.example.gamechangermobile.models.getTeamIdByName
 import kotlinx.android.synthetic.main.fragment_game_page_plays.*
 
 class GamePagePlaysFragment(val game: Game) : Fragment() {

@@ -2,10 +2,10 @@ package com.example.gamechangermobile.playerpage
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
@@ -17,20 +17,22 @@ import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
 import kotlinx.android.synthetic.main.fragment_player_page_stats.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class PlayerPageStatsFragment(val player: Player) : Fragment() {
 
     private var radarData: RadarData? = null
     private val xDatas = ArrayList<String>()
     private val yDatas1 = ArrayList<RadarEntry>()
-    private val playerViewModel: PlayerViewModel by activityViewModels { PlayerViewModelFactory(player.GCID) }
+    private val playerViewModel: PlayerViewModel by activityViewModels {
+        PlayerViewModelFactory(
+            player.GCID
+        )
+    }
 //    private val yDatas2 = ArrayList<RadarEntry>()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_player_page_stats, container, false)
@@ -43,7 +45,7 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
         xAxis.valueFormatter = IndexAxisValueFormatter(labels)
 
         if (xDatas.isNullOrEmpty() and yDatas1.isNullOrEmpty()) {
-            playerViewModel.getChartStats().observe(viewLifecycleOwner, {
+            playerViewModel.getChartStats().observe(viewLifecycleOwner) {
                 if (it.isNotEmpty()) {
                     xDatas.add("Points")
                     yDatas1.add(RadarEntry(it["PTS"]!!))
@@ -60,7 +62,7 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
                     radarData = getRadarData()
                     showRadarChart(radarchart, radarData!!)
                 }
-            })
+            }
         }
         radarData = getRadarData()
         showRadarChart(radarchart, radarData!!)
@@ -72,7 +74,8 @@ class PlayerPageStatsFragment(val player: Player) : Fragment() {
         radarDataSet1.fillColor = resources.getColor(R.color.blue_400_transparent)
         radarDataSet1.setDrawFilled(true)
         radarDataSet1.fillAlpha = 180
-        radarDataSet1.lineWidth = 2f                                        // lidar boarder line width
+        radarDataSet1.lineWidth =
+            2f                                        // lidar boarder line width
         radarDataSet1.isDrawHighlightCircleEnabled = true
         radarDataSet1.setDrawHighlightIndicators(false)
 

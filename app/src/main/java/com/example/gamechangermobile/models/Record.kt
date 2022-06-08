@@ -4,8 +4,9 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Record(var wins: Int = 0,
-                  var loses: Int = 0,
+class Record(
+    var wins: Int = 0,
+    var loses: Int = 0,
 ) : Parcelable {
 
     fun getRecord(): String {

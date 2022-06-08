@@ -3,20 +3,17 @@ package com.example.gamechangermobile.gamepage
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.gamechangermobile.MainActivity.Companion.teamsMap
 import com.example.gamechangermobile.R
-import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import com.example.gamechangermobile.TeamActivity
-import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.playerpage.PlayerActivity
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import kotlin.math.roundToInt
 
 
@@ -240,7 +237,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             host_field_goal.text =
                 hs["fieldGoalMade"]?.toInt().toString() +
                         "/" + hs["fieldGoalAttempt"]?.toInt().toString() +
-                        "(" + ((fieldGoalPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+                        "(" + ((fieldGoalPercentage * 10000).roundToInt() / 100F).toString() + "%)"
             host_field_goal_bar.setBackgroundColor(
                 resources.getColor(
                     hostTeam?.color ?: R.color.black
@@ -252,7 +249,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             host_3_pointer.text =
                 hs["threePointMade"]?.toInt().toString() +
                         "/" + hs["threePointAttempt"]?.toInt().toString() +
-                        "(" + ((threePointPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+                        "(" + ((threePointPercentage * 10000).roundToInt() / 100F).toString() + "%)"
             host_3_pointer_bar.setBackgroundColor(
                 resources.getColor(
                     hostTeam?.color ?: R.color.black
@@ -264,7 +261,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             host_free_throw.text =
                 hs["freeThrowMade"]?.toInt().toString() +
                         "/" + hs["freeThrowAttempt"]?.toInt().toString() +
-                        "(" + ((freeThrowPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+                        "(" + ((freeThrowPercentage * 10000).roundToInt() / 100F).toString() + "%)"
             host_free_throw_bar.setBackgroundColor(
                 resources.getColor(
                     hostTeam?.color ?: R.color.black
@@ -336,7 +333,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             guest_field_goal.text =
                 gs["fieldGoalMade"]?.toInt().toString() +
                         "/" + gs["fieldGoalAttempt"]?.toInt().toString() +
-                        "(" + ((fieldGoalPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+                        "(" + ((fieldGoalPercentage * 10000).roundToInt() / 100F).toString() + "%)"
             guest_field_goal_bar.setBackgroundColor(
                 resources.getColor(
                     guestTeam?.color ?: R.color.black
@@ -348,7 +345,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             guest_3_pointer.text =
                 gs["threePointMade"]?.toInt().toString() +
                         "/" + gs["threePointAttempt"]?.toInt().toString() +
-                        "(" + ((threePointPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+                        "(" + ((threePointPercentage * 10000).roundToInt() / 100F).toString() + "%)"
             guest_3_pointer_bar.setBackgroundColor(
                 resources.getColor(
                     guestTeam?.color ?: R.color.black
@@ -360,7 +357,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             guest_free_throw.text =
                 gs["freeThrowMade"]?.toInt().toString() +
                         "/" + gs["freeThrowAttempt"]?.toInt().toString() +
-                        "(" + ((freeThrowPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+                        "(" + ((freeThrowPercentage * 10000).roundToInt() / 100F).toString() + "%)"
             guest_free_throw_bar.setBackgroundColor(
                 resources.getColor(
                     guestTeam?.color ?: R.color.black

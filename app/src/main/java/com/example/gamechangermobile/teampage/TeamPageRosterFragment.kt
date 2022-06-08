@@ -1,12 +1,11 @@
 package com.example.gamechangermobile.teampage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.R
-import com.example.gamechangermobile.database.Database
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.views.DynamicTable
 

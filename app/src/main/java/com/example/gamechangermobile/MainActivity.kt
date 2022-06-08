@@ -160,14 +160,14 @@ class MainActivity : AppCompatActivity() {
                         val month = parsed?.groups?.get(1)?.value
                         val date = parsed?.groups?.get(2)?.value
                         val year = if (month!!.toInt() > 8) "2021" else "2022"
-                        val time = parsed?.groups?.get(3)?.value
-                        val guest = parsed?.groups?.get(4)?.value
-                        val guestScore = parsed?.groups?.get(5)?.value
+                        val time = parsed.groups.get(3)?.value
+                        val guest = parsed.groups.get(4)?.value
+                        val guestScore = parsed.groups.get(5)?.value
 //                        val id = parsed?.groups?.get(6)?.value
-                        val location = parsed?.groups?.get(7)?.value
-                        val audience = parsed?.groups?.get(8)?.value
-                        val hostScore = parsed?.groups?.get(9)?.value
-                        val host = parsed?.groups?.get(10)?.value
+                        val location = parsed.groups.get(7)?.value
+                        val audience = parsed.groups.get(8)?.value
+                        val hostScore = parsed.groups.get(9)?.value
+                        val host = parsed.groups.get(10)?.value
                         var game = Game(
                             gameId = GameID(id),
                             gameType = gameType[index],
@@ -256,16 +256,16 @@ class MainActivity : AppCompatActivity() {
                         val parsed = regex.find(it.text())
                         val number = parsed?.groups?.get(1)?.value
                         val name = parsed?.groups?.get(2)?.value!!
-                        val position = parsed?.groups?.get(3)?.value
-                        val engName = parsed?.groups?.get(4)?.value
-                        val birthday = parsed?.groups?.get(5)?.value
-                        val height = parsed?.groups?.get(6)?.value
-                        val weight = parsed?.groups?.get(7)?.value
+                        val position = parsed.groups.get(3)?.value
+                        val engName = parsed.groups.get(4)?.value
+                        val birthday = parsed.groups.get(5)?.value
+                        val height = parsed.groups.get(6)?.value
+                        val weight = parsed.groups.get(7)?.value
 
                         player = Player(
                             playerID = PlayerID(PLGID = playerID),
-                            firstName = name!!,
-                            teamId = TeamID(index+1),
+                            firstName = name,
+                            teamId = TeamID(index + 1),
                             number = number!!,
                             position = position!!,
                             profilePic = (if (Dictionary.playerToImageResource.containsKey(name)) Dictionary.playerToImageResource[name] else R.drawable.ic_user_foreground)!!
@@ -297,7 +297,8 @@ class MainActivity : AppCompatActivity() {
                     val playerList = StatsParser().parse<GCPlayerID>(result)
                     playerList.forEach { player ->
                         playersMap.forEach {
-                            if (it.value.firstName == player.info.name) it.value.GCID = player.info.id
+                            if (it.value.firstName == player.info.name) it.value.GCID =
+                                player.info.id
                         }
                     }
                 }

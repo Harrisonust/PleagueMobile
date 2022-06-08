@@ -1,15 +1,15 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.gamechangermobile.models.*
+import androidx.fragment.app.Fragment
+import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.views.DynamicTable
 
 // TODO move the networking to main activity
-class StatsFragmentTeamTab() : Fragment() {
+class StatsFragmentTeamTab : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
