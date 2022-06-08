@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                         val hostScore = parsed?.groups?.get(9)?.value
                         val host = parsed?.groups?.get(10)?.value
                         var game = Game(
-                            gameId = GameID(id!!),
+                            gameId = GameID(id),
                             gameType = gameType[index],
                             date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse("$year-$month-${date}T${time}:00Z"),
                             guestTeam = getTeamIdByName(guest!!),
@@ -186,8 +186,6 @@ class MainActivity : AppCompatActivity() {
                         gamesMap[game.gameId] = game
                     }
             }
-////                Only the original thread that created a view hierarchy can touch its views.
-//                gamesFrag.updateGameCardView()
             true
         } catch (e: Exception) {
             false
@@ -243,23 +241,21 @@ class MainActivity : AppCompatActivity() {
                 "https://pleagueofficial.com/team/6"
             )
             fetchList.forEachIndexed { index, url ->
-                var playerID = -1
-                var player = Player()
                 val doc = Jsoup.connect(url).get()
                 doc.select("div.row.player_list").first().children()
                     .select("div.col-md-3.col-6.mb-grid-gutter")
                     .forEach {
-                        it.children().select("a")
-                            .forEach {
-                                val regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
-                                playerID =
-                                    regex.find(it.toString())?.groups?.get(1)?.value?.toInt()!!
-                            }
-                        val regex =
+                        var player: Player
+                        val playerIDRaw = it.children()[0]
+                        var regex = "^<a .*?/player/([0-9]*?)\"><(.*?)></a>\$".toRegex()
+                        val playerID =
+                            regex.find(playerIDRaw.toString())?.groups?.get(1)?.value?.toInt()!!
+
+                        regex =
                             "^#([0-9]*?) (.*?) ([a-zA-Z]*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
                         val parsed = regex.find(it.text())
                         val number = parsed?.groups?.get(1)?.value
-                        val name = parsed?.groups?.get(2)?.value
+                        val name = parsed?.groups?.get(2)?.value!!
                         val position = parsed?.groups?.get(3)?.value
                         val engName = parsed?.groups?.get(4)?.value
                         val birthday = parsed?.groups?.get(5)?.value
