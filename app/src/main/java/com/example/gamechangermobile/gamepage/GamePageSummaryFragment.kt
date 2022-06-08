@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import com.example.gamechangermobile.MainActivity.Companion.teamsMap
 import com.example.gamechangermobile.R
 import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import com.example.gamechangermobile.TeamActivity
@@ -56,7 +57,10 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             startActivity(intent)
         }
 
-        val model: GameViewModel by activityViewModels { GameViewModelFactory(175) } // TODO change gameID with plgID
+        guest_name.text = teamsMap[game.guestTeam]?.name
+        host_name.text = teamsMap[game.hostTeam]?.name
+
+        val model: GameViewModel by activityViewModels { GameViewModelFactory(game.gameId.ID.toInt()) } // TODO change gameID with plgID
         model.getGame().observe(viewLifecycleOwner, {
             guest_game_q1.text = it.guestScorePerQuarter[0]
             guest_game_q2.text = it.guestScorePerQuarter[1]

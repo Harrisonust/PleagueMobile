@@ -30,7 +30,7 @@ class GamePageBoxScoreFragmentGuestTab(val game: Game) : Fragment() {
             inflater.inflate(R.layout.fragment_game_page_box_score_guest_tab, container, false)
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
 
-        val model: GameViewModel by activityViewModels { GameViewModelFactory(game.gameId.ID.toInt()) } // TODO change gameID with plgID
+        val model: GameViewModel by activityViewModels { GameViewModelFactory(game.gameId.ID.toInt()) }
         model.getGuestBoxScore().observe(viewLifecycleOwner, {
             Log.d("VIEWMODEL", "GamePAGEBOXSCORE")
 
