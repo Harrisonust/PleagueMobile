@@ -61,22 +61,24 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         host_name.text = teamsMap[game.hostTeam]?.name
 
         val model: GameViewModel by activityViewModels { GameViewModelFactory(game.gameId.ID.toInt()) } // TODO change gameID with plgID
-        model.getGame().observe(viewLifecycleOwner, {
+        model.getGame().observe(viewLifecycleOwner) {
             guest_game_q1.text = it.guestScorePerQuarter[0]
             guest_game_q2.text = it.guestScorePerQuarter[1]
             guest_game_q3.text = it.guestScorePerQuarter[2]
             guest_game_q4.text = it.guestScorePerQuarter[3]
-            guest_game_tot.text = it.guestScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
+            guest_game_tot.text =
+                it.guestScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
 
             host_game_q1.text = it.hostScorePerQuarter[0]
             host_game_q2.text = it.hostScorePerQuarter[1]
             host_game_q3.text = it.hostScorePerQuarter[2]
             host_game_q4.text = it.hostScorePerQuarter[3]
-            host_game_tot.text = it.hostScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
+            host_game_tot.text =
+                it.hostScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
 
-        })
+        }
 
-        model.getHostLeaders().observe(viewLifecycleOwner, {  leaders ->
+        model.getHostLeaders().observe(viewLifecycleOwner) { leaders ->
             host_point_leader_image.setOnClickListener {
                 startPlayerActivity(leaders["points"]!!)
             }
@@ -113,9 +115,9 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             // host block leader
             host_block_leader_image.setImageResource(leaders["blocks"]!!.profilePic)
             host_block_leader_name.text = leaders["blocks"]!!.fullName
-        })
+        }
 
-        model.getGuestLeaders().observe(viewLifecycleOwner, {  leaders ->
+        model.getGuestLeaders().observe(viewLifecycleOwner) { leaders ->
             guest_point_leader_image.setOnClickListener {
                 startPlayerActivity(leaders["points"]!!)
             }
@@ -152,67 +154,122 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             // guest block leader
             guest_block_leader_image.setImageResource(leaders["blocks"]!!.profilePic)
             guest_block_leader_name.text = leaders["blocks"]!!.fullName
-        })
+        }
 
-        model.getHostLeadersPoints().observe(viewLifecycleOwner, {
+        model.getHostLeadersPoints().observe(viewLifecycleOwner) {
             host_point_leader_point.text = it["points"]?.toInt().toString()
-            host_point_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+            host_point_leader_point.setTextColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
             host_rebounds_leader_point.text = it["rebounds"]?.toInt().toString()
-            host_rebounds_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+            host_rebounds_leader_point.setTextColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
             host_assist_leader_point.text = it["assists"]?.toInt().toString()
-            host_assist_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+            host_assist_leader_point.setTextColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
             host_steal_leader_point.text = it["steals"]?.toInt().toString()
-            host_steal_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
+            host_steal_leader_point.setTextColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
             host_block_leader_point.text = it["blocks"]?.toInt().toString()
-            host_block_leader_point.setTextColor(resources.getColor(hostTeam?.color ?: R.color.black))
-        })
+            host_block_leader_point.setTextColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
+        }
 
-        model.getGuestLeadersPoints().observe(viewLifecycleOwner, {
+        model.getGuestLeadersPoints().observe(viewLifecycleOwner) {
             guest_point_leader_point.text = it["points"]?.toInt().toString()
-            guest_point_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_point_leader_point.setTextColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_rebounds_leader_point.text = it["rebounds"]?.toInt().toString()
-            guest_rebounds_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_rebounds_leader_point.setTextColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_assist_leader_point.text = it["assists"]?.toInt().toString()
-            guest_assist_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_assist_leader_point.setTextColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_steal_leader_point.text = it["steals"]?.toInt().toString()
-            guest_steal_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_steal_leader_point.setTextColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_block_leader_point.text = it["blocks"]?.toInt().toString()
-            guest_block_leader_point.setTextColor(resources.getColor(guestTeam?.color ?: R.color.black))
-        })
+            guest_block_leader_point.setTextColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
+        }
 
         var hts = mutableMapOf<String, Float>()
-        model.getHostTotalStats().observe(viewLifecycleOwner, {
+        model.getHostTotalStats().observe(viewLifecycleOwner) {
             val hs = it.data
             hts = hs
             // host stats chart
-            val fieldGoalPercentage = if (hs["fieldGoalAttempt"] != 0F) hs["fieldGoalMade"]!!/ hs["fieldGoalAttempt"]!! else 0F
+            val fieldGoalPercentage =
+                if (hs["fieldGoalAttempt"] != 0F) hs["fieldGoalMade"]!! / hs["fieldGoalAttempt"]!! else 0F
             host_field_goal.text =
                 hs["fieldGoalMade"]?.toInt().toString() +
                         "/" + hs["fieldGoalAttempt"]?.toInt().toString() +
-                        "(" + ((fieldGoalPercentage*10000).roundToInt()/100F)?.toString() + "%)"
-            host_field_goal_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
+                        "(" + ((fieldGoalPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+            host_field_goal_bar.setBackgroundColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
-            val threePointPercentage = if (hs["threePointAttempt"] != 0F) hs["threePointMade"]!!/ hs["threePointAttempt"]!! else 0F
+            val threePointPercentage =
+                if (hs["threePointAttempt"] != 0F) hs["threePointMade"]!! / hs["threePointAttempt"]!! else 0F
             host_3_pointer.text =
                 hs["threePointMade"]?.toInt().toString() +
                         "/" + hs["threePointAttempt"]?.toInt().toString() +
-                        "(" + ((threePointPercentage*10000).roundToInt()/100F)?.toString() + "%)"
-            host_3_pointer_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
+                        "(" + ((threePointPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+            host_3_pointer_bar.setBackgroundColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
-            val freeThrowPercentage = if (hs["freeThrowAttempt"] != 0F) hs["freeThrowMade"]!!/ hs["freeThrowAttempt"]!! else 0F
+            val freeThrowPercentage =
+                if (hs["freeThrowAttempt"] != 0F) hs["freeThrowMade"]!! / hs["freeThrowAttempt"]!! else 0F
             host_free_throw.text =
                 hs["freeThrowMade"]?.toInt().toString() +
                         "/" + hs["freeThrowAttempt"]?.toInt().toString() +
-                        "(" + ((freeThrowPercentage*10000).roundToInt()/100F)?.toString() + "%)"
-            host_free_throw_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
+                        "(" + ((freeThrowPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
+            host_free_throw_bar.setBackgroundColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
             host_assist.text = hs["assists"]?.toInt().toString()
             host_assist_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
@@ -245,7 +302,11 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             host_block_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
 
             host_turnover.text = hs["turnovers"]?.toInt().toString()
-            host_turnover_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
+            host_turnover_bar.setBackgroundColor(
+                resources.getColor(
+                    hostTeam?.color ?: R.color.black
+                )
+            )
 
             host_points_off_turnovers.text =
                 game.hostStats.data["pointsOffTurnovers"]?.toInt().toString()
@@ -258,44 +319,48 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             host_fouls.text = hs["personalFouls"]?.toInt().toString()
             host_fouls_bar.setBackgroundColor(resources.getColor(hostTeam?.color ?: R.color.black))
 
-            host_timeouts_remaining.text = game.hostStats.data["timeoutRemaining"]?.toInt().toString()
+            host_timeouts_remaining.text =
+                game.hostStats.data["timeoutRemaining"]?.toInt().toString()
             host_timeouts_remaining_bar.setBackgroundColor(
                 resources.getColor(
                     hostTeam?.color ?: R.color.black
                 )
             )
-        })
-        model.getGuestTotalStats().observe(viewLifecycleOwner, {
+        }
+        model.getGuestTotalStats().observe(viewLifecycleOwner) {
             // guest stats chart
             val gs = it.data
 
-            val fieldGoalPercentage = if (gs["fieldGoalAttempt"] != 0F) gs["fieldGoalMade"]!!/ gs["fieldGoalAttempt"]!! else 0F
+            val fieldGoalPercentage =
+                if (gs["fieldGoalAttempt"] != 0F) gs["fieldGoalMade"]!! / gs["fieldGoalAttempt"]!! else 0F
             guest_field_goal.text =
                 gs["fieldGoalMade"]?.toInt().toString() +
                         "/" + gs["fieldGoalAttempt"]?.toInt().toString() +
-                        "(" + ((fieldGoalPercentage*10000).roundToInt()/100F)?.toString() + "%)"
+                        "(" + ((fieldGoalPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
             guest_field_goal_bar.setBackgroundColor(
                 resources.getColor(
                     guestTeam?.color ?: R.color.black
                 )
             )
 
-            val threePointPercentage = if (gs["threePointAttempt"] != 0F) gs["threePointMade"]!!/ gs["threePointAttempt"]!! else 0F
+            val threePointPercentage =
+                if (gs["threePointAttempt"] != 0F) gs["threePointMade"]!! / gs["threePointAttempt"]!! else 0F
             guest_3_pointer.text =
                 gs["threePointMade"]?.toInt().toString() +
                         "/" + gs["threePointAttempt"]?.toInt().toString() +
-                        "(" + ((threePointPercentage*10000).roundToInt()/100F)?.toString() + "%)"
+                        "(" + ((threePointPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
             guest_3_pointer_bar.setBackgroundColor(
                 resources.getColor(
                     guestTeam?.color ?: R.color.black
                 )
             )
 
-            val freeThrowPercentage = if (gs["freeThrowAttempt"] != 0F) gs["freeThrowMade"]!!/ gs["freeThrowAttempt"]!! else 0F
+            val freeThrowPercentage =
+                if (gs["freeThrowAttempt"] != 0F) gs["freeThrowMade"]!! / gs["freeThrowAttempt"]!! else 0F
             guest_free_throw.text =
                 gs["freeThrowMade"]?.toInt().toString() +
                         "/" + gs["freeThrowAttempt"]?.toInt().toString() +
-                        "(" + ((freeThrowPercentage*10000).roundToInt()/100F)?.toString() + "%)"
+                        "(" + ((freeThrowPercentage * 10000).roundToInt() / 100F)?.toString() + "%)"
             guest_free_throw_bar.setBackgroundColor(
                 resources.getColor(
                     guestTeam?.color ?: R.color.black
@@ -303,7 +368,11 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             )
 
             guest_assist.text = gs["assists"]?.toInt().toString()
-            guest_assist_bar.setBackgroundColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_assist_bar.setBackgroundColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_total_rebound.text = gs["rebounds"]?.toInt().toString()
             guest_total_rebound_bar.setBackgroundColor(
@@ -327,13 +396,25 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             )
 
             guest_steal.text = gs["steals"]?.toInt().toString()
-            guest_steal_bar.setBackgroundColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_steal_bar.setBackgroundColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_block.text = gs["blocks"]?.toInt().toString()
-            guest_block_bar.setBackgroundColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_block_bar.setBackgroundColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_turnover.text = gs["turnovers"]?.toInt().toString()
-            guest_turnover_bar.setBackgroundColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_turnover_bar.setBackgroundColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_points_off_turnovers.text =
                 game.guestStats.data["pointsOffTurnovers"]?.toInt().toString()
@@ -344,7 +425,11 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
             )
 
             guest_fouls.text = gs["personalFouls"]?.toInt().toString()
-            guest_fouls_bar.setBackgroundColor(resources.getColor(guestTeam?.color ?: R.color.black))
+            guest_fouls_bar.setBackgroundColor(
+                resources.getColor(
+                    guestTeam?.color ?: R.color.black
+                )
+            )
 
             guest_timeouts_remaining.text =
                 game.guestStats.data["timeoutRemaining"]?.toInt().toString()
@@ -353,7 +438,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
                     guestTeam?.color ?: R.color.black
                 )
             )
-        })
+        }
 
 
 //        guest_game_q1.text = game.guestScorePerQuarter[0]
