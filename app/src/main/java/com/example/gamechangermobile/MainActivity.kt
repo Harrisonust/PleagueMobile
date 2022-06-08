@@ -3,6 +3,7 @@ package com.example.gamechangermobile
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -150,6 +151,8 @@ class MainActivity : AppCompatActivity() {
                     .parallelStream()
                     .filter { it != null }
                     .forEach {
+                        val id = it.children()[0].children()[4].children()[0].attr("href").drop(6)
+//                        println(id)
                         val regex =
                             "([0-9][0-9])/([0-9][0-9]) \\(.*?\\) ([0-9][0-9]:[0-9][0-9]) 客隊 (?:\\S+) (.*?) ([0-9]*?) [0-9]*? (\\S+[0-9]*) (.*?) 追蹤賽事 (.*? / .*?) ([0-9]*?) [0-9]*? 主隊 (?:\\S+) (.*?) 數據 售票 (?:.*)".toRegex()
 
@@ -160,7 +163,7 @@ class MainActivity : AppCompatActivity() {
                         val time = parsed?.groups?.get(3)?.value
                         val guest = parsed?.groups?.get(4)?.value
                         val guestScore = parsed?.groups?.get(5)?.value
-                        val id = parsed?.groups?.get(6)?.value
+//                        val id = parsed?.groups?.get(6)?.value
                         val location = parsed?.groups?.get(7)?.value
                         val audience = parsed?.groups?.get(8)?.value
                         val hostScore = parsed?.groups?.get(9)?.value
