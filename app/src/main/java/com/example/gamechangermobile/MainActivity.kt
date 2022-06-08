@@ -262,7 +262,7 @@ class MainActivity : AppCompatActivity() {
                         val weight = parsed?.groups?.get(7)?.value
 
                         player = Player(
-                            playerID = PlayerID(Name = name, PLGID = playerID),
+                            playerID = PlayerID(PLGID = playerID),
                             firstName = name,
                             teamId = TeamID(index),
                             number = number!!,
