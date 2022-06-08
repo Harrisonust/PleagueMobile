@@ -86,7 +86,7 @@ class Dictionary {
             "麥卡洛" to R.drawable.kings_chris_mccullough,
             "里金斯" to R.drawable.kings_liggins_deandre,
             "洪志善" to R.drawable.kings_chih_shan_hung,
-            "牧倫斯" to R.drawable.ic_baseline_sports_basketball_24, // TODO
+            "牧倫斯" to R.drawable.kings_byron_mullens, // TODO
 
             // pilots
             "吳家駿" to R.drawable.pilots_chia_chun_wu,
