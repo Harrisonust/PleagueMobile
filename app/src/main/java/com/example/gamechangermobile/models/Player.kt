@@ -83,3 +83,11 @@ fun getPlayerByName(name: String): Player? {
     }
     return null
 }
+
+fun getPlayerByGCID(GCID: Int): Player? {
+    for (player in playersMap.values) {
+        if (player.GCID == GCID)
+            return player
+    }
+    return null
+}

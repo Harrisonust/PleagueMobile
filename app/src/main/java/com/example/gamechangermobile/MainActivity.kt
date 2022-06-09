@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2001 - 1900, 1 - 1, 1),
                 arena = "Hoping",
                 color = R.color.braves_color,
+                GCID = 19
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.KINGS),
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2021 - 1900, 1 - 1, 1),
                 arena = "HsinChung",
                 color = R.color.kings_color,
+                GCID = 23
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.PILOTS),
@@ -88,6 +90,7 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(1999 - 1900, 1 - 1, 1),
                 arena = "Taoyuan",
                 color = R.color.pilots_color,
+                GCID = 20
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.LIONEERS),
@@ -97,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2020 - 1900, 1 - 1, 1),
                 arena = "ChuPei",
                 color = R.color.lioneers_color,
+                GCID = 22
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.DREAMERS),
@@ -106,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2005 - 1900, 1 - 1, 1),
                 arena = "ChungHau",
                 color = R.color.dreamers_color,
+                GCID = 21
             ),
             Team(
                 teamId = getTeamIdByName(TeamName.STEELERS),
@@ -115,6 +120,7 @@ class MainActivity : AppCompatActivity() {
                 foundingDate = Date(2021 - 1900, 1 - 1, 1),
                 arena = "KH",
                 color = R.color.steelers_color,
+                GCID = 24
             )
         )
 
@@ -271,6 +277,8 @@ class MainActivity : AppCompatActivity() {
                             profilePic = (if (Dictionary.playerToImageResource.containsKey(name)) Dictionary.playerToImageResource[name] else R.drawable.ic_user_foreground)!!
                         )
                         playersMap[playerID] = player
+                        // add to team
+                        teamsMap[player.teamId]?.playerList?.add(player.playerID)
                     }
             }
 

@@ -1,10 +1,13 @@
 package com.example.gamechangermobile.teampage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.views.DynamicTable
@@ -19,14 +22,34 @@ class TeamPageRosterFragment(private val teamID: TeamID) : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_team_page_roster, container, false)
-        val players: MutableMap<Player, PlayerStats> = mutableMapOf()
-        val team = getTeamById(teamID)
-        if (team != null)
-            for (playerID in team.playerList) {
-                val player = getPlayerById(playerID)
-                if (player != null)
-                    players[player] = player.averageStat
-            }
+        val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
+        val model: TeamViewModel by activityViewModels { TeamViewModelFactory(teamID.ID) }
+
+        model.getRoster().observe(viewLifecycleOwner, {
+
+            dynamicTable.renderRosterTable(
+                it,
+                model.rosterHeaders,
+                90,
+                280,
+                "cell_view_header",
+                "player_data",
+                "cell_view_column",
+                "player_name",
+                "player_image",
+                "cell_view_content",
+                "player_data"
+            )
+
+        })
+//        val players: MutableMap<Player, PlayerStats> = mutableMapOf()
+//        val team = getTeamById(teamID)
+//        if (team != null)
+//            for (playerID in team.playerList) {
+//                val player = getPlayerById(playerID)
+//                if (player != null)
+//                    players[player] = player.averageStat
+//            }
 
 //        view.team_page_roster_recycler.apply {
 //            layoutManager = LinearLayoutManager(activity)
@@ -41,19 +64,6 @@ class TeamPageRosterFragment(private val teamID: TeamID) : Fragment() {
 //        }, 3000)
 //        progressBar.visibility = View.GONE
 
-        val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
-        dynamicTable.renderTable(
-            players,
-            90,
-            280,
-            "cell_view_header",
-            "player_data",
-            "cell_view_column",
-            "player_name",
-            "player_image",
-            "cell_view_content",
-            "player_data"
-        )
 
         return view
     }

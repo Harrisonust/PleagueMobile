@@ -4,10 +4,12 @@ import android.os.AsyncTask
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.gamechangermobile.database.GCPlayerID
-import com.example.gamechangermobile.database.StatsParser
+import com.example.gamechangermobile.MainActivity.Companion.teamsMap
+import com.example.gamechangermobile.database.*
+import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.models.*
 import com.example.gamechangermobile.network.OkHttp
 import org.jsoup.Jsoup
@@ -29,11 +31,39 @@ class TeamViewModel(teamID: Int) : ViewModel() {
     var bio = MutableLiveData<String>()
     var last10 = MutableLiveData<String>()
 
+    val rosterHeaders = listOf(
+        "MT","MIN",
+        "PTS", "REB", "AST",
+        "FG", "FGM", "FGA", "FG%",
+        "2P", "2PM", "2PA", "2P%",
+        "3P", "3PM", "3PA", "3P%",
+        "FT", "FTM", "FTA", "FT%",
+        "OREB", "DREB",
+        "STL", "BLK", "TOV", "PF"
+    )
+    private val roster = MutableLiveData<Map<Player, List<String>>>()
+    fun getRoster(): LiveData<Map<Player, List<String>>> {
+        return roster
+    }
+
+    private fun callRosterApi() {
+        OkHttp(rosterOnSuccessResponse()).getRequest(
+            "player_season_data",
+            mapOf(
+                "season_id" to "4",
+                "part" to "info,box",
+                "team_id" to teamsMap[TeamID(teamID)]?.GCID.toString()
+            ),
+            "GC"
+        )
+    }
+
     init {
         FetchInfoTask().execute()
         FetchTeamRankTask().execute()
         FetchTeamRosterTask().execute()
         FetchTeamSchedule().execute()
+        callRosterApi()
     }
 
     inner class FetchInfoTask : AsyncTask<Unit, Int, Boolean>() {
@@ -262,6 +292,60 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     for (player in playerList) {
                         getPlayerByName(player.info.name)?.GCID = player.info.id
                     }
+                }
+            }
+        }
+    }
+
+    private fun rosterOnSuccessResponse(): OkHttp.OnSuccessResponse {
+        return object: OkHttp.OnSuccessResponse {
+            override fun action(result: String?) {
+                val playerInfoList = result?.let { StatsParser().parse<GCPlayerInfoWithBox>(it) }
+                if (playerInfoList != null) {
+                    val r = mutableMapOf<Player, List<String>>()
+                    for (data in playerInfoList) {
+                        val player = getPlayerByGCID(data.info.id)
+                        if (player!=null) {
+                            val avgStats = mutableListOf<String>()
+                            avgStats.add(data.info.record_matches.toString())
+                            avgStats.add(Utils.getPlayingTimeInMinutesString(data.box.avg_min))
+
+                            avgStats.add(data.box.avg_pts.toString())
+                            avgStats.add(data.box.avg_reb.toString())
+                            avgStats.add(data.box.avg_ast.toString())
+
+                            avgStats.add(data.box.avg_fg_pts.toString())
+                            avgStats.add(data.box.avg_fg_m.toString())
+                            avgStats.add(data.box.avg_fg_a.toString())
+                            avgStats.add(data.box.avg_fg_percent.toString())
+
+                            avgStats.add(data.box.avg_two_pts.toString())
+                            avgStats.add(data.box.avg_two_pts_m.toString())
+                            avgStats.add(data.box.avg_two_pts_a.toString())
+                            avgStats.add(data.box.avg_two_pts_percent.toString())
+
+                            avgStats.add(data.box.avg_three_pts.toString())
+                            avgStats.add(data.box.avg_three_pts_m.toString())
+                            avgStats.add(data.box.avg_three_pts_a.toString())
+                            avgStats.add(data.box.avg_three_pts_percent.toString())
+
+                            avgStats.add(data.box.avg_ft_pts.toString())
+                            avgStats.add(data.box.avg_ft_m.toString())
+                            avgStats.add(data.box.avg_ft_a.toString())
+                            avgStats.add(data.box.avg_ft_percent.toString())
+
+                            avgStats.add(data.box.avg_off_reb.toString())
+                            avgStats.add(data.box.avg_def_reb.toString())
+
+                            avgStats.add(data.box.avg_stl.toString())
+                            avgStats.add(data.box.avg_blk.toString())
+                            avgStats.add(data.box.avg_to.toString())
+                            avgStats.add(data.box.avg_pf.toString())
+
+                            r[player] = avgStats
+                        }
+                    }
+                    roster.postValue(r)
                 }
             }
         }
