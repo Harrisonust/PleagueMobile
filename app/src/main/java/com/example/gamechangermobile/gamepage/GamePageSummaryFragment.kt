@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_game_page_summary.*
 import kotlin.math.roundToInt
 
 
-class GamePageSummaryFragment(val game: Game) : Fragment() {
+class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment() {
     private val viewBarMargin = 10
     val gs = game.guestStats.data
     val guestTeam = getTeamById(game.guestTeam)
@@ -57,7 +57,7 @@ class GamePageSummaryFragment(val game: Game) : Fragment() {
         guest_name.text = teamsMap[game.guestTeam]?.name
         host_name.text = teamsMap[game.hostTeam]?.name
 
-        val model: GameViewModel by activityViewModels { GameViewModelFactory(game.gameId.ID.toInt()) } // TODO change gameID with plgID
+        val model: GameViewModel by activityViewModels { GameViewModelFactory(game.gameId.ID.toInt(), plgGameID) } // TODO change gameID with plgID
         model.getGame().observe(viewLifecycleOwner) {
             guest_game_q1.text = it.guestScorePerQuarter[0]
             guest_game_q2.text = it.guestScorePerQuarter[1]

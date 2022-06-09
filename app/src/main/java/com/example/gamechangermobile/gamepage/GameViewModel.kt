@@ -1,6 +1,9 @@
 package com.example.gamechangermobile.gamepage
 
+import android.os.AsyncTask
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,11 +14,13 @@ import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.PlayerStats
 import com.example.gamechangermobile.network.OkHttp
+import org.jsoup.Jsoup
 
 
-class GameViewModel(gameID: Int) : ViewModel() {
+class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
     private val gameID = gameID
     private val apiSource = "PLG"
+    val photoList = MutableLiveData<ArrayList<String>>()
     val boxScoreHeaders = listOf(
         "PTS", "REB", "AST",
         "FGM", "FGA",
@@ -37,6 +42,41 @@ class GameViewModel(gameID: Int) : ViewModel() {
 
     init {
         callBoxScoreAPI()
+        FetchAlbumTask().execute()
+    }
+
+    inner class FetchAlbumTask : AsyncTask<Unit, Int, Boolean>() {
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun doInBackground(vararg p0: Unit?): Boolean = try {
+            var doc = Jsoup.connect("https://pleagueofficial.com/album").get()
+            var albumID = -1
+            val _photoList = arrayListOf<String>()
+            doc.select("div.col-lg-4.col-md-4.col-6.mb-md-5.mb-3.px-md-2.px-2").forEach {
+                var regex =
+                    "(?:[0-9]*-[0-9]*-[0-9]*) # (?:\\S+) (?:[0-9]*-[0-9]*) ([a-zA-Z]*[0-9]*)".toRegex()
+                val _plgGameID = regex.find(it.text())?.groups?.get(1)?.value!!
+                if (_plgGameID == plgGameID) {
+                    regex = "<a href=\"/photo/([0-9]*)".toRegex()
+                    albumID =
+                        regex.find(it.children()[0].toString())?.groups?.get(1)?.value!!.toInt()
+                    Log.d("Debug", "Game ID: $gameID Album ID: $albumID")
+                    doc = Jsoup.connect("https://pleagueofficial.com/photo/$albumID").get()
+                    doc.select("a.gallery-item.waterfall_block").forEach { photo ->
+                        regex = "<a href=\"(\\S+)\"".toRegex()
+                        val photoURL =
+                            "https:${regex.find(photo.toString())?.groups?.get(1)?.value}"
+                        if (photoURL != null) {
+                            Log.d("Debug", photoURL)
+                            _photoList.add(photoURL)
+                        }
+                    }
+                }
+            }
+            photoList.postValue(_photoList)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     private fun callBoxScoreAPI() {
