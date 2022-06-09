@@ -25,7 +25,7 @@ class TeamPageRosterFragment(private val teamID: TeamID) : Fragment() {
         val dynamicTable: DynamicTable = view.findViewById(R.id.dynamic_table)
         val model: TeamViewModel by activityViewModels { TeamViewModelFactory(teamID.ID) }
 
-        model.getRoster().observe(viewLifecycleOwner, {
+        model.getRoster().observe(viewLifecycleOwner) {
 
             dynamicTable.renderRosterTable(
                 it,
@@ -41,7 +41,7 @@ class TeamPageRosterFragment(private val teamID: TeamID) : Fragment() {
                 "player_data"
             )
 
-        })
+        }
 //        val players: MutableMap<Player, PlayerStats> = mutableMapOf()
 //        val team = getTeamById(teamID)
 //        if (team != null)
