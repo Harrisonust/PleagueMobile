@@ -151,11 +151,7 @@ class MainActivity : AppCompatActivity() {
                         val time = parsed.groups.get(3)?.value
                         val guest = parsed.groups.get(4)?.value
                         val guestScore = parsed.groups.get(5)?.value
-<<<<<<< HEAD
-                        val gid = parsed?.groups?.get(6)?.value
-=======
                         val plgGameid = parsed?.groups?.get(6)?.value
->>>>>>> experimental/roster_table_render
                         val location = parsed.groups.get(7)?.value
                         val audience = parsed.groups.get(8)?.value
                         val hostScore = parsed.groups.get(9)?.value
@@ -170,11 +166,7 @@ class MainActivity : AppCompatActivity() {
                             hostScore = hostScore!!.toInt(),
                             plgGameID = plgGameid!!
                         )
-<<<<<<< HEAD
-                        println("$year/$month/$date $id G$gid $guest $host")
-=======
                         Log.d("Debug", "$id $plgGameid $guest vs $host")
->>>>>>> experimental/roster_table_render
                         val today = Date()
                         if (today > game.date)
                             game.status = GameStatus.END
