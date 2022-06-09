@@ -1,16 +1,19 @@
 package com.example.gamechangermobile.user
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Player
 import com.example.gamechangermobile.models.PlayerID
 import com.example.gamechangermobile.models.getPlayerById
 import com.example.gamechangermobile.models.getTeamById
+import com.example.gamechangermobile.playerpage.PlayerActivity
 
 class FavPlayersAdapter(
     private val playerList: List<PlayerID>,
@@ -50,6 +53,15 @@ class FavPlayersAdapter(
                 playerList[pos].let { it1 -> addToFavPlayer(view, it1) }
             }
             delegate?.onItemClickListener()
+        }
+
+        viewHolder.itemView.setOnLongClickListener {
+            val pos: Int = viewHolder.adapterPosition
+            val player = playerList[pos]
+            val intent = Intent(view.context, PlayerActivity::class.java)
+            intent.putExtra("SELECTED_PLAYER", player)
+            view.context.startActivity(intent)
+            return@setOnLongClickListener true
         }
         return viewHolder
     }
