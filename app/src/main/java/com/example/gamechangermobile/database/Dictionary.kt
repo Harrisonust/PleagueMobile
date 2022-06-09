@@ -105,7 +105,7 @@ class Dictionary {
             "喬丹" to R.drawable.pilots_jordan_tolbert,
             "吉倫" to R.drawable.ic_baseline_sports_basketball_24, // TODO
             "羅賓森" to R.drawable.pilots_devin_robinson,
-            "貝索維奇" to R.drawable.ic_baseline_sports_basketball_24, // TODO
+            "貝索維奇" to R.drawable.pilots_besovic, // TODO
             "林金榜" to R.drawable.pilots_chin_pang_lin,
 
             // lioneers
@@ -136,7 +136,7 @@ class Dictionary {
             "錢肯尼" to R.drawable.dreamers_kenneth_chen,
             "吳松蔚" to R.drawable.dreamers_sung_wei_wu,
             "簡浩" to R.drawable.dreamers_creighton_douglas,
-            "沃克" to R.drawable.dreamers_randall_walko,
+            "忻沃克" to R.drawable.dreamers_randall_walko,
             "王振原" to R.drawable.dreamers_chen_yuan_wang,
             "吉爾貝克" to R.drawable.dreamers_brandon_gilbeck,
             "鄭子洋" to R.drawable.dreamers_tzu_yang_cheng,
@@ -166,5 +166,14 @@ class Dictionary {
             "周儀翔" to R.drawable.steelers_chou_yi_hsiang,
 
             )
+
+        val cn2en = mapOf<String, String>(
+            "C" to "C",
+            "Ｃ" to "C",
+            "G" to "G",
+            "Ｇ" to "G",
+            "F" to "F",
+            "Ｆ" to "F"
+        )
     }
 }

@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.gamechangermobile.database.Dictionary
+import com.example.gamechangermobile.database.Dictionary.Companion.cn2en
 import com.example.gamechangermobile.database.GCPlayerID
 import com.example.gamechangermobile.database.StatsParser
 import com.example.gamechangermobile.models.*
@@ -239,11 +240,11 @@ class MainActivity : AppCompatActivity() {
                             regex.find(playerIDRaw.toString())?.groups?.get(1)?.value?.toInt()!!
 
                         regex =
-                            "^#([0-9]*?) (.*?) ([a-zA-Z]*)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
+                            "^#([0-9]*?) (.*?) (\\S+)(.*?)([0-9]*.[0-9]*.[0-9]*?) ｜ (.*?cm) ｜ (.*?kg) (?:.*)\$".toRegex()
                         val parsed = regex.find(it.text())
                         val number = parsed?.groups?.get(1)?.value
                         val name = parsed?.groups?.get(2)?.value!!
-                        val position = parsed.groups.get(3)?.value
+                        val position = cn2en[parsed.groups.get(3)?.value!!]
                         val engName = parsed.groups.get(4)?.value
                         val birthday = parsed.groups.get(5)?.value
                         val height = parsed.groups.get(6)?.value
