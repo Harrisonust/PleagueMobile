@@ -32,6 +32,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
     var last10 = MutableLiveData<String>()
 
     val rosterHeaders = listOf(
+        "POS",
         "MT","MIN",
         "PTS", "REB", "AST",
         "FG", "FGM", "FGA", "FG%",
@@ -310,37 +311,37 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                             avgStats.add(data.info.record_matches.toString())
                             avgStats.add(Utils.getPlayingTimeInMinutesString(data.box.avg_min))
 
-                            avgStats.add(data.box.avg_pts.toString())
-                            avgStats.add(data.box.avg_reb.toString())
-                            avgStats.add(data.box.avg_ast.toString())
+                            avgStats.add(Utils.formatStat(data.box.avg_pts))
+                            avgStats.add(Utils.formatStat(data.box.avg_reb))
+                            avgStats.add(Utils.formatStat(data.box.avg_ast))
 
-                            avgStats.add(data.box.avg_fg_pts.toString())
-                            avgStats.add(data.box.avg_fg_m.toString())
-                            avgStats.add(data.box.avg_fg_a.toString())
-                            avgStats.add(data.box.avg_fg_percent.toString())
+                            avgStats.add(Utils.formatStat(data.box.avg_fg_pts))
+                            avgStats.add(Utils.formatStat(data.box.avg_fg_m))
+                            avgStats.add(Utils.formatStat(data.box.avg_fg_a))
+                            avgStats.add(Utils.formatStat(data.box.avg_fg_percent))
 
-                            avgStats.add(data.box.avg_two_pts.toString())
-                            avgStats.add(data.box.avg_two_pts_m.toString())
-                            avgStats.add(data.box.avg_two_pts_a.toString())
-                            avgStats.add(data.box.avg_two_pts_percent.toString())
+                            avgStats.add(Utils.formatStat(data.box.avg_two_pts))
+                            avgStats.add(Utils.formatStat(data.box.avg_two_pts_m))
+                            avgStats.add(Utils.formatStat(data.box.avg_two_pts_a))
+                            avgStats.add(Utils.formatStat(data.box.avg_two_pts_percent))
 
-                            avgStats.add(data.box.avg_three_pts.toString())
-                            avgStats.add(data.box.avg_three_pts_m.toString())
-                            avgStats.add(data.box.avg_three_pts_a.toString())
-                            avgStats.add(data.box.avg_three_pts_percent.toString())
+                            avgStats.add(Utils.formatStat(data.box.avg_three_pts))
+                            avgStats.add(Utils.formatStat(data.box.avg_three_pts_m))
+                            avgStats.add(Utils.formatStat(data.box.avg_three_pts_a))
+                            avgStats.add(Utils.formatStat(data.box.avg_three_pts_percent))
 
-                            avgStats.add(data.box.avg_ft_pts.toString())
-                            avgStats.add(data.box.avg_ft_m.toString())
-                            avgStats.add(data.box.avg_ft_a.toString())
-                            avgStats.add(data.box.avg_ft_percent.toString())
+                            avgStats.add(Utils.formatStat(data.box.avg_ft_pts))
+                            avgStats.add(Utils.formatStat(data.box.avg_ft_m))
+                            avgStats.add(Utils.formatStat(data.box.avg_ft_a))
+                            avgStats.add(Utils.formatStat(data.box.avg_ft_percent))
 
-                            avgStats.add(data.box.avg_off_reb.toString())
-                            avgStats.add(data.box.avg_def_reb.toString())
+                            avgStats.add(Utils.formatStat(data.box.avg_off_reb))
+                            avgStats.add(Utils.formatStat(data.box.avg_def_reb))
 
-                            avgStats.add(data.box.avg_stl.toString())
-                            avgStats.add(data.box.avg_blk.toString())
-                            avgStats.add(data.box.avg_to.toString())
-                            avgStats.add(data.box.avg_pf.toString())
+                            avgStats.add(Utils.formatStat(data.box.avg_stl))
+                            avgStats.add(Utils.formatStat(data.box.avg_blk))
+                            avgStats.add(Utils.formatStat(data.box.avg_to))
+                            avgStats.add(Utils.formatStat(data.box.avg_pf))
 
                             r[player] = avgStats
                         }

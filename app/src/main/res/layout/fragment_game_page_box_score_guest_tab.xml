@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".gamepage.GamePageBoxScoreFragmentGuestTab">
-
     <com.example.gamechangermobile.views.DynamicTable
         android:id="@+id/dynamic_table"
         android:layout_width="match_parent"

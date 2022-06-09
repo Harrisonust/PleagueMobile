@@ -22,6 +22,7 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
     private val apiSource = "PLG"
     val photoList = MutableLiveData<ArrayList<String>>()
     val boxScoreHeaders = listOf(
+        "POS",
         "PTS", "REB", "AST",
         "FGM", "FGA",
         "2PM", "2PA",

@@ -1,5 +1,7 @@
 package com.example.gamechangermobile.database
 
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 class Utils {
@@ -16,6 +18,12 @@ class Utils {
             val seconds = (sec % 60).toDouble().roundToInt()
             val secondString = if (seconds < 10) "0$seconds" else "$seconds"
             return "$minutes:$secondString"
+        }
+
+        fun formatStat(stat: Float): String {
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.HALF_UP
+            return df.format(stat).toString()
         }
     }
 }
