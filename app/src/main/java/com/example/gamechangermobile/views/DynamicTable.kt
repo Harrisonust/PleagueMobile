@@ -127,8 +127,87 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
 
     }
 
-    fun renderTable(
-        players: Map<Player, PlayerStats>,
+//    fun renderTable(
+//        players: Map<Player, List<String>>,
+//        headerHeight: Int,
+//        columnWidth: Int,
+//        headerLayoutName: String,
+//        headerTextViewName: String,
+//        columnLayoutName: String,
+//        columnTextViewName: String,
+//        columnImageViewName: String,
+//        contentLayoutName: String,
+//        contentTextViewName: String
+//    ) {
+//        fixedRelativeLayout?.let { it.layoutParams.height = headerHeight }
+//        fixedRelativeLayout?.let { it.layoutParams.width = columnWidth }
+//        headerRelativeLayout?.let { it.layoutParams.height = headerHeight }
+//        columnRelativeLayout?.let { it.layoutParams.width = columnWidth }
+//
+//        val headerViewId = resources.getIdentifier(headerLayoutName, "layout", context.packageName)
+//        val headerTextId = resources.getIdentifier(headerTextViewName, "id", context.packageName)
+//        val columnViewId = resources.getIdentifier(columnLayoutName, "layout", context.packageName)
+//        val columnTextId = resources.getIdentifier(columnTextViewName, "id", context.packageName)
+//        val columnImageId = resources.getIdentifier(columnImageViewName, "id", context.packageName)
+//        val contentViewId =
+//            resources.getIdentifier(contentLayoutName, "layout", context.packageName)
+//        val contentTextId = resources.getIdentifier(contentTextViewName, "id", context.packageName)
+//
+//        // fixed layout text
+//        val view = LayoutInflater.from(context).inflate(headerViewId, fixedRelativeLayout, false)
+//        val textView: TextView = view.findViewById(headerTextId)
+//        textView.text = "Player"
+//        view.layoutParams = ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.MATCH_PARENT
+//        )
+//        fixedRelativeLayout?.addView(view)
+//
+//
+//        // header, column, content
+//        var headerSet = false
+//        val ignoreFields = listOf(
+//            "twoPointMade",
+//            "twoPointAttempt",
+//            "twoPointPercentage",
+//            "effFieldGoalPercentage"
+//        )
+//        for ((player, playerStats) in players) {
+//            if (!headerSet) {
+//                val tableRow = TableRow(context)
+//                for ((statsName, _) in playerStats.data) {
+//                    if (!ignoreFields.contains(statsName)) {
+//                        Database().statsDictionary[statsName]?.let {
+//                            renderCell(
+//                                it,
+//                                headerViewId,
+//                                headerTextId,
+//                                tableRow
+//                            )
+//                        }
+//                    }
+//                }
+//                headerTableLayout?.addView(tableRow)
+//                headerSet = true
+//            }
+//
+//            val columnTableRow = TableRow(context)
+//            renderCell(player, columnViewId, columnTextId, columnImageId, columnTableRow)
+//            columnTableLayout?.addView(columnTableRow)
+//
+//            val contentTableRow = TableRow(context)
+//            for ((statsName, stats) in playerStats.data) {
+//                if (!ignoreFields.contains(statsName)) {
+//                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
+//                }
+//            }
+//            contentTableLayout?.addView(contentTableRow)
+//        }
+//    }
+
+    fun renderRosterTable(
+        players: Map<Player, List<String>>,
+        headers: List<String>,
         headerHeight: Int,
         columnWidth: Int,
         headerLayoutName: String,
@@ -163,46 +242,32 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         )
         fixedRelativeLayout?.addView(view)
 
+        // header
+        val tableRow = TableRow(context)
+        for (header in headers) {
+            renderCell(header, headerViewId, headerTextId, tableRow)
+        }
+        headerTableLayout?.addView(tableRow)
 
-        // header, column, content
-        var headerSet = false
-        val ignoreFields = listOf(
-            "twoPointMade",
-            "twoPointAttempt",
-            "twoPointPercentage",
-            "effFieldGoalPercentage"
-        )
-        for ((player, playerStats) in players) {
-            if (!headerSet) {
-                val tableRow = TableRow(context)
-                for ((statsName, _) in playerStats.data) {
-                    if (!ignoreFields.contains(statsName)) {
-                        Database().statsDictionary[statsName]?.let {
-                            renderCell(
-                                it,
-                                headerViewId,
-                                headerTextId,
-                                tableRow
-                            )
-                        }
-                    }
-                }
-                headerTableLayout?.addView(tableRow)
-                headerSet = true
-            }
 
+        // column, content
+        for ((player, stats) in players) {
             val columnTableRow = TableRow(context)
             renderCell(player, columnViewId, columnTextId, columnImageId, columnTableRow)
             columnTableLayout?.addView(columnTableRow)
 
             val contentTableRow = TableRow(context)
-            for ((statsName, stats) in playerStats.data) {
-                if (!ignoreFields.contains(statsName)) {
-                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
-                }
+            for (stat in stats) {
+                renderCell(
+                    stat,
+                    contentViewId,
+                    contentTextId,
+                    contentTableRow
+                )
             }
             contentTableLayout?.addView(contentTableRow)
         }
+
     }
 
     fun renderBoxScoreTable(

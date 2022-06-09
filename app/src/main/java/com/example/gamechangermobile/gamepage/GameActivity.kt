@@ -26,11 +26,17 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         val gameID = intent.getParcelableExtra<GameID>("SELECTED_GAME")!!
+        val plgGameID = intent.getStringExtra("SELECTED_GAME_PLGID")!!
         gameData = gamesMap[gameID]!!
         guestTeam = getTeamById(gameData.guestTeam)!!
         hostTeam = getTeamById(gameData.hostTeam)!!
 
-        val model: GameViewModel by viewModels { GameViewModelFactory(gameID.ID.toInt()) }
+        val model: GameViewModel by viewModels {
+            GameViewModelFactory(
+                gameID.ID.toInt(),
+                plgGameID
+            )
+        }
 
 
 // rendering UI
@@ -68,7 +74,7 @@ class GameActivity : AppCompatActivity() {
                 game_page_tab
             )
         )
-        game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 4, gameData)
+        game_page_viewpager.adapter = VPagerAdapter(supportFragmentManager, 4, gameData, plgGameID)
         game_page_viewpager.currentItem = 0
         game_page_tab.addOnTabSelectedListener(
             TabLayout.ViewPagerOnTabSelectedListener(
@@ -90,13 +96,13 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game) :
+    inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game, val plgGameID: String) :
         FragmentPagerAdapter(f, bh) {
         override fun getCount(): Int = 4
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
-                0 -> GamePageSummaryFragment(game)
+                0 -> GamePageSummaryFragment(game, plgGameID)
                 1 -> GamePageBoxScoreFragment(game)
                 2 -> GamePageHighlightsFragment(game)
                 else -> GamePagePlaysFragment(game)

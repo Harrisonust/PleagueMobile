@@ -25,6 +25,7 @@ class Game(
     var guestScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0"),
     var hostScorePerQuarter: MutableList<String> = mutableListOf("0", "0", "0", "0"),
     var description: String = "",
+    var plgGameID: String = ""
 ) : Parcelable {
 
 

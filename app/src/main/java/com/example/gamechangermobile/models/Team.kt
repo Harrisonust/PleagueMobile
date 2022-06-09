@@ -23,6 +23,7 @@ data class Team(
     var last10: Record = Record(0, 0),
     var streak: String = "",
     var gamesBack: String = "",
+    var GCID: Int = 0,
 
     ) : Parcelable {
 
