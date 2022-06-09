@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
@@ -38,8 +39,14 @@ class GameActivity : AppCompatActivity() {
             )
         }
 
-
 // rendering UI
+        model.photoList.observe(this) {
+            game_page_image_recyclerview.adapter = GamePhotoAdapter(it)
+        }
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        game_page_image_recyclerview.layoutManager = layoutManager
+
 
         game_page_header_guest_icon.setImageResource(
             guestTeam.profilePic
@@ -58,10 +65,6 @@ class GameActivity : AppCompatActivity() {
 
         gameData.remainingTime.let {
             game_page_header_time.text = it
-        }
-
-        gameData.highlightPhoto.let {
-            game_page_image_view.setImageResource(it)
         }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))

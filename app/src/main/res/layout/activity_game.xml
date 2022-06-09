@@ -17,12 +17,13 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
-                android:id="@+id/game_page_image_view"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/game_page_image_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
+
 
             <Toolbar
                 android:layout_width="match_parent"
