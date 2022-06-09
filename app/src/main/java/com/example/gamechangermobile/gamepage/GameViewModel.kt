@@ -176,8 +176,6 @@ class GameViewModel(gameID: Int) : ViewModel() {
                         var three_a = 0F
                         var ft_m = 0F
                         var ft_a = 0F
-                        var f_m = 0F
-                        var f_a = 0F
 
                         plgPlayer.two_m_two?.let {
                             val group = regex.find(it)
@@ -197,8 +195,8 @@ class GameViewModel(gameID: Int) : ViewModel() {
                             ft_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
                         }
 
-                        f_m = two_m + three_m
-                        f_a = two_a + three_a
+                        var f_m = two_m + three_m
+                        var f_a = two_a + three_a
 
                         var stat = PlayerStats(
                             points = plgPlayer.points?.toFloatOrNull() ?: 0F,
@@ -223,7 +221,6 @@ class GameViewModel(gameID: Int) : ViewModel() {
 
                             effFieldGoalPercentage = plgPlayer.eff?.toFloatOrNull() ?: 0F,
                         )
-                        println("$plgPlayer + $stat")
 //                        stat.field =  stats
 //                        stat.twoPointPercentage = plgPlayer.two_m.toFloatOrNull()?: 0F / plgPlayer.two_a.toFloatOrNull(),
 //                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),

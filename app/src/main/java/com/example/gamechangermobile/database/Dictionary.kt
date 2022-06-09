@@ -64,7 +64,7 @@ class Dictionary {
             "張耕淯" to R.drawable.braves_keng_yu_chang,
             "辛特力" to R.drawable.braves_michael_singletary,
             "塞瑟夫" to R.drawable.braves_zaytsev,
-            "德古拉" to R.drawable.braves_samuel_deguara,
+//            "德古拉" to R.drawable.braves_samuel_deguara,
             "瓊斯" to R.drawable.braves_jones,
 
             // kings

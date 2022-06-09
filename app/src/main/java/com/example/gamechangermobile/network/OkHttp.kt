@@ -29,7 +29,7 @@ class OkHttp {
                 response.use {
                     if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-                    delegate?.action(response.body!!.string())
+                    delegate?.action(response.body?.string())
                 }
             }
         })
