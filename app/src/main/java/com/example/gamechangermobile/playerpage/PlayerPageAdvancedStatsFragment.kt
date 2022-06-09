@@ -28,11 +28,11 @@ class PlayerPageAdvancedStatsFragment(val player: Player) : Fragment() {
                     headers,
                     90,
                     200,
-                    "cell_view_header_longer",
+                    "cell_view_header",
                     "player_data",
                     "cell_view_column_player",
                     "column_name",
-                    "cell_view_content_longer",
+                    "cell_view_content",
                     "player_data"
                 )
             }

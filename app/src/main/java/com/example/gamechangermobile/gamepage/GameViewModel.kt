@@ -17,6 +17,7 @@ class GameViewModel(gameID: Int) : ViewModel() {
     private val gameID = gameID
     private val apiSource = "PLG"
     val boxScoreHeaders = listOf(
+        "POS",
         "PTS", "REB", "AST",
         "FGM", "FGA",
         "2PM", "2PA",
