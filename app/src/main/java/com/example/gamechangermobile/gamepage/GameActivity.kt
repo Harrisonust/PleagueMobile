@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
-import com.example.gamechangermobile.models.Game
-import com.example.gamechangermobile.models.GameID
-import com.example.gamechangermobile.models.Team
-import com.example.gamechangermobile.models.getTeamById
+import com.example.gamechangermobile.models.*
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
+import java.text.SimpleDateFormat
 
 class GameActivity : AppCompatActivity() {
     private lateinit var gameData: Game
@@ -63,8 +61,13 @@ class GameActivity : AppCompatActivity() {
             game_page_header_host_score.text = it.toInt().toString()
         }
 
-        gameData.remainingTime.let {
-            game_page_header_time.text = it
+        gameData.status.let {
+            game_status.text = when(it){
+                GameStatus.NOT_YET_START -> SimpleDateFormat("HH:mm").format(gameData.date)
+                GameStatus.INGAME -> "LIVE"
+                GameStatus.END -> "END"
+                else -> "NA"
+            }
         }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))

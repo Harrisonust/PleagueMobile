@@ -71,19 +71,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/game_page_quarter"
+                            android:id="@+id/game_status"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:text="3rd"
-                            android:textColor="@color/bg_font_color" />
-
-                        <TextView
-                            android:id="@+id/game_page_header_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="10:30"
                             android:textColor="@color/bg_font_color" />
 
                     </LinearLayout>

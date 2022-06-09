@@ -1,10 +1,12 @@
 package com.example.gamechangermobile.teampage
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +27,7 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
         val score: TextView = itemView.findViewById(R.id.score)
         val vs_or_at: TextView = itemView.findViewById(R.id.vs_or_at)
         val gameType: TextView = itemView.findViewById(R.id.game_type)
+        val game_item: LinearLayout = itemView.findViewById(R.id.game_item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,30 +50,23 @@ class ScheduleAdapter(val myteam: Team, val gameScheduleList: List<Game>) :
             val position = viewHolder.adapterPosition
             val game = getGameById(gameScheduleList[position].gameId)
             val intent = Intent(parent.context, GameActivity::class.java)
-            if (game != null)
+            if (game != null){
                 intent.putExtra("SELECTED_GAME", game.gameId)
+                intent.putExtra("SELECTED_GAME_PLGID", game.plgGameID)
+            }
             else
                 Toast.makeText(parent.context, "Game not found", Toast.LENGTH_SHORT).show()
             parent.context.startActivity(intent)
         }
 
-        viewHolder.opponent_image.setOnClickListener {
-            startTeamPage()
-        }
-
-        viewHolder.opponent_name.setOnClickListener {
-            startTeamPage()
-        }
-
-        viewHolder.win_lose.setOnClickListener {
+        viewHolder.game_item.setOnClickListener {
             startGamePage()
         }
 
-        viewHolder.score.setOnClickListener {
-            startGamePage()
+        viewHolder.game_item.setOnLongClickListener{
+            startTeamPage()
+            true
         }
-
-
 
         return viewHolder
     }

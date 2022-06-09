@@ -157,6 +157,7 @@ class MainActivity : AppCompatActivity() {
                         val audience = parsed.groups.get(8)?.value
                         val hostScore = parsed.groups.get(9)?.value
                         val host = parsed.groups.get(10)?.value
+                        val isLive = it.select("span.badge.badge-danger").text() == "LIVE"
                         var game = Game(
                             gameId = GameID(id),
                             gameType = gameType[index],
@@ -165,14 +166,17 @@ class MainActivity : AppCompatActivity() {
                             hostTeam = getTeamIdByName(host!!),
                             guestScore = guestScore!!.toInt(),
                             hostScore = hostScore!!.toInt(),
-                            plgGameID = plgGameid!!
+                            plgGameID = plgGameid!!,
                         )
                         Log.d("Debug", "$id $plgGameid $guest vs $host")
-                        val today = Date()
-                        if (today > game.date)
-                            game.status = GameStatus.END
+
+                        game.status = if (isLive)
+                            GameStatus.INGAME
+                        else if (Date() > game.date)
+                            GameStatus.END
                         else
-                            game.status = GameStatus.NOT_YET_START
+                            GameStatus.NOT_YET_START
+
                         gamesMap[game.gameId] = game
                     }
             }

@@ -1,6 +1,8 @@
 package com.example.gamechangermobile.gametab
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.red
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamechangermobile.R
+import com.example.gamechangermobile.TeamActivity
 import com.example.gamechangermobile.gamepage.GameActivity
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.GameStatus
@@ -29,8 +32,7 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
 
         val gameType: TextView = itemView.findViewById(R.id.game_type)
         val game_description: TextView = itemView.findViewById(R.id.game_description)
-        val remainingTime: TextView = itemView.findViewById(R.id.remaining_time)
-        val quarter: TextView = itemView.findViewById(R.id.quarter)
+        val status: TextView = itemView.findViewById(R.id.status)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,6 +45,23 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
             }
             view.context.startActivity(intent)
         }
+
+        viewHolder.guestImg.setOnLongClickListener {
+            val intent = Intent(view.context, TeamActivity::class.java)
+            val team = gameList[viewHolder.adapterPosition].guestTeam
+            intent.putExtra("SELECTED_TEAM", team)
+            view.context.startActivity(intent)
+            return@setOnLongClickListener true
+        }
+
+        viewHolder.hostImg.setOnLongClickListener {
+            val intent = Intent(view.context, TeamActivity::class.java)
+            val team = gameList[viewHolder.adapterPosition].hostTeam
+            intent.putExtra("SELECTED_TEAM", team)
+            view.context.startActivity(intent)
+            return@setOnLongClickListener true
+        }
+
         return viewHolder
     }
 
@@ -61,16 +80,15 @@ class GameAdapter(val gameList: List<Game>) : RecyclerView.Adapter<GameAdapter.V
         holder.guestName.text = guestTeam.name
         holder.guestRecord.text = guestTeam.totalRecord.getRecord()
         holder.game_description.text = game.description
-        holder.gameType.text = game.gameType.toString()
+        holder.gameType.text = game.gameType
         if (game.status == GameStatus.INGAME) {
-            holder.remainingTime.text = game.remainingTime
-            holder.quarter.text = game.quarter
+            holder.status.text = " LIVE "
+            holder.status.setBackgroundColor(Color.parseColor("#FF0000"))
+            holder.status.setTextColor(Color.parseColor("#FFFFFF"))
         } else if (game.status == GameStatus.NOT_YET_START) {
-            holder.remainingTime.text = SimpleDateFormat("HH:mm").format(game.date)
-            holder.quarter.text = ""
+            holder.status.text = SimpleDateFormat("HH:mm").format(game.date)
         } else {
-            holder.remainingTime.text = "END"
-            holder.quarter.text = ""
+            holder.status.text = "END"
         }
     }
 

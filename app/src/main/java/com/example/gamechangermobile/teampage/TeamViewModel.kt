@@ -211,7 +211,11 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                 .first().children().select("tbody")
                 .first().children().select("tr")
                 .forEach {
-                    val regex =
+                    var regex =
+                        "<a href=\"/game/([0-9]*)".toRegex()
+                    val idtext = it.children()[2].children()[0].toString()
+                    val id = regex.find(idtext)?.groups?.get(1)?.value!!
+                    regex =
                         "([0-9]*)-([0-9]*)-([0-9]*) (\\S+) ([0-9]*)(\\S)? - ([0-9]*)(\\S)?".toRegex()
                     val parsed = regex.find(it.text())
                     val year = parsed?.groups?.get(1)?.value
@@ -240,7 +244,7 @@ class TeamViewModel(teamID: Int) : ViewModel() {
                     ) GameStatus.END else GameStatus.NOT_YET_START
 
                     val game = Game(
-                        GameID("0"),
+                        GameID(id),
                         gameType = "Regular Game",
                         guestTeam = guestTeam,
                         hostTeam = hostTeam,
