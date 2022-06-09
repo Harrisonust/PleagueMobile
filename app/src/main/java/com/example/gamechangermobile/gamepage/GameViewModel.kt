@@ -195,10 +195,11 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
                     )
                     val hts = PlayerStats()
                     val gts = PlayerStats()
-                    for (plgPlayer in g.data.home + g.data.away) {
-                        var player = Player()
-                        plgPlayer.player_id?.let {
-                            player = playersMap[it.toInt()]!!
+                    if (g.data.home.isNotEmpty() && g.data.away.isNotEmpty()) {
+                        for (plgPlayer in g.data.home + g.data.away) {
+                            var player = Player()
+                            plgPlayer.player_id?.let {
+                                player = playersMap[it.toInt()]!!
 //                            player = Player(
 //                                playerID = PlayerID(PLGID = it.toInt()),
 //                            )
@@ -208,93 +209,96 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
 //                            player.number = plgPlayer.jersey.toString()
 //                            player.position = plgPlayer.position.toString()
 //                            playersMap[player.playerID] = player
-                        }
-                        val regex = "([0-9]*)-([0-9]*)".toRegex()
+                            }
+                            val regex = "([0-9]*)-([0-9]*)".toRegex()
 
-                        var two_m = 0F
-                        var two_a = 0F
-                        var three_m = 0F
-                        var three_a = 0F
-                        var ft_m = 0F
-                        var ft_a = 0F
+                            var two_m = 0F
+                            var two_a = 0F
+                            var three_m = 0F
+                            var three_a = 0F
+                            var ft_m = 0F
+                            var ft_a = 0F
 
-                        plgPlayer.two_m_two?.let {
-                            val group = regex.find(it)
-                            two_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
-                            two_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
-                        }
+                            plgPlayer.two_m_two?.let {
+                                val group = regex.find(it)
+                                two_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
+                                two_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
+                            }
 
-                        plgPlayer.trey_m_trey?.let {
-                            val group = regex.find(it)
-                            three_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
-                            three_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
-                        }
+                            plgPlayer.trey_m_trey?.let {
+                                val group = regex.find(it)
+                                three_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
+                                three_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
+                            }
 
-                        plgPlayer.ft_m_ft?.let {
-                            val group = regex.find(it)
-                            ft_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
-                            ft_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
-                        }
+                            plgPlayer.ft_m_ft?.let {
+                                val group = regex.find(it)
+                                ft_m = group?.groups?.get(1)?.value?.toFloat() ?: 0F
+                                ft_a = group?.groups?.get(2)?.value?.toFloat() ?: 0F
+                            }
 
-                        var f_m = two_m + three_m
-                        var f_a = two_a + three_a
+                            var f_m = two_m + three_m
+                            var f_a = two_a + three_a
 
-                        var stat = PlayerStats(
-                            points = plgPlayer.points?.toFloatOrNull() ?: 0F,
-                            rebounds = plgPlayer.reb?.toFloatOrNull() ?: 0F,
-                            assists = plgPlayer.ast?.toFloatOrNull() ?: 0F,
+                            var stat = PlayerStats(
+                                points = plgPlayer.points?.toFloatOrNull() ?: 0F,
+                                rebounds = plgPlayer.reb?.toFloatOrNull() ?: 0F,
+                                assists = plgPlayer.ast?.toFloatOrNull() ?: 0F,
 
-                            fieldGoalMade = f_m,
-                            fieldGoalAttempt = f_a,
-                            twoPointMade = two_m,
-                            twoPointAttempt = two_a,
-                            threePointMade = three_m,
-                            threePointAttempt = three_a,
-                            freeThrowMade = ft_m,
-                            freeThrowAttempt = ft_a,
+                                fieldGoalMade = f_m,
+                                fieldGoalAttempt = f_a,
+                                twoPointMade = two_m,
+                                twoPointAttempt = two_a,
+                                threePointMade = three_m,
+                                threePointAttempt = three_a,
+                                freeThrowMade = ft_m,
+                                freeThrowAttempt = ft_a,
 
-                            offensiveRebounds = plgPlayer.reb_o?.toFloatOrNull() ?: 0F,
-                            defensiveRebounds = plgPlayer.reb_d?.toFloatOrNull() ?: 0F,
-                            steals = plgPlayer.stl?.toFloatOrNull() ?: 0F,
-                            blocks = plgPlayer.blk?.toFloatOrNull() ?: 0F,
-                            turnovers = plgPlayer.turnover?.toFloatOrNull() ?: 0F,
-                            personalFouls = plgPlayer.pfoul?.toFloatOrNull() ?: 0F,
+                                offensiveRebounds = plgPlayer.reb_o?.toFloatOrNull() ?: 0F,
+                                defensiveRebounds = plgPlayer.reb_d?.toFloatOrNull() ?: 0F,
+                                steals = plgPlayer.stl?.toFloatOrNull() ?: 0F,
+                                blocks = plgPlayer.blk?.toFloatOrNull() ?: 0F,
+                                turnovers = plgPlayer.turnover?.toFloatOrNull() ?: 0F,
+                                personalFouls = plgPlayer.pfoul?.toFloatOrNull() ?: 0F,
 
-                            effFieldGoalPercentage = plgPlayer.eff?.toFloatOrNull() ?: 0F,
-                        )
+                                effFieldGoalPercentage = plgPlayer.eff?.toFloatOrNull() ?: 0F,
+                            )
 //                        stat.field =  stats
 //                        stat.twoPointPercentage = plgPlayer.two_m.toFloatOrNull()?: 0F / plgPlayer.two_a.toFloatOrNull(),
 //                        stat.threePointPercentage = plgPlayer.trey_m.toFloatOrNull()?: 0F / plgPlayer.trey_a.toFloatOrNull(),
 //                        stat.freeThrowPercentage = plgPlayer.ft_m.toFloatOrNull()?: 0F / plgPlayer.ft_a.toFloatOrNull(),
-                        if (plgPlayer in g.data.home) {
-                            hbs[player] = stat
-                            for (statName in leaderStatsName) {
-                                if (stat.data[statName]!! > hlStats[statName]!!) { // update leaders
-                                    hl[statName] = player
-                                    hlStats[statName] = stat.data[statName]!!
+                            if (plgPlayer in g.data.home) {
+                                hbs[player] = stat
+                                for (statName in leaderStatsName) {
+                                    if (stat.data[statName]!! > hlStats[statName]!!) { // update leaders
+                                        hl[statName] = player
+                                        hlStats[statName] = stat.data[statName]!!
+                                    }
                                 }
-                            }
-                            for (statName in totalStatsNameList) {
-                                hts.data[statName] = hts.data[statName]!! + stat.data[statName]!!
-                            }
+                                for (statName in totalStatsNameList) {
+                                    hts.data[statName] =
+                                        hts.data[statName]!! + stat.data[statName]!!
+                                }
 //                            gameData.hostPlayerStats[PlayerID(
 //                                PLGID = plgPlayer.player_id?.toInt() ?: -1
 //                            )] =
 //                                stat
-                        } else {
-                            gbs[player] = stat
-                            for (statName in leaderStatsName) {
-                                if (stat.data[statName]!! > glStats[statName]!!) { // update leaders
-                                    gl[statName] = player
-                                    glStats[statName] = stat.data[statName]!!
+                            } else {
+                                gbs[player] = stat
+                                for (statName in leaderStatsName) {
+                                    if (stat.data[statName]!! > glStats[statName]!!) { // update leaders
+                                        gl[statName] = player
+                                        glStats[statName] = stat.data[statName]!!
+                                    }
                                 }
-                            }
-                            for (statName in totalStatsNameList) {
-                                gts.data[statName] = gts.data[statName]!! + stat.data[statName]!!
-                            }
+                                for (statName in totalStatsNameList) {
+                                    gts.data[statName] =
+                                        gts.data[statName]!! + stat.data[statName]!!
+                                }
 //                            gameData.guestPlayerStats[PlayerID(
 //                                PLGID = plgPlayer.player_id?.toInt() ?: -1
 //                            )] = stat
+                            }
                         }
                     }
                     guestBoxScore.postValue(gbs)

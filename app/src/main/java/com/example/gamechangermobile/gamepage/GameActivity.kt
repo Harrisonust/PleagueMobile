@@ -45,7 +45,6 @@ class GameActivity : AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         game_page_image_recyclerview.layoutManager = layoutManager
 
-
         game_page_header_guest_icon.setImageResource(
             guestTeam.profilePic
         )
@@ -62,12 +61,14 @@ class GameActivity : AppCompatActivity() {
         }
 
         gameData.status.let {
-            game_status.text = when(it){
-                GameStatus.NOT_YET_START -> SimpleDateFormat("HH:mm").format(gameData.date)
+            game_status.text = when (it) {
+                GameStatus.NOT_YET_START -> SimpleDateFormat("MM/dd HH:mm").format(gameData.date)
                 GameStatus.INGAME -> "LIVE"
                 GameStatus.END -> "END"
                 else -> "NA"
             }
+            if (game_status.text == "LIVE")
+                game_status.setBackgroundColor(android.graphics.Color.parseColor("#FF0000"))
         }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))
