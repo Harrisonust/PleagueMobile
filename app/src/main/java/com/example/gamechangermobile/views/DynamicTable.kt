@@ -257,6 +257,12 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
             columnTableLayout?.addView(columnTableRow)
 
             val contentTableRow = TableRow(context)
+            renderCell( // render player position
+                player.position,
+                contentViewId,
+                contentTextId,
+                contentTableRow
+            )
             for (stat in stats) {
                 renderCell(
                     stat,
@@ -322,10 +328,16 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
             columnTableLayout?.addView(columnTableRow)
 
             val contentTableRow = TableRow(context)
+            renderCell(
+                player.position,
+                contentViewId,
+                contentTextId,
+                contentTableRow
+            )
             for (header in headers) {
-                if (Dictionary.statsName.containsKey(header)) {
+                if (header!="POS" && Dictionary.statsName.containsKey(header)) {
                     renderCell(
-                        stats.data[Dictionary.statsName[header]].toString(),
+                        stats.data[Dictionary.statsName[header]]?.toInt().toString(),
                         contentViewId,
                         contentTextId,
                         contentTableRow
@@ -335,44 +347,44 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
             contentTableLayout?.addView(contentTableRow)
         }
         // header, column, content
-        var headerSet = false
-        val ignoreFields = listOf(
-            "twoPointMade",
-            "twoPointAttempt",
-            "twoPointPercentage",
-            "effFieldGoalPercentage"
-        )
-        for ((player, playerStats) in players) {
-            if (!headerSet) {
-                val tableRow = TableRow(context)
-                for ((statsName, _) in playerStats.data) {
-                    if (!ignoreFields.contains(statsName)) {
-                        Database().statsDictionary[statsName]?.let {
-                            renderCell(
-                                it,
-                                headerViewId,
-                                headerTextId,
-                                tableRow
-                            )
-                        }
-                    }
-                }
-                headerTableLayout?.addView(tableRow)
-                headerSet = true
-            }
-
-            val columnTableRow = TableRow(context)
-            renderCell(player, columnViewId, columnTextId, columnImageId, columnTableRow)
-            columnTableLayout?.addView(columnTableRow)
-
-            val contentTableRow = TableRow(context)
-            for ((statsName, stats) in playerStats.data) {
-                if (!ignoreFields.contains(statsName)) {
-                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
-                }
-            }
-            contentTableLayout?.addView(contentTableRow)
-        }
+//        var headerSet = false
+//        val ignoreFields = listOf(
+//            "twoPointMade",
+//            "twoPointAttempt",
+//            "twoPointPercentage",
+//            "effFieldGoalPercentage"
+//        )
+//        for ((player, playerStats) in players) {
+//            if (!headerSet) {
+//                val tableRow = TableRow(context)
+//                for ((statsName, _) in playerStats.data) {
+//                    if (!ignoreFields.contains(statsName)) {
+//                        Database().statsDictionary[statsName]?.let {
+//                            renderCell(
+//                                it,
+//                                headerViewId,
+//                                headerTextId,
+//                                tableRow
+//                            )
+//                        }
+//                    }
+//                }
+//                headerTableLayout?.addView(tableRow)
+//                headerSet = true
+//            }
+//
+//            val columnTableRow = TableRow(context)
+//            renderCell(player, columnViewId, columnTextId, columnImageId, columnTableRow)
+//            columnTableLayout?.addView(columnTableRow)
+//
+//            val contentTableRow = TableRow(context)
+//            for ((statsName, stats) in playerStats.data) {
+//                if (!ignoreFields.contains(statsName)) {
+//                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
+//                }
+//            }
+//            contentTableLayout?.addView(contentTableRow)
+//        }
     }
 
     fun renderStandingsTable(
