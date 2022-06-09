@@ -1,16 +1,13 @@
 package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.TeamActivity
@@ -20,7 +17,6 @@ import com.example.gamechangermobile.models.Team
 import com.example.gamechangermobile.models.getTeamById
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_game.*
-import java.util.concurrent.Executors
 
 class GameActivity : AppCompatActivity() {
     private lateinit var gameData: Game
@@ -45,23 +41,12 @@ class GameActivity : AppCompatActivity() {
 
 // rendering UI
         model.photoList.observe(this) {
-            val executor = Executors.newSingleThreadExecutor()
-            val handler = Handler(Looper.getMainLooper())
-            var image: Bitmap? = null
-            executor.execute {
-                val imageURL = it[0]
-                try {
-                    val _in = java.net.URL(imageURL).openStream()
-                    image = BitmapFactory.decodeStream(_in)
-                    handler.post {
-                        game_page_image_view.setImageBitmap(image)
-                    }
-                }
-                catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
+            game_page_image_recyclerview.adapter = GamePhotoAdapter(it)
         }
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        game_page_image_recyclerview.layoutManager = layoutManager
+
 
         game_page_header_guest_icon.setImageResource(
             guestTeam.profilePic
@@ -80,10 +65,6 @@ class GameActivity : AppCompatActivity() {
 
         gameData.remainingTime.let {
             game_page_header_time.text = it
-        }
-
-        gameData.highlightPhoto.let {
-            game_page_image_view.setImageResource(it)
         }
 
         game_page_tab.addTab(game_page_tab.newTab().setText("Summary"))
