@@ -101,6 +101,10 @@ class GameActivity : AppCompatActivity() {
             intent.putExtra("SELECTED_TEAM", team.teamId)
             startActivity(intent)
         }
+
+        refresh_button.setOnClickListener {
+            model.refresh()
+        }
     }
 
     inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game, val plgGameID: String) :

@@ -43,6 +43,9 @@ class GameFragment : Fragment() {
             updateGameCardView()
         }
         calendarView.selectedDate = (CalendarDay.today())
+        main_refresh_button.setOnClickListener {
+            (activity as MainActivity?)?.refresh()
+        }
     }
 
     fun updateGameCardView() {

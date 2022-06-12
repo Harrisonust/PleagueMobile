@@ -30,5 +30,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_refresh_foreground"
+        app:backgroundTint="@color/bg_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 </androidx.constraintlayout.widget.ConstraintLayout>

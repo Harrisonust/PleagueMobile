@@ -41,9 +41,13 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
         return hostBoxScore
     }
 
-    init {
+    fun refresh() {
         callBoxScoreAPI()
         FetchAlbumTask().execute()
+    }
+
+    init {
+        refresh()
     }
 
     inner class FetchAlbumTask : AsyncTask<Unit, Int, Boolean>() {

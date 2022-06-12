@@ -128,4 +128,15 @@
                 android:layout_height="600dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_refresh_foreground"
+        app:backgroundTint="@color/bg_color"
+        app:tint="@color/white" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

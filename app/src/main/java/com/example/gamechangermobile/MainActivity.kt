@@ -47,10 +47,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        FetchGamesTask().execute()
-        FetchTeamRankTask().execute()
-        FetchPlayerTask().execute()
+        refresh()
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -298,6 +295,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun refresh() {
+        FetchGamesTask().execute()
+        FetchTeamRankTask().execute()
+        FetchPlayerTask().execute()
     }
 }
 
