@@ -33,6 +33,7 @@ open class PlayerStats(
         "turnovers" to 0F,
         "personalFouls" to 0F,
         "effFieldGoalPercentage" to 0F,
+        "positive" to 0F
     )
 ) : Parcelable {
     constructor(
@@ -63,6 +64,7 @@ open class PlayerStats(
         turnovers: Float = 0F,
         personalFouls: Float = 0F,
         effFieldGoalPercentage: Float = 0F,
+        positive: Float = 0F
     ) : this() {
         this.data["points"] = points
         this.data["rebounds"] = rebounds
@@ -91,5 +93,6 @@ open class PlayerStats(
         this.data["turnovers"] = turnovers
         this.data["personalFouls"] = personalFouls
         this.data["effFieldGoalPercentage"] = effFieldGoalPercentage
+        this.data["positive"] = positive
     }
 }

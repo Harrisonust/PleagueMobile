@@ -29,7 +29,7 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
         "3PM", "3PA",
         "FTM", "FTA",
         "OREB", "DREB",
-        "STL", "BLK", "TOV", "PF", "EFF"
+        "STL", "BLK", "TOV", "PF", "EFF", "+/-"
     )
     private val guestBoxScore = MutableLiveData<Map<Player, PlayerStats>>()
     fun getGuestBoxScore(): MutableLiveData<Map<Player, PlayerStats>> {
@@ -142,7 +142,8 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
         "steals",
         "blocks",
         "turnovers",
-        "personalFouls"
+        "personalFouls",
+        "positive"
     )
 
     private fun boxScoreOnSuccessResponse(): OkHttp.OnSuccessResponse {
@@ -268,6 +269,7 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
                                 personalFouls = plgPlayer.pfoul?.toFloatOrNull() ?: 0F,
 
                                 effFieldGoalPercentage = plgPlayer.eff?.toFloatOrNull() ?: 0F,
+                                positive = plgPlayer.positive?.toFloatOrNull()?: 0F
                             )
 //                        stat.field =  stats
 //                        stat.twoPointPercentage = plgPlayer.two_m.toFloatOrNull()?: 0F / plgPlayer.two_a.toFloatOrNull(),

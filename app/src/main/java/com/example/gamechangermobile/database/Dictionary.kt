@@ -37,6 +37,7 @@ class Dictionary {
             "PF" to "personalFouls",
 
             "EFF" to "effFieldGoalPercentage",
+            "+/-" to "positive"
         )
 
         val teams = mapOf(
