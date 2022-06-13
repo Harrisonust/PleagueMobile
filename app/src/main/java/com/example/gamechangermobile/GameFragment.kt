@@ -1,11 +1,13 @@
 package com.example.gamechangermobile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gamechangermobile.MainActivity.Companion.fetchStatus
 import com.example.gamechangermobile.MainActivity.Companion.gamesMap
 import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.Game
@@ -29,16 +31,14 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         game_recyclerview?.apply { layoutManager = LinearLayoutManager(activity) }
 
-        calendarView.setOnDateChangedListener { widget, date, selected ->
-            var selectedGames = ArrayList<Game>()
-            for (game in gamesMap.values) {
-                if (game.date.date == selectedDate.date &&
-                    game.date.year == selectedDate.year &&
-                    game.date.month == selectedDate.month
-                ) {
-                    selectedGames.add(game)
-                }
+        fetchStatus.observe(viewLifecycleOwner, {
+            Log.d("TEST", "${it[0]} ${it[1]} ${it[2]}")
+            if (it[0] && it[1] && it[2]) {
+                updateGameCardView()
             }
+        })
+
+        calendarView.setOnDateChangedListener { widget, date, selected ->
             selectedDate = Date(date.year - 1900, date.month - 1, date.day)
             updateGameCardView()
         }

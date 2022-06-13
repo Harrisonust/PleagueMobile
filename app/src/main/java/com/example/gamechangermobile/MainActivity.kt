@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import com.example.gamechangermobile.database.Dictionary
 import com.example.gamechangermobile.database.Dictionary.Companion.cn2en
 import com.example.gamechangermobile.database.GCPlayerID
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    var statusList = mutableListOf(false, false, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,6 +113,8 @@ class MainActivity : AppCompatActivity() {
 
         var gamesMap: MutableMap<GameID, Game> = mutableMapOf<GameID, Game>()
 
+        val fetchStatus = MutableLiveData<List<Boolean>>()
+
     }
 
     init {
@@ -177,6 +181,8 @@ class MainActivity : AppCompatActivity() {
                         gamesMap[game.gameId] = game
                     }
             }
+            statusList[0] = true
+            fetchStatus.postValue(statusList)
             true
         } catch (e: Exception) {
             false
@@ -264,6 +270,8 @@ class MainActivity : AppCompatActivity() {
                         teamsMap[player.teamId]?.playerList?.add(player.playerID)
                     }
             }
+            statusList[1] = true
+            fetchStatus.postValue(statusList)
 
 //            val api = "https://api.gamechanger.tw/api/player_season_data/?season_id=4&part=info"
 
@@ -292,12 +300,15 @@ class MainActivity : AppCompatActivity() {
                                 player.info.id
                         }
                     }
+                    statusList[2] = true
+                    fetchStatus.postValue(statusList)
                 }
             }
         }
     }
 
     fun refresh() {
+        statusList = mutableListOf(false, false, false)
         FetchGamesTask().execute()
         FetchTeamRankTask().execute()
         FetchPlayerTask().execute()
