@@ -40,11 +40,9 @@ class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment(
         // set bar width
         val displayMetrics = DisplayMetrics()
         val scale = context?.resources?.displayMetrics?.density
-        Log.d("WIDTH", scale.toString())
         activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
         val screenWidth = displayMetrics.widthPixels
         val completeBarWidth = screenWidth - (2 * viewBarMargin * scale!! + 0.5F)
-        Log.d("WIDTH", "Complete Bar Width: $completeBarWidth")
         // TODO: handle nullptr situation this seems dangerous
 
         fun startPlayerActivity(playerID: PlayerID) {
@@ -74,15 +72,13 @@ class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment(
             guest_game_q2.text = it.guestScorePerQuarter[1]
             guest_game_q3.text = it.guestScorePerQuarter[2]
             guest_game_q4.text = it.guestScorePerQuarter[3]
-            guest_game_tot.text =
-                it.guestScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
+            guest_game_tot.text = game.guestScore.toString()
 
             host_game_q1.text = it.hostScorePerQuarter[0]
             host_game_q2.text = it.hostScorePerQuarter[1]
             host_game_q3.text = it.hostScorePerQuarter[2]
             host_game_q4.text = it.hostScorePerQuarter[3]
-            host_game_tot.text =
-                it.hostScorePerQuarter.map { e -> e.toInt() }.toTypedArray().sum().toString()
+            host_game_tot.text = game.hostScore.toString()
 
         }
 
