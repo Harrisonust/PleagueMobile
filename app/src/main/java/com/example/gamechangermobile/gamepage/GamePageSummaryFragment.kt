@@ -3,6 +3,7 @@ package com.example.gamechangermobile.gamepage
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,16 @@ class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // set bar width
+        val displayMetrics = DisplayMetrics()
+        val scale = context?.resources?.displayMetrics?.density
+        Log.d("WIDTH", scale.toString())
+        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
+        val completeBarWidth = screenWidth - (2 * viewBarMargin * scale!! + 0.5F)
+        Log.d("WIDTH", "Complete Bar Width: $completeBarWidth")
+        // TODO: handle nullptr situation this seems dangerous
 
         fun startPlayerActivity(playerID: PlayerID) {
             val intent = Intent(view.context, PlayerActivity::class.java)
@@ -435,6 +446,98 @@ class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment(
                     guestTeam?.color ?: R.color.black
                 )
             )
+
+            changeBarWidth(
+                completeBarWidth,
+                guest_field_goal_bar,
+                host_field_goal_bar,
+                gs["fieldGoalMade"]!!/gs["fieldGoalAttempt"]!!,
+                hts["fieldGoalMade"]!!/hts["fieldGoalAttempt"]!!
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_3_pointer_bar,
+                host_3_pointer_bar,
+                gs["threePointMade"]!!/gs["threePointAttempt"]!!,
+                hts["threePointMade"]!!/hts["threePointAttempt"]!!
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_free_throw_bar,
+                host_free_throw_bar,
+                gs["freeThrowMade"]!!/gs["freeThrowAttempt"]!!,
+                hts["freeThrowMade"]!!/hts["freeThrowAttempt"]!!
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_assist_bar,
+                host_assist_bar,
+                gs["assists"],
+                hts["assists"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_total_rebound_bar,
+                host_total_rebound_bar,
+                gs["rebounds"],
+                hts["rebounds"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_offensive_rebound_bar,
+                host_offensive_rebound_bar,
+                gs["offensiveRebounds"],
+                hts["offensiveRebounds"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_defensive_rebound_bar,
+                host_defensive_rebound_bar,
+                gs["defensiveRebounds"],
+                hts["defensiveRebounds"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_steal_bar,
+                host_steal_bar,
+                gs["steals"],
+                hts["steals"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_block_bar,
+                host_block_bar,
+                gs["blocks"],
+                hts["blocks"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_turnover_bar,
+                host_turnover_bar,
+                gs["turnovers"],
+                hts["turnovers"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_points_off_turnovers_bar,
+                host_points_off_turnovers_bar,
+                gs["pointsOffTurnovers"],
+                hts["pointsOffTurnovers"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_fouls_bar,
+                host_fouls_bar,
+                gs["personalFouls"],
+                hts["personalFouls"]
+            )
+            changeBarWidth(
+                completeBarWidth,
+                guest_timeouts_remaining_bar,
+                host_timeouts_remaining_bar,
+                gs["timeoutRemaining"],
+                hts["timeoutRemaining"]
+            )
         }
 
 
@@ -814,105 +917,107 @@ class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment(
 //            )
 //        )
 
-        // set bar width
-        val displayMetrics = DisplayMetrics()
-        val scale = context?.resources?.displayMetrics?.density
-        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
-        val screenWidth = displayMetrics.widthPixels
-        val completeBarWidth = screenWidth - (2 * viewBarMargin * scale!! + 0.5F)
-        // TODO: handle nullptr situation this seems dangerous
-
-        changeBarWidth(
-            completeBarWidth,
-            guest_field_goal_bar,
-            host_field_goal_bar,
-            gs["fieldGoalPercentage"],
-            hs["fieldGoalPercentage"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_3_pointer_bar,
-            host_3_pointer_bar,
-            gs["threePointPercentage"],
-            hs["threePointPercentage"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_free_throw_bar,
-            host_free_throw_bar,
-            gs["freeThrowPercentage"],
-            hs["freeThrowPercentage"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_assist_bar,
-            host_assist_bar,
-            gs["assists"],
-            hs["assists"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_total_rebound_bar,
-            host_total_rebound_bar,
-            gs["rebounds"],
-            hs["rebounds"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_offensive_rebound_bar,
-            host_offensive_rebound_bar,
-            gs["offensiveRebounds"],
-            hs["offensiveRebounds"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_defensive_rebound_bar,
-            host_defensive_rebound_bar,
-            gs["defensiveRebounds"],
-            hs["defensiveRebounds"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_steal_bar,
-            host_steal_bar,
-            gs["steals"],
-            hs["steals"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_block_bar,
-            host_block_bar,
-            gs["blocks"],
-            hs["blocks"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_turnover_bar,
-            host_turnover_bar,
-            gs["turnovers"],
-            hs["turnovers"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_points_off_turnovers_bar,
-            host_points_off_turnovers_bar,
-            gs["pointsOffTurnovers"],
-            hs["pointsOffTurnovers"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_fouls_bar,
-            host_fouls_bar,
-            gs["personalFouls"],
-            hs["personalFouls"]
-        )
-        changeBarWidth(
-            completeBarWidth,
-            guest_timeouts_remaining_bar,
-            host_timeouts_remaining_bar,
-            gs["timeoutRemaining"],
-            hs["timeoutRemaining"]
-        )
+//        // set bar width
+//        val displayMetrics = DisplayMetrics()
+//        val scale = context?.resources?.displayMetrics?.density
+//        Log.d("WIDTH", scale.toString())
+//        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+//        val screenWidth = displayMetrics.widthPixels
+//        val completeBarWidth = screenWidth - (2 * viewBarMargin * scale!! + 0.5F)
+//        Log.d("WIDTH", "Complete Bar Width: $completeBarWidth")
+//        // TODO: handle nullptr situation this seems dangerous
+//
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_field_goal_bar,
+//            host_field_goal_bar,
+//            gs["fieldGoalPercentage"],
+//            hs["fieldGoalPercentage"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_3_pointer_bar,
+//            host_3_pointer_bar,
+//            gs["threePointPercentage"],
+//            hs["threePointPercentage"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_free_throw_bar,
+//            host_free_throw_bar,
+//            gs["freeThrowPercentage"],
+//            hs["freeThrowPercentage"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_assist_bar,
+//            host_assist_bar,
+//            gs["assists"],
+//            hs["assists"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_total_rebound_bar,
+//            host_total_rebound_bar,
+//            gs["rebounds"],
+//            hs["rebounds"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_offensive_rebound_bar,
+//            host_offensive_rebound_bar,
+//            gs["offensiveRebounds"],
+//            hs["offensiveRebounds"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_defensive_rebound_bar,
+//            host_defensive_rebound_bar,
+//            gs["defensiveRebounds"],
+//            hs["defensiveRebounds"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_steal_bar,
+//            host_steal_bar,
+//            gs["steals"],
+//            hs["steals"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_block_bar,
+//            host_block_bar,
+//            gs["blocks"],
+//            hs["blocks"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_turnover_bar,
+//            host_turnover_bar,
+//            gs["turnovers"],
+//            hs["turnovers"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_points_off_turnovers_bar,
+//            host_points_off_turnovers_bar,
+//            gs["pointsOffTurnovers"],
+//            hs["pointsOffTurnovers"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_fouls_bar,
+//            host_fouls_bar,
+//            gs["personalFouls"],
+//            hs["personalFouls"]
+//        )
+//        changeBarWidth(
+//            completeBarWidth,
+//            guest_timeouts_remaining_bar,
+//            host_timeouts_remaining_bar,
+//            gs["timeoutRemaining"],
+//            hs["timeoutRemaining"]
+//        )
     }
 
     private fun changeBarWidth(
@@ -922,14 +1027,24 @@ class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment(
         guestValue: Float?,
         hostValue: Float?
     ) {
+        val guestLayoutParams = guestBar.layoutParams
+        val hostLayoutParams = hostBar.layoutParams
         if (guestValue == null || hostValue == null || (guestValue == hostValue && hostValue.toInt() == 0)) {
             // TODO: if both value is 0 then maybe do other stuff
-            guestBar.layoutParams.width = (completeBarWidth / 2).toInt()
-            hostBar.layoutParams.width = (completeBarWidth / 2).toInt()
+//            guestBar.layoutParams.width = (completeBarWidth / 2).toInt()
+//            hostBar.layoutParams.width = (completeBarWidth / 2).toInt()
+            guestLayoutParams.width = (completeBarWidth / 2).toInt()
+            guestBar.layoutParams = guestLayoutParams
+            hostLayoutParams.width = (completeBarWidth / 2).toInt()
+            hostBar.layoutParams = hostLayoutParams
         } else {
             val totalValue: Float = guestValue + hostValue
-            guestBar.layoutParams.width = ((guestValue / totalValue) * completeBarWidth).toInt()
-            hostBar.layoutParams.width = ((hostValue / totalValue) * completeBarWidth).toInt()
+//            guestBar.layoutParams.width = ((guestValue / totalValue) * completeBarWidth).toInt()
+            guestLayoutParams.width = ((guestValue / totalValue) * completeBarWidth).toInt()
+            guestBar.layoutParams = guestLayoutParams
+//            hostBar.layoutParams.width = ((hostValue / totalValue) * completeBarWidth).toInt()
+            hostLayoutParams.width = ((hostValue / totalValue) * completeBarWidth).toInt()
+            hostBar.layoutParams = hostLayoutParams
         }
         guestBar.setBackgroundColor(
             resources.getColor(
