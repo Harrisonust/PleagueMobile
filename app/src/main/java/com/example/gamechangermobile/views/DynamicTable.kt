@@ -340,8 +340,14 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
                 contentTextId,
                 contentTableRow
             )
+            renderCell(
+                player.mins,
+                contentViewId,
+                contentTextId,
+                contentTableRow
+            )
             for (header in headers) {
-                if (header!="POS" && Dictionary.statsName.containsKey(header)) {
+                if (header!="POS" && header!="MIN" && Dictionary.statsName.containsKey(header)) {
                     renderCell(
                         stats.data[Dictionary.statsName[header]]?.toInt().toString(),
                         contentViewId,

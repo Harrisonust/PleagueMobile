@@ -22,7 +22,7 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
     private val apiSource = "PLG"
     val photoList = MutableLiveData<ArrayList<String>>()
     val boxScoreHeaders = listOf(
-        "POS",
+        "POS", "MIN",
         "PTS", "REB", "AST",
         "FGM", "FGA",
         "2PM", "2PA",
@@ -205,6 +205,7 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
                             plgPlayer.player_id?.let {
                                 player = playersMap[it.toInt()]!!
                                 player.isStarter = plgPlayer.starter != ""
+                                player.mins = plgPlayer.mins.toString()
 //                            player = Player(
 //                                playerID = PlayerID(PLGID = it.toInt()),
 //                            )
