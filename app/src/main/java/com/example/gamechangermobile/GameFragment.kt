@@ -31,12 +31,12 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         game_recyclerview?.apply { layoutManager = LinearLayoutManager(activity) }
 
-        fetchStatus.observe(viewLifecycleOwner, {
+        fetchStatus.observe(viewLifecycleOwner) {
             Log.d("TEST", "${it[0]} ${it[1]} ${it[2]}")
             if (it[0] && it[1] && it[2]) {
                 updateGameCardView()
             }
-        })
+        }
 
         calendarView.setOnDateChangedListener { widget, date, selected ->
             selectedDate = Date(date.year - 1900, date.month - 1, date.day)
