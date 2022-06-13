@@ -20,6 +20,7 @@ class Player(
     var number: String = "",
     var position: String = "",
     var isForeignPlayer: Boolean = false,
+    var isStarter: Boolean = false // for game box score
 
     ) : Parcelable {
 

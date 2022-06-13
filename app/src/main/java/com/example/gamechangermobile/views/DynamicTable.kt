@@ -325,7 +325,13 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         for ((player, stats) in players) {
             val columnTableRow = TableRow(context)
             renderCell(player, columnViewId, columnTextId, columnImageId, columnTableRow)
-            columnTableLayout?.addView(columnTableRow)
+            if (player.isStarter) {
+                columnTableLayout?.addView(columnTableRow, 0)
+            }
+            else {
+                columnTableLayout?.addView(columnTableRow)
+            }
+
 
             val contentTableRow = TableRow(context)
             renderCell(
@@ -344,47 +350,13 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
                     )
                 }
             }
-            contentTableLayout?.addView(contentTableRow)
+            if (player.isStarter) {
+                contentTableLayout?.addView(contentTableRow, 0)
+            }
+            else {
+                contentTableLayout?.addView(contentTableRow)
+            }
         }
-        // header, column, content
-//        var headerSet = false
-//        val ignoreFields = listOf(
-//            "twoPointMade",
-//            "twoPointAttempt",
-//            "twoPointPercentage",
-//            "effFieldGoalPercentage"
-//        )
-//        for ((player, playerStats) in players) {
-//            if (!headerSet) {
-//                val tableRow = TableRow(context)
-//                for ((statsName, _) in playerStats.data) {
-//                    if (!ignoreFields.contains(statsName)) {
-//                        Database().statsDictionary[statsName]?.let {
-//                            renderCell(
-//                                it,
-//                                headerViewId,
-//                                headerTextId,
-//                                tableRow
-//                            )
-//                        }
-//                    }
-//                }
-//                headerTableLayout?.addView(tableRow)
-//                headerSet = true
-//            }
-//
-//            val columnTableRow = TableRow(context)
-//            renderCell(player, columnViewId, columnTextId, columnImageId, columnTableRow)
-//            columnTableLayout?.addView(columnTableRow)
-//
-//            val contentTableRow = TableRow(context)
-//            for ((statsName, stats) in playerStats.data) {
-//                if (!ignoreFields.contains(statsName)) {
-//                    renderCell(stats.toString(), contentViewId, contentTextId, contentTableRow)
-//                }
-//            }
-//            contentTableLayout?.addView(contentTableRow)
-//        }
     }
 
     fun renderStandingsTable(
@@ -662,7 +634,12 @@ class DynamicTable(context: Context, attrs: AttributeSet) : ConstraintLayout(con
         val view = LayoutInflater.from(context).inflate(viewId, tableRow, false)
         val textView: TextView = view.findViewById(textId)
         val playerName = player.fullName.trim()
-        textView.text = playerName
+        if (player.isStarter) {
+            textView.text = "$playerName*"
+        }
+        else {
+            textView.text = playerName
+        }
         val imageView: ImageView = view.findViewById(imageId)
         if (Dictionary.playerToImageResource.containsKey(playerName)) {
             imageView.setImageResource(Dictionary.playerToImageResource[playerName]!!)

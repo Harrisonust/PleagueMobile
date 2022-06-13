@@ -204,6 +204,7 @@ class GameViewModel(gameID: Int, val plgGameID: String) : ViewModel() {
                             var player = Player()
                             plgPlayer.player_id?.let {
                                 player = playersMap[it.toInt()]!!
+                                player.isStarter = plgPlayer.starter != ""
 //                            player = Player(
 //                                playerID = PlayerID(PLGID = it.toInt()),
 //                            )
