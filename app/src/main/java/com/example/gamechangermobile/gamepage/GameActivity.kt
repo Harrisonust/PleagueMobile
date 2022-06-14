@@ -2,6 +2,8 @@ package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -104,6 +106,16 @@ class GameActivity : AppCompatActivity() {
 
         refresh_button.setOnClickListener {
             model.refresh()
+        }
+
+        // TODO: Collapsing Toolbar Problem
+        swipeRefreshLayout.setOnRefreshListener {
+            model.refresh()
+            swipeRefreshLayout.isRefreshing = false
+        }
+
+        nestedScrollView.viewTreeObserver.addOnScrollChangedListener{
+            swipeRefreshLayout.isEnabled = nestedScrollView.scrollY == 0
         }
     }
 

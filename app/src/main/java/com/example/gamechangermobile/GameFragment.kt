@@ -1,5 +1,6 @@
 package com.example.gamechangermobile
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.example.gamechangermobile.gametab.GameAdapter
 import com.example.gamechangermobile.models.Game
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.android.synthetic.main.fragment_game.*
+import kotlinx.android.synthetic.main.fragment_game.view.*
 import java.util.*
 
 class GameFragment : Fragment() {
@@ -35,6 +37,8 @@ class GameFragment : Fragment() {
             Log.d("TEST", "${it[0]} ${it[1]} ${it[2]}")
             if (it[0] && it[1] && it[2]) {
                 updateGameCardView()
+                progress_circular.visibility = View.GONE
+                swipeRefreshLayout.isRefreshing = false
             }
         }
 
@@ -44,6 +48,10 @@ class GameFragment : Fragment() {
         }
         calendarView.selectedDate = (CalendarDay.today())
         main_refresh_button.setOnClickListener {
+            (activity as MainActivity?)?.refresh()
+        }
+        swipeRefreshLayout.setOnRefreshListener {
+            Log.d("TEST", "Refresh!")
             (activity as MainActivity?)?.refresh()
         }
     }
