@@ -2,8 +2,6 @@ package com.example.gamechangermobile.gamepage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -54,12 +52,15 @@ class GameActivity : AppCompatActivity() {
             hostTeam.profilePic
         )
 
-        gameData.guestStats.data.get("points")?.let {
-            game_page_header_guest_score.text = it.toInt().toString()
-        }
-
-        gameData.hostStats.data.get("points")?.let {
-            game_page_header_host_score.text = it.toInt().toString()
+        model.getGame().observe(this) {
+            val guestTtlScore: Int =
+                it.guestScorePerQuarter[0].toInt() + it.guestScorePerQuarter[1].toInt() + it.guestScorePerQuarter[2].toInt() + it.guestScorePerQuarter[3].toInt()
+//            game_page_header_guest_score.text = gameData.guestScore.toString()
+            game_page_header_guest_score.text = guestTtlScore.toString()
+            val hostTtlScore: Int =
+                it.hostScorePerQuarter[0].toInt() + it.hostScorePerQuarter[1].toInt() + it.hostScorePerQuarter[2].toInt() + it.hostScorePerQuarter[3].toInt()
+//            game_page_header_host_score.text = gameData.hostScore.toString()
+            game_page_header_host_score.text = hostTtlScore.toString()
         }
 
         gameData.status.let {
@@ -114,7 +115,7 @@ class GameActivity : AppCompatActivity() {
             swipeRefreshLayout.isRefreshing = false
         }
 
-        nestedScrollView.viewTreeObserver.addOnScrollChangedListener{
+        nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
             swipeRefreshLayout.isEnabled = nestedScrollView.scrollY == 0
         }
     }

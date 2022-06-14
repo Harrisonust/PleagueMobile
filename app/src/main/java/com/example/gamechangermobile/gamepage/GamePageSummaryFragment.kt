@@ -79,7 +79,6 @@ class GamePageSummaryFragment(val game: Game, val plgGameID: String) : Fragment(
             host_game_q3.text = it.hostScorePerQuarter[2]
             host_game_q4.text = it.hostScorePerQuarter[3]
             host_game_tot.text = game.hostScore.toString()
-
         }
 
         model.getHostLeaders().observe(viewLifecycleOwner) { leaders ->
