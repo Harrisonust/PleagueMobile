@@ -1,12 +1,15 @@
 package com.example.gamechangermobile.gamepage
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.example.gamechangermobile.R
 import com.example.gamechangermobile.models.Game
 import com.example.gamechangermobile.models.getTeamById
@@ -43,6 +46,44 @@ class GamePageBoxScoreFragment(val game: Game) : Fragment() {
             TabLayout.TabLayoutOnPageChangeListener(
                 game_page_score_tab_team_tab
             )
+        )
+
+        game_page_score_tab_view_pager.addOnPageChangeListener(
+            object: ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    Log.d("TEST", "Position: $position")
+                }
+
+                override fun onPageSelected(position: Int) {
+                    Log.d("TEST", "Selected Position $position")
+                    if (position == 0) {
+                        val constraintSet = ConstraintSet()
+                        constraintSet.clone(tab_constraint_layout)
+                        constraintSet.clear(R.id.indicator, ConstraintSet.RIGHT)
+                        constraintSet.connect(R.id.indicator, ConstraintSet.LEFT, R.id.game_page_score_tab_team_tab, ConstraintSet.LEFT, 0)
+                        constraintSet.connect(R.id.indicator, ConstraintSet.TOP, R.id.game_page_score_tab_team_tab, ConstraintSet.TOP, 0)
+                        constraintSet.applyTo(tab_constraint_layout)
+                    }
+                    else if (position == 1) {
+                        Log.d("TEST", "Position: 1")
+                        val constraintSet = ConstraintSet()
+                        constraintSet.clone(tab_constraint_layout)
+                        constraintSet.clear(R.id.indicator, ConstraintSet.LEFT)
+                        constraintSet.connect(R.id.indicator, ConstraintSet.RIGHT, R.id.game_page_score_tab_team_tab, ConstraintSet.RIGHT, 0)
+                        constraintSet.connect(R.id.indicator, ConstraintSet.TOP, R.id.game_page_score_tab_team_tab, ConstraintSet.TOP, 0)
+                        constraintSet.applyTo(tab_constraint_layout)
+                    }
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {
+                    Log.d("TEST", "StateChanged $state")
+                }
+
+            }
         )
         game_page_score_tab_view_pager.adapter = PagerAdapter(childFragmentManager, 2, game)
         game_page_score_tab_view_pager.currentItem = 0
