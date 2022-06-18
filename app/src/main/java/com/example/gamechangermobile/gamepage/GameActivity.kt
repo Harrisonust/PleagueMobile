@@ -109,14 +109,14 @@ class GameActivity : AppCompatActivity() {
         }
 
         // TODO: Collapsing Toolbar Problem
-        swipeRefreshLayout.setOnRefreshListener {
-            model.refresh()
-            swipeRefreshLayout.isRefreshing = false
-        }
-
-        nestedScrollView.viewTreeObserver.addOnScrollChangedListener{
-            swipeRefreshLayout.isEnabled = nestedScrollView.scrollY == 0
-        }
+//        swipeRefreshLayout.setOnRefreshListener {
+//            model.refresh()
+//            swipeRefreshLayout.isRefreshing = false
+//        }
+//
+//        nestedScrollView.viewTreeObserver.addOnScrollChangedListener{
+//            swipeRefreshLayout.isEnabled = nestedScrollView.scrollY == 0
+//        }
     }
 
     inner class VPagerAdapter(f: FragmentManager, bh: Int, val game: Game, val plgGameID: String) :
